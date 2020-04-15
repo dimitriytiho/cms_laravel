@@ -1,0 +1,71 @@
+@import "config/params";
+@import "../config/mixins";
+@import "../config/blocks";
+
+.CodeMirror {
+    font-size: 13px;
+}
+
+h1 {
+    letter-spacing: .18rem;
+}
+h2 {
+    letter-spacing: .12rem;
+}
+h3 {
+    letter-spacing: .09rem;
+    color: $secondary;
+}
+
+.material-icons {
+    font-size: 1.2rem;
+}
+.p-icons {
+    padding: .42rem;
+}
+
+.a-light {
+    a {
+        color: $gray-300;
+        @include transition;
+        &:hover {
+            color: $white;
+        }
+    }
+}
+.a-white {
+    a {
+        color: $white;
+        @include transition;
+        &:hover {
+            color: $gray-300;
+        }
+    }
+}
+.a-dark {
+    a {
+        color: $dark-admin;
+        @include transition;
+        &:hover {
+            color: $gray-500;
+        }
+    }
+}
+.a-primary {
+    a {
+        color: $primary-dark;
+        @include transition;
+        &:hover {
+            color: $dark-admin;
+        }
+    }
+}
+.a-secondary {
+    a {
+        color: $secondary;
+        @include transition;
+        &:hover {
+            color: $dark-admin;
+        }
+    }
+}

@@ -1,0 +1,64 @@
+@extends('layouts.default')
+{{--
+
+Подключается блок header
+
+--}}
+@section('header')
+    @include('components.header')
+@endsection
+
+{{--
+
+Вывод контента
+
+--}}
+@section('content')
+    <main class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="font-weight-light text-secondary mt-5">{{ $title }}</h1>
+                    <div class="cart">
+                        <a href="{{ route('cart') }}" class="btn btn-outline-dark btn-sm cart_show">
+                            <span class="cart_text">{{ __('sh.cart') }}</span>
+                            <span class="cart_count_qty">@if (session()->has('cart.qty')){{ session()->get('cart.qty') }}@endif</span>
+                            <span class="cart_count_sum"></span>
+                        </a>
+                        {!! modal('cart_modal', __('sh.cart'), null, 'modal-lg') !!}
+                    </div>
+                </div>
+            </div>
+            @if ($products)
+                <div class="row my-4">
+                    @foreach ($products as $product)
+                        <div class="col-3 mb-4">
+                            <div class="card">
+                                <a href="{{ route('product', $product->slug) }}">
+                                    <img src="{{ asset($product->img) }}" class="card-img-top" alt="{{ $product->title }}">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="{{ route('product', $product->slug) }}">
+                                            {{ $product->title }}
+                                        </a>
+                                    </h5>
+                                    <p class="card-text">Some quick example text to build on the card title.</p>
+                                    <a href="{{ route('cart_plus', $product->id) }}" class="btn btn-outline-dark btn-sm cart_plus" data-id="{{ $product->id }}">{{ __('sh.add_to_cart') }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    </main>
+@endsection
+{{--
+
+Подключается блок footer
+
+--}}
+@section('footer')
+    @include('components.footer')
+@endsection

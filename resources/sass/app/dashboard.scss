@@ -1,0 +1,27 @@
+@import "../config/params";
+@import "../config/mixins";
+@import "../config/blocks";
+
+.panel-dashboard {
+    padding: 10px 15px;
+    background-color: $primary-admin;
+    &__icons {
+        display: inline-block;
+        margin-right: 5px;
+        padding: 0 15px 5px 15px;
+        border: 1px solid darken($primary-admin, 10%);
+        border-radius: 2px;
+        @include transition();
+        &:last-child {
+            margin-right: 0;
+        }
+        &:hover {
+            background-color: darken($primary-admin, 10%);
+        }
+        svg {
+            max-width: 24px;
+            height: 11px;
+            fill: $white;
+        }
+    }
+}

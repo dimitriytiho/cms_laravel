@@ -1,0 +1,40 @@
+/*.main {
+  margin-top: 7%;
+  &__btn {
+    margin-top: 25px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 2.2rem;
+    font-weight: lighter;
+  }
+}
+
+.cur {
+  cursor: pointer;
+}
+
+.rounded {
+  border-radius: 2px;
+}
+
+// Change color input
+.input-field input:focus {
+  border-bottom: 1px solid $blue-grey !important;
+  box-shadow: 0 1px 0 0 $blue-grey !important;
+}
+.input-field label.active {
+  color: $blue-grey !important;
+}
+
+// Change color checkbox
+.main form input[type="checkbox"] {
+  & + span::before {
+    border: 2px solid $blue-grey;
+  }
+  &:checked + span::before {
+    border-right: 2px solid $blue-grey !important;
+    border-bottom: 2px solid $blue-grey !important;
+  }
+}*/
+

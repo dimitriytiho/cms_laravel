@@ -1,0 +1,8 @@
+Developer: Dmitriy Konovalov
+Email: dimitriyyuliya@gmail.com
+Facebook: https://www.facebook.com/dimitriyyuliya
+From: Moscow, Russia
+Language: Russian
+Doctype: HTML5
+IDE: PHPStorm, Sublime Text, Photoshop, Illustrator
+Last update: 2019-06-18

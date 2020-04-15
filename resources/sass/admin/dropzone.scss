@@ -1,0 +1,10 @@
+@import '~dropzone/dist/min/dropzone.min.css';
+
+.dz-message {
+    color: $primary;
+}
+
+.dropzone {
+    border: 1px dashed $primary;
+    border-radius: $border-radius;
+}

@@ -1,0 +1,108 @@
+@import "config/params";
+@import "../config/mixins";
+@import "../config/blocks";
+
+// Дёргание влево вправо
+.shake {
+    animation: $transition-sm shake-anime;
+}
+@keyframes shake-anime {
+    0% {
+        transform: translateX(0);
+    }
+    30% {
+        transform: translateX(10px);
+    }
+    60% {
+        transform: translateX(-10px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+// Плавное появление и исчезновение
+.fade-in {
+    animation: $transition-lg fadein-anime forwards;
+    display: block !important;
+}
+@keyframes fadein-anime {
+    to {
+        opacity: 0;
+    }
+    from {
+        opacity: 1;
+    }
+}
+.fade-out {
+    animation: $transition-lg fadeout-anime forwards;
+}
+@keyframes fadeout-anime {
+    0% {
+        display: block !important;
+        opacity: 1 !important;
+    }
+    99% {
+        display: block !important;
+    }
+    100% {
+        display: none;
+        opacity: 0;
+    }
+}
+
+// Клик по кнопке
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+.pulseJS {
+    border-radius: 50%;
+    animation: pulse-to $transition ease-out;
+    transform: scale(0);
+    position: absolute;
+}
+@keyframes pulse-to {
+    to {
+        transform: scale(2);
+        background-color: $white;
+        opacity: 0;
+    }
+}
+
+// Уменьшение и увеличение блока
+.anime-from-center {
+    animation: $transition-sm from-center forwards;
+}
+.anime-to-center {
+    animation: $transition-sm to-center forwards;
+}
+@keyframes from-center {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+@keyframes to-center {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0);
+    }
+}
+
+// Движение
+.move {
+    transform-origin: top;
+    transition: transform .1s;
+    &.open {
+        transform: scaleY(1);
+    }
+    &.shut {
+        height: 0;
+        transform: scaleY(0);
+    }
+}

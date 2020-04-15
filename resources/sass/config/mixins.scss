@@ -1,0 +1,47 @@
+@import "params";
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+@mixin transition($transition: $transition-sm, $value: all) {
+    transition: $value $transition;
+}
+
+@mixin info-p() {
+  font-weight: lighter;
+  font-size: $font-size-base * .8;
+}
+
+@mixin flex-center($dir: row) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin shadow() {
+  transition: box-shadow $transition;
+  &:hover {
+    box-shadow: $box-shadow;
+  }
+}
+
+@mixin for_a($color: $primary, $hover: darken($color, 15%)) {
+  a {
+    color: $color;
+    &:hover {
+      color: $hover;
+    }
+  }
+}
+
+@mixin for_i($color: $primary, $hover: darken($color, 15%)) {
+  i {
+    color: $color;
+    &:hover {
+      color: $hover;
+    }
+  }
+}

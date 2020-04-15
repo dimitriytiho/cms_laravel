@@ -1,0 +1,42 @@
+@import "../config/params";
+@import "../config/mixins";
+@import "../config/blocks";
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity $transition;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all $transition ease;
+}
+
+.slide-fade-leave-active {
+  transition: all $transition cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.bounce-enter-active {
+  animation: bounce-in $transition;
+}
+.bounce-leave-active {
+  animation: bounce-in $transition reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

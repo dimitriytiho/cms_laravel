@@ -1,0 +1,57 @@
+@import "config/params";
+@import "../config/mixins";
+@import "../config/blocks";
+
+.enter {
+    margin-top: 10%;
+    animation: $transition-md animate-enter forwards;
+    @keyframes animate-enter {
+        from {
+            opacity: 0;
+            transform: scale(1.2);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+}
+
+.header {
+    &__left {
+        z-index: 1;
+    }
+    img {
+        height: 1.5rem;
+    }
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+        background-color: transparent;
+    }
+}
+
+main.main > div.row {
+    flex-wrap: nowrap;
+}
+
+.aside {
+    .active {
+        color: $gray-blue;
+    }
+    .material-icons {
+        font-size: 1.5rem;
+    }
+}
+
+.top-panel {
+    .material-icons {
+        font-size: 1.26rem;
+    }
+}
+
+.content {
+    padding-left: 2.1rem !important;
+    &__h1 .btn-group {
+        height: 1.7rem;
+    }
+}
