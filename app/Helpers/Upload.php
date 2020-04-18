@@ -32,24 +32,84 @@ class Upload
     }
 
 
-    // Настройки для SCSS, при изменении настроек необходимо перекомпилировать стили, запустив этот метод
-    public static function scssInit()
+    /*
+     * Переменые для sass из настроек.
+     * Настройки для webpack sass и js.
+     * При изменении sass настроек необходимо перекомпилировать стили, запустив этот метод.
+     * При установке нового модуля этот метод автоматически запуститься, также можно его запустить в ручную.
+     */
+    public static function resourceInit()
     {
-        $site = config('add.scss');
-        $site = !empty($site) && is_array($site) ? $site : [];
+        $modulesPath = app_path(env('APP_MODULES'));
 
-        $admin = config('add.scss-admin');
-        $admin = !empty($admin) && is_array($admin) ? $admin : [];
+        $sassParams = config('add.scss');
+        $sassParams = !empty($sassParams) && is_array($sassParams) ? $sassParams : null;
+        $partSassInit = "\n// Settings SASS from " . __METHOD__ . "\n\n";
 
-        $scss = array_merge($site, $admin);
-        $part = "\n// Settings SCSS from " . __METHOD__ . "\n\n";
-        if ($scss) {
-            foreach ($scss as $k => $v) {
-                $part .= "$$k: $v;\n";
+        if ($sassParams) {
+            foreach ($sassParams as $k => $v) {
+                $partSassInit .= "\${$k}: {$v};\n";
             }
-            $file = resource_path('sass/config/_init.scss');
-            if (\Illuminate\Support\Facades\File::exists(($file))) {
-                \Illuminate\Support\Facades\File::replace($file, $part);
+
+            $fileSassInit = "{$modulesPath}/" . env('AREA_PUBLIC', 'publicly') . "/sass/config/_init.scss";
+            if (\Illuminate\Support\Facades\File::exists(($fileSassInit))) {
+                \Illuminate\Support\Facades\File::replace($fileSassInit, $partSassInit);
+            }
+        }
+
+        // Перезапишем файл webpack.mix.js js('resources/js/app.js', 'public/js')
+        $webpackPart = "const mix = require('laravel-mix');\n\n\n";
+        $webpackPart .= "mix";
+        $modulesPathFile = config('modules.path_file');
+        $modulesArr = config('modules.modules');
+        if ($modulesArr && is_array($modulesArr) && $modulesPath) {
+            foreach ($modulesArr as $area => $modules) {
+                $jsPublic = 'public/js';
+                $cssPublic = 'public/css';
+                $output = $area === 'publicly' ? 'app' : $area;
+
+                // Главный файл js
+                $jsPath = "{$modulesPath}/{$area}/js/index.js";
+                if (is_file($jsPath)) {
+
+                    $webpackPart .= ".js('{$modulesPathFile}/$area/js/index.js', '{$jsPublic}/{$output}.js')\n";
+                }
+
+                // Главный файл sass
+                $sassPath = "{$modulesPath}/{$area}/sass/index.scss";
+                if (is_file($sassPath)) {
+                    $webpackPart .= ".sass('{$modulesPathFile}/$area/sass/index.scss', '{$cssPublic}/{$output}.css')\n";
+                }
+
+                // Файлы модулей
+                if (is_array($modules)) {
+                    foreach ($modules as $module => $moduleValue) {
+
+                        // Если в настройках указан webpack
+                        if (!empty($moduleValue['webpack'])) {
+
+                            $moduleLower = Str::lower($module);
+
+                            // Файлы модулей js
+                            $jsPaths = "{$modulesPath}/{$area}/{$module}/js/index.js";
+                            if (is_file($jsPaths)) {
+                                $webpackPart .= ".js('{$modulesPathFile}/$area/{$module}/js/index.js', '{$jsPublic}/{$moduleLower}.js')\n";
+                            }
+
+                            // Файлы модулей sass
+                            $sassPaths = "{$modulesPath}/{$area}/{$module}/sass/index.scss";
+                            if (is_file($sassPaths)) {
+                                $webpackPart .= ".sass('{$modulesPathFile}/$area/{$module}/sass/index.scss', '{$cssPublic}/{$moduleLower}.css')\n";
+                            }
+                        }
+                    }
+                }
+            }
+            $webpackPart = rtrim($webpackPart, "\n");
+            $webpackPart .= ";\n";
+            $webpackFile = base_path('webpack.mix.js');
+            if (\Illuminate\Support\Facades\File::exists(($webpackFile))) {
+                \Illuminate\Support\Facades\File::replace($webpackFile, $webpackPart);
             }
         }
     }

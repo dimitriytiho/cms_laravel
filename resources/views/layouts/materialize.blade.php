@@ -22,14 +22,14 @@ Materialize css шаблон
 </head>
 <body class="blue-grey lighten-1">
 <div id="app">
-    <a href="{{ route('main') }}" class="blue-grey-text tooltipped cur" data-position="right" data-tooltip="{{ __('c.home') }}">
+    <a href="{{ route('index') }}" class="blue-grey-text tooltipped cur" data-position="right" data-tooltip="{{ __('c.home') }}">
         <i class="material-icons">apps</i>
     </a>
     {{--
     <nav class="header">
         <div class="nav-wrapper blue-grey lighten-1">
             <div class="container">
-                <a href="{{ route('main') }}" class="brand-logo">
+                <a href="{{ route('index') }}" class="brand-logo">
                     <i class="material-icons">apps</i>
                 </a>
             </div>

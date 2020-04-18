@@ -348,6 +348,6 @@ class UserController extends AppController
     {
         auth()->logout();
         $request->session()->invalidate();
-        return redirect()->route('main');
+        return redirect()->route('index');
     }
 }

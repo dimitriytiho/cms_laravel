@@ -5,30 +5,30 @@
 
 --}}
 @section('content')
-    {!! adminH2(__('a.Cache')) !!}
+    {!! \App\Helpers\Admin\Constructor::adminH2(__('a.Cache')) !!}
     <div class="row">
         <div class="col-md-6">
-            {!! adminBlockLink(__('a.db_caches'), __('s.remove'), route('admin.additionally', 'cache=db'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
+            {!! \App\Helpers\Admin\Constructor::adminBlockLink(__('a.db_caches'), __('s.remove'), route('admin.additionally', 'cache=db'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
         </div>
         <div class="col-md-6">
-            {!! adminBlockLink(__('a.view_caches'), __('s.remove'), route('admin.additionally', 'cache=views'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
+            {!! \App\Helpers\Admin\Constructor::adminBlockLink(__('a.view_caches'), __('s.remove'), route('admin.additionally', 'cache=views'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
         </div>
         <div class="col-md-6">
-            {!! adminBlockLink(__('a.route_caches'), __('s.remove'), route('admin.additionally', 'cache=routes'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
+            {!! \App\Helpers\Admin\Constructor::adminBlockLink(__('a.route_caches'), __('s.remove'), route('admin.additionally', 'cache=routes'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
         </div>
         <div class="col-md-6">
-            {!! adminBlockLink(__('a.config_caches'), __('s.remove'), route('admin.additionally', 'cache=config'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
+            {!! \App\Helpers\Admin\Constructor::adminBlockLink(__('a.config_caches'), __('s.remove'), route('admin.additionally', 'cache=config'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
         </div>
     </div>
 
-    {!! adminH2(__('a.Backup'), 'mt-5') !!}
+    {!! \App\Helpers\Admin\Constructor::adminH2(__('a.Backup'), 'mt-5') !!}
     <div class="row">
         <div class="col">
-            {!! adminBlockLink(__('a.backup_files_db'), __('a.run'), route('admin.additionally', 'backup=run'), 'confirm-link' . $backupDisabled, 'data-toggle="modal" data-target="#modal-confirm"') !!}
+            {!! \App\Helpers\Admin\Constructor::adminBlockLink(__('a.backup_files_db'), __('a.run'), route('admin.additionally', 'backup=run'), 'confirm-link' . $backupDisabled, 'data-toggle="modal" data-target="#modal-confirm"') !!}
         </div>
     </div>
 
-    {!! adminH2(__('a.Commands'), 'mt-5') !!}
+    {!! \App\Helpers\Admin\Constructor::adminH2(__('a.Commands'), 'mt-5') !!}
     <div class="row mb-3 command">
         <div class="col-md-4 my-2">
             <div class="form-group mb-0">
@@ -49,7 +49,7 @@
                 <input type="text" class="form-control" id="full-command" placeholder="{{ __('a.command') }}" value="php artisan">
             </div>
 
-            <form action="{{ route("admin.$c") }}" method="post">
+            <form action="{{ route("admin.{$c}") }}" method="post">
                 @csrf
                 {!! hidden('command', '') !!}
                 <button type="submit" class="btn btn-primary no-wrap">{{ __('a.run') }}</button>
@@ -60,6 +60,7 @@
         <div class="col">
             <button class="btn btn-link pl-0 change-icon" type="button" data-toggle="collapse" data-target="#collapse-slide" aria-expanded="false" aria-controls="collapse-slide">{{ __('a.example_commands') }} <i aria-hidden="true" class="material-icons position-relative t-04" data-target="example-command">keyboard_arrow_down</i></button>
             <div class="collapse border rounded my-2 p-4" id="collapse-slide">
+                <p>php artisan make:module publicly/Name --all <span class="font-weight-light text-secondary">({{ __('a.make:module') . __('a.module_add_text') }})</span></p>
                 <p>php artisan make:controller NameController <span class="font-weight-light text-secondary">({{ __('a.make:controller') }} Name)</span></p>
                 <p>php artisan make:model Name <span class="font-weight-light text-secondary">({{ __('a.make:model') }} Name)</span></p>
                 <p>php artisan make:model Helpers/Name <span class="font-weight-light text-secondary">({{ __('a.Create') . __('a.model') }} Name{{ __('a.in') }}app/Helpers)</span></p>

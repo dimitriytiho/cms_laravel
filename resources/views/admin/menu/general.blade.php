@@ -111,5 +111,5 @@
             </div>
         </div>
     @endif
-    {!! stickyScript() !!}
+    {!! \App\Helpers\Admin\Constructor::stickyScript() !!}
 @endsection

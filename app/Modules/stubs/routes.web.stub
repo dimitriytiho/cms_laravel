@@ -1,0 +1,8 @@
+<?php
+
+Route::namespace('\FullNamespace')->group(function () {
+
+    Route::get('ModuleLowerName', 'ModuleNameController@index')->name('ModuleLowerName_index');
+    Route::get('ModuleLowerName/{slug}', 'ModuleNameController@show')->name('ModuleLowerName');
+
+});

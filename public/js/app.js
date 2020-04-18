@@ -86,6 +86,353 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./app/Modules/publicly/Page/sass/index.scss":
+/*!***************************************************!*\
+  !*** ./app/Modules/publicly/Page/sass/index.scss ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./app/Modules/publicly/Shop/sass/index.scss":
+/*!***************************************************!*\
+  !*** ./app/Modules/publicly/Shop/sass/index.scss ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./app/Modules/publicly/js/forms.js":
+/*!******************************************!*\
+  !*** ./app/Modules/publicly/js/forms.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Скрипты для Форм
+// При клике на ссылку или кнопку добавиться disabled
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('one-click')) {
+    e.target.classList.add('disabled'); //e.target.setAttribute('disabled', 'true')
+  }
+}); // При клике на ссылку или кнопку добавиться disabled
+
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('spinner-click')) {
+    var span = document.createElement('span');
+    span.classList.add('spinner-grow', 'spinner-grow-sm', 'ml-1');
+    e.target.appendChild(span);
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/publicly/js/index.js":
+/*!******************************************!*\
+  !*** ./app/Modules/publicly/js/index.js ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./forms */ "./app/Modules/publicly/js/forms.js");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_forms__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pulse */ "./app/Modules/publicly/js/pulse.js");
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_pulse__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validate */ "./app/Modules/publicly/js/validate/index.js");
+// require('./bootstrap');
+// window.Vue = require('vue');
+window.Bootstrap = __webpack_require__(/*! bootstrap.native/dist/bootstrap-native-v4 */ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js");
+
+
+ // import Vue from 'vue'
+
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
+// const files = require.context('./', true, /\.vue$/i);
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default)
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+/*new Vue({
+    el: '#app'
+})*/
+
+/***/ }),
+
+/***/ "./app/Modules/publicly/js/pulse.js":
+/*!******************************************!*\
+  !*** ./app/Modules/publicly/js/pulse.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+* При кликена на .btn-pulse эффект пульса.
+* Если есть вложенный тег, то установить .btn-pulse-child.
+*/
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('btn-pulse')) {
+    var div = document.createElement('div'),
+        style = div.style,
+        max = Math.max(e.target.offsetWidth, e.target.offsetHeight),
+        rect = e.target.getBoundingClientRect(),
+        px = 'px',
+        color = window.getComputedStyle(e.target).backgroundColor,
+        textBtn = e.target.textContent,
+        spanBtn = e.target.querySelector('span');
+    timeDeleteDiv = 300;
+    div.classList.add('pulseJS');
+    style.width = style.height = max + px;
+    style.left = e.clientX - rect.left - max / 2 + px;
+    style.top = e.clientY - rect.top - max / 2 + px;
+    style.backgroundColor = color;
+    style.opacity = .4;
+    e.target.appendChild(div);
+
+    if (!spanBtn) {
+      setTimeout(function () {
+        e.target.textContent = textBtn;
+      }, timeDeleteDiv);
+    }
+  } else if (e.target.classList.contains('btn-pulse-child')) {
+    var parent = e.target.closest('.btn-pulse'),
+        _div = document.createElement('div'),
+        _style = _div.style,
+        _max = Math.max(parent.offsetWidth, parent.offsetHeight),
+        _rect = parent.getBoundingClientRect(),
+        _px = 'px',
+        _color = window.getComputedStyle(e.target).backgroundColor,
+        _textBtn = e.target.textContent,
+        _timeDeleteDiv = 300;
+
+    _div.classList.add('pulseJS');
+
+    _style.width = _style.height = _max + _px;
+    _style.left = e.clientX - _rect.left - _max / 2 + _px;
+    _style.top = e.clientY - _rect.top - _max / 2 + _px;
+    _style.backgroundColor = _color;
+    _style.opacity = .4;
+    parent.appendChild(_div);
+    setTimeout(function () {
+      parent.textContent = _textBtn;
+    }, _timeDeleteDiv);
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/publicly/js/validate/index.js":
+/*!***************************************************!*\
+  !*** ./app/Modules/publicly/js/validate/index.js ***!
+  \***************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings */ "./app/Modules/publicly/js/validate/settings.js");
+/* harmony import */ var _validator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validator */ "./app/Modules/publicly/js/validate/validator.js");
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  var forms = document.querySelectorAll('form.form-post');
+
+  if (forms[0]) {
+    forms.forEach(function (form) {
+      var name = form.getAttribute('name'),
+          // Имя в теге form
+      settings = _settings__WEBPACK_IMPORTED_MODULE_0__["default"][name];
+      Object(_validator__WEBPACK_IMPORTED_MODULE_1__["default"])(form, settings);
+    });
+  }
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/publicly/js/validate/settings.js":
+/*!******************************************************!*\
+  !*** ./app/Modules/publicly/js/validate/settings.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// Настройки составлять для каждой разной формы отдельно, при это в теге form в name="enter_email" - написать имя формы, если много одинаковых форм на странице (Если форма другая, то написать другой name
+//var translations = {'accepted': '^Вы должны принять','email': '^Должно быть действительным электронным адресом','required': '^Обязательно для заполнения','min': '^Количество символов должно быть не менее '}
+var validateSettings = {
+  enter: {
+    email: {
+      presence: {
+        message: translations['required'] // '^characters' ^ без названия поля
+
+      },
+      email: {
+        message: translations['email']
+      }
+    },
+    password: {
+      presence: {
+        message: translations['required']
+      }
+    }
+  }
+  /*,
+  enter_email: {
+     email: {
+         presence: {
+             message: translations['required'] // '^characters' ^ без названия поля
+         },
+         email: {
+             message: translations['email']
+         }
+     }
+  },
+  enter_code: {
+     confirm: {
+         presence: {
+             message: translations['required']
+         }
+     }
+  },
+  enter_pass: {
+     password: {
+         presence: {
+             message: translations['required']
+         }
+     }
+  }*/
+
+};
+/* harmony default export */ __webpack_exports__["default"] = (validateSettings);
+
+/***/ }),
+
+/***/ "./app/Modules/publicly/js/validate/validator.js":
+/*!*******************************************************!*\
+  !*** ./app/Modules/publicly/js/validate/validator.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return validator; });
+/* harmony import */ var validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! validate.js */ "./node_modules/validate.js/validate.js");
+/* harmony import */ var validate_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(validate_js__WEBPACK_IMPORTED_MODULE_0__);
+
+function validator(form, settings) {
+  var btn = form.querySelector('button[type=submit]'); // btn.disabled = true
+  // При убирании фокуса с input
+
+  var inputs = form.querySelectorAll('input[type=text], input[type=email], input[type=password], textarea');
+
+  if (inputs[0]) {
+    inputs.forEach(function (el) {
+      el.addEventListener('blur', function () {
+        handleForm(this);
+      });
+    });
+  } // При клике на checkbox
+
+
+  var inputsClick = form.querySelectorAll('input[type=checkbox], input[type=radio]');
+
+  if (inputsClick[0]) {
+    inputsClick.forEach(function (el) {
+      el.addEventListener('click', function () {
+        handleForm(this);
+      });
+    });
+  }
+
+  function handleForm(input) {
+    var values = validate_js__WEBPACK_IMPORTED_MODULE_0___default.a.collectFormValues(form),
+        errors = validate_js__WEBPACK_IMPORTED_MODULE_0___default()(values, settings);
+
+    if (errors) {
+      var error = errors[input.getAttribute('name')];
+      showErrorsForInput(input, error);
+    } else {
+      // btn.disabled = false
+      showErrorsForInput(input);
+    }
+  } // При клике на отправить
+
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    handleFormSubmit(this, ev);
+  });
+
+  function handleFormSubmit(form) {
+    var values = validate_js__WEBPACK_IMPORTED_MODULE_0___default.a.collectFormValues(form),
+        errors = validate_js__WEBPACK_IMPORTED_MODULE_0___default()(values, settings); // Если нет ошибок, блокируется кнопка и отправка формы
+
+    if (!errors) {
+      btn.disabled = true;
+      btn.querySelector('.btn-spinner').style.display = 'inline';
+      form.submit();
+    }
+
+    showErrors(form, errors || {});
+  }
+
+  function showErrors(form, errors) {
+    var inputs = form.querySelectorAll('input, textarea');
+    inputs.forEach(function (el) {
+      showErrorsForInput(el, errors && errors[el.name]);
+    });
+  }
+
+  function showErrorsForInput(input, error) {
+    var formGroup = input.closest('.form-group');
+
+    if (formGroup) {
+      var errorTag = formGroup.querySelector('.invalid-feedback');
+      errorTag.textContent = error;
+    }
+
+    if (error) {
+      //input.classList.remove('is-valid')
+      input.classList.add('is-invalid');
+    } else {
+      input.classList.remove('is-invalid'); //input.classList.add('is-valid')
+    }
+  }
+}
+
+/***/ }),
+
+/***/ "./app/Modules/publicly/sass/index.scss":
+/*!**********************************************!*\
+  !*** ./app/Modules/publicly/sass/index.scss ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/bootstrap.native/dist/bootstrap-native-v4.js ***!
@@ -3436,653 +3783,6 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _default__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./default */ "./resources/js/default/index.js");
-/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validate */ "./resources/js/validate/index.js");
-/* harmony import */ var _shop__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shop */ "./resources/js/shop/index.js");
-/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scripts */ "./resources/js/scripts/index.js");
-// require('./bootstrap');
-// window.Vue = require('vue');
-
-
-
- // import Vue from 'vue'
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default)
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-/*new Vue({
-    el: '#app'
-})*/
-
-/***/ }),
-
-/***/ "./resources/js/default/animate.js":
-/*!*****************************************!*\
-  !*** ./resources/js/default/animate.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Функция после загрузки страницы
-document.addEventListener('DOMContentLoaded', function () {
-  // При клике на на .dropdown-click показывает меню dropdown
-  var dropdownShow = false;
-  document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('dropdown-click')) {
-      e.preventDefault();
-      dropdownShow = !dropdownShow;
-      var menu = e.target.closest('.dropdown').querySelector('.dropdown-menu'),
-          ms = 200; // Можно поменять время
-
-      if (dropdownShow) {
-        menu.style.display = 'block';
-        menu.classList.remove('anime-to-center');
-        menu.classList.add('anime-from-center');
-      } else {
-        menu.classList.remove('anime-from-center');
-        menu.classList.add('anime-to-center');
-        setTimeout(function () {
-          menu.style.display = 'none';
-        }, ms);
-      }
-    }
-  });
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/default/forms.js":
-/*!***************************************!*\
-  !*** ./resources/js/default/forms.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Скрипты для Форм
-// При клике на ссылку или кнопку добавиться disabled
-document.addEventListener('click', function (e) {
-  if (e.target.classList.contains('one-click')) {
-    e.target.classList.add('disabled'); //e.target.setAttribute('disabled', 'true')
-  }
-}); // При клике на ссылку или кнопку добавиться disabled
-
-document.addEventListener('click', function (e) {
-  if (e.target.classList.contains('spinner-click')) {
-    var span = document.createElement('span');
-    span.classList.add('spinner-grow', 'spinner-grow-sm', 'ml-1');
-    e.target.appendChild(span);
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/default/index.js":
-/*!***************************************!*\
-  !*** ./resources/js/default/index.js ***!
-  \***************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _animate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animate */ "./resources/js/default/animate.js");
-/* harmony import */ var _animate__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_animate__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forms */ "./resources/js/default/forms.js");
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_forms__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pulse */ "./resources/js/default/pulse.js");
-/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_pulse__WEBPACK_IMPORTED_MODULE_2__);
-window.Bootstrap = __webpack_require__(/*! bootstrap.native/dist/bootstrap-native-v4 */ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js");
-
-
-
-
-/***/ }),
-
-/***/ "./resources/js/default/pulse.js":
-/*!***************************************!*\
-  !*** ./resources/js/default/pulse.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*
-* При кликена на .btn-pulse эффект пульса.
-* Если есть вложенный тег, то установить .btn-pulse-child.
-*/
-document.addEventListener('click', function (e) {
-  if (e.target.classList.contains('btn-pulse')) {
-    var div = document.createElement('div'),
-        style = div.style,
-        max = Math.max(e.target.offsetWidth, e.target.offsetHeight),
-        rect = e.target.getBoundingClientRect(),
-        px = 'px',
-        color = window.getComputedStyle(e.target).backgroundColor,
-        textBtn = e.target.textContent,
-        spanBtn = e.target.querySelector('span');
-    timeDeleteDiv = 300;
-    div.classList.add('pulseJS');
-    style.width = style.height = max + px;
-    style.left = e.clientX - rect.left - max / 2 + px;
-    style.top = e.clientY - rect.top - max / 2 + px;
-    style.backgroundColor = color;
-    style.opacity = .4;
-    e.target.appendChild(div);
-
-    if (!spanBtn) {
-      setTimeout(function () {
-        e.target.textContent = textBtn;
-      }, timeDeleteDiv);
-    }
-  } else if (e.target.classList.contains('btn-pulse-child')) {
-    var parent = e.target.closest('.btn-pulse'),
-        _div = document.createElement('div'),
-        _style = _div.style,
-        _max = Math.max(parent.offsetWidth, parent.offsetHeight),
-        _rect = parent.getBoundingClientRect(),
-        _px = 'px',
-        _color = window.getComputedStyle(e.target).backgroundColor,
-        _textBtn = e.target.textContent,
-        _timeDeleteDiv = 300;
-
-    _div.classList.add('pulseJS');
-
-    _style.width = _style.height = _max + _px;
-    _style.left = e.clientX - _rect.left - _max / 2 + _px;
-    _style.top = e.clientY - _rect.top - _max / 2 + _px;
-    _style.backgroundColor = _color;
-    _style.opacity = .4;
-    parent.appendChild(_div);
-    setTimeout(function () {
-      parent.textContent = _textBtn;
-    }, _timeDeleteDiv);
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/scripts/animate.js":
-/*!*****************************************!*\
-  !*** ./resources/js/scripts/animate.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Функция после загрузки страницы
-document.addEventListener('DOMContentLoaded', function () {}, false);
-
-/***/ }),
-
-/***/ "./resources/js/scripts/general.js":
-/*!*****************************************!*\
-  !*** ./resources/js/scripts/general.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./resources/js/scripts/index.js":
-/*!***************************************!*\
-  !*** ./resources/js/scripts/index.js ***!
-  \***************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _general__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./general */ "./resources/js/scripts/general.js");
-/* harmony import */ var _general__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_general__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _animate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animate */ "./resources/js/scripts/animate.js");
-/* harmony import */ var _animate__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_animate__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _scroll__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scroll */ "./resources/js/scripts/scroll.js");
-/* harmony import */ var _scroll__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scroll__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scripts */ "./resources/js/scripts/scripts.js");
-/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_scripts__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-
-/***/ }),
-
-/***/ "./resources/js/scripts/scripts.js":
-/*!*****************************************!*\
-  !*** ./resources/js/scripts/scripts.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// import f from '../default/functions'
-var widthScreen = window.innerWidth || document.body.clientWidth;
-var content = document.querySelector('#content');
-var contentHeight = content.offsetHeight;
-var bottomBlock = document.querySelector('#bottom-block'); // f.showJS('#about-us > div')
-// f.getHeight('prices__info--text')
-// Height
-
-if (widthScreen > height && contentHeight < height) {
-  bottomBlock.style.height = height - contentHeight + 'px';
-} // Flips
-
-/*const flips = document.querySelectorAll('.flip-card > div')
-flips.forEach(function (el) {
-    el.addEventListener('mouseenter', function(e) {
-        e.target.children[0].classList.add('flip')
-    })
-    el.addEventListener('mouseleave', function(e) {
-        e.target.children[0].classList.remove('flip')
-    })
-})*/
-// Police police
-
-/*
-const cookie = document.querySelector('.cookie')
-if (cookie) {
-    cookie.style.opacity = 0
-    cookie.classList.add('scale-out')
-    setTimeout(function () {
-        cookie.style.opacity = 1
-        cookie.classList.remove('scale-out')
-        cookie.classList.add('scale-in')
-    }, 3600)
-}
-*/
-
-/***/ }),
-
-/***/ "./resources/js/scripts/scroll.js":
-/*!****************************************!*\
-  !*** ./resources/js/scripts/scroll.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Функция после загрузки страницы
-document.addEventListener('DOMContentLoaded', function () {
-  var offset = 20;
-  var heightScreen = window.innerHeight;
-  var arrowTop = document.querySelector('#arrow-top');
-  var animeTitle = document.querySelectorAll('.title');
-  var aboutItem = document.querySelectorAll('.about__item');
-  var pricesItem = document.querySelectorAll('.prices__main--item'); // Код со скролом
-
-  window.onscroll = function () {
-    var scrollTop = window.pageYOffset || document.documentElement.scrollTop; // Кнопка вверх
-
-    /*if (scrollTop > 300 && !arrowTop.classList.contains('scale-in')) {
-        arrowTop.classList.remove('scale-out')
-        arrowTop.classList.add('scale-in')
-    } else if (scrollTop < 300 && !arrowTop.classList.contains('scale-out')) {
-        arrowTop.classList.remove('scale-in')
-        arrowTop.classList.add('scale-out')
-    }*/
-    // Добавление класса анимации для lg дисплеев (или других, можно выбрать)
-
-    /*addAnimate(animeTitle) // Вызовите функцию и передайте нужный селектор, который получите выше чем window.onscroll
-    addAnimate(aboutItem, 'animate-bottom')
-    addAnimate(pricesItem, 'animate-bottom')
-     function addAnimate(selectorAll, addClassName = 'animate-right', widthScreenAfter = 992) {
-        if (widthScreen > widthScreenAfter) {
-            selectorAll.forEach(function (el) {
-                const elTop = el.offsetTop
-                const elHeight = el.offsetHeight
-                if (heightScreen + scrollTop - offset > elTop && scrollTop + offset < elTop + elHeight) {
-                    el.classList.add(addClassName)
-                }
-            })
-        }
-    }*/
-  };
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/shop/cart.js":
-/*!***********************************!*\
-  !*** ./resources/js/shop/cart.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-document.addEventListener('DOMContentLoaded', function () {
-  // id модального окна
-  var modalID = 'cart_modal'; // Проверяем подключен ли jQuery
-
-  if (window.jQuery) {
-    // Функция показа корзины, принимает содержимое корзины, в ответе на ajax
-    var showCart = function showCart(cart, modalID) {
-      var modal = document.getElementById(modalID),
-          modalInstance = new Bootstrap.Modal(modal); // Вставим в модальное окно содержимое корзины
-
-      $('#' + modalID + ' .modal-body').html(cart); // Открыть модальное окно
-
-      modalInstance.show();
-      var cartQty = $('#cart_modal_qty').text(),
-          cartSum = $('#cart_modal_sum').text(); // Вставляем кол-во из корзины в кнопку вызова
-
-      $('.cart_count_qty').text(cartQty); // Вставляем сумму из корзины в кнопку вызова
-      //$('.cart_count_sum').text(cartSum)
-    };
-
-    // Если есть класс .no_js, то отключаем JS
-    if (!$('div').hasClass('no_js')) {
-      // Показать корзину по клику на .cart_show
-      $('.cart_show').on('click', function (e) {
-        e.preventDefault();
-        $.ajax({
-          type: 'GET',
-          url: '/cart/show',
-          success: function success(res) {
-            showCart(res, modalID);
-          },
-          error: function error() {
-            alert(translations['something_went_wrong']);
-          }
-        });
-      }); // Добавить товар в корзину по клику на .cart_plus
-
-      $(document).on('click', '.cart_plus', function (e) {
-        e.preventDefault();
-        var $this = $(this),
-            id = $this.data('id');
-
-        if (id) {
-          $.ajax({
-            type: 'GET',
-            url: '/cart/' + id + '/plus',
-            //data: {id: id},
-            success: function success(res) {
-              // Товар не найден
-              if (!res) {
-                alert(translations['something_went_wrong']);
-              }
-
-              showCart(res, modalID);
-            },
-            error: function error() {
-              alert(translations['something_went_wrong']);
-            }
-          });
-        }
-      }); // Отминусовать товар из корзины по клику на .cart_minus
-
-      $(document).on('click', '.cart_minus', function (e) {
-        e.preventDefault();
-        var $this = $(this),
-            id = $this.data('id');
-
-        if (id) {
-          $.ajax({
-            type: 'GET',
-            url: '/cart/' + id + '/minus',
-            //data: {id: id},
-            success: function success(res) {
-              // Товар не найден
-              if (!res) {
-                alert(translations['something_went_wrong']);
-              }
-
-              showCart(res, modalID);
-            },
-            error: function error() {
-              alert(translations['something_went_wrong']);
-            }
-          });
-        }
-      }); // Удалить товар из корзину по клику на .cart_destroy
-
-      $(document).on('click', '.cart_destroy', function (e) {
-        e.preventDefault();
-        var $this = $(this),
-            id = $this.data('id');
-
-        if (id) {
-          $.ajax({
-            type: 'GET',
-            url: '/cart/' + id + '/destroy',
-            success: function success(res) {
-              // Товар не найден
-              if (!res) {
-                alert(translations['something_went_wrong']);
-              }
-
-              showCart(res, modalID);
-            },
-            error: function error() {
-              alert(translations['something_went_wrong']);
-            }
-          });
-        }
-      });
-    }
-  }
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/shop/index.js":
-/*!************************************!*\
-  !*** ./resources/js/shop/index.js ***!
-  \************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cart */ "./resources/js/shop/cart.js");
-/* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cart__WEBPACK_IMPORTED_MODULE_0__);
-
-
-/***/ }),
-
-/***/ "./resources/js/validate/index.js":
-/*!****************************************!*\
-  !*** ./resources/js/validate/index.js ***!
-  \****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings */ "./resources/js/validate/settings.js");
-/* harmony import */ var _validator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validator */ "./resources/js/validate/validator.js");
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  var forms = document.querySelectorAll('form.form-post');
-
-  if (forms[0]) {
-    forms.forEach(function (form) {
-      var name = form.getAttribute('name'),
-          // Имя в теге form
-      settings = _settings__WEBPACK_IMPORTED_MODULE_0__["default"][name];
-      Object(_validator__WEBPACK_IMPORTED_MODULE_1__["default"])(form, settings);
-    });
-  }
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/validate/settings.js":
-/*!*******************************************!*\
-  !*** ./resources/js/validate/settings.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// Настройки составлять для каждой разной формы отдельно, при это в теге form в name="enter_email" - написать имя формы, если много одинаковых форм на странице (Если форма другая, то написать другой name
-//var translations = {'accepted': '^Вы должны принять','email': '^Должно быть действительным электронным адресом','required': '^Обязательно для заполнения','min': '^Количество символов должно быть не менее '}
-var validateSettings = {
-  enter: {
-    email: {
-      presence: {
-        message: translations['required'] // '^characters' ^ без названия поля
-
-      },
-      email: {
-        message: translations['email']
-      }
-    },
-    password: {
-      presence: {
-        message: translations['required']
-      }
-    }
-  }
-  /*,
-  enter_email: {
-     email: {
-         presence: {
-             message: translations['required'] // '^characters' ^ без названия поля
-         },
-         email: {
-             message: translations['email']
-         }
-     }
-  },
-  enter_code: {
-     confirm: {
-         presence: {
-             message: translations['required']
-         }
-     }
-  },
-  enter_pass: {
-     password: {
-         presence: {
-             message: translations['required']
-         }
-     }
-  }*/
-
-};
-/* harmony default export */ __webpack_exports__["default"] = (validateSettings);
-
-/***/ }),
-
-/***/ "./resources/js/validate/validator.js":
-/*!********************************************!*\
-  !*** ./resources/js/validate/validator.js ***!
-  \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return validator; });
-/* harmony import */ var validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! validate.js */ "./node_modules/validate.js/validate.js");
-/* harmony import */ var validate_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(validate_js__WEBPACK_IMPORTED_MODULE_0__);
-
-function validator(form, settings) {
-  var btn = form.querySelector('button[type=submit]'); // btn.disabled = true
-  // При убирании фокуса с input
-
-  var inputs = form.querySelectorAll('input[type=text], input[type=email], input[type=password], textarea');
-
-  if (inputs[0]) {
-    inputs.forEach(function (el) {
-      el.addEventListener('blur', function () {
-        handleForm(this);
-      });
-    });
-  } // При клике на checkbox
-
-
-  var inputsClick = form.querySelectorAll('input[type=checkbox], input[type=radio]');
-
-  if (inputsClick[0]) {
-    inputsClick.forEach(function (el) {
-      el.addEventListener('click', function () {
-        handleForm(this);
-      });
-    });
-  }
-
-  function handleForm(input) {
-    var values = validate_js__WEBPACK_IMPORTED_MODULE_0___default.a.collectFormValues(form),
-        errors = validate_js__WEBPACK_IMPORTED_MODULE_0___default()(values, settings);
-
-    if (errors) {
-      var error = errors[input.getAttribute('name')];
-      showErrorsForInput(input, error);
-    } else {
-      // btn.disabled = false
-      showErrorsForInput(input);
-    }
-  } // При клике на отправить
-
-
-  form.addEventListener('submit', function (ev) {
-    ev.preventDefault();
-    handleFormSubmit(this, ev);
-  });
-
-  function handleFormSubmit(form) {
-    var values = validate_js__WEBPACK_IMPORTED_MODULE_0___default.a.collectFormValues(form),
-        errors = validate_js__WEBPACK_IMPORTED_MODULE_0___default()(values, settings); // Если нет ошибок, блокируется кнопка и отправка формы
-
-    if (!errors) {
-      btn.disabled = true;
-      btn.querySelector('.btn-spinner').style.display = 'inline';
-      form.submit();
-    }
-
-    showErrors(form, errors || {});
-  }
-
-  function showErrors(form, errors) {
-    var inputs = form.querySelectorAll('input, textarea');
-    inputs.forEach(function (el) {
-      showErrorsForInput(el, errors && errors[el.name]);
-    });
-  }
-
-  function showErrorsForInput(input, error) {
-    var formGroup = input.closest('.form-group');
-
-    if (formGroup) {
-      var errorTag = formGroup.querySelector('.invalid-feedback');
-      errorTag.textContent = error;
-    }
-
-    if (error) {
-      //input.classList.remove('is-valid')
-      input.classList.add('is-invalid');
-    } else {
-      input.classList.remove('is-invalid'); //input.classList.add('is-valid')
-    }
-  }
-}
-
-/***/ }),
-
 /***/ "./resources/sass/admin/index.scss":
 /*!*****************************************!*\
   !*** ./resources/sass/admin/index.scss ***!
@@ -4094,27 +3794,18 @@ function validator(form, settings) {
 
 /***/ }),
 
-/***/ "./resources/sass/app/index.scss":
-/*!***************************************!*\
-  !*** ./resources/sass/app/index.scss ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!*****************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app/index.scss ./resources/sass/admin/index.scss ***!
-  \*****************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./app/Modules/publicly/js/index.js ./app/Modules/publicly/sass/index.scss ./app/Modules/publicly/Shop/sass/index.scss ./app/Modules/publicly/Page/sass/index.scss ./resources/sass/admin/index.scss ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/dimitriyyuliya/htdocs/laravel/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /Users/dimitriyyuliya/htdocs/laravel/resources/sass/app/index.scss */"./resources/sass/app/index.scss");
-module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/htdocs/laravel/resources/sass/admin/index.scss */"./resources/sass/admin/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/publicly/js/index.js */"./app/Modules/publicly/js/index.js");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/publicly/sass/index.scss */"./app/Modules/publicly/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/publicly/Shop/sass/index.scss */"./app/Modules/publicly/Shop/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/publicly/Page/sass/index.scss */"./app/Modules/publicly/Page/sass/index.scss");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/resources/sass/admin/index.scss */"./resources/sass/admin/index.scss");
 
 
 /***/ })

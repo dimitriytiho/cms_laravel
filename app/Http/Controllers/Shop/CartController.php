@@ -27,7 +27,7 @@ class CartController extends Controller
 
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
-        $model = $this->model = '\App\\' . $this->class;
+        $model = $this->model = "\App\\{$this->class}";
         $route = $this->route = $request->segment(1);
         $view = $this->view = Str::snake($this->class);
         App::set('c', $c);
@@ -310,7 +310,7 @@ class CartController extends Controller
 
                 // Сообщение об успехе
                 session()->put('success', __('sh.order_successfully'));
-                return redirect()->route('main');
+                return redirect()->route('index');
             }
         }
         // Сообщение что-то пошло не так

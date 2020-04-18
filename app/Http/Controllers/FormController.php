@@ -115,7 +115,7 @@ class FormController extends Controller
 
                 // Сообщение об успехе
                 session()->put('success', __('s.Your_form_successfully'));
-                return redirect()->route('main');
+                return redirect()->route('index');
             }
         }
         // Сообщение что-то пошло не так

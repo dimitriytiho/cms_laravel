@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\App;
-use App\Helpers\Upload;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ class PageController extends Controller
         parent::__construct();
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
-        $model = $this->model = '\App\\' . $this->class;
+        $model = $this->model = "\App\\{$this->class}";
         $table = $this->table = with(new $model)->getTable();
         $route = $this->route = '';
         $view = $this->view = Str::snake($this->class);

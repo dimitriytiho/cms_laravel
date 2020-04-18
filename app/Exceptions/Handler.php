@@ -80,7 +80,7 @@ class Handler extends ExceptionHandler
             }
 
             App::setMeta($title);
-            return response()->view('errors.404', compact('title', 'message'), $status);
+            return response()->view('views.errors.404', compact('title', 'message'), $status);
         }
 
 

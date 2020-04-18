@@ -46,6 +46,7 @@ class Setting extends Model
                     'parent_id' => null,
                     'slug' => '/order',
                     'item' => 'shopping_cart',
+                    'count' => 'orders',
                 ],
             ];
         }
@@ -57,6 +58,7 @@ class Setting extends Model
                     'parent_id' => null,
                     'slug' => '/form',
                     'item' => 'insert_comment',
+                    'count' => 'forms',
                 ],
             ];
 
@@ -69,6 +71,7 @@ class Setting extends Model
                     'parent_id' => null,
                     'slug' => '/category',
                     'item' => 'account_tree',
+                    'count' => 'categories', // Название таблицы
                 ],
                 41 => [
                     'title' => 'Create',
@@ -83,6 +86,7 @@ class Setting extends Model
                     'parent_id' => null,
                     'slug' => '/product',
                     'item' => 'all_inbox',
+                    'count' => 'products', // Название таблицы
                 ],
                 51 => [
                     'title' => 'Create',
@@ -101,6 +105,7 @@ class Setting extends Model
                 'parent_id' => null,
                 'slug' => '/page',
                 'item' => 'web',
+                'count' => 'pages', // Название таблицы
             ],
             7 => [
                 'title' => 'Create',
@@ -115,6 +120,7 @@ class Setting extends Model
                 'parent_id' => null,
                 'slug' => '/user',
                 'item' => 'supervisor_account',
+                'count' => 'users', // Название таблицы
             ],
             9 => [
                 'title' => 'Create',

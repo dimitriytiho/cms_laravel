@@ -53,12 +53,8 @@
 
 --}}
 <script>
-    var path = '{{ route('main') }}/',
-        height = '{{ 600 }}';
-</script>
-<script>
     var body = document.querySelector('body'),
-        path = '{{ route('main') }}/',
+        path = '{{ route('index') }}',
         slug = '{{ str_replace('-', '_', Request::path()) }}',
         site_title = '{{ \App\App::$registry->get('settings')['site_name'] ?? ' ' }}',
         site_tel = '{{ \App\App::$registry->get('settings')['tel'] ?? ' ' }}',

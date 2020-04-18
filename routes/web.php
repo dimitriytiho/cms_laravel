@@ -11,6 +11,8 @@
 |
 */
 
+
+
 // Если выключен веб-сайт, то редирект на страницу /public/error.php
 if (config('add.site_off')) {
     Route::domain(env('APP_URL'))->group(function () {
@@ -33,7 +35,7 @@ if (stripos($url, $public)) {
 });*/
 
 // Если включен shop
-if (env('APP_SHOP', null)) {
+/*if (env('APP_SHOP', null)) {
 
     // Shop controllers
     Route::post('make-order', 'Shop\CartController@makeOrder')->name('make_order');
@@ -45,12 +47,12 @@ if (env('APP_SHOP', null)) {
     Route::get('catalog', 'Shop\CategoryController@index')->name('catalog');
     Route::get('category/{slug}', 'Shop\CategoryController@show')->name('category');
     Route::get('product/{slug}', 'Shop\ProductController@show')->name('product');
-}
+}*/
 
-Route::get('/', 'PageController@index')->name('main');
+/*Route::get('/', 'PageController@index')->name('index');
 Route::get('not-found', 'PageController@notFound')->name('not_found');
 Route::get('contact-us', 'PageController@contactUs')->name('contact_us');
-Route::post('contact-us', 'FormController@contactUs')->name('post_contact_us');
+Route::post('contact-us', 'FormController@contactUs')->name('post_contact_us');*/
 
 
 // Если включена авторизация на сайте
@@ -76,7 +78,11 @@ if (env('SITE_AUTH', null)) {
 $admin = env('APP_ADMIN', 'admin');
 Route::prefix($admin)->name('admin.')->middleware('admin')->group(function () {
     //Route::post('/menu/index', 'Admin\MenuController@index')->name('menu.index.post');
-    require_once 'admin.php'; // Маршруты для админки
+
+    // Маршруты для админки
+    if (is_file(__DIR__ .  '/admin.php')) {
+        require_once 'admin.php';
+    }
 });
 
 /*Route::group(['prefix' => $admin], function () { //, 'middleware' => ['web', 'admin.user', 'is_admin_editor']
@@ -94,13 +100,34 @@ Route::prefix($admin)->name('admin.')->middleware('admin')->group(function () {
 /*Route::get("$admin/$key", 'Voyager\AuthController@login')->name('voyager.login');
 Route::post("$admin/$key", 'Voyager\AuthController@postLogin')->name('voyager.postlogin');*/
 
-Route::get('/{slug}', 'PageController@show')->name('page');
+//Route::get('{slug}', 'PageController@show')->name('page');
 
+// Подключаем модули
+$modulesArr = config('modules.modules');
+$modulesPath = app_path(env('APP_MODULES'));
+if ($modulesArr && is_array($modulesArr) && $modulesPath) {
+    foreach ($modulesArr as $area => $modules) {
 
-/*Route::get('/', function () {
-    return view('welcome');
-});
+        // Роуты для модулей
+        if (is_array($modules)) {
+            foreach ($modules as $module => $moduleValue) {
 
-Auth::routes();
+                // Если в настройках указано routes
+                if (!empty($moduleValue['routes'])) {
 
-Route::get('/home', 'HomeController@index')->name('home');*/
+                    $moduleWeb = "{$modulesPath}/{$area}/{$module}/routes.php";
+                    if (is_file($moduleWeb)) {
+                        require_once $moduleWeb;
+                    }
+                }
+            }
+
+            // Роуты для группы модулей (если нет вложенных)
+        } elseif ($modules === false) {
+            $modulesWeb = "{$modulesPath}/{$area}/routes.php";
+            if (is_file($modulesWeb)) {
+                require_once $modulesWeb;
+            }
+        }
+    }
+}

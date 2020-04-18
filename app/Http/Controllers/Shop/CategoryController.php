@@ -20,7 +20,7 @@ class CategoryController extends Controller
         parent::__construct();
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
-        $model = $this->model = '\App\\' . $this->class;
+        $model = $this->model = "\App\\{$this->class}";
         $table = $this->table = with(new $model)->getTable();
         $route = $this->route = $request->segment(1);
         $view = $this->view = Str::snake($this->class);

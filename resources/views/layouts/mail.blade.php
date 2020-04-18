@@ -20,6 +20,6 @@
 <p style="font-size: 14px; font-weight: lighter">{{ __('s.Please_do_not_reply_to_this_email') }}<a href="mailto:{{ $email }}" style="color: {{ $color }}; text-decoration: none;">{{ $email }}</a>{{ $tel }}</p>
 <br>
 
-<p style="font-size: 16px;">{{ __('s.Best_regards') }}<a href="{{ route('main') }}" style="color: {{ $color }}; text-decoration: none;">{{ $site_name }}</a></p>
+<p style="font-size: 16px;">{{ __('s.Best_regards') }}<a href="{{ route('index') }}" style="color: {{ $color }}; text-decoration: none;">{{ $site_name }}</a></p>
 </body>
 </html>

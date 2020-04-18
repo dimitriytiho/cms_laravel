@@ -28,7 +28,7 @@ class EnterController extends Controller
         if (Auth::check() && Auth::user()->Admin()) {
             return redirect()->route('admin.main');
         } /*elseif (Auth::check()) {
-            return redirect()->route('main');
+            return redirect()->route('index');
         }*/
 
         // Сообщение об открытой странице входа

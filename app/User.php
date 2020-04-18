@@ -54,7 +54,7 @@ class User extends Authenticatable
         parent::__construct();
 
         $this->class = class_basename(__CLASS__);
-        $this->model = '\App\\' . $this->class;
+        $this->model = "\App\\{$this->class}";
         $this->table = with($this)->getTable();
         $this->view = Str::snake($this->class);
     }

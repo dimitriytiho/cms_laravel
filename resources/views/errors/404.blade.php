@@ -19,7 +19,7 @@
                     <p class="mt-3 mb-5">{{ $message . __('s.you_can_go') }}</p>
                     <div>
                         <a href="javascript:history.back()" class="btn btn-outline-dark"><i class="fa fa-arrow-left"></i> Назад</a>
-                        <a href="{{ route('main') }}" class="btn btn-primary"><i class="fa fa-home"></i> Главная</a>
+                        <a href="{{ route('index') }}" class="btn btn-primary"><i class="fa fa-home"></i> Главная</a>
                     </div>
                 </div>
                 <div class="col-md-6 text-md-center">

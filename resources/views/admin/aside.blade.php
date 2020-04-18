@@ -1,3 +1,8 @@
+@php
+
+use Illuminate\Support\Facades\{Schema, DB};
+
+@endphp
 <aside class="h-auto py-3 aside a-secondary transition aside-width-change"{!! $asideWidth !!}>
     <ul class="list-unstyled sticky-top">
         @if (!empty($menuAside))
@@ -8,6 +13,9 @@
                             <i aria-hidden="true" class="material-icons pr-3" title="{{ __("a.{$v['title']}") }}">{{ $v['item'] }}</i>
                             <span class="aside-text fadein"{!! $asideText !!}>{{ __("a.{$v['title']}") }}</span>
                         </a>
+                        @if (isset($v['count']) && Schema::hasTable($v['count']))
+                            <span class="counter-small">{{ DB::table($v['count'])->count() }}</span>
+                        @endif
                     </li>
                 @endif
             @endforeach

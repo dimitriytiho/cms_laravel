@@ -156,7 +156,7 @@ class App extends Model
     {
         if (!view()->exists($view)) {
             $message = "View $view not found. " . self::dataUser() . "Error in {$method}";
-            Log::error($message);
+            Log::critical($message);
             abort('404', $message);
             return;
         }
@@ -168,11 +168,12 @@ class App extends Model
      * $message - текст сообщения.
      * $method - передать __METHOD__.
      * $abort - выбросывать исключение, по-умолчанию true, необязательный параметр.
+     * $error - в каком виде записать ошибку, может быть: emergency, alert, critical, error, warning, notice, info, debug. По-умолчанию error.
      */
-    public static function getError($message, $method, $abort = true)
+    public static function getError($message, $method, $abort = true, $error = 'error')
     {
         $message = "{$message}. " . self::dataUser() . "Error in {$method}";
-        Log::error($message);
+        Log::$error($message);
         if ($abort) {
             abort('404', $message);
         }

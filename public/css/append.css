@@ -9644,6 +9644,20 @@ $value - какое свойство анимировать, по-умолчан
   transition: all 0.25s;
 }
 
+.counter-small {
+  position: absolute;
+  top: 1px;
+  right: 3px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 7px;
+  font-weight: 700;
+  color: #78909c;
+}
+
 .mih-100 {
   min-height: 100%;
 }

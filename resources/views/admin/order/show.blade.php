@@ -8,7 +8,7 @@
             <div class="col">
                 {!!
 
-                adminH2(__('a.notes'), 'mt-3 mb-3') !!}
+                \App\Helpers\Admin\Constructor::adminH2(__('a.notes'), 'mt-3 mb-3') !!}
                 <form action="{{ route("admin.$route.update", $values->id) }}" method="post" class="needs-validation mb-4" novalidate>
                     @method('put')
                     @csrf
@@ -26,7 +26,7 @@
                 </form>
                 {!!
 
-                adminH2(__('a.Order'), 'mt-3 mb-3') !!}
+                \App\Helpers\Admin\Constructor::adminH2(__('a.Order'), 'mt-3 mb-3') !!}
                 <table class="table table-striped mb-4">
                     <thead>
                     <tr>
@@ -77,7 +77,7 @@
                 @if($orderProducts)
                     {!!
 
-                    adminH2(__('a.Products'), 'mt-3 mb-3') !!}
+                    \App\Helpers\Admin\Constructor::adminH2(__('a.Products'), 'mt-3 mb-3') !!}
                     <table class="table table-striped mb-4">
                         <thead>
                         <tr>
@@ -115,7 +115,7 @@
                 @endif
                 {!!
 
-                adminH2(__('s.user'), 'mt-3 mb-3') !!}
+                \App\Helpers\Admin\Constructor::adminH2(__('s.user'), 'mt-3 mb-3') !!}
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <tbody>

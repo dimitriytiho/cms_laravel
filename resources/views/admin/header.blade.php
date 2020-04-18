@@ -1,7 +1,7 @@
 <header class="container-fluid text-white header">
     <div class="row">
         <div class="d-flex align-items-center bg-light shadow-sm py-1 transition a-secondary aside-width-change" id="header__icon"{!! $asideWidth !!}>
-            <a href="{{ route('main') }}" class="d-flex align-items-center">
+            <a href="{{ route('index') }}" class="d-flex align-items-center">
                 <img src="{{ asset(config('add.img') . '/omegakontur/touch-icon-iphone-retina.png') }}" class="pr-3 pl-2" alt="{{ env('APP_NAME') }}">
                 <span class="aside-text fadein"{!! $asideText !!}>{{ __('a.Website') }}</span>
             </a>

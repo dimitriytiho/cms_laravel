@@ -37,7 +37,8 @@ class MenuController extends AppController
 
         $current_menu_id = $request->cookie('current_menu_id');
         if (!$current_menu_id) {
-            $current_menu_id = DB::table('menu_name')->first()->id;
+            $current_menu = DB::table('menu_name')->first();
+            $current_menu_id = $current_menu ? $current_menu->id : null;
         }
 
         $f = __FUNCTION__;
@@ -72,7 +73,8 @@ class MenuController extends AppController
 
         $current_menu_id = $request->cookie('current_menu_id');
         if (!$current_menu_id) {
-            $current_menu_id = DB::table('menu_name')->first()->id;
+            $current_menu = DB::table('menu_name')->first();
+            $current_menu_id = $current_menu ? $current_menu->id : null;
         }
         $menuName = DB::table('menu_name')->find($current_menu_id);
 

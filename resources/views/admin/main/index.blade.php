@@ -4,18 +4,18 @@
     <section>
         <div class="row">
             @if (env('APP_SHOP', null))
-                {!! adminMainBlock('Orders', $count_orders ?? '0', 'shopping_cart', 'order') !!}
+                {!! \App\Helpers\Admin\Constructor::adminMainBlock('Orders', $count_orders ?? '0', 'shopping_cart', 'order') !!}
             @endif
-            {!! adminMainBlock('Forms', $count_forms ?? '0', 'insert_comment', 'form') !!}
-            {!! adminMainBlock('Pages', $count_pages ?? '0', 'web', 'page') !!}
-            {!! adminMainBlock('Users', $count_users ?? '0', 'supervisor_account', 'user') !!}
+            {!! \App\Helpers\Admin\Constructor::adminMainBlock('Forms', $count_forms ?? '0', 'insert_comment', 'form') !!}
+            {!! \App\Helpers\Admin\Constructor::adminMainBlock('Pages', $count_pages ?? '0', 'web', 'page') !!}
+            {!! \App\Helpers\Admin\Constructor::adminMainBlock('Users', $count_users ?? '0', 'supervisor_account', 'user') !!}
         </div>
     </section>
 
     <section>
         <div class="row mt-4">
             <div class="col">
-                <h5 class="text-primary">{{ __('c.welcome') . auth()->user()->name }}</h5>
+                <h5 class="text-primary">{{ auth()->user()->name . __('c.welcome') }}</h5>
             </div>
         </div>
     </section>
@@ -23,7 +23,7 @@
     <section class="transliterator">
         <div class="row mt-5 mb-3">
             <div class="col">
-                {!! adminH2(__('a.transliterator')) !!}
+                {!! \App\Helpers\Admin\Constructor::adminH2(__('a.transliterator')) !!}
             </div>
         </div>
         <div class="row">
@@ -50,7 +50,7 @@
         <section class="key-to-enter">
             <div class="row mt-5 mb-3">
                 <div class="col">
-                    {!! adminH2(__('a.key_to_enter')) !!}
+                    {!! \App\Helpers\Admin\Constructor::adminH2(__('a.key_to_enter')) !!}
                 </div>
             </div>
             <div class="row">
@@ -83,21 +83,21 @@
 
     {{--<div class="row mt-5 mb-3">
         <div class="col">
-            {!! adminH2('Testing informer') !!}
+            {!! \App\Helpers\Admin\Constructor::adminH2('Testing informer') !!}
         </div>
     </div>
 
     <div class="row">
-        {!! adminGrayBlock('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex officia rem veniam. Ducimus, repellendus?', 'pages') !!}
+        {!! \App\Helpers\Admin\Constructor::adminGrayBlock('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex officia rem veniam. Ducimus, repellendus?', 'pages') !!}
     </div>
 
     <div class="row mt-5">
         <div class="col">
-            {!! adminH2('Testing informer') !!}
+            {!! \App\Helpers\Admin\Constructor::adminH2('Testing informer') !!}
         </div>
     </div>
 
     <div class="row">
-        {!! adminInfoBlock('Testing', 22) !!}
+        {!! \App\Helpers\Admin\Constructor::adminInfoBlock('Testing', 22) !!}
     </div>--}}
 @endsection

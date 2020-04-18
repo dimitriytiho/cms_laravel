@@ -21,7 +21,7 @@
 <div class="container-fluid">
     <div class="row" style="height: 7px;">
         <div style="width: 100%; display: flex; justify-content: space-between;">
-            <a href="{{ Route('main') . '/' . env('APP_ADMIN') }}" title="{{ __('a.Dashboard') }}" style="width: 100px; background-color: #6c757d;"></a>
+            <a href="{{ Route('index') . '/' . env('APP_ADMIN') }}" title="{{ __('a.Dashboard') }}" style="width: 100px; background-color: #6c757d;"></a>
 
             <span style="width: 100%; background-color: #212529;"></span>
 

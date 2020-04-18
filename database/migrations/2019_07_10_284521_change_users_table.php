@@ -21,10 +21,10 @@ class ChangeUsersTable extends Migration
             $table->string('address')->nullable()->after('tel');
             $table->integer('role_id')->unsigned()->after('address')->default('1');
             $table->foreign('role_id')->references('id')->on('roles');
-            $table->string('status', 32)->default(config('add.user_statuses')[0])->after('password');
+            $table->string('status', 32)->default(config('admin.user_statuses')[0])->after('password');
             $table->text('note')->nullable()->after('status');
             $table->string('ip', 32)->nullable()->after('note');
-            $table->string('img')->default(config('add.img') . config('admin.imgUserDefault'))->after('ip');
+            $table->string('img')->default(config('admin.imgUserDefault'))->after('ip');
             $table->enum('accept', ['0', '1'])->default('0')->after('ip');
         });
     }

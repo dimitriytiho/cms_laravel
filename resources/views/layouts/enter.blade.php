@@ -30,7 +30,7 @@
 <div class="app" id="app">
     <div class="container-fluid">
         <div class="mt-2 a-primary">
-            <a href="{{ route('main') }}" title="{{ __('c.home') }}">
+            <a href="{{ route('index') }}" title="{{ __('c.home') }}">
                 <i class="material-icons">apps</i>
             </a>
         </div>
