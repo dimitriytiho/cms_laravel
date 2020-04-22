@@ -1,0 +1,45 @@
+@import "config/params";
+@import "config/mixins";
+@import "config/blocks";
+
+.alert-js {
+    & > div {
+        position: fixed;
+        top: 1.8rem;
+        z-index: 1;
+    }
+}
+
+#btn-up {
+    display: none;
+    bottom: 0.6rem;
+    right: 1rem;
+    z-index: 1030;
+    div {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+.many-elements {
+    position: relative;
+    display: inline-block;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    &__close {
+        position: absolute;
+        top: -.7rem;
+        right: -.9rem;
+        font-size: $font-size-base * 1.5;
+    }
+}
+
+.search-th {
+    min-width: 13rem;
+}
+.search-icon-th {
+    display: block;
+    margin-top: .3rem;
+    font-size: $font-size-base * 1.1;
+    color: $primary;
+}

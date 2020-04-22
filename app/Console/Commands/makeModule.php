@@ -13,7 +13,6 @@ class makeModule extends Command
     protected $path;
     protected $name;
     protected $files;
-    protected $area;
     protected $folder;
     protected $modulesNamespace;
     protected $modulesPath;
@@ -29,7 +28,7 @@ class makeModule extends Command
      * Сначало укажите модуль в конфиге /config/modules.php массив modules.
      * Этой командой создаётся модуль по-умолчанию.
      * Пример вызова команды:
-     * php artisan make:module publicly/Blog --all
+     * php artisan make:module Blog --all
      *
      * Без опций создастся папка без модели и миграции.
      * --all - все опции включаются.
@@ -72,7 +71,6 @@ class makeModule extends Command
     {
         $this->path = trim($this->argument('name'));
         $this->namespace = str_replace('/', '\\', $this->path);
-        $this->area = explode('/', $this->path)[0];
         $this->name = class_basename($this->namespace);
         $this->folder = "{$this->modulesPath}/{$this->path}";
 
@@ -89,17 +87,11 @@ class makeModule extends Command
             $this->createModel();
         } else {
 
-            if (!is_dir("{$this->modulesPath}/{$this->area}")) {
-
-                // Создадим папку area
-                $this->files->makeDirectory("{$this->modulesPath}/{$this->area}", 0777, true, true);
-            }
-
             // Создадим папку с Модулем
             $this->files->makeDirectory($this->folder, 0777, true, true);
 
             // Создадим папку Models
-            $this->files->makeDirectory("$this->folder/Models", 0777, true, true);
+            $this->files->makeDirectory("{$this->folder}/Models", 0777, true, true);
         }
 
         // Если в команде есть migration, то migration в true

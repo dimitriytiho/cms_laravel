@@ -9495,11 +9495,11 @@ label,
 }
 
 .dz-message {
-  color: #78909c;
+  color: #40c4ff;
 }
 
 .dropzone {
-  border: 1px dashed #78909c;
+  border: 1px dashed #40c4ff;
   border-radius: 0.15rem;
 }
 
@@ -9568,7 +9568,7 @@ h3 {
 }
 
 .a-primary a {
-  color: #5f7682;
+  color: #0db4ff;
   transition: all 0.25s;
 }
 
@@ -10031,7 +10031,7 @@ $value - какое свойство анимировать, по-умолчан
   display: block;
   margin-top: 0.3rem;
   font-size: 0.935rem;
-  color: #78909c;
+  color: #40c4ff;
 }
 
 /*

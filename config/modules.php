@@ -15,26 +15,26 @@ return [
     'path_file' => 'app/' . env('APP_MODULES'),
     'namespace' => 'App\\' . env('APP_MODULES'),
 
+    // Папка с видами
+    'views' => 'views',
+
     'modules' => [
-
-        // Директория видимости модуля
-        env('AREA_PUBLIC', 'publicly') => [
-
-            'Shop' => [ // Название модуля
-                'routes' => true, // Есть ли файл роутов в папке модуля
-                'webpack' => true, // Есть ли свои стили и скрипты в папке модуля
-            ],
-            'Form' => [
-                'routes' => true,
-                'webpack' => false,
-            ],
-            'Page' => [ // Page - должен стоять последний
-                'routes' => true,
-                'webpack' => true,
-            ],
-
+        'Admin' => [
+            'routes' => true,
+            'webpack' => true,
         ],
-        env('AREA_ADMIN', 'admin') => false, // Если false, то модуль без вложенных модулей, т.е. один общий модуль
-    ]
+        'Form' => [
+            'routes' => true,
+            'webpack' => false,
+        ],
+        'Shop' => [
+            'routes' => true,
+            'webpack' => true,
+        ],
+        /*'Auth' => [
+            'routes' => true,
+            'webpack' => true,
+        ],*/
+    ],
 
 ];

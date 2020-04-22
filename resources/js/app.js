@@ -1,10 +1,6 @@
-// require('./bootstrap');
+require('./bootstrap');
 // window.Vue = require('vue');
 
-import './default'
-import './validate'
-import './shop'
-import './scripts'
 // import Vue from 'vue'
 
 /**

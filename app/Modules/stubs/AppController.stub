@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
-class TestController extends \App\Modules\publicly\AppController
+class TestController extends \App\Modules\AppController
 {
     protected $module = 'ModuleName'; // Название модуля
     protected $m;
@@ -22,12 +22,12 @@ class TestController extends \App\Modules\publicly\AppController
         $module = $this->module;
         $namespace = config('modules.namespace');
         $modulesPath = config('modules.path');
-        if (!$this->area || !$module || !$namespace || !$modulesPath) {
+        if (!$module || !$namespace || !$modulesPath) {
             App::getError('Not data in Module', __METHOD__);
         }
 
-        $this->namespace = "{$namespace}\\{$this->area}\\{$module}";
-        $this->modulePath = "{$modulesPath}/{$this->area}/{$module}";
+        $this->namespace = "{$namespace}\\{$module}";
+        $this->modulePath = "{$modulesPath}/{$module}";
         $m = $this->m = Str::lower($module);
 
         $model = $this->model = "{$this->namespace}\\Models\\{$module}";

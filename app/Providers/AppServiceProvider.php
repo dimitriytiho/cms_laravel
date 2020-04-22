@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Helpers\Services\Registry;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,6 @@ class AppServiceProvider extends ServiceProvider
     {
         // ЗДЕСЬ ПИСАТЬ КОД, КОТОРЫЙ ЗАПУСКАЕТСЯ ПЕРЕД ЗАГРУЗКОЙ ПРИЛОЖЕНИЙ
         define('MENU', app_path('Widgets/Menu/tpl'));
-        define('INC_VIEW', resource_path('views/inc'));
     }
 
     /**
@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         // Паттерн реестр
-        App::$registry = \App\Helpers\Services\Registry::instance();
+        App::$registry = Registry::instance();
 
         // Если индексирование сайта выключено
         if (config('add.not_index_website')) {

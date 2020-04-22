@@ -6,6 +6,7 @@ namespace App\Helpers;
 
 use App\App;
 use App\Mail\SendMail;
+use App\User;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -40,18 +41,17 @@ class Upload
      */
     public static function resourceInit()
     {
-        $modulesPath = app_path(env('APP_MODULES'));
-
+        $modulesPath = config('modules.path');
         $sassParams = config('add.scss');
         $sassParams = !empty($sassParams) && is_array($sassParams) ? $sassParams : null;
         $partSassInit = "\n// Settings SASS from " . __METHOD__ . "\n\n";
 
-        if ($sassParams) {
+        if ($modulesPath && $sassParams) {
             foreach ($sassParams as $k => $v) {
                 $partSassInit .= "\${$k}: {$v};\n";
             }
 
-            $fileSassInit = "{$modulesPath}/" . env('AREA_PUBLIC', 'publicly') . "/sass/config/_init.scss";
+            $fileSassInit = "{$modulesPath}/sass/config/_init.scss";
             if (\Illuminate\Support\Facades\File::exists(($fileSassInit))) {
                 \Illuminate\Support\Facades\File::replace($fileSassInit, $partSassInit);
             }
@@ -61,50 +61,46 @@ class Upload
         $webpackPart = "const mix = require('laravel-mix');\n\n\n";
         $webpackPart .= "mix";
         $modulesPathFile = config('modules.path_file');
-        $modulesArr = config('modules.modules');
-        if ($modulesArr && is_array($modulesArr) && $modulesPath) {
-            foreach ($modulesArr as $area => $modules) {
-                $jsPublic = 'public/js';
-                $cssPublic = 'public/css';
-                $output = $area === 'publicly' ? 'app' : $area;
+        $modules = config('modules.modules');
 
-                // Главный файл js
-                $jsPath = "{$modulesPath}/{$area}/js/index.js";
-                if (is_file($jsPath)) {
+        if ($modules && is_array($modules) && $modulesPath) {
+            $jsPublic = 'public/js';
+            $cssPublic = 'public/css';
 
-                    $webpackPart .= ".js('{$modulesPathFile}/$area/js/index.js', '{$jsPublic}/{$output}.js')\n";
-                }
+            // Файл модулей js
+            $jsPath = "{$modulesPath}/js/index.js";
+            if (is_file($jsPath)) {
+                $webpackPart .= ".js('{$modulesPathFile}/js/index.js', '{$jsPublic}/app.js')\n";
+            }
 
-                // Главный файл sass
-                $sassPath = "{$modulesPath}/{$area}/sass/index.scss";
-                if (is_file($sassPath)) {
-                    $webpackPart .= ".sass('{$modulesPathFile}/$area/sass/index.scss', '{$cssPublic}/{$output}.css')\n";
-                }
+            // Файл модулей sass
+            $sassPath = "{$modulesPath}/sass/index.scss";
+            if (is_file($sassPath)) {
+                $webpackPart .= ".sass('{$modulesPathFile}/sass/index.scss', '{$cssPublic}/app.css')\n\n";
+            }
 
-                // Файлы модулей
-                if (is_array($modules)) {
-                    foreach ($modules as $module => $moduleValue) {
+            // Выводим в цикле для модулей
+            foreach ($modules as $module => $moduleValue) {
 
-                        // Если в настройках указан webpack
-                        if (!empty($moduleValue['webpack'])) {
+                // Если в настройках указан webpack
+                if (!empty($moduleValue['webpack'])) {
+                    $moduleLower = Str::lower($module);
+                    $moduleName = $module === 'Admin' ? 'append' : $moduleLower;
 
-                            $moduleLower = Str::lower($module);
+                    // Файлы модулей js
+                    $jsPath = "{$modulesPath}/{$module}/js/index.js";
+                    if (is_file($jsPath)) {
+                        $webpackPart .= ".js('{$modulesPathFile}/{$module}/js/index.js', '{$jsPublic}/{$moduleName}.js')\n";
+                    }
 
-                            // Файлы модулей js
-                            $jsPaths = "{$modulesPath}/{$area}/{$module}/js/index.js";
-                            if (is_file($jsPaths)) {
-                                $webpackPart .= ".js('{$modulesPathFile}/$area/{$module}/js/index.js', '{$jsPublic}/{$moduleLower}.js')\n";
-                            }
-
-                            // Файлы модулей sass
-                            $sassPaths = "{$modulesPath}/{$area}/{$module}/sass/index.scss";
-                            if (is_file($sassPaths)) {
-                                $webpackPart .= ".sass('{$modulesPathFile}/$area/{$module}/sass/index.scss', '{$cssPublic}/{$moduleLower}.css')\n";
-                            }
-                        }
+                    // Файлы модулей sass
+                    $sassPath = "{$modulesPath}/{$module}/sass/index.scss";
+                    if (is_file($sassPath)) {
+                        $webpackPart .= ".sass('{$modulesPathFile}/{$module}/sass/index.scss', '{$cssPublic}/{$moduleName}.css')\n";
                     }
                 }
             }
+
             $webpackPart = rtrim($webpackPart, "\n");
             $webpackPart .= ";\n";
             $webpackFile = base_path('webpack.mix.js');
@@ -204,11 +200,11 @@ class Upload
     }
 
 
-    // Создаётся файл /error.php и в нём вид errors.preventive
+    // Создаётся файл /error.php и в нём вид error из /resources/error.blade.php
     public static function errorPage()
     {
-        if (view()->exists('errors.preventive')) {
-            $r = view('errors.preventive')->render();
+        if (view()->exists('error')) {
+            $r = view('error')->render();
             Storage::disk('root')->put('error.php', $r);
         }
     }
@@ -259,17 +255,22 @@ class Upload
         // Новый ключ сохраняется в БД
         $crypt = $key;
         //$crypt = Crypt::encryptString($key); // Зашифровать
-        $now = time();
+        $now = Date::timeToTimestamp(time());
         $end_month = Date::timeToTimestamp(Date::timeEndDay() + 7200); // Время на 1 число месяца 2 часа ночи
-        DB::insert("INSERT INTO `uploads` (`key`, date_key, date_upload) VALUES ('$crypt', '$now', '$end_month')");
+
+        DB::insert("INSERT INTO `uploads` (`key`, date_key, date_upload) VALUES (?, ?, ?)", [$crypt, $now, $end_month]);
+
 
         // Удалить все кэши
         cache()->flush();
 
+
         // Отправить письмо всем admin и editor
         if ($mailAdmins) {
             try {
-                $emails = DB::table('users')->where('role_id', '4')->orWhere('role_id', '3')->pluck('email');
+                $roleIds = User::roleIdAdmin();
+                //$emails = DB::table('users')->where('role_id', '4')->orWhere('role_id', '3')->pluck('email');
+                $emails = DB::table('users')->select('email')->whereIn('role_id', $roleIds)->get();
                 $emails = $emails->toArray();
                 if ($emails) {
                     Mail::to($emails)->send(new SendMail(__('a.Key_use_site') . config('add.domain'), $key));

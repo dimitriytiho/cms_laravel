@@ -1,10 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/css/shop.css": "/css/shop.css",
-    "/css/page.css": "/css/page.css",
     "/css/append.css": "/css/append.css",
+    "/css/shop.css": "/css/shop.css",
     "/js/append.js": "/js/append.js",
-    "/js/page.js": "/js/page.js",
     "/js/shop.js": "/js/shop.js"
 }

@@ -44,7 +44,7 @@ class App extends Model
      * $content - если передаётся контент, то в нём будет искаться ##!!!inc_name и заменяется на файл из папки inc.
      * $values - $values5 - Можно передать данные в подключаемый файл.
      */
-    public static function inc($content = null, $values = null, $values2 = null, $values3 = null, $values4 = null, $values5 = null)
+    public static function inc(string $content = null, $values = null, $values2 = null, $values3 = null, $values4 = null, $values5 = null)
     {
         if ($content) {
 
@@ -82,7 +82,7 @@ class App extends Model
      * $content - контент, в котором удалиться скрипты и перенести их вниз страницы.
      * В шаблоне вида получить скрипты с помощью \App\App::$registry->get('scripts').
      */
-    public static function getDownScript($content)
+    public static function getDownScript(string $content)
     {
         if ($content) {
             $scripts = [];
@@ -104,7 +104,7 @@ class App extends Model
      * $title - строка для вывода title.
      * $description - строка для вывода description, необязательный параметр.
      */
-    public static function setMeta($title, $description = '', $titleSEO = '', $keywords = null)
+    public static function setMeta(string $title, string $description = '', string $titleSEO = '', string $keywords = null)
     {
         $siteName = App::$registry->get('settings')['site_name'] ?? ' ';
 
@@ -152,7 +152,7 @@ class App extends Model
      * $view - название вида (page.index).
      * $method - передать __METHOD__.
      */
-    public static function viewExists($view, $method)
+    public static function viewExists(string $view, $method)
     {
         if (!view()->exists($view)) {
             $message = "View $view not found. " . self::dataUser() . "Error in {$method}";
@@ -170,7 +170,7 @@ class App extends Model
      * $abort - выбросывать исключение, по-умолчанию true, необязательный параметр.
      * $error - в каком виде записать ошибку, может быть: emergency, alert, critical, error, warning, notice, info, debug. По-умолчанию error.
      */
-    public static function getError($message, $method, $abort = true, $error = 'error')
+    public static function getError(string $message, $method, $abort = true, $error = 'error')
     {
         $message = "{$message}. " . self::dataUser() . "Error in {$method}";
         Log::$error($message);
@@ -178,5 +178,19 @@ class App extends Model
             abort('404', $message);
         }
         return;
+    }
+
+
+    /*
+     * Проверить существует ли модуль, возвращает true или false.
+     * $module - передать строкой название модуля.
+     */
+    public static function issetModule(string $module)
+    {
+        if ($module) {
+            $modules = config('modules.modules');
+            return $modules && is_array($modules) && key_exists($module, $modules);
+        }
+        return false;
     }
 }

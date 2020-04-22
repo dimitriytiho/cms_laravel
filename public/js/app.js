@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./app/Modules/publicly/Page/sass/index.scss":
-/*!***************************************************!*\
-  !*** ./app/Modules/publicly/Page/sass/index.scss ***!
-  \***************************************************/
+/***/ "./app/Modules/Admin/sass/index.scss":
+/*!*******************************************!*\
+  !*** ./app/Modules/Admin/sass/index.scss ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -97,21 +97,21 @@
 
 /***/ }),
 
-/***/ "./app/Modules/publicly/Shop/sass/index.scss":
-/*!***************************************************!*\
-  !*** ./app/Modules/publicly/Shop/sass/index.scss ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./app/Modules/publicly/js/forms.js":
+/***/ "./app/Modules/Shop/sass/index.scss":
 /*!******************************************!*\
-  !*** ./app/Modules/publicly/js/forms.js ***!
+  !*** ./app/Modules/Shop/sass/index.scss ***!
   \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./app/Modules/js/forms.js":
+/*!*********************************!*\
+  !*** ./app/Modules/js/forms.js ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -133,20 +133,20 @@ document.addEventListener('click', function (e) {
 
 /***/ }),
 
-/***/ "./app/Modules/publicly/js/index.js":
-/*!******************************************!*\
-  !*** ./app/Modules/publicly/js/index.js ***!
-  \******************************************/
+/***/ "./app/Modules/js/index.js":
+/*!*********************************!*\
+  !*** ./app/Modules/js/index.js ***!
+  \*********************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./forms */ "./app/Modules/publicly/js/forms.js");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./forms */ "./app/Modules/js/forms.js");
 /* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_forms__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pulse */ "./app/Modules/publicly/js/pulse.js");
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pulse */ "./app/Modules/js/pulse.js");
 /* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_pulse__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validate */ "./app/Modules/publicly/js/validate/index.js");
+/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validate */ "./app/Modules/js/validate/index.js");
 // require('./bootstrap');
 // window.Vue = require('vue');
 window.Bootstrap = __webpack_require__(/*! bootstrap.native/dist/bootstrap-native-v4 */ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js");
@@ -177,10 +177,10 @@ window.Bootstrap = __webpack_require__(/*! bootstrap.native/dist/bootstrap-nativ
 
 /***/ }),
 
-/***/ "./app/Modules/publicly/js/pulse.js":
-/*!******************************************!*\
-  !*** ./app/Modules/publicly/js/pulse.js ***!
-  \******************************************/
+/***/ "./app/Modules/js/pulse.js":
+/*!*********************************!*\
+  !*** ./app/Modules/js/pulse.js ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -239,17 +239,17 @@ document.addEventListener('click', function (e) {
 
 /***/ }),
 
-/***/ "./app/Modules/publicly/js/validate/index.js":
-/*!***************************************************!*\
-  !*** ./app/Modules/publicly/js/validate/index.js ***!
-  \***************************************************/
+/***/ "./app/Modules/js/validate/index.js":
+/*!******************************************!*\
+  !*** ./app/Modules/js/validate/index.js ***!
+  \******************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings */ "./app/Modules/publicly/js/validate/settings.js");
-/* harmony import */ var _validator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validator */ "./app/Modules/publicly/js/validate/validator.js");
+/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings */ "./app/Modules/js/validate/settings.js");
+/* harmony import */ var _validator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validator */ "./app/Modules/js/validate/validator.js");
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -267,10 +267,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ "./app/Modules/publicly/js/validate/settings.js":
-/*!******************************************************!*\
-  !*** ./app/Modules/publicly/js/validate/settings.js ***!
-  \******************************************************/
+/***/ "./app/Modules/js/validate/settings.js":
+/*!*********************************************!*\
+  !*** ./app/Modules/js/validate/settings.js ***!
+  \*********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -326,10 +326,10 @@ var validateSettings = {
 
 /***/ }),
 
-/***/ "./app/Modules/publicly/js/validate/validator.js":
-/*!*******************************************************!*\
-  !*** ./app/Modules/publicly/js/validate/validator.js ***!
-  \*******************************************************/
+/***/ "./app/Modules/js/validate/validator.js":
+/*!**********************************************!*\
+  !*** ./app/Modules/js/validate/validator.js ***!
+  \**********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -422,10 +422,10 @@ function validator(form, settings) {
 
 /***/ }),
 
-/***/ "./app/Modules/publicly/sass/index.scss":
-/*!**********************************************!*\
-  !*** ./app/Modules/publicly/sass/index.scss ***!
-  \**********************************************/
+/***/ "./app/Modules/sass/index.scss":
+/*!*************************************!*\
+  !*** ./app/Modules/sass/index.scss ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -3783,29 +3783,17 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/sass/admin/index.scss":
-/*!*****************************************!*\
-  !*** ./resources/sass/admin/index.scss ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./app/Modules/publicly/js/index.js ./app/Modules/publicly/sass/index.scss ./app/Modules/publicly/Shop/sass/index.scss ./app/Modules/publicly/Page/sass/index.scss ./resources/sass/admin/index.scss ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************!*\
+  !*** multi ./app/Modules/js/index.js ./app/Modules/sass/index.scss ./app/Modules/Admin/sass/index.scss ./app/Modules/Shop/sass/index.scss ***!
+  \********************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/publicly/js/index.js */"./app/Modules/publicly/js/index.js");
-__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/publicly/sass/index.scss */"./app/Modules/publicly/sass/index.scss");
-__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/publicly/Shop/sass/index.scss */"./app/Modules/publicly/Shop/sass/index.scss");
-__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/publicly/Page/sass/index.scss */"./app/Modules/publicly/Page/sass/index.scss");
-module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/resources/sass/admin/index.scss */"./resources/sass/admin/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.2/app/Modules/js/index.js */"./app/Modules/js/index.js");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.2/app/Modules/sass/index.scss */"./app/Modules/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.2/app/Modules/Admin/sass/index.scss */"./app/Modules/Admin/sass/index.scss");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.2/app/Modules/Shop/sass/index.scss */"./app/Modules/Shop/sass/index.scss");
 
 
 /***/ })

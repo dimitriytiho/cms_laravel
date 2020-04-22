@@ -61,26 +61,38 @@ class Handler extends ExceptionHandler
             if ($code == 401) {
                 $title = __('s.unauthorized_error');
                 $message = __('s.whoops_no_auth');
-                Log::critical("$title. " . App::dataUser(true) . "Error in " . __METHOD__);
+                App::getError($title, __METHOD__, false, 'critical');
                 $status = 401; // HTTP/1.0 401 Unauthorized
 
                 // Ошибки 500
             } elseif ($code == 500 || $code == 419 || $code == 422) {
                 $title = __('s.unauthorized_error');
                 $message = __('s.whoops_no_server');
-                Log::critical("$title. " . App::dataUser(true) . "Error in " . __METHOD__);
+                App::getError($title, __METHOD__, false, 'critical');
                 $status = 500; // 500 Internal Server Error
 
                 // Ошибки 404 и прочии
             } else {
                 $title = __('s.page_not_found');
                 $message = __('s.whoops_no_page');
-                Log::info("$title. " . App::dataUser(true) . "Error in " . __METHOD__);
+                App::getError($title, __METHOD__, false, 'critical');
                 $status = 404; // HTTP/1.1 404 Not Found
             }
 
             App::setMeta($title);
-            return response()->view('views.errors.404', compact('title', 'message'), $status);
+            $modulesPath = config('modules.path');
+            $viewPath = config('modules.views');
+            $view = 'views.errors.404';
+
+            // Переопределим путь к видам
+            view()->getFinder()->setPaths($modulesPath);
+
+            if (view()->exists($view)) {
+                return response()->view('views.errors.404', compact('title', 'message', 'viewPath'), $status);
+
+            } else {
+                return redirect('/error.php');
+            }
         }
 
 

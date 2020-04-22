@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./app/Modules/publicly/Shop/js/cart.js":
-/*!**********************************************!*\
-  !*** ./app/Modules/publicly/Shop/js/cart.js ***!
-  \**********************************************/
+/***/ "./app/Modules/Shop/js/cart.js":
+/*!*************************************!*\
+  !*** ./app/Modules/Shop/js/cart.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -209,28 +209,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ "./app/Modules/publicly/Shop/js/index.js":
-/*!***********************************************!*\
-  !*** ./app/Modules/publicly/Shop/js/index.js ***!
-  \***********************************************/
+/***/ "./app/Modules/Shop/js/index.js":
+/*!**************************************!*\
+  !*** ./app/Modules/Shop/js/index.js ***!
+  \**************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cart */ "./app/Modules/publicly/Shop/js/cart.js");
+/* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cart */ "./app/Modules/Shop/js/cart.js");
 /* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cart__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _script__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./script */ "./app/Modules/publicly/Shop/js/script.js");
+/* harmony import */ var _script__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./script */ "./app/Modules/Shop/js/script.js");
 /* harmony import */ var _script__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_script__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
 /***/ }),
 
-/***/ "./app/Modules/publicly/Shop/js/script.js":
-/*!************************************************!*\
-  !*** ./app/Modules/publicly/Shop/js/script.js ***!
-  \************************************************/
+/***/ "./app/Modules/Shop/js/script.js":
+/*!***************************************!*\
+  !*** ./app/Modules/Shop/js/script.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -238,14 +238,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1:
-/*!*****************************************************!*\
-  !*** multi ./app/Modules/publicly/Shop/js/index.js ***!
-  \*****************************************************/
+/***/ 2:
+/*!********************************************!*\
+  !*** multi ./app/Modules/Shop/js/index.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/publicly/Shop/js/index.js */"./app/Modules/publicly/Shop/js/index.js");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.2/app/Modules/Shop/js/index.js */"./app/Modules/Shop/js/index.js");
 
 
 /***/ })

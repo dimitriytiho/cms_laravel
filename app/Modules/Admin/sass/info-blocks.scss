@@ -1,0 +1,38 @@
+@import "config/params";
+@import "config/mixins";
+@import "config/blocks";
+
+.info-block {
+    .card {
+        background: lighten($primary-admin, 5%) !important;
+        &-body {
+            h4 {
+                font-size: 2.2rem;
+            }
+            i {
+                position: absolute;
+                top: 26%;
+                right: 8%;
+                font-size: 4rem;
+                color: $primary-admin;
+            }
+        }
+    }
+    &:hover {
+        .card-footer {
+            background-color: $primary-admin;
+        }
+    }
+    .card-footer {
+        @include transition;
+        i {
+            font-size: .8rem;
+        }
+    }
+}
+
+.gray-block {
+    .card-footer i {
+        font-size: .8rem;
+    }
+}

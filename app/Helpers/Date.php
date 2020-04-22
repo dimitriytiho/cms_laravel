@@ -36,10 +36,10 @@ class Date
 
 
     // Возвращает время в формате: 2017-09-01 00:00:00, принимает дату в метке Unix: 1544636288
-    public static function timeToTimestamp($date)
+    public static function timeToTimestamp(int $date)
     {
         if ($date) {
-            return date('Y-m-d H:i:s', (int)$date);
+            return date('Y-m-d H:i:s', $date);
         }
         return false;
     }

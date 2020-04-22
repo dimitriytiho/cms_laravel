@@ -1,0 +1,45 @@
+@import "config/params";
+@import "config/mixins";
+@import "config/blocks";
+
+#modal-id {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 9;
+    & > div {
+        position: fixed;
+        top: 7%;
+    }
+    .btn-link {
+        font-size: 1rem;
+        top: .4rem;
+        right: 0.9rem;
+    }
+}
+
+.modal-in {
+    animation: $transition-sm modal_in ease-out;
+    @keyframes modal_in {
+        from {
+            transform: scale(0);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+}
+
+.modal-out {
+    animation: $transition-sm modal_out ease-out;
+    @keyframes modal_out {
+        from {
+            transform: scale(1);
+        }
+        to {
+            transform: scale(0);
+        }
+    }
+}

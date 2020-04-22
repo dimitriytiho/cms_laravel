@@ -81,10 +81,1329 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./app/Modules/Admin/js/aside.js":
+/*!***************************************!*\
+  !*** ./app/Modules/Admin/js/aside.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cookie */ "./app/Modules/Admin/js/cookie.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functions */ "./app/Modules/Admin/js/functions.js");
+
+ // Функция после загрузки страницы
+
+document.addEventListener('DOMContentLoaded', function () {
+  var aside = document.querySelector('.aside');
+
+  if (aside) {
+    // Для мобильных
+    if (document.body.clientWidth < 768) {
+      aside.classList.add('d-none');
+      var headerIcon = document.getElementById('header__icon');
+      headerIcon.classList.remove('d-flex');
+      headerIcon.classList.add('d-none');
+      document.querySelector('#app main.container-fluid').classList.add('px-0');
+    }
+
+    var ms = 300,
+        asideA = aside.querySelectorAll('.aside__a');
+    var asideWidth = true,
+        asideWidthChange = document.querySelectorAll('.aside-width-change'),
+        asideWidthSave = _cookie__WEBPACK_IMPORTED_MODULE_0__["default"].getCookie('asideWidth'),
+        //asideWidthSave = localStorage.getItem('asideWidth'),
+    asideText = document.querySelectorAll('.aside-text'),
+        url = location.href,
+        closeMenu = true; // cookie.setCookie('asideWidth', main.asideWidthIcon)
+    // cookie.getCookie('asideWidth')
+    // Если есть сохранённое значение
+
+    if (asideWidthSave) {
+      asideWidthChange.forEach(function (el) {
+        el.style.width = asideWidthSave;
+      });
+
+      if (asideWidthSave === main.asideWidthText) {
+        asideText.forEach(function (el) {
+          el.style.display = 'inline';
+        });
+        asideWidth = false;
+      }
+    } else {
+      asideWidthChange.forEach(function (el) {
+        el.style.width = main.asideWidthText;
+      });
+    } // При клике на на .aside-width меняется ширина сайдбара
+
+
+    document.addEventListener('click', function (e) {
+      if (document.body.clientWidth > 768) {
+        // Для десктопов
+        if (e.target.classList.contains('aside-width')) {
+          e.preventDefault();
+          asideWidth = !asideWidth;
+
+          if (asideWidth) {
+            asideWidthChange.forEach(function (el) {
+              el.style.width = main.asideWidthIcon;
+            });
+            asideText.forEach(function (el) {
+              el.style.display = 'none';
+            });
+            _cookie__WEBPACK_IMPORTED_MODULE_0__["default"].setCookie('asideWidth', main.asideWidthIcon); //localStorage.setItem('asideWidth', main.asideWidthIcon)
+          } else {
+            asideWidthChange.forEach(function (el) {
+              el.style.width = main.asideWidthText;
+            });
+            _cookie__WEBPACK_IMPORTED_MODULE_0__["default"].setCookie('asideWidth', main.asideWidthText); //localStorage.setItem('asideWidth', main.asideWidthText)
+
+            setTimeout(function () {
+              asideText.forEach(function (el) {
+                el.style.display = 'inline';
+              });
+            }, ms);
+          }
+        }
+      } else {
+        // Для мобильных
+        if (e.target.classList.contains('aside-width')) {
+          e.preventDefault();
+          var menuMobile = document.getElementById('menu-mobile');
+          closeMenu = !closeMenu;
+
+          if (closeMenu) {
+            menuMobile.style.display = 'none';
+          } else {
+            menuMobile.style.display = 'block';
+          }
+        }
+      }
+    }); // Добавление активного элемента для главной
+    //if (main.url === url) url += '/'
+
+    var dashboardLink = aside.querySelector('a[data-title=Main]');
+
+    if (url === main.url + '/' && dashboardLink) {
+      dashboardLink.classList.add('active');
+    } // Добавление активного элемента
+
+
+    asideA.forEach(function (el) {
+      var asideTitle = _functions__WEBPACK_IMPORTED_MODULE_1__["default"].snake(el.dataset.title); // Приводим к snake-case
+      //const asideTitle = el.dataset.title.toLowerCase() // К нижнему регистру
+      // Если url содержит title, то добавить класс active
+
+      if (url.indexOf(asideTitle) + 1) {
+        el.classList.add('active');
+        return false;
+      }
+      /*if (url === el.href) {
+          el.classList.add('active')
+          return false;
+      }*/
+
+    });
+  }
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/axios.js":
+/*!***************************************!*\
+  !*** ./app/Modules/Admin/js/axios.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./message */ "./app/Modules/Admin/js/message.js");
+
+ // Функция после загрузки страницы
+
+document.addEventListener('DOMContentLoaded', function () {
+  var modal = document.getElementById('modal-confirm'),
+      btnOk = modal.querySelector('.btn-outline-primary'),
+      content = document.querySelector('.content'); // При клике на #slug-edit генерируется ссылка
+
+  var slugEdit = document.getElementById('slug-edit');
+
+  if (slugEdit) {
+    slugEdit.addEventListener('click', function (e) {
+      e.preventDefault();
+      var title = document.querySelector('form input[name=title]').value;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/cyrillic-to-latin', {
+        title: title
+      }).then(function (res) {
+        document.querySelector('form input[name=slug]').setAttribute('value', res.data);
+      })["catch"](function (e) {
+        _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
+      });
+    });
+  } // При клике на #transliterator транлитерируется текст
+
+
+  var transliterator = document.getElementById('transliterator');
+
+  if (transliterator) {
+    transliterator.addEventListener('click', function (e) {
+      var cyrillic = document.querySelector('.transliterator input[name=cyrillic]').value;
+
+      if (cyrillic) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/cyrillic-to-latin', {
+          title: cyrillic
+        }).then(function (res) {
+          document.querySelector('.transliterator input[name=latin]').setAttribute('value', res.data);
+        })["catch"](function (e) {
+          _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
+        });
+      }
+    });
+  } // При клике на #key-to-enter меняем ключ в БД
+
+
+  var keyToEnter = document.getElementById('key-to-enter');
+
+  if (keyToEnter) {
+    // Значени input, которое было изначально
+    var keyToEnterInputValue = document.querySelector('.key-to-enter input[name=to_change_key]').value;
+    keyToEnter.addEventListener('click', function (e) {
+      var keyToEnterValue = document.querySelector('.key-to-enter input[name=to_change_key]').value;
+
+      if (keyToEnterInputValue !== keyToEnterValue) {
+        // Минимум 6 символов
+        if (keyToEnterValue.length > 5) {
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/to-change-key', {
+            key: keyToEnterValue
+          }).then(function (res) {
+            // Сообщение об успехе
+            _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
+          })["catch"](function (e) {
+            _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
+          });
+        } else {
+          _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['min6']);
+        }
+      }
+    });
+  } // При клике на #select-product-category добавляется категория к товару
+
+
+  var selectProductCategory = document.getElementById('select-product-category'),
+      productAddCategoryBtn = document.getElementById('product-add-category');
+
+  if (selectProductCategory && productAddCategoryBtn) {
+    selectProductCategory.addEventListener('change', function (e) {
+      var categoryID = this.value,
+          categoryTitle = e.target.options[this.selectedIndex].dataset.title; //categoryTitle = e.target.options[this.selectedIndex].textContent // Чтобы получить текст option у select при событии change
+      // Появление кнопки, задать data-category-id и data-category-title
+
+      if (categoryID != 0) {
+        productAddCategoryBtn.classList.remove('js-none');
+        productAddCategoryBtn.dataset.categoryId = categoryID;
+        productAddCategoryBtn.dataset.categoryTitle = categoryTitle;
+      } else {
+        productAddCategoryBtn.classList.add('js-none');
+        productAddCategoryBtn.dataset.categoryId = '';
+        productAddCategoryBtn.dataset.categoryTitle = '';
+      }
+    });
+    productAddCategoryBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = e.target.dataset.url,
+          urlDestroy = e.target.dataset.urlDestroy,
+          productID = e.target.dataset.productId,
+          categoryID = e.target.dataset.categoryId,
+          categoryTitle = e.target.dataset.categoryTitle,
+          divParent = document.getElementById('category-many-elements'),
+          html = "<div class=\"mr-4 many-elements\">\n                            <span class=\"many-elements__text\">".concat(categoryTitle, "</span>\n                            <a data-url=\"").concat(urlDestroy, "\" data-category-id=\"").concat(categoryID, "\" class=\"text-primary many-elements__close cur\">&times;</a>\n                        </div>");
+
+      if (url && categoryID != 0) {
+        // Отправить post запрос
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
+          productID: productID,
+          categoryID: categoryID
+        }).then(function (res) {
+          if (selectProductCategory && divParent) {
+            // Удалить кнопку
+            if (productAddCategoryBtn) {
+              productAddCategoryBtn.classList.add('js-none');
+            } // Добавить атрибут disabled к отправляемуму option
+
+
+            selectProductCategory.options[selectProductCategory.selectedIndex].setAttribute('disabled', true); // Вставить html категории
+
+            divParent.innerHTML += html;
+          }
+
+          _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
+        })["catch"](function (e) {
+          _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
+        });
+      }
+    });
+  } // При клике на .many-elements__close удаляется категория у товара
+
+
+  var productCategoryDestroy = document.getElementById('category-many-elements');
+
+  if (productCategoryDestroy) {
+    productCategoryDestroy.addEventListener('click', function (e) {
+      if (e.target.classList.contains('many-elements__close')) {
+        var el = e.target.parentNode,
+            url = e.target.dataset.url,
+            categoryID = e.target.dataset.categoryId; // Вызов модального окна
+
+        if (modal && btnOk) {
+          var modalInstance = new Bootstrap.Modal(modal); // Открыть модальное окно
+
+          modalInstance.show();
+          btnOk.addEventListener('click', function () {
+            // Закрыть модальное окно
+            modalInstance.hide(); //if (!categoryID) message.error(e)
+            // Отправить post запрос
+
+            axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
+              categoryID: categoryID
+            }).then(function (res) {
+              // Удалить элемент
+              el.remove(); // Сообщение об успехе
+
+              _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data); // Удалить атрибут disabled у option с отправляемой категорией
+
+              if (selectProductCategory) {
+                var options = selectProductCategory.childNodes;
+
+                if (options) {
+                  options.forEach(function (el) {
+                    if (el.value == categoryID) {
+                      el.removeAttribute('disabled');
+                      return;
+                    }
+                  });
+                }
+              }
+            })["catch"](function (e) {
+              _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
+            });
+          });
+        }
+      }
+    });
+  } // При клике на #change-password-btn меняем пароль у пользователя
+
+
+  var changePassword = document.getElementById('change-password-btn');
+
+  if (changePassword) {
+    changePassword.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = main.url + '/user-change-password',
+          userID = e.target.dataset.userId,
+          password = document.querySelector('input[name=password]'),
+          confirm = document.querySelector('input[name=password_confirmation]');
+
+      if (password && confirm) {
+        if (password.value && confirm.value) {
+          if (password.value.toString().length > 5) {
+            if (password.value === confirm.value) {
+              // Отправить post запрос
+              axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
+                userID: userID,
+                password: password.value
+              }).then(function (res) {
+                // При успешном ответе
+                var changePasswordTrigger = document.querySelector('button[data-target="#change-password"]');
+
+                if (changePasswordTrigger) {
+                  var collapseInit = new Bootstrap.Collapse(changePasswordTrigger),
+                      _password = document.querySelector('input[name=password]'),
+                      _confirm = document.querySelector('input[name=password_confirmation]'); // Inputs password и confirm очистим значения
+
+
+                  if (_password && _confirm) {
+                    _password.value = '';
+                    _confirm.value = '';
+                  } // Закроем открытый collapse
+
+
+                  collapseInit.hide();
+                } // Сообщение об успехе
+
+
+                _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
+              })["catch"](function (e) {
+                _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
+              });
+            } else {
+              _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['password_confirm_must_match']);
+            }
+          } else {
+            _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['min6']);
+          }
+        } else {
+          _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['data_has_not_changed']);
+        }
+      }
+    });
+  } // Удаление картинки по клику
+
+
+  content.addEventListener('click', function (e) {
+    var removeClass = 'img-remove'; // Делегируем событие клик
+
+    if (table && e.target && e.target.classList.contains(removeClass)) {
+      e.preventDefault(); // Вызов модального окна
+
+      if (e.target && modal && btnOk) {
+        var modalInstance = new Bootstrap.Modal(modal),
+            img = e.target.dataset.img,
+            maxFiles = e.target.dataset.maxFiles;
+
+        if (img && maxFiles) {
+          // Открыть модальное окно
+          modalInstance.show();
+
+          btnOk.onclick = function () {
+            // Закрыть модальное окно
+            modalInstance.hide(); // Отправить post запрос
+
+            axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/img-remove', {
+              table: table,
+              img: img,
+              maxFiles: maxFiles,
+              "class": currentClass
+            }).then(function (res) {
+              // Если одиночная загрузка картинок, то заменим название на название по-умолчанию
+              if (maxFiles <= 1) {
+                var avatar = document.getElementById('avatar');
+                e.target.parentElement.setAttribute('href', defaultImg);
+                e.target.parentElement.querySelector('img').setAttribute('src', defaultImg);
+                e.target.style.display = 'none'; // Если меняется картинка пользователя, то заменим её в шапке сайта
+
+                if (defaultImg && currentClass === 'User' && imgUploadID === curID && avatar) {
+                  avatar.setAttribute('src', defaultImg);
+                } // Если множественная загрузка картинок, то удалим картинку
+
+              } else {
+                e.target.parentElement.remove();
+              } // Сообщение об успехе
+
+
+              _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
+            })["catch"](function (e) {
+              _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['error_occurred']);
+            });
+          };
+        }
+      }
+    }
+  });
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/commands.js":
+/*!******************************************!*\
+  !*** ./app/Modules/Admin/js/commands.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Функция после загрузки страницы
+document.addEventListener('DOMContentLoaded', function () {
+  // Блок commands
+  var commands = document.querySelector('.command');
+
+  if (commands) {
+    var btn = commands.querySelector('form button'),
+        preset = document.getElementById('preset-command'),
+        commandInput = commands.querySelector('#full-command'),
+        hidden = commands.querySelector('form input[type=hidden][name=command]'),
+        start = 'php artisan '; // Блокируется кнопка формы
+
+    btn.classList.add('disabled'); // При изменении select
+
+    preset.addEventListener('change', function (e) {
+      hidden.setAttribute('value', e.target.value);
+      commandInput.value = start + e.target.value; // Разблокируется кнопка формы
+
+      btn.classList.remove('disabled');
+    }); // При изменении input
+
+    commandInput.addEventListener('input', function (e) {
+      hidden.setAttribute('value', e.target.value); // Разблокируется кнопка формы
+
+      btn.classList.remove('disabled');
+    });
+  }
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/confirm.js":
+/*!*****************************************!*\
+  !*** ./app/Modules/Admin/js/confirm.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Функция после загрузки страницы
+document.addEventListener('DOMContentLoaded', function () {
+  // При отправки формы с .confirm-form будет подтвержение отправки
+  document.addEventListener('submit', function (e) {
+    if (e.target.classList.contains('confirm-form')) {
+      e.preventDefault();
+      var modal = document.getElementById('modal-confirm'),
+          modalInstance = new Bootstrap.Modal(modal),
+          btnOk = modal.querySelector('.btn-outline-primary'); // Открыть модальное окно
+
+      modalInstance.show();
+      btnOk.addEventListener('click', function () {
+        e.target.submit();
+        modalInstance.hide();
+      }.bind(e));
+    }
+  }); // При клике по ссылке .confirm-link будет подтвержение отправки (добавить атрибуты data-toggle="modal" data-target="#modal-confirm")
+
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('confirm-link')) {
+      e.preventDefault();
+      var modal = document.getElementById('modal-confirm'),
+          modalInstance = new Bootstrap.Modal(modal),
+          btnOk = modal.querySelector('.btn-outline-primary'),
+          href = e.target.href,
+          spinner = document.getElementById('spinner'); // Открыть модальное окно
+
+      modalInstance.show();
+      btnOk.addEventListener('click', function () {
+        // Закрыть модальное окно
+        modalInstance.hide(); // Включить спинер
+
+        if (spinner) {
+          spinner.style.display = 'block';
+        } // Переход по ссылке
+
+
+        document.location.href = href;
+      });
+    }
+  });
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/cookie.js":
+/*!****************************************!*\
+  !*** ./app/Modules/Admin/js/cookie.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  // Возвращает куки с указанным name, или false, если ничего не найдено.
+  getCookie: function getCookie(name) {
+    var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+    return matches ? decodeURIComponent(matches[1]) : false;
+  },
+
+  /*
+  * Устанавливает куку.
+  * name - имя куки.
+  * value - значение куки.
+  * options - опции, например setCookie('user', 'John', {secure: true}), необязательный параметр.
+  */
+  setCookie: function setCookie(name, value) {
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var isCookie = navigator.cookieEnabled,
+        date = new Date(),
+        dateCookie = new Date(date.getTime() + main.cookie);
+
+    if (isCookie) {
+      options = {
+        path: '/',
+        expires: dateCookie // При необходимости добавьте другие значения по-умолчанию
+
+      };
+
+      if (options.expires.toUTCString) {
+        options.expires = options.expires.toUTCString();
+      }
+
+      var updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+      for (var optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        var optionValue = options[optionKey];
+
+        if (optionValue !== true) {
+          updatedCookie += "=" + optionValue;
+        }
+      }
+
+      document.cookie = updatedCookie;
+    }
+  },
+  // Удалить куку с указанным name.
+  deleteCookie: function deleteCookie(name) {
+    setCookie(name, '', {
+      'max-age': -1
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/dropzone.js":
+/*!******************************************!*\
+  !*** ./app/Modules/Admin/js/dropzone.js ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./message */ "./app/Modules/Admin/js/message.js");
+
+window.Dropzone = __webpack_require__(/*! dropzone */ "./node_modules/dropzone/dist/dropzone.js");
+Dropzone.autoDiscover = false;
+/*
+* Задайте JS переменные в основном шаблоне:
+- imgMaxSizeHD - максимальное HD разшение картинок,
+- imgMaxSize - максимальное среднее разшение картинок,
+- imgMaxSizeSM - максимальное маленькое разшение картинок,
+- maxFilesOne - кол-во для одиночной загрузки,
+- maxFilesMany - кол-во для множественной загрузки,
+- imgURL - URL, на который будет отправлять запрос,
+- currentClass - название модели, с которой работаем в данный момент,
+- table - Таблица в БД, в которую сохранить картинку,
+- imgRequestName - начальная часть названия передаваемой картинки,
+- defaultImg - картинка по-умолчанию,
+- imgUploadID - ID элемента, для которого картинка.
+*
+* В html используйте для одной картинке: <div id="dzOne" class="dropzone"></div>
+* Или для многожественной загрузки: <div id="dzMany" class="dropzone"></div>
+*
+* Задайте id dropzone-images для div, в который загружать теги img, после успешной загрузки картинки.
+*
+* Необходимые переводы из массива translations: you_have_reached_maximum_file_upload_allowed, allowed_to_upload_files, upload_success, error_occurred
+*/
+
+var dzOneEl = '#dzOne',
+    dzOneSelector = document.querySelector(dzOneEl),
+    dzManyEl = '#dzMany',
+    dzManySelector = document.querySelector(dzManyEl); // Для загрузки одной картинки
+
+if (dzOneSelector) {
+  var dzOne = dropzone(dzOneEl, maxFilesOne, imgMaxSizeSM);
+} // Для множественной загрузки
+
+
+if (dzManySelector) {
+  var dzMany = dropzone(dzManyEl, maxFilesMany, imgMaxSizeHD);
+}
+/*
+* Функция по загрузки файлов.
+* dropzoneElement - селектор html области загрузки файлов.
+* maxFiles - максимальное кол-во файлов для разовой загрузки, кол-во шт.
+* resizeMax - максимальное разрешение в px, которое будем сохранять на сервере.
+*/
+
+
+function dropzone(dropzoneElement, maxFiles, resizeMax) {
+  var acceptedFiles = '.jpg, .jpeg, .png, .gif',
+      imgURL = main.url + '/img-upload',
+      dzImages = document.getElementById('dropzone-images'),
+      dzGallery = document.getElementById('dropzone-gallery'),
+      avatar = document.getElementById('avatar');
+  return new Dropzone(dropzoneElement, {
+    url: imgURL,
+    headers: {
+      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+    },
+    resizeWidth: resizeMax,
+    resizeHeight: resizeMax,
+    //resizeQuality: 0.9, // По-умолчанию 0.8
+    //resizeMethod: 'contain', // Можно выбрать crop для жесткого обрезания картинки
+    maxFiles: maxFiles,
+    parallelUploads: maxFiles,
+    dictDefaultMessage: "<div class=\"dz-message\">".concat(translations['select_file_or_drag_here'], "</div>"),
+    dictMaxFilesExceeded: translations['you_have_reached_maximum_file_upload_allowed'] + '{{maxFiles}}',
+    acceptedFiles: acceptedFiles,
+    dictInvalidFileType: translations['allowed_to_upload_files'] + acceptedFiles,
+    init: function init() {
+      // Формируем данные, которые передаём в контроллер
+      this.on('sending', function (file, xhr, formData) {
+        // Передаваемая картинка
+        formData.append('file', file); // Таблица в БД, в которую сохранить картинку
+
+        formData.append('table', table); // Начальная часть названия передаваемой картинки
+
+        formData.append('class', currentClass); // ID элемента, для которого картинка
+
+        formData.append('imgUploadID', imgUploadID); // Начальная часть названия передаваемой картинки
+
+        formData.append('name', imgRequestName); // Если передаём одну картинку, то передать 1. Если передаём множество картинок, то передать цифру больше 1
+
+        formData.append('maxFiles', maxFiles);
+      });
+    },
+    success: function success(file, res) {
+      // const res = JSON.parse(response)
+      var img = file.dataURL,
+          // Картинка времменая из JS
+      imgHidden = document.querySelector('input[name=img]'); //console.log(res.test); return
+
+      if (res.answer === 'success') {
+        // Одиночная или множественная загрузка
+        if (maxFiles <= 1) {
+          if (imgHidden) {
+            imgHidden.setAttribute('value', res.href);
+          } // Если меняется картинка пользователя, то заменим её в шапке сайта
+
+
+          if (currentClass === 'User' && imgUploadID === curID && avatar) {
+            avatar.setAttribute('src', res.href);
+          } // Вставим картинку
+
+
+          if (dzImages) {
+            dzImages.innerHTML = "<a href=\"".concat(res.href, "\" target=\"_blank\"><i class=\"material-icons img-remove\" data-img=\"").concat(res.href, "\" data-max-files=\"").concat(maxFiles, "\">clear</i><img src=\"").concat(res.href, "\" alt=\"\"></a>");
+          }
+        } else {
+          // Вставим картинку
+          if (dzGallery) {
+            var appendImg = document.createElement('a');
+            appendImg.setAttribute('href', res.href);
+            appendImg.setAttribute('target', '_blank');
+            appendImg.innerHTML = "<i class=\"material-icons img-remove\" data-img=\"".concat(res.href, "\" data-max-files=\"").concat(maxFiles, "\">clear</i><img src=\"").concat(res.href, "\" alt=\"\">");
+            dzGallery.appendChild(appendImg);
+          }
+        } // Сообщение об успехе
+
+
+        _message__WEBPACK_IMPORTED_MODULE_0__["default"].success(translations['upload_success'] + ' ' + res.name);
+      } else {
+        _message__WEBPACK_IMPORTED_MODULE_0__["default"].error(res.answer);
+      } // Очистим загрузочную область
+
+
+      this.removeAllFiles();
+    },
+    error: function error(file, _error) {
+      _message__WEBPACK_IMPORTED_MODULE_0__["default"].error(_error); // Очистим загрузочную область
+
+      this.removeAllFiles();
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/forms.js":
+/*!***************************************!*\
+  !*** ./app/Modules/Admin/js/forms.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Скрипты для Форм
+// При клике на ссылку или кнопку добавиться disabled
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('one-click')) {
+    e.target.classList.add('disabled'); //e.target.setAttribute('disabled', 'true')
+  }
+}); // При клике на ссылку или кнопку добавиться disabled
+
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('spinner-click')) {
+    var span = document.createElement('span');
+    span.classList.add('spinner-grow', 'spinner-grow-sm', 'ml-1');
+    e.target.appendChild(span);
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/functions.js":
+/*!*******************************************!*\
+  !*** ./app/Modules/Admin/js/functions.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  // Функция задаёт одинаковую высоту блоков html, передать название класса
+  getHeight: function getHeight($class) {
+    var els = document.querySelectorAll('.' + $class);
+    var arr = [];
+    els.forEach(function (el) {
+      arr.push(el.offsetHeight);
+    });
+
+    if (arr) {
+      var maxHeight = Math.max.apply(Math, arr) + 'px';
+      els.forEach(function (el) {
+        el.style.height = maxHeight;
+      });
+    }
+  },
+  // Функция показывает селектор, у которого в css прописано display: none
+  showJS: function showJS($selector) {
+    var el = document.querySelector($selector);
+    if (el) el.style.display = 'block';
+  },
+  // Прокрутить к верху страницы
+  scrollUp: function scrollUp() {
+    if (typeof window === 'undefined') return;
+    window.scrollTo(0, 0);
+  },
+  // Сравнить 2 массива
+  diffArr: function diffArr(arr1, arr2) {
+    return JSON.stringify(arr1) === JSON.stringify(arr2);
+  },
+  // Строку к snake-case
+  snake: function snake(string) {
+    return string.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/\s+/g, '-').toLowerCase();
+  },
+  // Получить значение формы в объект (передать уникальный идефикатор формы)
+  serialize: function serialize(form) {
+    var obj = {};
+    form = document.querySelector(form);
+
+    if (form) {
+      var inputs = form.querySelectorAll('input, textarea');
+
+      if (inputs) {
+        inputs.forEach(function (el) {
+          var name = el.name,
+              value = el.value;
+
+          if (name && value) {
+            obj[name] = value;
+          }
+        });
+      }
+    }
+
+    return obj;
+  },
+  strReplace: function strReplace(search, replace, str) {
+    if (str) {
+      return str.replace(search, replace);
+    }
+
+    return false;
+  },
+  // Первая буква заглавная
+  ucFirst: function ucFirst(str) {
+    return str.substr(0, 1).toUpperCase() + str.substr(1);
+  },
+  // Заменяет в строке все _ на -
+  snake_case: function snake_case(str) {
+    return str.replace(/-/g, '_');
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/index.js":
+/*!***************************************!*\
+  !*** ./app/Modules/Admin/js/index.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var imask__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! imask */ "./node_modules/imask/esm/index.js");
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./axios */ "./app/Modules/Admin/js/axios.js");
+/* harmony import */ var _native__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./native */ "./app/Modules/Admin/js/native.js");
+/* harmony import */ var _native__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_native__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _dropzone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dropzone */ "./app/Modules/Admin/js/dropzone.js");
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pulse */ "./app/Modules/Admin/js/pulse.js");
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_pulse__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./forms */ "./app/Modules/Admin/js/forms.js");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_forms__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _scroll__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scroll */ "./app/Modules/Admin/js/scroll.js");
+/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./message */ "./app/Modules/Admin/js/message.js");
+/* harmony import */ var _aside__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./aside */ "./app/Modules/Admin/js/aside.js");
+/* harmony import */ var _commands__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./commands */ "./app/Modules/Admin/js/commands.js");
+/* harmony import */ var _commands__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_commands__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./validate */ "./app/Modules/Admin/js/validate.js");
+/* harmony import */ var _confirm__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./confirm */ "./app/Modules/Admin/js/confirm.js");
+/* harmony import */ var _confirm__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_confirm__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./scripts */ "./app/Modules/Admin/js/scripts.js");
+/*import bsn from 'bootstrap.native/dist/bootstrap-native-v4'
+export default bsn*/
+window.Bootstrap = __webpack_require__(/*! bootstrap.native/dist/bootstrap-native-v4 */ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js");
+
+
+
+
+
+
+
+
+
+
+
+
+ // Маска ввода телефона
+
+var tel = document.querySelectorAll('form input[name=tel]'),
+    maskOptions = {
+  mask: '+{7}(000)000-00-00' // lazy: false // Чтобы маска была сразу видна
+
+};
+
+if (tel[0]) {
+  tel.forEach(function (el) {
+    var mask = Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(el, maskOptions);
+  });
+}
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/message.js":
+/*!*****************************************!*\
+  !*** ./app/Modules/Admin/js/message.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var timeout = 4000;
+
+function alert(text) {
+  var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : timeout;
+  var alertClass = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'danger';
+  var getAlert = document.querySelector('#get-alert'),
+      html = "\n        <div class=\"row alert-js\">\n            <div class=\"col-md-10 offset-md-1 anime-from-center\">\n                <div class=\"alert alert-".concat(alertClass, " py-4 px-5\" role=\"alert\">\n                    <span>").concat(text, "</span>\n                </div>\n            </div>\n        </div>");
+  getAlert.innerHTML = html;
+  setTimeout(function () {
+    getAlert.innerHTML = '';
+  }, ms);
+}
+
+function hideAlert() {
+  var ms = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : timeout - 500;
+  var alert = document.querySelector('.alert-js > div');
+
+  if (alert) {
+    setTimeout(function () {
+      alert.classList.remove('anime-from-center');
+      alert.classList.add('anime-to-center');
+    }, ms);
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  error: function error(text) {
+    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    ms = !ms ? timeout : ms;
+    alert(text, ms);
+    hideAlert();
+
+    if (reload) {
+      setTimeout(function () {
+        location.reload();
+      }, ms);
+    }
+  },
+  success: function success(text) {
+    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    ms = !ms ? timeout : ms;
+    alert(text, ms, 'success');
+    hideAlert();
+
+    if (reload) {
+      setTimeout(function () {
+        location.reload();
+      }, ms);
+    }
+  },
+  warning: function warning(text) {
+    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    ms = !ms ? timeout : ms;
+    alert(text, ms, 'warning');
+    hideAlert();
+
+    if (reload) {
+      setTimeout(function () {
+        location.reload();
+      }, ms);
+    }
+  },
+  info: function info(text) {
+    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    ms = !ms ? timeout : ms;
+    alert(text, ms, 'info');
+    hideAlert();
+
+    if (reload) {
+      setTimeout(function () {
+        location.reload();
+      }, ms);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/native.js":
+/*!****************************************!*\
+  !*** ./app/Modules/Admin/js/native.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// import bsn from './index'
+document.addEventListener('DOMContentLoaded', function () {
+  // При collapse с классом .change-icon изменение иконки вверх вниз
+  var changeIcon = document.querySelectorAll('.change-icon');
+
+  if (changeIcon[0]) {
+    changeIcon.forEach(function (el) {
+      var collapseEl = document.getElementById(el.getAttribute('aria-controls')); // Собыите открытие collapse
+
+      collapseEl.addEventListener('show.bs.collapse', function (event) {
+        var icon = event.target.closest('.row').querySelector('i.material-icons'); // Меняем иконку
+
+        icon.textContent = 'keyboard_arrow_up';
+      }, false); // Собыите закрытие collapse
+
+      collapseEl.addEventListener('hide.bs.collapse', function (event) {
+        var icon = event.target.closest('.row').querySelector('i.material-icons'); // Меняем иконку
+
+        icon.textContent = 'keyboard_arrow_down';
+      }, false);
+    });
+  }
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/pulse.js":
+/*!***************************************!*\
+  !*** ./app/Modules/Admin/js/pulse.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+* При кликена на .btn-pulse эффект пульса.
+* Если есть вложенный тег, то установить .btn-pulse-child.
+*/
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('btn-pulse')) {
+    var div = document.createElement('div'),
+        style = div.style,
+        max = Math.max(e.target.offsetWidth, e.target.offsetHeight),
+        rect = e.target.getBoundingClientRect(),
+        px = 'px',
+        color = window.getComputedStyle(e.target).backgroundColor,
+        textBtn = e.target.textContent,
+        spanBtn = e.target.querySelector('span');
+    timeDeleteDiv = 300;
+    div.classList.add('pulseJS');
+    style.width = style.height = max + px;
+    style.left = e.clientX - rect.left - max / 2 + px;
+    style.top = e.clientY - rect.top - max / 2 + px;
+    style.backgroundColor = color;
+    style.opacity = .4;
+    e.target.appendChild(div);
+
+    if (!spanBtn) {
+      setTimeout(function () {
+        e.target.textContent = textBtn;
+      }, timeDeleteDiv);
+    }
+  } else if (e.target.classList.contains('btn-pulse-child')) {
+    var parent = e.target.closest('.btn-pulse'),
+        _div = document.createElement('div'),
+        _style = _div.style,
+        _max = Math.max(parent.offsetWidth, parent.offsetHeight),
+        _rect = parent.getBoundingClientRect(),
+        _px = 'px',
+        _color = window.getComputedStyle(e.target).backgroundColor,
+        _textBtn = e.target.textContent,
+        _timeDeleteDiv = 300;
+
+    _div.classList.add('pulseJS');
+
+    _style.width = _style.height = _max + _px;
+    _style.left = e.clientX - _rect.left - _max / 2 + _px;
+    _style.top = e.clientY - _rect.top - _max / 2 + _px;
+    _style.backgroundColor = _color;
+    _style.opacity = .4;
+    parent.appendChild(_div);
+    setTimeout(function () {
+      parent.textContent = _textBtn;
+    }, _timeDeleteDiv);
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/scripts.js":
+/*!*****************************************!*\
+  !*** ./app/Modules/Admin/js/scripts.js ***!
+  \*****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _tabs_save__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tabs_save */ "./app/Modules/Admin/js/tabs_save.js");
+ // Функция после загрузки страницы
+
+document.addEventListener('DOMContentLoaded', function () {
+  // При изменении .select-change select делается запрос
+  var selectChange = document.getElementById('select-change');
+
+  if (selectChange) {
+    selectChange.addEventListener('change', function (e) {
+      window.location = e.target.dataset.action + '?value=' + e.target.value;
+    });
+  } // Сохраняем ранее открытую вкладку на странице редактирования
+
+
+  Object(_tabs_save__WEBPACK_IMPORTED_MODULE_0__["default"])('tabs-edit');
+  Object(_tabs_save__WEBPACK_IMPORTED_MODULE_0__["default"])('import-export');
+  /*const tabsEdit = document.getElementById('tabs-edit'),
+      tabEditClass = 'nav-link',
+      tabEditSave = localStorage.getItem('tabEdit'),
+      tabEditSaveID = document.getElementById(tabEditSave)
+   // Если сохранено в LocalStorage id элемента, то установим класс active к этому элементу
+  if (tabEditSave && tabsEdit) {
+      const tabEditLinks = tabsEdit.querySelectorAll('.' + tabEditClass),
+          tabEditPanels = document.querySelectorAll('.tab-pane')
+       if (tabEditSaveID && tabEditLinks) {
+          tabEditLinks.forEach(function (el) {
+              el.classList.remove('active')
+               if (el.id === tabEditSave) {
+                  el.classList.add('active')
+              }
+           })
+      }
+       if (tabEditSaveID && tabEditPanels) {
+          tabEditPanels.forEach(function (el) {
+              el.classList.remove('active')
+              el.classList.remove('show')
+               if (el.id === tabEditSave + '-link') {
+                  el.classList.add('show')
+                  el.classList.add('active')
+              }
+          })
+      }
+  }
+   // При клике на таб, запишем в LocalStorage id элемента
+  if (tabsEdit) {
+      tabsEdit.onclick = function(e) {
+          if (e.target.classList.contains(tabEditClass)) {
+              if (e.target.id) {
+                  localStorage.setItem('tabEdit', e.target.id)
+              }
+          }
+      }
+  }*/
+
+  /*const browserHeight = document.documentElement.clientHeight,
+      headerHeight = document.querySelector('.header').offsetHeight,
+      topPanelHeight = document.querySelector('.top-panel').offsetHeight,
+      footerHeight = document.querySelector('.footer').offsetHeight,
+      content = document.querySelector('.content'),
+      px = 'px'
+   // Задаётся высота блока с контентом, если она маленькая
+  if (browserHeight > content.offsetHeight + headerHeight + topPanelHeight + footerHeight) {
+      content.style.height = browserHeight - headerHeight - topPanelHeight - footerHeight + px
+  }*/
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/scroll.js":
+/*!****************************************!*\
+  !*** ./app/Modules/Admin/js/scroll.js ***!
+  \****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./app/Modules/Admin/js/functions.js");
+ // Функция после загрузки страницы
+
+document.addEventListener('DOMContentLoaded', function () {
+  var ms = 200; // Кнопка вверх
+
+  if (typeof window === 'undefined') return;
+  window.addEventListener('scroll', function () {
+    var btn = document.querySelector('#btn-up');
+    var top = window.pageYOffset || document.documentElement.offsetTop || 0;
+
+    if (top > 300) {
+      btn.style.display = 'block';
+      btn.classList.remove('anime-to-center');
+      btn.classList.add('anime-from-center');
+    } else {
+      btn.classList.remove('anime-from-center');
+      btn.classList.add('anime-to-center');
+      setTimeout(function () {
+        btn.style.display = 'none';
+      }, ms);
+    }
+  }); // При клике на кнопку вверх
+
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('btn-up-click')) {
+      _functions__WEBPACK_IMPORTED_MODULE_0__["default"].scrollUp();
+    }
+  });
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/tabs_save.js":
+/*!*******************************************!*\
+  !*** ./app/Modules/Admin/js/tabs_save.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return tabs_save; });
+/*
+ * Сохраняем ранее открытую вкладку на странице редактирования.
+ * Принимает id tab, использовать стандартный tab bootstrap.
+ */
+function tabs_save(tabsId) {
+  var tabsEdit = document.getElementById(tabsId),
+      tabEditClass = 'nav-link',
+      tabEditSave = localStorage.getItem(tabsId),
+      tabEditSaveID = document.getElementById(tabEditSave); // Если сохранено в LocalStorage id элемента, то установим класс active к этому элементу
+
+  if (tabsEdit && tabEditSave) {
+    var tabEditLinks = tabsEdit.querySelectorAll('.' + tabEditClass),
+        tabEditPanels = document.querySelectorAll('.tab-pane');
+
+    if (tabEditSaveID && tabEditLinks) {
+      tabEditLinks.forEach(function (el) {
+        el.classList.remove('active');
+
+        if (el.id === tabEditSave) {
+          el.classList.add('active');
+        }
+      });
+    }
+
+    if (tabEditSaveID && tabEditPanels) {
+      tabEditPanels.forEach(function (el) {
+        el.classList.remove('active');
+        el.classList.remove('show');
+
+        if (tabEditSave === el.getAttribute('aria-labelledby')) {
+          el.classList.add('show');
+          el.classList.add('active');
+        }
+      });
+    }
+  } // При клике на таб, запишем в LocalStorage id элемента
+
+
+  if (tabsEdit) {
+    tabsEdit.onclick = function (e) {
+      if (e.target.classList.contains(tabEditClass)) {
+        if (e.target.id) {
+          localStorage.setItem(tabsId, e.target.id);
+        }
+      }
+    };
+  }
+}
+
+/***/ }),
+
+/***/ "./app/Modules/Admin/js/validate.js":
+/*!******************************************!*\
+  !*** ./app/Modules/Admin/js/validate.js ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./app/Modules/Admin/js/functions.js");
+ // import message from "./message";
+// import libs from "../default/libs";
+
+var form = document.querySelector('.needs-validation');
+
+if (form) {
+  var required = form.querySelectorAll('input[required], textarea[required]'),
+      btn = form.querySelector('button[type=submit]'),
+      inputs = _functions__WEBPACK_IMPORTED_MODULE_0__["default"].serialize('.content form');
+  var submit = true; // Проверка каждого input c required
+
+  required.forEach(function (el) {
+    // Если все input заполнены
+    if (el.value || el.getAttribute('type') === 'checkbox' && !el.checked) {
+      submit = false;
+    } // При потери фокуса
+
+
+    el.addEventListener('blur', function (e) {
+      if (!e.target.value || e.target.getAttribute('type') === 'checkbox' && !e.target.checked) {
+        e.target.classList.add('is-invalid');
+        submit = false;
+      } else {
+        e.target.classList.remove('is-invalid');
+        submit = true;
+      }
+    });
+  }); // Проверка, чтобы все input c required были заполнены, только тогда отправиться форма
+
+  /*form.addEventListener('submit', function(e) {
+       const newInputs = f.serialize('.content form')
+       // Если ни один input не изменился, то форма не отправится (выведется сообщение и перезагрузится страница)
+      if (f.diffArr(inputs, newInputs)) {
+          e.preventDefault()
+          message.info(translations['data_has_not_changed'], null, true)
+      }
+       if (submit) {
+          const span = document.createElement('span')
+          btn.classList.add('disabled')
+          span.classList.add('spinner-grow', 'spinner-grow-sm', 'ml-1')
+          btn.appendChild(span)
+       } else {
+          e.preventDefault()
+          form.classList.add('was-validated')
+          f.scrollUp()
+      }
+  })*/
+}
+
+/***/ }),
 
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
@@ -12885,1438 +14204,14 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/admin/aside.js":
-/*!*************************************!*\
-  !*** ./resources/js/admin/aside.js ***!
-  \*************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _default_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../default/cookie */ "./resources/js/default/cookie.js");
-/* harmony import */ var _default_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../default/functions */ "./resources/js/default/functions.js");
-
- // Функция после загрузки страницы
-
-document.addEventListener('DOMContentLoaded', function () {
-  var aside = document.querySelector('.aside');
-
-  if (aside) {
-    // Для мобильных
-    if (document.body.clientWidth < 768) {
-      aside.classList.add('d-none');
-      var headerIcon = document.getElementById('header__icon');
-      headerIcon.classList.remove('d-flex');
-      headerIcon.classList.add('d-none');
-      document.querySelector('#app main.container-fluid').classList.add('px-0');
-    }
-
-    var ms = 300,
-        asideA = aside.querySelectorAll('.aside__a');
-    var asideWidth = true,
-        asideWidthChange = document.querySelectorAll('.aside-width-change'),
-        asideWidthSave = _default_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].getCookie('asideWidth'),
-        //asideWidthSave = localStorage.getItem('asideWidth'),
-    asideText = document.querySelectorAll('.aside-text'),
-        url = location.href,
-        closeMenu = true; // cookie.setCookie('asideWidth', main.asideWidthIcon)
-    // cookie.getCookie('asideWidth')
-    // Если есть сохранённое значение
-
-    if (asideWidthSave) {
-      asideWidthChange.forEach(function (el) {
-        el.style.width = asideWidthSave;
-      });
-
-      if (asideWidthSave === main.asideWidthText) {
-        asideText.forEach(function (el) {
-          el.style.display = 'inline';
-        });
-        asideWidth = false;
-      }
-    } else {
-      asideWidthChange.forEach(function (el) {
-        el.style.width = main.asideWidthText;
-      });
-    } // При клике на на .aside-width меняется ширина сайдбара
-
-
-    document.addEventListener('click', function (e) {
-      if (document.body.clientWidth > 768) {
-        // Для десктопов
-        if (e.target.classList.contains('aside-width')) {
-          e.preventDefault();
-          asideWidth = !asideWidth;
-
-          if (asideWidth) {
-            asideWidthChange.forEach(function (el) {
-              el.style.width = main.asideWidthIcon;
-            });
-            asideText.forEach(function (el) {
-              el.style.display = 'none';
-            });
-            _default_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].setCookie('asideWidth', main.asideWidthIcon); //localStorage.setItem('asideWidth', main.asideWidthIcon)
-          } else {
-            asideWidthChange.forEach(function (el) {
-              el.style.width = main.asideWidthText;
-            });
-            _default_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].setCookie('asideWidth', main.asideWidthText); //localStorage.setItem('asideWidth', main.asideWidthText)
-
-            setTimeout(function () {
-              asideText.forEach(function (el) {
-                el.style.display = 'inline';
-              });
-            }, ms);
-          }
-        }
-      } else {
-        // Для мобильных
-        if (e.target.classList.contains('aside-width')) {
-          e.preventDefault();
-          var menuMobile = document.getElementById('menu-mobile');
-          closeMenu = !closeMenu;
-
-          if (closeMenu) {
-            menuMobile.style.display = 'none';
-          } else {
-            menuMobile.style.display = 'block';
-          }
-        }
-      }
-    }); // Добавление активного элемента для главной
-    //if (main.url === url) url += '/'
-
-    var dashboardLink = aside.querySelector('a[data-title=Main]');
-
-    if (url === main.url + '/' && dashboardLink) {
-      dashboardLink.classList.add('active');
-    } // Добавление активного элемента
-
-
-    asideA.forEach(function (el) {
-      var asideTitle = _default_functions__WEBPACK_IMPORTED_MODULE_1__["default"].snake(el.dataset.title); // Приводим к snake-case
-      //const asideTitle = el.dataset.title.toLowerCase() // К нижнему регистру
-      // Если url содержит title, то добавить класс active
-
-      if (url.indexOf(asideTitle) + 1) {
-        el.classList.add('active');
-        return false;
-      }
-      /*if (url === el.href) {
-          el.classList.add('active')
-          return false;
-      }*/
-
-    });
-  }
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/admin/axios.js":
-/*!*************************************!*\
-  !*** ./resources/js/admin/axios.js ***!
-  \*************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./message */ "./resources/js/admin/message.js");
-
- // Функция после загрузки страницы
-
-document.addEventListener('DOMContentLoaded', function () {
-  var modal = document.getElementById('modal-confirm'),
-      btnOk = modal.querySelector('.btn-outline-primary'),
-      content = document.querySelector('.content'); // При клике на #slug-edit генерируется ссылка
-
-  var slugEdit = document.getElementById('slug-edit');
-
-  if (slugEdit) {
-    slugEdit.addEventListener('click', function (e) {
-      e.preventDefault();
-      var title = document.querySelector('form input[name=title]').value;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/cyrillic-to-latin', {
-        title: title
-      }).then(function (res) {
-        document.querySelector('form input[name=slug]').setAttribute('value', res.data);
-      })["catch"](function (e) {
-        _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
-      });
-    });
-  } // При клике на #transliterator транлитерируется текст
-
-
-  var transliterator = document.getElementById('transliterator');
-
-  if (transliterator) {
-    transliterator.addEventListener('click', function (e) {
-      var cyrillic = document.querySelector('.transliterator input[name=cyrillic]').value;
-
-      if (cyrillic) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/cyrillic-to-latin', {
-          title: cyrillic
-        }).then(function (res) {
-          document.querySelector('.transliterator input[name=latin]').setAttribute('value', res.data);
-        })["catch"](function (e) {
-          _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
-        });
-      }
-    });
-  } // При клике на #key-to-enter меняем ключ в БД
-
-
-  var keyToEnter = document.getElementById('key-to-enter');
-
-  if (keyToEnter) {
-    // Значени input, которое было изначально
-    var keyToEnterInputValue = document.querySelector('.key-to-enter input[name=to_change_key]').value;
-    keyToEnter.addEventListener('click', function (e) {
-      var keyToEnterValue = document.querySelector('.key-to-enter input[name=to_change_key]').value;
-
-      if (keyToEnterInputValue !== keyToEnterValue) {
-        // Минимум 6 символов
-        if (keyToEnterValue.length > 5) {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/to-change-key', {
-            key: keyToEnterValue
-          }).then(function (res) {
-            // Сообщение об успехе
-            _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
-          })["catch"](function (e) {
-            _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
-          });
-        } else {
-          _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['min6']);
-        }
-      }
-    });
-  } // При клике на #select-product-category добавляется категория к товару
-
-
-  var selectProductCategory = document.getElementById('select-product-category'),
-      productAddCategoryBtn = document.getElementById('product-add-category');
-
-  if (selectProductCategory && productAddCategoryBtn) {
-    selectProductCategory.addEventListener('change', function (e) {
-      var categoryID = this.value,
-          categoryTitle = e.target.options[this.selectedIndex].dataset.title; //categoryTitle = e.target.options[this.selectedIndex].textContent // Чтобы получить текст option у select при событии change
-      // Появление кнопки, задать data-category-id и data-category-title
-
-      if (categoryID != 0) {
-        productAddCategoryBtn.classList.remove('js-none');
-        productAddCategoryBtn.dataset.categoryId = categoryID;
-        productAddCategoryBtn.dataset.categoryTitle = categoryTitle;
-      } else {
-        productAddCategoryBtn.classList.add('js-none');
-        productAddCategoryBtn.dataset.categoryId = '';
-        productAddCategoryBtn.dataset.categoryTitle = '';
-      }
-    });
-    productAddCategoryBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      var url = e.target.dataset.url,
-          urlDestroy = e.target.dataset.urlDestroy,
-          productID = e.target.dataset.productId,
-          categoryID = e.target.dataset.categoryId,
-          categoryTitle = e.target.dataset.categoryTitle,
-          divParent = document.getElementById('category-many-elements'),
-          html = "<div class=\"mr-4 many-elements\">\n                            <span class=\"many-elements__text\">".concat(categoryTitle, "</span>\n                            <a data-url=\"").concat(urlDestroy, "\" data-category-id=\"").concat(categoryID, "\" class=\"text-primary many-elements__close cur\">&times;</a>\n                        </div>");
-
-      if (url && categoryID != 0) {
-        // Отправить post запрос
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
-          productID: productID,
-          categoryID: categoryID
-        }).then(function (res) {
-          if (selectProductCategory && divParent) {
-            // Удалить кнопку
-            if (productAddCategoryBtn) {
-              productAddCategoryBtn.classList.add('js-none');
-            } // Добавить атрибут disabled к отправляемуму option
-
-
-            selectProductCategory.options[selectProductCategory.selectedIndex].setAttribute('disabled', true); // Вставить html категории
-
-            divParent.innerHTML += html;
-          }
-
-          _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
-        })["catch"](function (e) {
-          _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
-        });
-      }
-    });
-  } // При клике на .many-elements__close удаляется категория у товара
-
-
-  var productCategoryDestroy = document.getElementById('category-many-elements');
-
-  if (productCategoryDestroy) {
-    productCategoryDestroy.addEventListener('click', function (e) {
-      if (e.target.classList.contains('many-elements__close')) {
-        var el = e.target.parentNode,
-            url = e.target.dataset.url,
-            categoryID = e.target.dataset.categoryId; // Вызов модального окна
-
-        if (modal && btnOk) {
-          var modalInstance = new Bootstrap.Modal(modal); // Открыть модальное окно
-
-          modalInstance.show();
-          btnOk.addEventListener('click', function () {
-            // Закрыть модальное окно
-            modalInstance.hide(); //if (!categoryID) message.error(e)
-            // Отправить post запрос
-
-            axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
-              categoryID: categoryID
-            }).then(function (res) {
-              // Удалить элемент
-              el.remove(); // Сообщение об успехе
-
-              _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data); // Удалить атрибут disabled у option с отправляемой категорией
-
-              if (selectProductCategory) {
-                var options = selectProductCategory.childNodes;
-
-                if (options) {
-                  options.forEach(function (el) {
-                    if (el.value == categoryID) {
-                      el.removeAttribute('disabled');
-                      return;
-                    }
-                  });
-                }
-              }
-            })["catch"](function (e) {
-              _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
-            });
-          });
-        }
-      }
-    });
-  } // При клике на #change-password-btn меняем пароль у пользователя
-
-
-  var changePassword = document.getElementById('change-password-btn');
-
-  if (changePassword) {
-    changePassword.addEventListener('click', function (e) {
-      e.preventDefault();
-      var url = main.url + '/user-change-password',
-          userID = e.target.dataset.userId,
-          password = document.querySelector('input[name=password]'),
-          confirm = document.querySelector('input[name=password_confirmation]');
-
-      if (password && confirm) {
-        if (password.value && confirm.value) {
-          if (password.value.toString().length > 5) {
-            if (password.value === confirm.value) {
-              // Отправить post запрос
-              axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
-                userID: userID,
-                password: password.value
-              }).then(function (res) {
-                // При успешном ответе
-                var changePasswordTrigger = document.querySelector('button[data-target="#change-password"]');
-
-                if (changePasswordTrigger) {
-                  var collapseInit = new Bootstrap.Collapse(changePasswordTrigger),
-                      _password = document.querySelector('input[name=password]'),
-                      _confirm = document.querySelector('input[name=password_confirmation]'); // Inputs password и confirm очистим значения
-
-
-                  if (_password && _confirm) {
-                    _password.value = '';
-                    _confirm.value = '';
-                  } // Закроем открытый collapse
-
-
-                  collapseInit.hide();
-                } // Сообщение об успехе
-
-
-                _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
-              })["catch"](function (e) {
-                _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
-              });
-            } else {
-              _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['password_confirm_must_match']);
-            }
-          } else {
-            _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['min6']);
-          }
-        } else {
-          _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['data_has_not_changed']);
-        }
-      }
-    });
-  } // Удаление картинки по клику
-
-
-  content.addEventListener('click', function (e) {
-    var removeClass = 'img-remove'; // Делегируем событие клик
-
-    if (table && e.target && e.target.classList.contains(removeClass)) {
-      e.preventDefault(); // Вызов модального окна
-
-      if (e.target && modal && btnOk) {
-        var modalInstance = new Bootstrap.Modal(modal),
-            img = e.target.dataset.img,
-            maxFiles = e.target.dataset.maxFiles;
-
-        if (img && maxFiles) {
-          // Открыть модальное окно
-          modalInstance.show();
-
-          btnOk.onclick = function () {
-            // Закрыть модальное окно
-            modalInstance.hide(); // Отправить post запрос
-
-            axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/img-remove', {
-              table: table,
-              img: img,
-              maxFiles: maxFiles,
-              "class": currentClass
-            }).then(function (res) {
-              // Если одиночная загрузка картинок, то заменим название на название по-умолчанию
-              if (maxFiles <= 1) {
-                var avatar = document.getElementById('avatar');
-                e.target.parentElement.setAttribute('href', defaultImg);
-                e.target.parentElement.querySelector('img').setAttribute('src', defaultImg);
-                e.target.style.display = 'none'; // Если меняется картинка пользователя, то заменим её в шапке сайта
-
-                if (defaultImg && currentClass === 'User' && imgUploadID === curID && avatar) {
-                  avatar.setAttribute('src', defaultImg);
-                } // Если множественная загрузка картинок, то удалим картинку
-
-              } else {
-                e.target.parentElement.remove();
-              } // Сообщение об успехе
-
-
-              _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
-            })["catch"](function (e) {
-              _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['error_occurred']);
-            });
-          };
-        }
-      }
-    }
-  });
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/admin/commands.js":
-/*!****************************************!*\
-  !*** ./resources/js/admin/commands.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Функция после загрузки страницы
-document.addEventListener('DOMContentLoaded', function () {
-  // Блок commands
-  var commands = document.querySelector('.command');
-
-  if (commands) {
-    var btn = commands.querySelector('form button'),
-        preset = document.getElementById('preset-command'),
-        commandInput = commands.querySelector('#full-command'),
-        hidden = commands.querySelector('form input[type=hidden][name=command]'),
-        start = 'php artisan '; // Блокируется кнопка формы
-
-    btn.classList.add('disabled'); // При изменении select
-
-    preset.addEventListener('change', function (e) {
-      hidden.setAttribute('value', e.target.value);
-      commandInput.value = start + e.target.value; // Разблокируется кнопка формы
-
-      btn.classList.remove('disabled');
-    }); // При изменении input
-
-    commandInput.addEventListener('input', function (e) {
-      hidden.setAttribute('value', e.target.value); // Разблокируется кнопка формы
-
-      btn.classList.remove('disabled');
-    });
-  }
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/admin/confirm.js":
-/*!***************************************!*\
-  !*** ./resources/js/admin/confirm.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Функция после загрузки страницы
-document.addEventListener('DOMContentLoaded', function () {
-  // При отправки формы с .confirm-form будет подтвержение отправки
-  document.addEventListener('submit', function (e) {
-    if (e.target.classList.contains('confirm-form')) {
-      e.preventDefault();
-      var modal = document.getElementById('modal-confirm'),
-          modalInstance = new Bootstrap.Modal(modal),
-          btnOk = modal.querySelector('.btn-outline-primary'); // Открыть модальное окно
-
-      modalInstance.show();
-      btnOk.addEventListener('click', function () {
-        e.target.submit();
-        modalInstance.hide();
-      }.bind(e));
-    }
-  }); // При клике по ссылке .confirm-link будет подтвержение отправки (добавить атрибуты data-toggle="modal" data-target="#modal-confirm")
-
-  document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('confirm-link')) {
-      e.preventDefault();
-      var modal = document.getElementById('modal-confirm'),
-          modalInstance = new Bootstrap.Modal(modal),
-          btnOk = modal.querySelector('.btn-outline-primary'),
-          href = e.target.href,
-          spinner = document.getElementById('spinner'); // Открыть модальное окно
-
-      modalInstance.show();
-      btnOk.addEventListener('click', function () {
-        // Закрыть модальное окно
-        modalInstance.hide(); // Включить спинер
-
-        if (spinner) {
-          spinner.style.display = 'block';
-        } // Переход по ссылке
-
-
-        document.location.href = href;
-      });
-    }
-  });
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/admin/dropzone.js":
-/*!****************************************!*\
-  !*** ./resources/js/admin/dropzone.js ***!
-  \****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./message */ "./resources/js/admin/message.js");
-
-window.Dropzone = __webpack_require__(/*! dropzone */ "./node_modules/dropzone/dist/dropzone.js");
-Dropzone.autoDiscover = false;
-/*
-* Задайте JS переменные в основном шаблоне:
-- imgMaxSizeHD - максимальное HD разшение картинок,
-- imgMaxSize - максимальное среднее разшение картинок,
-- imgMaxSizeSM - максимальное маленькое разшение картинок,
-- maxFilesOne - кол-во для одиночной загрузки,
-- maxFilesMany - кол-во для множественной загрузки,
-- imgURL - URL, на который будет отправлять запрос,
-- currentClass - название модели, с которой работаем в данный момент,
-- table - Таблица в БД, в которую сохранить картинку,
-- imgRequestName - начальная часть названия передаваемой картинки,
-- defaultImg - картинка по-умолчанию,
-- imgUploadID - ID элемента, для которого картинка.
-*
-* В html используйте для одной картинке: <div id="dzOne" class="dropzone"></div>
-* Или для многожественной загрузки: <div id="dzMany" class="dropzone"></div>
-*
-* Задайте id dropzone-images для div, в который загружать теги img, после успешной загрузки картинки.
-*
-* Необходимые переводы из массива translations: you_have_reached_maximum_file_upload_allowed, allowed_to_upload_files, upload_success, error_occurred
-*/
-
-var dzOneEl = '#dzOne',
-    dzOneSelector = document.querySelector(dzOneEl),
-    dzManyEl = '#dzMany',
-    dzManySelector = document.querySelector(dzManyEl); // Для загрузки одной картинки
-
-if (dzOneSelector) {
-  var dzOne = dropzone(dzOneEl, maxFilesOne, imgMaxSizeSM);
-} // Для множественной загрузки
-
-
-if (dzManySelector) {
-  var dzMany = dropzone(dzManyEl, maxFilesMany, imgMaxSizeHD);
-}
-/*
-* Функция по загрузки файлов.
-* dropzoneElement - селектор html области загрузки файлов.
-* maxFiles - максимальное кол-во файлов для разовой загрузки, кол-во шт.
-* resizeMax - максимальное разрешение в px, которое будем сохранять на сервере.
-*/
-
-
-function dropzone(dropzoneElement, maxFiles, resizeMax) {
-  var acceptedFiles = '.jpg, .jpeg, .png, .gif',
-      imgURL = main.url + '/img-upload',
-      dzImages = document.getElementById('dropzone-images'),
-      dzGallery = document.getElementById('dropzone-gallery'),
-      avatar = document.getElementById('avatar');
-  return new Dropzone(dropzoneElement, {
-    url: imgURL,
-    headers: {
-      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-    },
-    resizeWidth: resizeMax,
-    resizeHeight: resizeMax,
-    //resizeQuality: 0.9, // По-умолчанию 0.8
-    //resizeMethod: 'contain', // Можно выбрать crop для жесткого обрезания картинки
-    maxFiles: maxFiles,
-    parallelUploads: maxFiles,
-    dictDefaultMessage: "<div class=\"dz-message\">".concat(translations['select_file_or_drag_here'], "</div>"),
-    dictMaxFilesExceeded: translations['you_have_reached_maximum_file_upload_allowed'] + '{{maxFiles}}',
-    acceptedFiles: acceptedFiles,
-    dictInvalidFileType: translations['allowed_to_upload_files'] + acceptedFiles,
-    init: function init() {
-      // Формируем данные, которые передаём в контроллер
-      this.on('sending', function (file, xhr, formData) {
-        // Передаваемая картинка
-        formData.append('file', file); // Таблица в БД, в которую сохранить картинку
-
-        formData.append('table', table); // Начальная часть названия передаваемой картинки
-
-        formData.append('class', currentClass); // ID элемента, для которого картинка
-
-        formData.append('imgUploadID', imgUploadID); // Начальная часть названия передаваемой картинки
-
-        formData.append('name', imgRequestName); // Если передаём одну картинку, то передать 1. Если передаём множество картинок, то передать цифру больше 1
-
-        formData.append('maxFiles', maxFiles);
-      });
-    },
-    success: function success(file, res) {
-      // const res = JSON.parse(response)
-      var img = file.dataURL,
-          // Картинка времменая из JS
-      imgHidden = document.querySelector('input[name=img]'); //console.log(res.test); return
-
-      if (res.answer === 'success') {
-        // Одиночная или множественная загрузка
-        if (maxFiles <= 1) {
-          if (imgHidden) {
-            imgHidden.setAttribute('value', res.href);
-          } // Если меняется картинка пользователя, то заменим её в шапке сайта
-
-
-          if (currentClass === 'User' && imgUploadID === curID && avatar) {
-            avatar.setAttribute('src', res.href);
-          } // Вставим картинку
-
-
-          if (dzImages) {
-            dzImages.innerHTML = "<a href=\"".concat(res.href, "\" target=\"_blank\"><i class=\"material-icons img-remove\" data-img=\"").concat(res.href, "\" data-max-files=\"").concat(maxFiles, "\">clear</i><img src=\"").concat(res.href, "\" alt=\"\"></a>");
-          }
-        } else {
-          // Вставим картинку
-          if (dzGallery) {
-            var appendImg = document.createElement('a');
-            appendImg.setAttribute('href', res.href);
-            appendImg.setAttribute('target', '_blank');
-            appendImg.innerHTML = "<i class=\"material-icons img-remove\" data-img=\"".concat(res.href, "\" data-max-files=\"").concat(maxFiles, "\">clear</i><img src=\"").concat(res.href, "\" alt=\"\">");
-            dzGallery.appendChild(appendImg);
-          }
-        } // Сообщение об успехе
-
-
-        _message__WEBPACK_IMPORTED_MODULE_0__["default"].success(translations['upload_success'] + ' ' + res.name);
-      } else {
-        _message__WEBPACK_IMPORTED_MODULE_0__["default"].error(res.answer);
-      } // Очистим загрузочную область
-
-
-      this.removeAllFiles();
-    },
-    error: function error(file, _error) {
-      _message__WEBPACK_IMPORTED_MODULE_0__["default"].error(_error); // Очистим загрузочную область
-
-      this.removeAllFiles();
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./resources/js/admin/index.js":
-/*!*************************************!*\
-  !*** ./resources/js/admin/index.js ***!
-  \*************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var imask__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! imask */ "./node_modules/imask/esm/index.js");
-/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./axios */ "./resources/js/admin/axios.js");
-/* harmony import */ var _native__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./native */ "./resources/js/admin/native.js");
-/* harmony import */ var _native__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_native__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _dropzone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dropzone */ "./resources/js/admin/dropzone.js");
-/* harmony import */ var _default_general__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../default/general */ "./resources/js/default/general.js");
-/* harmony import */ var _default_pulse__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../default/pulse */ "./resources/js/default/pulse.js");
-/* harmony import */ var _default_pulse__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_default_pulse__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _default_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../default/forms */ "./resources/js/default/forms.js");
-/* harmony import */ var _default_forms__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_default_forms__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _default_animate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../default/animate */ "./resources/js/default/animate.js");
-/* harmony import */ var _default_animate__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_default_animate__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _scroll__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./scroll */ "./resources/js/admin/scroll.js");
-/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./message */ "./resources/js/admin/message.js");
-/* harmony import */ var _aside__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./aside */ "./resources/js/admin/aside.js");
-/* harmony import */ var _commands__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./commands */ "./resources/js/admin/commands.js");
-/* harmony import */ var _commands__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_commands__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./validate */ "./resources/js/admin/validate.js");
-/* harmony import */ var _confirm__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./confirm */ "./resources/js/admin/confirm.js");
-/* harmony import */ var _confirm__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_confirm__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./scripts */ "./resources/js/admin/scripts.js");
-/*import bsn from 'bootstrap.native/dist/bootstrap-native-v4'
-export default bsn*/
-window.Bootstrap = __webpack_require__(/*! bootstrap.native/dist/bootstrap-native-v4 */ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- // Маска ввода телефона
-
-var tel = document.querySelectorAll('form input[name=tel]'),
-    maskOptions = {
-  mask: '+{7}(000)000-00-00' // lazy: false // Чтобы маска была сразу видна
-
-};
-
-if (tel[0]) {
-  tel.forEach(function (el) {
-    var mask = Object(imask__WEBPACK_IMPORTED_MODULE_0__["default"])(el, maskOptions);
-  });
-}
-
-/***/ }),
-
-/***/ "./resources/js/admin/message.js":
-/*!***************************************!*\
-  !*** ./resources/js/admin/message.js ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var timeout = 4000;
-
-function alert(text) {
-  var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : timeout;
-  var alertClass = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'danger';
-  var getAlert = document.querySelector('#get-alert'),
-      html = "\n        <div class=\"row alert-js\">\n            <div class=\"col-md-10 offset-md-1 anime-from-center\">\n                <div class=\"alert alert-".concat(alertClass, " py-4 px-5\" role=\"alert\">\n                    <span>").concat(text, "</span>\n                </div>\n            </div>\n        </div>");
-  getAlert.innerHTML = html;
-  setTimeout(function () {
-    getAlert.innerHTML = '';
-  }, ms);
-}
-
-function hideAlert() {
-  var ms = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : timeout - 500;
-  var alert = document.querySelector('.alert-js > div');
-
-  if (alert) {
-    setTimeout(function () {
-      alert.classList.remove('anime-from-center');
-      alert.classList.add('anime-to-center');
-    }, ms);
-  }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  error: function error(text) {
-    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    ms = !ms ? timeout : ms;
-    alert(text, ms);
-    hideAlert();
-
-    if (reload) {
-      setTimeout(function () {
-        location.reload();
-      }, ms);
-    }
-  },
-  success: function success(text) {
-    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    ms = !ms ? timeout : ms;
-    alert(text, ms, 'success');
-    hideAlert();
-
-    if (reload) {
-      setTimeout(function () {
-        location.reload();
-      }, ms);
-    }
-  },
-  warning: function warning(text) {
-    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    ms = !ms ? timeout : ms;
-    alert(text, ms, 'warning');
-    hideAlert();
-
-    if (reload) {
-      setTimeout(function () {
-        location.reload();
-      }, ms);
-    }
-  },
-  info: function info(text) {
-    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    ms = !ms ? timeout : ms;
-    alert(text, ms, 'info');
-    hideAlert();
-
-    if (reload) {
-      setTimeout(function () {
-        location.reload();
-      }, ms);
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/admin/native.js":
-/*!**************************************!*\
-  !*** ./resources/js/admin/native.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// import bsn from './index'
-document.addEventListener('DOMContentLoaded', function () {
-  // При collapse с классом .change-icon изменение иконки вверх вниз
-  var changeIcon = document.querySelectorAll('.change-icon');
-
-  if (changeIcon[0]) {
-    changeIcon.forEach(function (el) {
-      var collapseEl = document.getElementById(el.getAttribute('aria-controls')); // Собыите открытие collapse
-
-      collapseEl.addEventListener('show.bs.collapse', function (event) {
-        var icon = event.target.closest('.row').querySelector('i.material-icons'); // Меняем иконку
-
-        icon.textContent = 'keyboard_arrow_up';
-      }, false); // Собыите закрытие collapse
-
-      collapseEl.addEventListener('hide.bs.collapse', function (event) {
-        var icon = event.target.closest('.row').querySelector('i.material-icons'); // Меняем иконку
-
-        icon.textContent = 'keyboard_arrow_down';
-      }, false);
-    });
-  }
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/admin/scripts.js":
-/*!***************************************!*\
-  !*** ./resources/js/admin/scripts.js ***!
-  \***************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _default_tabSave__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../default/tabSave */ "./resources/js/default/tabSave.js");
- // Функция после загрузки страницы
-
-document.addEventListener('DOMContentLoaded', function () {
-  // При изменении .select-change select делается запрос
-  var selectChange = document.getElementById('select-change');
-
-  if (selectChange) {
-    selectChange.addEventListener('change', function (e) {
-      window.location = e.target.dataset.action + '?value=' + e.target.value;
-    });
-  } // Сохраняем ранее открытую вкладку на странице редактирования
-
-
-  Object(_default_tabSave__WEBPACK_IMPORTED_MODULE_0__["default"])('tabs-edit');
-  Object(_default_tabSave__WEBPACK_IMPORTED_MODULE_0__["default"])('import-export');
-  /*const tabsEdit = document.getElementById('tabs-edit'),
-      tabEditClass = 'nav-link',
-      tabEditSave = localStorage.getItem('tabEdit'),
-      tabEditSaveID = document.getElementById(tabEditSave)
-   // Если сохранено в LocalStorage id элемента, то установим класс active к этому элементу
-  if (tabEditSave && tabsEdit) {
-      const tabEditLinks = tabsEdit.querySelectorAll('.' + tabEditClass),
-          tabEditPanels = document.querySelectorAll('.tab-pane')
-       if (tabEditSaveID && tabEditLinks) {
-          tabEditLinks.forEach(function (el) {
-              el.classList.remove('active')
-               if (el.id === tabEditSave) {
-                  el.classList.add('active')
-              }
-           })
-      }
-       if (tabEditSaveID && tabEditPanels) {
-          tabEditPanels.forEach(function (el) {
-              el.classList.remove('active')
-              el.classList.remove('show')
-               if (el.id === tabEditSave + '-link') {
-                  el.classList.add('show')
-                  el.classList.add('active')
-              }
-          })
-      }
-  }
-   // При клике на таб, запишем в LocalStorage id элемента
-  if (tabsEdit) {
-      tabsEdit.onclick = function(e) {
-          if (e.target.classList.contains(tabEditClass)) {
-              if (e.target.id) {
-                  localStorage.setItem('tabEdit', e.target.id)
-              }
-          }
-      }
-  }*/
-
-  /*const browserHeight = document.documentElement.clientHeight,
-      headerHeight = document.querySelector('.header').offsetHeight,
-      topPanelHeight = document.querySelector('.top-panel').offsetHeight,
-      footerHeight = document.querySelector('.footer').offsetHeight,
-      content = document.querySelector('.content'),
-      px = 'px'
-   // Задаётся высота блока с контентом, если она маленькая
-  if (browserHeight > content.offsetHeight + headerHeight + topPanelHeight + footerHeight) {
-      content.style.height = browserHeight - headerHeight - topPanelHeight - footerHeight + px
-  }*/
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/admin/scroll.js":
-/*!**************************************!*\
-  !*** ./resources/js/admin/scroll.js ***!
-  \**************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _default_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../default/functions */ "./resources/js/default/functions.js");
- // Функция после загрузки страницы
-
-document.addEventListener('DOMContentLoaded', function () {
-  var ms = 200; // Кнопка вверх
-
-  if (typeof window === 'undefined') return;
-  window.addEventListener('scroll', function () {
-    var btn = document.querySelector('#btn-up');
-    var top = window.pageYOffset || document.documentElement.offsetTop || 0;
-
-    if (top > 300) {
-      btn.style.display = 'block';
-      btn.classList.remove('anime-to-center');
-      btn.classList.add('anime-from-center');
-    } else {
-      btn.classList.remove('anime-from-center');
-      btn.classList.add('anime-to-center');
-      setTimeout(function () {
-        btn.style.display = 'none';
-      }, ms);
-    }
-  }); // При клике на кнопку вверх
-
-  document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('btn-up-click')) {
-      _default_functions__WEBPACK_IMPORTED_MODULE_0__["default"].scrollUp();
-    }
-  });
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/admin/validate.js":
-/*!****************************************!*\
-  !*** ./resources/js/admin/validate.js ***!
-  \****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _default_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../default/functions */ "./resources/js/default/functions.js");
- // import message from "./message";
-// import libs from "../default/libs";
-
-var form = document.querySelector('.needs-validation');
-
-if (form) {
-  var required = form.querySelectorAll('input[required], textarea[required]'),
-      btn = form.querySelector('button[type=submit]'),
-      inputs = _default_functions__WEBPACK_IMPORTED_MODULE_0__["default"].serialize('.content form');
-  var submit = true; // Проверка каждого input c required
-
-  required.forEach(function (el) {
-    // Если все input заполнены
-    if (el.value || el.getAttribute('type') === 'checkbox' && !el.checked) {
-      submit = false;
-    } // При потери фокуса
-
-
-    el.addEventListener('blur', function (e) {
-      if (!e.target.value || e.target.getAttribute('type') === 'checkbox' && !e.target.checked) {
-        e.target.classList.add('is-invalid');
-        submit = false;
-      } else {
-        e.target.classList.remove('is-invalid');
-        submit = true;
-      }
-    });
-  }); // Проверка, чтобы все input c required были заполнены, только тогда отправиться форма
-
-  /*form.addEventListener('submit', function(e) {
-       const newInputs = f.serialize('.content form')
-       // Если ни один input не изменился, то форма не отправится (выведется сообщение и перезагрузится страница)
-      if (f.diffArr(inputs, newInputs)) {
-          e.preventDefault()
-          message.info(translations['data_has_not_changed'], null, true)
-      }
-       if (submit) {
-          const span = document.createElement('span')
-          btn.classList.add('disabled')
-          span.classList.add('spinner-grow', 'spinner-grow-sm', 'ml-1')
-          btn.appendChild(span)
-       } else {
-          e.preventDefault()
-          form.classList.add('was-validated')
-          f.scrollUp()
-      }
-  })*/
-}
-
-/***/ }),
-
-/***/ "./resources/js/default/animate.js":
-/*!*****************************************!*\
-  !*** ./resources/js/default/animate.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Функция после загрузки страницы
-document.addEventListener('DOMContentLoaded', function () {
-  // При клике на на .dropdown-click показывает меню dropdown
-  var dropdownShow = false;
-  document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('dropdown-click')) {
-      e.preventDefault();
-      dropdownShow = !dropdownShow;
-      var menu = e.target.closest('.dropdown').querySelector('.dropdown-menu'),
-          ms = 200; // Можно поменять время
-
-      if (dropdownShow) {
-        menu.style.display = 'block';
-        menu.classList.remove('anime-to-center');
-        menu.classList.add('anime-from-center');
-      } else {
-        menu.classList.remove('anime-from-center');
-        menu.classList.add('anime-to-center');
-        setTimeout(function () {
-          menu.style.display = 'none';
-        }, ms);
-      }
-    }
-  });
-}, false);
-
-/***/ }),
-
-/***/ "./resources/js/default/cookie.js":
-/*!****************************************!*\
-  !*** ./resources/js/default/cookie.js ***!
-  \****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  // Возвращает куки с указанным name, или false, если ничего не найдено.
-  getCookie: function getCookie(name) {
-    var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
-    return matches ? decodeURIComponent(matches[1]) : false;
-  },
-
-  /*
-  * Устанавливает куку.
-  * name - имя куки.
-  * value - значение куки.
-  * options - опции, например setCookie('user', 'John', {secure: true}), необязательный параметр.
-  */
-  setCookie: function setCookie(name, value) {
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var isCookie = navigator.cookieEnabled,
-        date = new Date(),
-        dateCookie = new Date(date.getTime() + main.cookie);
-
-    if (isCookie) {
-      options = {
-        path: '/',
-        expires: dateCookie // При необходимости добавьте другие значения по-умолчанию
-
-      };
-
-      if (options.expires.toUTCString) {
-        options.expires = options.expires.toUTCString();
-      }
-
-      var updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
-
-      for (var optionKey in options) {
-        updatedCookie += "; " + optionKey;
-        var optionValue = options[optionKey];
-
-        if (optionValue !== true) {
-          updatedCookie += "=" + optionValue;
-        }
-      }
-
-      document.cookie = updatedCookie;
-    }
-  },
-  // Удалить куку с указанным name.
-  deleteCookie: function deleteCookie(name) {
-    setCookie(name, '', {
-      'max-age': -1
-    });
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/default/forms.js":
-/*!***************************************!*\
-  !*** ./resources/js/default/forms.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Скрипты для Форм
-// При клике на ссылку или кнопку добавиться disabled
-document.addEventListener('click', function (e) {
-  if (e.target.classList.contains('one-click')) {
-    e.target.classList.add('disabled'); //e.target.setAttribute('disabled', 'true')
-  }
-}); // При клике на ссылку или кнопку добавиться disabled
-
-document.addEventListener('click', function (e) {
-  if (e.target.classList.contains('spinner-click')) {
-    var span = document.createElement('span');
-    span.classList.add('spinner-grow', 'spinner-grow-sm', 'ml-1');
-    e.target.appendChild(span);
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/default/functions.js":
-/*!*******************************************!*\
-  !*** ./resources/js/default/functions.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  // Функция задаёт одинаковую высоту блоков html, передать название класса
-  getHeight: function getHeight($class) {
-    var els = document.querySelectorAll('.' + $class);
-    var arr = [];
-    els.forEach(function (el) {
-      arr.push(el.offsetHeight);
-    });
-
-    if (arr) {
-      var maxHeight = Math.max.apply(Math, arr) + 'px';
-      els.forEach(function (el) {
-        el.style.height = maxHeight;
-      });
-    }
-  },
-  // Функция показывает селектор, у которого в css прописано display: none
-  showJS: function showJS($selector) {
-    var el = document.querySelector($selector);
-    if (el) el.style.display = 'block';
-  },
-  // Прокрутить к верху страницы
-  scrollUp: function scrollUp() {
-    if (typeof window === 'undefined') return;
-    window.scrollTo(0, 0);
-  },
-  // Сравнить 2 массива
-  diffArr: function diffArr(arr1, arr2) {
-    return JSON.stringify(arr1) === JSON.stringify(arr2);
-  },
-  // Строку к snake-case
-  snake: function snake(string) {
-    return string.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/\s+/g, '-').toLowerCase();
-  },
-  // Получить значение формы в объект (передать уникальный идефикатор формы)
-  serialize: function serialize(form) {
-    var obj = {};
-    form = document.querySelector(form);
-
-    if (form) {
-      var inputs = form.querySelectorAll('input, textarea');
-
-      if (inputs) {
-        inputs.forEach(function (el) {
-          var name = el.name,
-              value = el.value;
-
-          if (name && value) {
-            obj[name] = value;
-          }
-        });
-      }
-    }
-
-    return obj;
-  },
-  strReplace: function strReplace(search, replace, str) {
-    if (str) {
-      return str.replace(search, replace);
-    }
-
-    return false;
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/default/general.js":
-/*!*****************************************!*\
-  !*** ./resources/js/default/general.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {
-    /*
-    * Анимация Scale.
-    * show - переменная true или false.
-    * el - элемент.
-    * ms - время анимации в мс, необязательный параметр.
-    */
-    animateScale: function animateScale(show, el) {
-      var ms = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 200;
-      var classNone = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-
-      if (show) {
-        classNone ? el.classList.remove('d-none') : null;
-        el.classList.remove('anime-to-center');
-        classNone ? el.classList.add('anime-from-center') : el.classList.add('show', 'anime-from-center');
-      } else {
-        el.classList.remove('anime-from-center');
-        el.classList.add('anime-to-center');
-        setTimeout(function () {
-          el.classList.remove(classNone ? 'd-none' : 'show');
-        }, ms);
-      }
-    },
-    move: function move(item) {
-      var accordion = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var move = document.querySelectorAll('.move');
-      item = document.querySelector(item);
-
-      if (item.classList.contains('shut')) {
-        if (accordion) {
-          move.forEach(function (el) {
-            el.classList.remove('shut');
-          });
-        } else {
-          item.classList.remove('shut');
-        }
-
-        item.classList.add('open');
-      } else {
-        if (accordion) {
-          move.forEach(function (el) {
-            el.classList.remove('open');
-          });
-        } else {
-          item.classList.remove('open');
-        }
-
-        item.classList.add('shut');
-      }
-    },
-    // Первая буква заглавная
-    ucFirst: function ucFirst(str) {
-      return str.substr(0, 1).toUpperCase() + str.substr(1);
-    },
-    // Заменяет в строке все _ на -
-    snake_case: function snake_case(str) {
-      return str.replace(/-/g, '_');
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/default/pulse.js":
-/*!***************************************!*\
-  !*** ./resources/js/default/pulse.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*
-* При кликена на .btn-pulse эффект пульса.
-* Если есть вложенный тег, то установить .btn-pulse-child.
-*/
-document.addEventListener('click', function (e) {
-  if (e.target.classList.contains('btn-pulse')) {
-    var div = document.createElement('div'),
-        style = div.style,
-        max = Math.max(e.target.offsetWidth, e.target.offsetHeight),
-        rect = e.target.getBoundingClientRect(),
-        px = 'px',
-        color = window.getComputedStyle(e.target).backgroundColor,
-        textBtn = e.target.textContent,
-        spanBtn = e.target.querySelector('span');
-    timeDeleteDiv = 300;
-    div.classList.add('pulseJS');
-    style.width = style.height = max + px;
-    style.left = e.clientX - rect.left - max / 2 + px;
-    style.top = e.clientY - rect.top - max / 2 + px;
-    style.backgroundColor = color;
-    style.opacity = .4;
-    e.target.appendChild(div);
-
-    if (!spanBtn) {
-      setTimeout(function () {
-        e.target.textContent = textBtn;
-      }, timeDeleteDiv);
-    }
-  } else if (e.target.classList.contains('btn-pulse-child')) {
-    var parent = e.target.closest('.btn-pulse'),
-        _div = document.createElement('div'),
-        _style = _div.style,
-        _max = Math.max(parent.offsetWidth, parent.offsetHeight),
-        _rect = parent.getBoundingClientRect(),
-        _px = 'px',
-        _color = window.getComputedStyle(e.target).backgroundColor,
-        _textBtn = e.target.textContent,
-        _timeDeleteDiv = 300;
-
-    _div.classList.add('pulseJS');
-
-    _style.width = _style.height = _max + _px;
-    _style.left = e.clientX - _rect.left - _max / 2 + _px;
-    _style.top = e.clientY - _rect.top - _max / 2 + _px;
-    _style.backgroundColor = _color;
-    _style.opacity = .4;
-    parent.appendChild(_div);
-    setTimeout(function () {
-      parent.textContent = _textBtn;
-    }, _timeDeleteDiv);
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/default/tabSave.js":
-/*!*****************************************!*\
-  !*** ./resources/js/default/tabSave.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return tabSave; });
-/*
- * Сохраняем ранее открытую вкладку на странице редактирования.
- * Принимает id tab, использовать стандартный tab bootstrap.
- */
-function tabSave(tabsId) {
-  var tabsEdit = document.getElementById(tabsId),
-      tabEditClass = 'nav-link',
-      tabEditSave = localStorage.getItem(tabsId),
-      tabEditSaveID = document.getElementById(tabEditSave); // Если сохранено в LocalStorage id элемента, то установим класс active к этому элементу
-
-  if (tabsEdit && tabEditSave) {
-    var tabEditLinks = tabsEdit.querySelectorAll('.' + tabEditClass),
-        tabEditPanels = document.querySelectorAll('.tab-pane');
-
-    if (tabEditSaveID && tabEditLinks) {
-      tabEditLinks.forEach(function (el) {
-        el.classList.remove('active');
-
-        if (el.id === tabEditSave) {
-          el.classList.add('active');
-        }
-      });
-    }
-
-    if (tabEditSaveID && tabEditPanels) {
-      tabEditPanels.forEach(function (el) {
-        el.classList.remove('active');
-        el.classList.remove('show');
-
-        if (tabEditSave === el.getAttribute('aria-labelledby')) {
-          el.classList.add('show');
-          el.classList.add('active');
-        }
-      });
-    }
-  } // При клике на таб, запишем в LocalStorage id элемента
-
-
-  if (tabsEdit) {
-    tabsEdit.onclick = function (e) {
-      if (e.target.classList.contains(tabEditClass)) {
-        if (e.target.id) {
-          localStorage.setItem(tabsId, e.target.id);
-        }
-      }
-    };
-  }
-}
-
-/***/ }),
-
-/***/ 3:
-/*!*******************************************!*\
-  !*** multi ./resources/js/admin/index.js ***!
-  \*******************************************/
+/***/ 1:
+/*!*********************************************!*\
+  !*** multi ./app/Modules/Admin/js/index.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/resources/js/admin/index.js */"./resources/js/admin/index.js");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.2/app/Modules/Admin/js/index.js */"./app/Modules/Admin/js/index.js");
 
 
 /***/ })
