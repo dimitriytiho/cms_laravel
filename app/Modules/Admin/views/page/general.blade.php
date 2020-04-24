@@ -7,7 +7,7 @@
 @section('content')
     <div class="row">
         <div class="col">
-            <form action="{{ isset($values->id) ? route("admin.$route.update", $values->id) : route("admin.$route.store") }}" method="post" class="needs-validation" novalidate>
+            <form action="{{ isset($values->id) ? route("admin.{$route}.update", $values->id) : route("admin.{$route}.store") }}" method="post" class="needs-validation" novalidate>
                 @if (isset($values->id))
                     @method('put')
                 @endif
@@ -135,12 +135,12 @@
                 <div class="text-right mt--3">
                     <div class="small text-secondary">{{ __('s.remove_not_possible') }},<br>{{ __('s.there_are_nested') }} ID:</div>
                     @foreach ($getIdParents as $v)
-                        <a href="{{ route("admin.$route.edit", $v->id) }}">{{ $v->id }}</a>
+                        <a href="{{ route("admin.{$route}.edit", $v->id) }}">{{ $v->id }}</a>
                     @endforeach
                 </div>
             @else
                 @if (isset($values->id))
-                    <form action="{{ route("admin.$route.destroy", $values->id) }}" method="post" class="text-right confirm-form">
+                    <form action="{{ route("admin.{$route}.destroy", $values->id) }}" method="post" class="text-right confirm-form">
                         @method('delete')
                         @csrf
                         <button type="submit" class="btn btn-outline-primary mt-3 position-relative t--3 btn-pulse">{{ __('s.remove') }}</button>

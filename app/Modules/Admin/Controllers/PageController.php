@@ -148,7 +148,7 @@ class PageController extends AppController
             }
 
             // Потомки в массиве
-            $getIdParents = \App\Helpers\Admin\App::getIdParents($values->id ?? null, $this->table);
+            $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents($values->id ?? null, $this->table);
 
             $this->setMeta(__("a.$f"));
             return view("{$this->view}.{$this->template}", compact('values', 'getIdParents'));
@@ -228,7 +228,7 @@ class PageController extends AppController
 
             if ($values) {
                 // Если есть потомки, то ошибка
-                $getIdParents = \App\Helpers\Admin\App::getIdParents((int)$id, $this->table);
+                $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents((int)$id, $this->table);
                 if ($getIdParents) {
                     session()->put('error', __('s.remove_not_possible') . ', ' . __('s.there_are_nested') . ' #');
                     return redirect()->route("admin.{$this->route}.index");

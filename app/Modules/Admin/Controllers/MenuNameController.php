@@ -119,7 +119,7 @@ class MenuNameController extends AppController
             $values = DB::table($this->table)->find((int)$id);
 
             // Потомки в массиве
-            $getIdParents = \App\Helpers\Admin\App::getIdParents((int)$id, $this->belongsToTable, "{$this->table}_id");
+            $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents((int)$id, $this->belongsToTable, "{$this->table}_id");
 
             $this->setMeta(__("a.$f"));
             return view("{$this->view}.{$this->template}", compact('values', 'getIdParents'));
@@ -193,7 +193,7 @@ class MenuNameController extends AppController
             if ($values) {
 
                 // Если есть потомки, то ошибка
-                $getIdParents = \App\Helpers\Admin\App::getIdParents((int)$id, $this->belongsToTable, "{$this->table}_id");
+                $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents((int)$id, $this->belongsToTable, "{$this->table}_id");
                 if ($getIdParents) {
                     session()->put('error', __('s.remove_not_possible') . ', ' . __('s.there_are_nested') . ' #');
                     return redirect()->route("admin.{$this->route}.index");

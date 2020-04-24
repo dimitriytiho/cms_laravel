@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const modal = document.getElementById('modal-confirm'),
         btnOk = modal.querySelector('.btn-outline-primary'),
-        content = document.querySelector('.content')
+        content = document.querySelector('.content'),
+        spinner = document.getElementById('spinner')
+
 
 
     // При клике на #slug-edit генерируется ссылка
@@ -14,17 +16,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (slugEdit) {
         slugEdit.addEventListener('click', function (e) {
             e.preventDefault()
-            let title = document.querySelector('form input[name=title]').value
+            const title = document.querySelector('form input[name=title]')
 
-            axios.post(main.url + '/cyrillic-to-latin', {
-                title
-            })
-                .then(function (res) {
-                    document.querySelector('form input[name=slug]').setAttribute('value', res.data)
+            if (title) {
+
+                if (spinner) {
+                    spinner.style.display = 'block'
+                }
+                axios.post(main.url + '/cyrillic-to-latin', {
+                    title: title.value
                 })
-                .catch(function (e) {
-                    message.error(e)
-                })
+                    .then(function (res) {
+                        title.setAttribute('value', res.data)
+                        if (spinner) {
+                            spinner.style.display = 'none'
+                        }
+                    })
+                    .catch(function (e) {
+                        message.error(e)
+                    })
+            }
         })
     }
 
@@ -33,14 +44,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const transliterator = document.getElementById('transliterator')
     if (transliterator) {
         transliterator.addEventListener('click', function (e) {
-            let cyrillic = document.querySelector('.transliterator input[name=cyrillic]').value
+            const cyrillic = document.querySelector('.transliterator input[name=cyrillic]')
 
             if (cyrillic) {
+                if (spinner) {
+                    spinner.style.display = 'block'
+                }
+
                 axios.post(main.url + '/cyrillic-to-latin', {
-                    title: cyrillic
+                    title: cyrillic.value
                 })
                     .then(function (res) {
-                        document.querySelector('.transliterator input[name=latin]').setAttribute('value', res.data)
+                        const latin = document.querySelector('.transliterator input[name=latin]')
+                        if (latin) {
+                            latin.setAttribute('value', res.data)
+                        }
+
+                        if (spinner) {
+                            spinner.style.display = 'none'
+                        }
                     })
                     .catch(function (e) {
                         message.error(e)
@@ -55,30 +77,41 @@ document.addEventListener('DOMContentLoaded', function() {
     if (keyToEnter) {
 
         // Значени input, которое было изначально
-        const keyToEnterInputValue = document.querySelector('.key-to-enter input[name=to_change_key]').value
+        const keyToEnterInputValue = document.querySelector('.key-to-enter input[name=to_change_key]')
 
         keyToEnter.addEventListener('click', function (e) {
-            let keyToEnterValue = document.querySelector('.key-to-enter input[name=to_change_key]').value
+            const keyToEnter = document.querySelector('.key-to-enter input[name=to_change_key]')
 
-            if (keyToEnterInputValue !== keyToEnterValue) {
+            if (keyToEnter) {
+                let keyToEnterValue = keyToEnter.value
 
-                // Минимум 6 символов
-                if (keyToEnterValue.length > 5) {
+                if (keyToEnterInputValue.value !== keyToEnterValue) {
 
-                    axios.post(main.url + '/to-change-key', {
-                        key: keyToEnterValue
-                    })
-                        .then(function (res) {
+                    // Минимум 6 символов
+                    if (keyToEnterValue.length > 5) {
+                        if (spinner) {
+                            spinner.style.display = 'block'
+                        }
 
-                            // Сообщение об успехе
-                            message.success(res.data)
+                        axios.post(main.url + '/to-change-key', {
+                            key: keyToEnterValue
                         })
-                        .catch(function (e) {
-                            message.error(e)
-                        })
+                            .then(function (res) {
 
-                } else {
-                    message.error(translations['min6'])
+                                if (spinner) {
+                                    spinner.style.display = 'none'
+                                }
+
+                                // Сообщение об успехе
+                                message.success(res.data)
+                            })
+                            .catch(function (e) {
+                                message.error(e)
+                            })
+
+                    } else {
+                        message.error(translations['min6'])
+                    }
                 }
             }
         })
@@ -123,6 +156,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (url && categoryID != 0) {
 
+                if (spinner) {
+                    spinner.style.display = 'block'
+                }
+
                 // Отправить post запрос
                 axios.post(url, {
                     productID: productID,
@@ -141,6 +178,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                             // Вставить html категории
                             divParent.innerHTML += html
+
+                            if (spinner) {
+                                spinner.style.display = 'none'
+                            }
                         }
                         message.success(res.data)
                     })
@@ -155,7 +196,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // При клике на .many-elements__close удаляется категория у товара
     const productCategoryDestroy = document.getElementById('category-many-elements')
     if (productCategoryDestroy) {
+
         productCategoryDestroy.addEventListener('click', function (e) {
+
             if (e.target.classList.contains('many-elements__close')) {
                 const el = e.target.parentNode,
                     url = e.target.dataset.url,
@@ -173,6 +216,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         modalInstance.hide()
 
                         //if (!categoryID) message.error(e)
+                        if (spinner) {
+                            spinner.style.display = 'block'
+                        }
 
                         // Отправить post запрос
                         axios.post(url, {
@@ -199,6 +245,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                         })
                                     }
                                 }
+                                if (spinner) {
+                                    spinner.style.display = 'none'
+                                }
 
                             })
                             .catch(function (e) {
@@ -214,6 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // При клике на #change-password-btn меняем пароль у пользователя
     const changePassword = document.getElementById('change-password-btn')
     if (changePassword) {
+
         changePassword.addEventListener('click', function(e) {
             e.preventDefault()
 
@@ -226,6 +276,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (password.value && confirm.value) {
                     if (password.value.toString().length > 5) {
                         if (password.value === confirm.value) {
+
+                            if (spinner) {
+                                spinner.style.display = 'block'
+                            }
 
                             // Отправить post запрос
                             axios.post(url, {
@@ -249,6 +303,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                                         // Закроем открытый collapse
                                         collapseInit.hide()
+                                    }
+
+                                    if (spinner) {
+                                        spinner.style.display = 'none'
                                     }
 
                                     // Сообщение об успехе
@@ -301,6 +359,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Закрыть модальное окно
                         modalInstance.hide()
 
+                        if (spinner) {
+                            spinner.style.display = 'block'
+                        }
+
                         // Отправить post запрос
                         axios.post(main.url + '/img-remove', {
                             table,
@@ -328,6 +390,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                 // Если множественная загрузка картинок, то удалим картинку
                                 } else {
                                     e.target.parentElement.remove()
+                                }
+
+                                if (spinner) {
+                                    spinner.style.display = 'none'
                                 }
 
                                 // Сообщение об успехе

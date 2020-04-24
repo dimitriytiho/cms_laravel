@@ -144,7 +144,7 @@ class CategoryController extends AppController
             }
 
             // Потомки категорий в массиве
-            $getIdParents = \App\Helpers\Admin\App::getIdParents($values->id ?? null, $this->table);
+            $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents($values->id ?? null, $this->table);
 
             // Потомки товаров в массиве
             $getIdProducts = Category::with('products')->where('id', (int)$id)->get();
@@ -229,7 +229,7 @@ class CategoryController extends AppController
 
                 // Если есть потомки или товары, то ошибка
                 // Потомки категорий
-                $getIdParents = \App\Helpers\Admin\App::getIdParents((int)$id, $this->table);
+                $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents((int)$id, $this->table);
 
                 // Товаров
                 $getIdProducts = DB::table('products')->where('category_id', (int)$id)->get();

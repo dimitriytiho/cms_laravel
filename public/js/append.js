@@ -233,21 +233,33 @@ __webpack_require__.r(__webpack_exports__);
 document.addEventListener('DOMContentLoaded', function () {
   var modal = document.getElementById('modal-confirm'),
       btnOk = modal.querySelector('.btn-outline-primary'),
-      content = document.querySelector('.content'); // При клике на #slug-edit генерируется ссылка
+      content = document.querySelector('.content'),
+      spinner = document.getElementById('spinner'); // При клике на #slug-edit генерируется ссылка
 
   var slugEdit = document.getElementById('slug-edit');
 
   if (slugEdit) {
     slugEdit.addEventListener('click', function (e) {
       e.preventDefault();
-      var title = document.querySelector('form input[name=title]').value;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/cyrillic-to-latin', {
-        title: title
-      }).then(function (res) {
-        document.querySelector('form input[name=slug]').setAttribute('value', res.data);
-      })["catch"](function (e) {
-        _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
-      });
+      var title = document.querySelector('form input[name=title]');
+
+      if (title) {
+        if (spinner) {
+          spinner.style.display = 'block';
+        }
+
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/cyrillic-to-latin', {
+          title: title.value
+        }).then(function (res) {
+          title.setAttribute('value', res.data);
+
+          if (spinner) {
+            spinner.style.display = 'none';
+          }
+        })["catch"](function (e) {
+          _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
+        });
+      }
     });
   } // При клике на #transliterator транлитерируется текст
 
@@ -256,13 +268,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (transliterator) {
     transliterator.addEventListener('click', function (e) {
-      var cyrillic = document.querySelector('.transliterator input[name=cyrillic]').value;
+      var cyrillic = document.querySelector('.transliterator input[name=cyrillic]');
 
       if (cyrillic) {
+        if (spinner) {
+          spinner.style.display = 'block';
+        }
+
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/cyrillic-to-latin', {
-          title: cyrillic
+          title: cyrillic.value
         }).then(function (res) {
-          document.querySelector('.transliterator input[name=latin]').setAttribute('value', res.data);
+          var latin = document.querySelector('.transliterator input[name=latin]');
+
+          if (latin) {
+            latin.setAttribute('value', res.data);
+          }
+
+          if (spinner) {
+            spinner.style.display = 'none';
+          }
         })["catch"](function (e) {
           _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
         });
@@ -275,23 +299,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (keyToEnter) {
     // Значени input, которое было изначально
-    var keyToEnterInputValue = document.querySelector('.key-to-enter input[name=to_change_key]').value;
+    var keyToEnterInputValue = document.querySelector('.key-to-enter input[name=to_change_key]');
     keyToEnter.addEventListener('click', function (e) {
-      var keyToEnterValue = document.querySelector('.key-to-enter input[name=to_change_key]').value;
+      var keyToEnter = document.querySelector('.key-to-enter input[name=to_change_key]');
 
-      if (keyToEnterInputValue !== keyToEnterValue) {
-        // Минимум 6 символов
-        if (keyToEnterValue.length > 5) {
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/to-change-key', {
-            key: keyToEnterValue
-          }).then(function (res) {
-            // Сообщение об успехе
-            _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
-          })["catch"](function (e) {
-            _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
-          });
-        } else {
-          _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['min6']);
+      if (keyToEnter) {
+        var keyToEnterValue = keyToEnter.value;
+
+        if (keyToEnterInputValue.value !== keyToEnterValue) {
+          // Минимум 6 символов
+          if (keyToEnterValue.length > 5) {
+            if (spinner) {
+              spinner.style.display = 'block';
+            }
+
+            axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/to-change-key', {
+              key: keyToEnterValue
+            }).then(function (res) {
+              if (spinner) {
+                spinner.style.display = 'none';
+              } // Сообщение об успехе
+
+
+              _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
+            })["catch"](function (e) {
+              _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
+            });
+          } else {
+            _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(translations['min6']);
+          }
         }
       }
     });
@@ -328,7 +364,11 @@ document.addEventListener('DOMContentLoaded', function () {
           html = "<div class=\"mr-4 many-elements\">\n                            <span class=\"many-elements__text\">".concat(categoryTitle, "</span>\n                            <a data-url=\"").concat(urlDestroy, "\" data-category-id=\"").concat(categoryID, "\" class=\"text-primary many-elements__close cur\">&times;</a>\n                        </div>");
 
       if (url && categoryID != 0) {
-        // Отправить post запрос
+        if (spinner) {
+          spinner.style.display = 'block';
+        } // Отправить post запрос
+
+
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
           productID: productID,
           categoryID: categoryID
@@ -343,6 +383,10 @@ document.addEventListener('DOMContentLoaded', function () {
             selectProductCategory.options[selectProductCategory.selectedIndex].setAttribute('disabled', true); // Вставить html категории
 
             divParent.innerHTML += html;
+
+            if (spinner) {
+              spinner.style.display = 'none';
+            }
           }
 
           _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data);
@@ -370,7 +414,11 @@ document.addEventListener('DOMContentLoaded', function () {
           btnOk.addEventListener('click', function () {
             // Закрыть модальное окно
             modalInstance.hide(); //if (!categoryID) message.error(e)
-            // Отправить post запрос
+
+            if (spinner) {
+              spinner.style.display = 'block';
+            } // Отправить post запрос
+
 
             axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
               categoryID: categoryID
@@ -391,6 +439,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                   });
                 }
+              }
+
+              if (spinner) {
+                spinner.style.display = 'none';
               }
             })["catch"](function (e) {
               _message__WEBPACK_IMPORTED_MODULE_1__["default"].error(e);
@@ -416,7 +468,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (password.value && confirm.value) {
           if (password.value.toString().length > 5) {
             if (password.value === confirm.value) {
-              // Отправить post запрос
+              if (spinner) {
+                spinner.style.display = 'block';
+              } // Отправить post запрос
+
+
               axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
                 userID: userID,
                 password: password.value
@@ -437,6 +493,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                   collapseInit.hide();
+                }
+
+                if (spinner) {
+                  spinner.style.display = 'none';
                 } // Сообщение об успехе
 
 
@@ -475,7 +535,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
           btnOk.onclick = function () {
             // Закрыть модальное окно
-            modalInstance.hide(); // Отправить post запрос
+            modalInstance.hide();
+
+            if (spinner) {
+              spinner.style.display = 'block';
+            } // Отправить post запрос
+
 
             axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/img-remove', {
               table: table,
@@ -496,6 +561,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
               } else {
                 e.target.parentElement.remove();
+              }
+
+              if (spinner) {
+                spinner.style.display = 'none';
               } // Сообщение об успехе
 
 
