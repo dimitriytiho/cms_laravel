@@ -57,7 +57,7 @@ class AppController extends Controller
 
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
         $viewPath = $this->viewPath  = 'views';
-        View::getFinder()->setPaths("{$modulesPath}/views");
+        View::getFinder()->setPaths("{$modulesPath}/{$this->viewPath}");
 
 
         Locale::setLocaleFromCookie($request);

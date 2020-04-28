@@ -53,6 +53,8 @@ return [
     'remove' => 'Удалить',
     'remove_not_possible' => 'Удаление невозможно',
     'there_are_nested' => 'есть вложенные',
+    'user_has' => 'У пользователя есть ',
+    'product_is_present_in_order' => 'Товар присутствует в заказе ',
     'cancel' => 'Отмена',
     'confirm' => 'Подтверждение',
 

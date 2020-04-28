@@ -35,6 +35,7 @@ class MainController extends AppController
         $key = null;
 
         // Взязь из кэша
+        //cache()->flush();
         if (cache()->has('key_to_enter')) {
             $key = cache()->get('key_to_enter');
 

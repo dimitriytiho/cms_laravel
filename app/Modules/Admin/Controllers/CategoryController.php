@@ -6,12 +6,12 @@ use App\App;
 use App\Modules\Admin\Models\Category;
 use App\Modules\Admin\Models\CategoryProduct;
 use App\Modules\Admin\Helpers\Slug;
-use App\Modules\Admin\Models\Page;
 use App\Modules\Admin\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use App\Modules\Admin\Helpers\App as HelpersApp;
 
 class CategoryController extends AppController
 {
@@ -82,7 +82,7 @@ class CategoryController extends AppController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request)// description body
     {
         if ($request->isMethod('post')) {
             $rules = [
@@ -93,7 +93,7 @@ class CategoryController extends AppController
             $data = $request->all();
             $data['slug'] = Slug::checkRecursion($this->table, $data['slug']);
 
-            $values = new Page();
+            $values = new Category();
             $values->fill($data);
 
             if ($values->save()) {
@@ -144,13 +144,14 @@ class CategoryController extends AppController
             }
 
             // Потомки категорий в массиве
-            $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents($values->id ?? null, $this->table);
+            $getIdParents = HelpersApp::getIdParents($values->id ?? null, $this->table);
 
             // Потомки товаров в массиве
             $getIdProducts = Category::with('products')->where('id', (int)$id)->get();
+            $issetGetIdProducts = $getIdProducts[0]->products->toArray();
 
             $this->setMeta(__("a.$f"));
-            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'getIdProducts'));
+            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'getIdProducts', 'issetGetIdProducts'));
         }
 
         // Сообщение об ошибке
@@ -189,7 +190,7 @@ class CategoryController extends AppController
             // Если данные не изменины
             $lastData = $this->model::find((int)$id)->toArray();
             $current = $values->toArray();
-            if (!array_diff($current, $lastData)) {
+            if (!array_diff($lastData, $current)) {
 
                 // Сообщение об ошибке
                 session()->put('error', __('s.data_was_not_changed'));
@@ -229,10 +230,10 @@ class CategoryController extends AppController
 
                 // Если есть потомки или товары, то ошибка
                 // Потомки категорий
-                $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents((int)$id, $this->table);
+                $getIdParents = HelpersApp::getIdParents((int)$id, $this->table);
 
                 // Товаров
-                $getIdProducts = DB::table('products')->where('category_id', (int)$id)->get();
+                $getIdProducts = DB::table('category_product')->where('category_id', (int)$id)->count();
 
                 if ($getIdParents || $getIdProducts) {
                     session()->put('error', __('s.remove_not_possible') . ', ' . __('s.there_are_nested') . ' #');

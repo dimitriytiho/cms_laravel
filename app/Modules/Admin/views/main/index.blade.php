@@ -33,9 +33,7 @@
                         {!! input('cyrillic') !!}
                     </div>
                     <div class="mt-4">
-                        <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 p-0" title="{{ __('a.generate') }}">
-                            <i aria-hidden="true" class="material-icons p-icons btn-pulse" id="transliterator">autorenew</i>
-                        </button>
+                        <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="transliterator" title="{{ __('a.generate') }}">autorenew</button>
                     </div>
                 </div>
                 {!! input('latin') !!}
@@ -60,9 +58,7 @@
                             {!! input('to_change_key', $key->key) !!}
                         </div>
                         <div class="mt-4">
-                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 p-0" title="{{ __('f.save') }}">
-                                <i aria-hidden="true" class="material-icons p-icons btn-pulse" id="key-to-enter">save_alt</i>
-                            </button>
+                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="key-to-enter" title="{{ __('f.save') }}">save_alt</button>
                         </div>
                     </div>
                     <p class="text-secondary"><sup>*</sup> {{ __('a.key_description') }}</p>

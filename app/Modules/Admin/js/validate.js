@@ -2,14 +2,32 @@ import f from './functions'
 // import message from "./message";
 // import libs from "../default/libs";
 
-const form = document.querySelector('.needs-validation')
+const formClass = 'needs-validation',
+    form = document.querySelector('.' + formClass)
 
 if (form) {
     const required = form.querySelectorAll('input[required], textarea[required]'),
         btn = form.querySelector('button[type=submit]'),
-        inputs = f.serialize('.content form')
+        inputs = f.serialize('.content form'),
+        spinner = document.getElementById('spinner'),
+        noSubmit = document.querySelector('.' + formClass + '.needs-validation-no-submit')
 
     let submit = true
+
+
+    // Если есть класс .needs-validation-no-submit, блокируем кнопку отправки
+    if (noSubmit) {
+        btn.setAttribute('disabled', true)
+    }
+
+
+    // При клике на submit ключаем спинер
+    if (btn && spinner) {
+        btn.addEventListener('click', function(e) {
+            spinner.style.display = 'block'
+        })
+    }
+
 
     // Проверка каждого input c required
     required.forEach(function (el) {
@@ -25,13 +43,19 @@ if (form) {
             if (!e.target.value || e.target.getAttribute('type') === 'checkbox' && !e.target.checked) {
                 e.target.classList.add('is-invalid')
                 submit = false
+
             } else {
                 e.target.classList.remove('is-invalid')
                 submit = true
             }
+
+
+            // Разблокируем кнопку отправки
+            if (noSubmit && submit) {
+                btn.removeAttribute('disabled')
+            }
         })
     })
-
 
     // Проверка, чтобы все input c required были заполнены, только тогда отправиться форма
     /*form.addEventListener('submit', function(e) {

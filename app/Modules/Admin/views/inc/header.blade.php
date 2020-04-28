@@ -28,7 +28,7 @@
                     </li>
                 @endif
                 <li class="nav-item dropdown">
-                    <a href="{{ route('admin.user.edit', auth()->user()->id) }}" class="nav-link d-flex align-items-center dropdown-click" title="{{ __('c.welcome') . auth()->user()->name . '!' }}">
+                    <a href="{{ route('admin.user.edit', auth()->user()->id) }}" class="nav-link d-flex align-items-center dropdown-click" title="{{ auth()->user()->name  . __('c.welcome') }}">
                         <img src="{{ asset(auth()->user()->img) }}" class="dropdown-click" id="avatar" alt="Avatar">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">

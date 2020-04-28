@@ -22,9 +22,9 @@ class TestController extends AppController
 
     public function index()
     {
-        App::viewExists("{$this->viewPath}.{$this->c}_index", __METHOD__);
+        App::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
         //$this->setMeta(__('c.home'), __('c.You_are_on_home'));
-        return view("{$this->viewPath}.{$this->c}_index");
+        return view("{$this->viewPathModule}.{$this->c}_index");
     }
 
 
@@ -36,7 +36,7 @@ class TestController extends AppController
         }
 
         // Если нет вида
-        App::viewExists("{$this->viewPath}.{$this->c}_show", __METHOD__);
+        App::viewExists("{$this->viewPathModule}.{$this->c}_show", __METHOD__);
 
         // Если пользователь админ, то будут показываться неактивные страницы
         if (auth()->check() && auth()->user()->Admin()) {
@@ -67,6 +67,6 @@ class TestController extends AppController
         App::set('id', $values->id);
 
         $this->setMeta($values->title ?? null, $values->description ?? null);
-        return view("{$this->viewPath}.{$this->c}_show", compact('values'));
+        return view("{$this->viewPathModule}.{$this->c}_show", compact('values'));
     }
 }

@@ -52,6 +52,8 @@ return [
     'remove' => 'Remove',
     'remove_not_possible' => 'Remove not possible',
     'there_are_nested' => 'есть вложенные',
+    'user_has' => 'The user has ',
+    'product_is_present_in_order' => 'The product is present in the order ',
     'cancel' => 'Cancel',
     'confirm' => 'Confirm',
 

@@ -5,9 +5,14 @@ import message from './message'
 document.addEventListener('DOMContentLoaded', function() {
 
     const modal = document.getElementById('modal-confirm'),
-        btnOk = modal.querySelector('.btn-outline-primary'),
         content = document.querySelector('.content'),
         spinner = document.getElementById('spinner')
+
+    let btnOk = null
+
+    if (modal) {
+        btnOk = modal.querySelector('.btn-outline-primary')
+    }
 
 
 
@@ -27,7 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     title: title.value
                 })
                     .then(function (res) {
-                        title.setAttribute('value', res.data)
+                        const slug = document.querySelector('form input[name=slug]')
+
+                        if (slug) {
+                            slug.value = res.data
+                        }
+
                         if (spinner) {
                             spinner.style.display = 'none'
                         }
@@ -57,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .then(function (res) {
                         const latin = document.querySelector('.transliterator input[name=latin]')
                         if (latin) {
-                            latin.setAttribute('value', res.data)
+                            latin.value = res.data
                         }
 
                         if (spinner) {
@@ -77,18 +87,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (keyToEnter) {
 
         // Значени input, которое было изначально
-        const keyToEnterInputValue = document.querySelector('.key-to-enter input[name=to_change_key]')
+        let keyToEnterInputOld = document.querySelector('.key-to-enter input[name=to_change_key]')
+        if (keyToEnterInputOld) {
+            keyToEnterInputOld = keyToEnterInputOld.value
+        }
 
         keyToEnter.addEventListener('click', function (e) {
             const keyToEnter = document.querySelector('.key-to-enter input[name=to_change_key]')
 
-            if (keyToEnter) {
+            if (keyToEnterInputOld && keyToEnter) {
                 let keyToEnterValue = keyToEnter.value
 
-                if (keyToEnterInputValue.value !== keyToEnterValue) {
+                if (keyToEnterInputOld !== keyToEnterValue) {
 
                     // Минимум 6 символов
                     if (keyToEnterValue.length > 5) {
+
                         if (spinner) {
                             spinner.style.display = 'block'
                         }
@@ -225,6 +239,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             categoryID: categoryID
                         })
                             .then(function (res) {
+
+                                // Если что-то пойдёт не так, то перезагрузим страницу
+                                if (res.data == 1) {
+                                    document.location.href = document.location.href
+                                }
 
                                 // Удалить элемент
                                 el.remove()

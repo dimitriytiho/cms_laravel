@@ -13,6 +13,7 @@ class AppController extends \App\Modules\AppController
     protected $m;
     protected $namespace;
     protected $modulePath;
+    protected $viewPathModule;
 
 
     public function __construct(Request $request)
@@ -33,8 +34,8 @@ class AppController extends \App\Modules\AppController
         $model = $this->model = "{$this->namespace}\\Models\\{$module}";
         //$table = $this->table = with(new $model)->getTable();
         $route = $this->route = $request->segment(1);
-        $this->viewPath  = "{$module}.views";
+        $viewPathModule = $this->viewPathModule  = "{$module}.views";
 
-        View::share(compact('module', 'm', 'model', 'route')); // table
+        View::share(compact('module', 'm', 'model', 'route', 'viewPathModule')); // table
     }
 }

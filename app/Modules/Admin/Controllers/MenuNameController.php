@@ -154,7 +154,7 @@ class MenuNameController extends AppController
             // Если данные не изменины
             $lastData = $this->model::find((int)$id)->toArray();
             $current = $values->toArray();
-            if (!array_diff($current, $lastData)) {
+            if (!array_diff($lastData, $current)) {
 
                 // Сообщение об ошибке
                 session()->put('error', __('s.data_was_not_changed'));

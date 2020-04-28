@@ -232,9 +232,14 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   var modal = document.getElementById('modal-confirm'),
-      btnOk = modal.querySelector('.btn-outline-primary'),
       content = document.querySelector('.content'),
-      spinner = document.getElementById('spinner'); // При клике на #slug-edit генерируется ссылка
+      spinner = document.getElementById('spinner');
+  var btnOk = null;
+
+  if (modal) {
+    btnOk = modal.querySelector('.btn-outline-primary');
+  } // При клике на #slug-edit генерируется ссылка
+
 
   var slugEdit = document.getElementById('slug-edit');
 
@@ -251,7 +256,11 @@ document.addEventListener('DOMContentLoaded', function () {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(main.url + '/cyrillic-to-latin', {
           title: title.value
         }).then(function (res) {
-          title.setAttribute('value', res.data);
+          var slug = document.querySelector('form input[name=slug]');
+
+          if (slug) {
+            slug.value = res.data;
+          }
 
           if (spinner) {
             spinner.style.display = 'none';
@@ -281,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
           var latin = document.querySelector('.transliterator input[name=latin]');
 
           if (latin) {
-            latin.setAttribute('value', res.data);
+            latin.value = res.data;
           }
 
           if (spinner) {
@@ -299,14 +308,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (keyToEnter) {
     // Значени input, которое было изначально
-    var keyToEnterInputValue = document.querySelector('.key-to-enter input[name=to_change_key]');
+    var keyToEnterInputOld = document.querySelector('.key-to-enter input[name=to_change_key]');
+
+    if (keyToEnterInputOld) {
+      keyToEnterInputOld = keyToEnterInputOld.value;
+    }
+
     keyToEnter.addEventListener('click', function (e) {
       var keyToEnter = document.querySelector('.key-to-enter input[name=to_change_key]');
 
-      if (keyToEnter) {
+      if (keyToEnterInputOld && keyToEnter) {
         var keyToEnterValue = keyToEnter.value;
 
-        if (keyToEnterInputValue.value !== keyToEnterValue) {
+        if (keyToEnterInputOld !== keyToEnterValue) {
           // Минимум 6 символов
           if (keyToEnterValue.length > 5) {
             if (spinner) {
@@ -423,7 +437,12 @@ document.addEventListener('DOMContentLoaded', function () {
             axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
               categoryID: categoryID
             }).then(function (res) {
-              // Удалить элемент
+              // Если что-то пойдёт не так, то перезагрузим страницу
+              if (res.data == 1) {
+                document.location.href = document.location.href;
+              } // Удалить элемент
+
+
               el.remove(); // Сообщение об успехе
 
               _message__WEBPACK_IMPORTED_MODULE_1__["default"].success(res.data); // Удалить атрибут disabled у option с отправляемой категорией
@@ -734,6 +753,41 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./app/Modules/Admin/js/dropdown.js":
+/*!******************************************!*\
+  !*** ./app/Modules/Admin/js/dropdown.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Функция после загрузки страницы
+document.addEventListener('DOMContentLoaded', function () {
+  // При клике на на .dropdown-click показывает меню dropdown
+  var dropdownShow = false;
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('dropdown-click')) {
+      e.preventDefault();
+      dropdownShow = !dropdownShow;
+      var menu = e.target.closest('.dropdown').querySelector('.dropdown-menu'),
+          ms = 200; // Можно поменять время
+
+      if (dropdownShow) {
+        menu.style.display = 'block';
+        menu.classList.remove('anime-to-center');
+        menu.classList.add('anime-from-center');
+      } else {
+        menu.classList.remove('anime-from-center');
+        menu.classList.add('anime-to-center');
+        setTimeout(function () {
+          menu.style.display = 'none';
+        }, ms);
+      }
+    }
+  });
+}, false);
+
+/***/ }),
+
 /***/ "./app/Modules/Admin/js/dropzone.js":
 /*!******************************************!*\
   !*** ./app/Modules/Admin/js/dropzone.js ***!
@@ -1015,10 +1069,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./validate */ "./app/Modules/Admin/js/validate.js");
 /* harmony import */ var _confirm__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./confirm */ "./app/Modules/Admin/js/confirm.js");
 /* harmony import */ var _confirm__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_confirm__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./scripts */ "./app/Modules/Admin/js/scripts.js");
+/* harmony import */ var _dropdown__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./dropdown */ "./app/Modules/Admin/js/dropdown.js");
+/* harmony import */ var _dropdown__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_dropdown__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./scripts */ "./app/Modules/Admin/js/scripts.js");
 /*import bsn from 'bootstrap.native/dist/bootstrap-native-v4'
 export default bsn*/
 window.Bootstrap = __webpack_require__(/*! bootstrap.native/dist/bootstrap-native-v4 */ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js");
+
 
 
 
@@ -1426,13 +1483,28 @@ __webpack_require__.r(__webpack_exports__);
  // import message from "./message";
 // import libs from "../default/libs";
 
-var form = document.querySelector('.needs-validation');
+var formClass = 'needs-validation',
+    form = document.querySelector('.' + formClass);
 
 if (form) {
   var required = form.querySelectorAll('input[required], textarea[required]'),
       btn = form.querySelector('button[type=submit]'),
-      inputs = _functions__WEBPACK_IMPORTED_MODULE_0__["default"].serialize('.content form');
-  var submit = true; // Проверка каждого input c required
+      inputs = _functions__WEBPACK_IMPORTED_MODULE_0__["default"].serialize('.content form'),
+      spinner = document.getElementById('spinner'),
+      noSubmit = document.querySelector('.' + formClass + '.needs-validation-no-submit');
+  var submit = true; // Если есть класс .needs-validation-no-submit, блокируем кнопку отправки
+
+  if (noSubmit) {
+    btn.setAttribute('disabled', true);
+  } // При клике на submit ключаем спинер
+
+
+  if (btn && spinner) {
+    btn.addEventListener('click', function (e) {
+      spinner.style.display = 'block';
+    });
+  } // Проверка каждого input c required
+
 
   required.forEach(function (el) {
     // Если все input заполнены
@@ -1448,6 +1520,11 @@ if (form) {
       } else {
         e.target.classList.remove('is-invalid');
         submit = true;
+      } // Разблокируем кнопку отправки
+
+
+      if (noSubmit && submit) {
+        btn.removeAttribute('disabled');
       }
     });
   }); // Проверка, чтобы все input c required были заполнены, только тогда отправиться форма

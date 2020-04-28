@@ -104,7 +104,7 @@ class App extends Model
      * $title - строка для вывода title.
      * $description - строка для вывода description, необязательный параметр.
      */
-    public static function setMeta(string $title, string $description = '', string $titleSEO = '', string $keywords = null)
+    public static function setMeta($title, $description = '', $titleSEO = '', $keywords = null)
     {
         $siteName = App::$registry->get('settings')['site_name'] ?? ' ';
 

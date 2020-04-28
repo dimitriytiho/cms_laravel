@@ -26,7 +26,7 @@
             </div>
             <div class="row">
                 <div class="col pt-4 no_js">
-                    @include('cart.modal')
+                    @include("{$viewPathModule}.cart_modal")
                     @if (!$cartSession)
                         <a href="{{ route('catalog') }}" class="btn btn-primary mt-4">{{ __('sh.catalog') }}</a>
                     @endif

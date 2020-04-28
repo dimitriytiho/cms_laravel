@@ -41,12 +41,14 @@
                 @endif
             @endforeach
             <tr>
-                <th colspan="5">{{ __('sh.total') }}:</th>
+                <th colspan="4">{{ __('sh.total') }}:</th>
                 <th id="cart_modal_qty">{{ $cartSession['qty'] }}</th>
+                <th></th>
             </tr>
             <tr>
-                <th colspan="5">{{ __('sh.sum') }}:</th>
+                <th colspan="4">{{ __('sh.sum') }}:</th>
                 <th id="cart_modal_sum">{{ $cartSession['sum'] }}</th>
+                <th></th>
             </tr>
             </tbody>
         </table>

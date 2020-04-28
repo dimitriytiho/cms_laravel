@@ -64,8 +64,8 @@ return [
 
     // Виды доставки
     'delivery' => [
-        'courier',
-        'pickup',
+        'courier', // Курьером
+        'pickup', // Самовывоз
     ],
 
 

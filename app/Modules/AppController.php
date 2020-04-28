@@ -3,7 +3,6 @@
 namespace App\Modules;
 
 use App\App;
-use App\Helpers\Upload;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

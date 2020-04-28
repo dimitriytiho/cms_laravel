@@ -15,11 +15,52 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Modules\AppController as AppController;
 
-class EnterController extends Controller
+class EnterController extends AppController
 {
     use ThrottlesLogins;
+
+    protected $module = 'Admin'; // Название модуля
+    protected $m;
+    protected $namespace;
+    protected $modulePath;
+    protected $class;
+    protected $c;
+    protected $route;
+    protected $viewPath;
+
+
+    public function __construct(Request $request)
+    {
+        parent::__construct();
+
+        $module = $this->module;
+        $namespace = config('modules.namespace');
+        $modulesPath = config('modules.path');
+        if (!$module || !$namespace || !$modulesPath) {
+            App::getError('Not data in Module', __METHOD__);
+        }
+
+        $this->namespace = "{$namespace}\\{$module}";
+        $this->modulePath = "{$modulesPath}/{$module}";
+        $m = $this->m = Str::lower($module);
+
+        $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
+        $c = $this->c = Str::lower($this->class);
+
+        $route = $this->route = $request->segment(1);
+        $view = $this->view  = Str::snake($this->class);
+        $viewPath = $this->viewPath  = 'views';
+
+        // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
+        View::getFinder()->setPaths("{$this->modulePath}/{$viewPath}");
+
+        View::share(compact('module', 'm', 'class', 'c', 'route', 'view'));
+    }
 
 
     public function index(Request $request)
@@ -32,10 +73,11 @@ class EnterController extends Controller
         }*/
 
         // Сообщение об открытой странице входа
-        Log::warning('Open the Admin login page. ' . App::dataUser());
-        App::viewExists('admin.enter', __METHOD__);
+        App::getError('Open the Admin login page', __METHOD__, false, 'warning');
+
+        App::viewExists("{$this->view}.index", __METHOD__);
         $this->setMeta(__('s.login'));
-        return view('admin.enter');
+        return view("{$this->view}.index");
     }
 
     public function enterPost(Request $request)

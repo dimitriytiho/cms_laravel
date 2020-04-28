@@ -21,7 +21,7 @@ class CategoryProductController extends AppController
                 }
             }
         }
-        App::getError("Request No Ajax", __METHOD__);
+        App::getError('Request No Ajax', __METHOD__);
     }
 
 
@@ -36,7 +36,8 @@ class CategoryProductController extends AppController
                     return __('s.removed_successfully', ['id' => (int)$categoryID]);
                 }
             }
+            return 1;
         }
-        App::getError("Request No Ajax", __METHOD__);
+        App::getError('Request No Ajax', __METHOD__);
     }
 }

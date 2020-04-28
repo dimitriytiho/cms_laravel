@@ -14,6 +14,7 @@ import './aside'
 import './commands'
 import './validate'
 import './confirm'
+import './dropdown'
 import './scripts'
 
 // Маска ввода телефона

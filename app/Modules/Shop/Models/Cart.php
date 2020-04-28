@@ -62,10 +62,11 @@ class Cart
 
             // Общее кол-во в корзине
             if (session()->has('cart.qty')) {
-                $cartQty = session()->get('cart.qty') - $qty;
+                $cartQty = session()->get('cart.qty');
 
                 // Если кол-во больше 1, то будем уменьшать
                 if ($cartQty > 1) {
+                    $cartQty = $cartQty - $qty;
                     session()->put('cart.qty', $cartQty);
 
 

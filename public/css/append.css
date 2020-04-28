@@ -9495,11 +9495,11 @@ label,
 }
 
 .dz-message {
-  color: #40c4ff;
+  color: #78909c;
 }
 
 .dropzone {
-  border: 1px dashed #40c4ff;
+  border: 1px dashed #78909c;
   border-radius: 0.15rem;
 }
 
@@ -9537,7 +9537,7 @@ h3 {
 }
 
 .p-icons {
-  padding: 0.42rem;
+  padding: 0.14rem 0.42rem;
 }
 
 .a-light a {
@@ -9568,7 +9568,7 @@ h3 {
 }
 
 .a-primary a {
-  color: #0db4ff;
+  color: #78909c;
   transition: all 0.25s;
 }
 

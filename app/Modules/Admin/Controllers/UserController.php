@@ -252,7 +252,7 @@ class UserController extends AppController
             $lastDataNew = [];
             $current = $values->toArray();
 
-            if (array_diff($current, $lastData)) {
+            if (array_diff($lastData, $current)) {
 
                 // В таблицу users_last_data запишутся предыдущие данные
                 foreach ($lastData as $k => $v) {
@@ -323,6 +323,13 @@ class UserController extends AppController
 
             if ($values) {
                 $img = $values->img ?? null;
+
+                // Проверим есть ли заказы
+                $orders = DB::table('orders')->where('user_id', (int)$id)->count();
+                if ($orders) {
+                    session()->put('error', __('s.user_has') . Str::lower(__('a.Orders')));
+                    return redirect()->back();
+                }
 
                 if ($values->delete()) {
 

@@ -19,9 +19,7 @@
                         {!! input('slug', $values->slug ?? null) !!}
                     </div>
                     <div class="mt-4">
-                        <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 p-0" title="{{ __('a.generate_link') }}">
-                            <i aria-hidden="true" class="material-icons p-icons btn-pulse" id="slug-edit">autorenew</i>
-                        </button>
+                        <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="{{ __('a.generate_link') }}">autorenew</button>
                     </div>
                 </div>
 
@@ -92,15 +90,17 @@
                     @endif
                 </div>
             </form>
-            @if (!empty($getIdParents) || !empty($getIdProducts))
+            @if (!empty($getIdParents) || !empty($issetGetIdProducts))
                 <div class="text-right mt--3">
-                    <div class="small text-secondary">{{ __('s.remove_not_possible') }},<br>{{ __('s.there_are_nested') }} ID:</div>
-                    @foreach ($getIdParents as $v)
-                        <a href="{{ route("admin.$route.edit", $v->id) }}">{{ $v->id }}</a>
-                    @endforeach
+                    @if (!empty($getIdParents))
+                        <div class="small text-secondary">{{ __('s.remove_not_possible') }},<br>{{ __('s.there_are_nested') }} ID:</div>
+                        @foreach ($getIdParents as $v)
+                            <a href="{{ route("admin.$route.edit", $v->id) }}">{{ $v->id }}</a>
+                        @endforeach
+                    @endif
 
-                    <div class="small text-secondary">{{ __('s.there_are_nested') }} {{ Str::lower(__('a.Products')) }}:</div>
-                    @if(!empty($getIdProducts[0]->products))
+                    @if ($issetGetIdProducts)
+                        <div class="small text-secondary">{{ __('s.there_are_nested') }} {{ Str::lower(__('a.Products')) }}:</div>
                         @foreach ($getIdProducts[0]->products as $v)
                             <a href="{{ route("admin.product.edit", $v->id) }}">{{ $v->id }}</a>
                         @endforeach

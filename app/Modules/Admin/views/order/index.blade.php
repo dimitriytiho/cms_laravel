@@ -62,6 +62,9 @@
                             if ($v->status === config('admin.order_statuses')[0]) {
                                 $trClass = 'table-danger';
 
+                            } elseif ($v->status === config('admin.order_statuses')[1]) {
+                                $trClass = 'table-warning';
+
                             /*} elseif () {*/
 
                             } else {

@@ -38,7 +38,7 @@ class CartController extends AppController
     public function index(Request $request)
     {
         // Если нет вида
-        App::viewExists("{$this->viewPath}.{$this->c}_index", __METHOD__);
+        App::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
 
         //session()->forget('cart');
         //$cartSession = session()->has('cart') ? session()->get('cart') : [];
@@ -48,7 +48,7 @@ class CartController extends AppController
         $noBtnModal = true;
 
         $this->setMeta(__('sh.cart'));
-        return view("{$this->viewPath}.{$this->c}_index", compact('cartSession', 'noBtnModal'));
+        return view("{$this->viewPathModule}.{$this->c}_index", compact('cartSession', 'noBtnModal'));
     }
 
 
@@ -58,7 +58,7 @@ class CartController extends AppController
     {
         if ($request->ajax()) {
             $cartSession = session()->has('cart') ? session()->get('cart') : [];
-            return view("{$this->viewPath}.{$this->c}_modal")->with(compact('cartSession'))->render();
+            return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('cartSession'))->render();
         }
         App::getError("{$this->class} request", __METHOD__);
     }
@@ -82,7 +82,7 @@ class CartController extends AppController
             $cartSession = session()->has('cart') ? session()->get('cart') : [];
 
             if ($request->ajax()) {
-                return view("{$this->viewPath}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render(); //->with(compact('product'))
+                return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render(); //->with(compact('product'))
             }
             return back(); // ->with('success', __('sh.success_plus'))
         }
@@ -108,7 +108,7 @@ class CartController extends AppController
             $cartSession = session()->has('cart') ? session()->get('cart') : [];
 
             if ($request->ajax()) {
-                return view("{$this->viewPath}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render(); //->with(compact('product'))
+                return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render(); //->with(compact('product'))
             }
             return back(); // ->with('success', __('sh.success_minus'))
         }
@@ -133,7 +133,7 @@ class CartController extends AppController
             $cartSession = session()->has('cart') ? session()->get('cart') : [];
 
             if ($request->ajax()) {
-                return view("{$this->viewPath}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render();
+                return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render();
             }
             return back(); // ->with('success', __('sh.success_destroy'))
         }
@@ -209,7 +209,7 @@ class CartController extends AppController
             }
 
 
-            // Данные для таблицы Order
+            // Данные для таблицы orders
             $qty = session()->has('cart.qty') ? (int)session()->get('cart.qty') : null;
             $sum = session()->has('cart.sum') ? session()->get('cart.sum') : null;
 

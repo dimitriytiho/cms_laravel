@@ -33,9 +33,9 @@ class PageController extends AppController
         dump($mobileDetect->isTablet());*/
 
 
-        App::viewExists("{$this->viewPath}.{$this->c}_index", __METHOD__);
+        App::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
         $this->setMeta(__('c.home'), __('c.You_are_on_home'));
-        return view("{$this->viewPath}.{$this->c}_index");
+        return view("{$this->viewPathModule}.{$this->c}_index");
     }
 
 
@@ -47,7 +47,7 @@ class PageController extends AppController
         }
 
         // Если нет вида
-        App::viewExists("{$this->viewPath}.{$this->c}_show", __METHOD__);
+        App::viewExists("{$this->viewPathModule}.{$this->c}_show", __METHOD__);
 
         // Если пользователь админ, то будут показываться неактивные страницы
         if (auth()->check() && auth()->user()->Admin()) {
@@ -78,15 +78,15 @@ class PageController extends AppController
         App::set('id', $values->id);
 
         $this->setMeta($values->title ?? null, $values->description ?? null);
-        return view("{$this->viewPath}.{$this->c}_show", compact('values'));
+        return view("{$this->viewPathModule}.{$this->c}_show", compact('values'));
     }
 
 
     public function contactUs(Request $request)
     {
-        App::viewExists("{$this->viewPath}.{$this->c}_contact_us", __METHOD__);
+        App::viewExists("{$this->viewPathModule}.{$this->c}_contact_us", __METHOD__);
         $this->setMeta(__('c.contact_us'));
-        return view("{$this->viewPath}.{$this->c}_contact_us");
+        return view("{$this->viewPathModule}.{$this->c}_contact_us");
     }
 
 
@@ -99,6 +99,6 @@ class PageController extends AppController
 
         App::getError($title, __METHOD__, null, 'info');
         $this->setMeta($title);
-        return response()->view('views.errors.404', compact('title', 'message'), 404);
+        return response()->view("{$this->viewPath}.errors.404", compact('title', 'message'), 404);
     }
 }

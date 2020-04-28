@@ -16,11 +16,11 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->text('note')->nullable(); // Для комментариев администратора
             $table->string('status', 32)->default(config('admin.order_statuses')[0]);
             $table->text('message')->nullable(); // Сообщение от пользователя
-            $table->string('delivery', 32)->default(config('admin.delivery')[0]);
+            $table->string('delivery', 32)->nullable();
             $table->float('delivery_sum')->nullable();
             $table->float('discount')->nullable();
             $table->string('discount_code')->nullable();

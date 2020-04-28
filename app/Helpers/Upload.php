@@ -174,7 +174,7 @@ class Upload
         // Если индексировать
         } else {
             foreach ($disallow as $v) {
-                $r .= "Disallow: /$v" . PHP_EOL;
+                $r .= "Disallow: /{$v}" . PHP_EOL;
             }
 
             $r .= PHP_EOL . 'Host: ' . env('APP_URL') . PHP_EOL;
@@ -192,7 +192,7 @@ class Upload
         if ($values && is_array($values)) {
             $r = '';
             foreach ($values as $k => $v) {
-                $r .= "$k: $v" . PHP_EOL;
+                $r .= "{$k}: {$v}\n";
             }
             $r .= 'Last update: ' . date('Y-m-d') . PHP_EOL;
             Storage::disk('public_folder')->put('humans.txt', $r);
@@ -215,7 +215,6 @@ class Upload
     {
         //return 'testing';
         //$key = 'testing';
-        //$key = 'lnjJCb02kY7fnM3hPg';
 
         //dd(\Illuminate\Support\Facades\Crypt::decryptString('eyJpdiI6IlZ3XC9EclVUZUFUQXZCMHpwSWVOSjVnPT0iLCJ2YWx1ZSI6IkJwckY0bGpLTEZ6aHRkYWhrdmRRaWc9PSIsIm1hYyI6ImNjNjdmMDQ4ZTg3ZjEzOTQ0ZGFkNDdkZDJlMTMwZjYzNjkxODdmMjMyNDIwN2I4ODdkYWQxZTc5Mzg5NGZlMzUifQ=='));
 
@@ -231,6 +230,7 @@ class Upload
 
             // Запрос в БД
             $key = DB::table('uploads')->select('key')->orderBy('id', 'desc')->first();
+
             if (isset($key->key)) {
 
                 // Кэшируется запрос
@@ -252,13 +252,14 @@ class Upload
     {
         $key = $newKey ?: Str::lower(Str::random(18));
 
-        // Новый ключ сохраняется в БД
-        $crypt = $key;
-        //$crypt = Crypt::encryptString($key); // Зашифровать
+        // Зашифровать
+        //$crypt = Crypt::encryptString($key);
+
         $now = Date::timeToTimestamp(time());
         $end_month = Date::timeToTimestamp(Date::timeEndDay() + 7200); // Время на 1 число месяца 2 часа ночи
 
-        DB::insert("INSERT INTO `uploads` (`key`, date_key, date_upload) VALUES (?, ?, ?)", [$crypt, $now, $end_month]);
+        // Новый ключ сохраняется в БД
+        DB::insert("INSERT INTO `uploads` (`key`, date_key, date_upload) VALUES (?, ?, ?)", [$key, $now, $end_month]);
 
 
         // Удалить все кэши

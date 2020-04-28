@@ -36,22 +36,30 @@
         </div>
     </div>
     <div class="container">
-        @include('components.message')
+        @include("inc.message")
     </div>
     <div class="content" id="content">
         @yield('content')
     </div>
     <div id="bottom-block"></div>
 </div>
-<script type="text/javascript">
+<div id="spinner">
+    <div class="spinner-block">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Загрузка...</span>
+        </div>
+    </div>
+</div>
+<script>
     var body = document.body,
         height = '{{ config('add.height') ?: 600 }}',
         main = {
             url: '{{ env('APP_URL') . '/' }}'
-    }
+        },
+        table = null
 
     {!! \App\Helpers\Locale::translationsJson() !!}
 </script>
-<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/append.js') }}"></script>
 </body>
 </html>

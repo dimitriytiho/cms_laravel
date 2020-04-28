@@ -32,7 +32,7 @@ class ProductController extends AppController
         }
 
         // Если нет вида
-        App::viewExists("{$this->viewPath}.{$this->c}_show", __METHOD__);
+        App::viewExists("{$this->viewPathModule}.{$this->c}_show", __METHOD__);
 
         // Если пользователь админ, то будут показываться неактивные страницы
         if (auth()->check() && auth()->user()->Admin()) {
@@ -63,6 +63,6 @@ class ProductController extends AppController
         App::set('id', $values->id);
 
         $this->setMeta($values->title ?? null, $values->description ?? null);
-        return view("{$this->viewPath}.{$this->c}_show", compact('values'));
+        return view("{$this->viewPathModule}.{$this->c}_show", compact('values'));
     }
 }

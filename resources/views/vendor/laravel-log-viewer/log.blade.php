@@ -1,8 +1,10 @@
 @php
-    $admin_vars_for_all_views = INC_VIEW . '/admin_vars_for_all_views.php';
+
+    $admin_vars_for_all_views = config('modules.path') . '/Admin/views/inc/admin_vars_for_all_views.php';
     if (is_file($admin_vars_for_all_views)) {
         require_once $admin_vars_for_all_views;
     }
+
 @endphp
 @extends('layouts.admin')
 {{--

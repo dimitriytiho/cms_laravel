@@ -86,6 +86,7 @@ class ProductController extends AppController
             $rules = [
                 'title' => 'required',
                 'slug' => 'required',
+                'price' => 'required',
             ];
             $this->validate($request, $rules);
             $data = $request->all();
@@ -224,7 +225,7 @@ class ProductController extends AppController
             // Если данные не изменины
             $lastData = $this->model::find((int)$id)->toArray();
             $current = $values->toArray();
-            if (!array_diff($current, $lastData)) {
+            if (!array_diff($lastData, $current)) {
 
                 // Сообщение об ошибке
                 session()->put('error', __('s.data_was_not_changed'));
@@ -262,6 +263,20 @@ class ProductController extends AppController
 
             if ($values) {
                 $img = $values->img ?? null;
+
+                // Проверим есть ли заказы
+                $orders = DB::table('order_product')->where('product_id', (int)$id)->get()->toArray();
+                if ($orders) {
+                    $ordersPart = '';
+                    foreach ($orders as $order) {
+                        $ordersPart .= "#{$order->order_id} ,";
+                    }
+                    $ordersPart = rtrim($ordersPart, ' ,');
+
+                    session()->put('error', __('s.product_is_present_in_order') . $ordersPart);
+                    return redirect()->back();
+                }
+
 
                 // УДАЛЯЕМ ВСЕ СВЯЗКИ С ТОВАРОМ
                 // С категориями и сам товар

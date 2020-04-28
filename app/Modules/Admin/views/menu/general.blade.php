@@ -31,9 +31,7 @@
                             {!! input('slug', $values->slug ?? null) !!}
                         </div>
                         <div class="mt-4">
-                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons slug-edit" title="{{ __('a.generate_link') }}">
-                                <i aria-hidden="true" class="material-icons slug-edit btn-pulse-child">autorenew</i>
-                            </button>
+                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="{{ __('a.generate_link') }}">autorenew</button>
                         </div>
                     </div>
 

@@ -3,7 +3,7 @@
 namespace App\Modules\Form\Controllers;
 
 use App\App;
-use App\Form;
+use App\Modules\Form\Models\Form;
 use App\Mail\SendMail;
 use App\User;
 use Illuminate\Http\Request;
