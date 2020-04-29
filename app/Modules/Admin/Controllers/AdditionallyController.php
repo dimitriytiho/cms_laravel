@@ -28,24 +28,24 @@ class AdditionallyController extends AppController
             switch ($cache) {
                 case 'db':
                     cache()->flush();
-                    session()->put('success', __('a.cache_deleted'));
+                    session()->put('success', __("{$this->lang}::a.cache_deleted"));
                     return redirect()->route("admin.{$t}");
 
                 case 'views':
                     $res = Commands::getCommand('view:clear');
-                    $res ? session()->put('success', $res) : session()->put('error', __('s.something_went_wrong'));
+                    $res ? session()->put('success', $res) : session()->put('error', __("{$this->lang}::s.something_went_wrong"));
                     return redirect()->route("admin.{$t}");
 
                 case 'routes':
                     $res1 = Commands::getCommand('route:clear');
                     $res2 = Commands::getCommand('route:cache');
-                    $res1 && $res2 ? session()->put('success', "{$res1}\n{$res2}") : session()->put('error', __('s.something_went_wrong'));
+                    $res1 && $res2 ? session()->put('success', "{$res1}\n{$res2}") : session()->put('error', __("{$this->lang}::s.something_went_wrong"));
                     return redirect()->route("admin.{$t}");
 
                 case 'config':
                     $res1 = Commands::getCommand('config:clear');
                     $res2 = Commands::getCommand('optimize');
-                    $res1 && $res2 ? session()->put('success', "{$res1}\n{$res2}") : session()->put('error', __('s.something_went_wrong'));
+                    $res1 && $res2 ? session()->put('success', "{$res1}\n{$res2}") : session()->put('error', __("{$this->lang}::s.something_went_wrong"));
                     return redirect()->route("admin.{$t}");
             }
         }
@@ -64,7 +64,7 @@ class AdditionallyController extends AppController
                 Artisan::call('backup:clean');
                 Artisan::call('backup:run');
 
-                session()->put('success', __('a.completed_successfully'));
+                session()->put('success', __("{$this->lang}::a.completed_successfully"));
                 return redirect()->route('admin.additionally', 'backup=disabled');
             }
         }
@@ -84,12 +84,12 @@ class AdditionallyController extends AppController
 
             // Сообщение об ошибке
             App::getError('Request', __METHOD__, null);
-            session()->put('error', __('s.something_went_wrong'));
+            session()->put('error', __("{$this->lang}::s.something_went_wrong"));
             return redirect()->route("admin.{$t}");
         }
 
         App::viewExists("{$t}.{$f}", __METHOD__);
-        $this->setMeta(__('a.' . Str::ucfirst($t)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($t)));
         return view("{$t}.{$f}", compact('backupDisabled'));
     }
 
@@ -99,7 +99,7 @@ class AdditionallyController extends AppController
         $t = $request->segment(2);
         App::viewExists("{$t}.{$f}", __METHOD__);
 
-        $this->setMeta(__('a.' . Str::ucfirst($t)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($t)));
         return view("{$t}.{$f}");
     }
 }

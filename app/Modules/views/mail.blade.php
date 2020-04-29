@@ -17,9 +17,9 @@
 <div{!! $view ? '' : ' style="font-size: 16px;"' !!}>{!! $view ?: $body !!}</div>
 <br>
 <br>
-<p style="font-size: 14px; font-weight: lighter">{{ __('s.Please_do_not_reply_to_this_email') }}<a href="mailto:{{ $email }}" style="color: {{ $color }}; text-decoration: none;">{{ $email }}</a>{{ $tel }}</p>
+<p style="font-size: 14px; font-weight: lighter">@lang("{$lang}::s.Please_do_not_reply_to_this_email")<a href="mailto:{{ $email }}" style="color: {{ $color }}; text-decoration: none;">{{ $email }}</a>{{ $tel }}</p>
 <br>
 
-<p style="font-size: 16px;">{{ __('s.Best_regards') }}<a href="{{ route('index') }}" style="color: {{ $color }}; text-decoration: none;">{{ $site_name }}</a></p>
+<p style="font-size: 16px;">@lang("{$lang}::s.Best_regards")<a href="{{ route('index') }}" style="color: {{ $color }}; text-decoration: none;">{{ $site_name }}</a></p>
 </body>
 </html>

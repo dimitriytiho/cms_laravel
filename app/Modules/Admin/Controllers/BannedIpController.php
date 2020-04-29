@@ -52,7 +52,7 @@ class BannedIpController extends AppController
             $values = $this->model::paginate($perpage);
         }
 
-        $this->setMeta(__('a.' . Str::ucfirst($this->table)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
         return view("{$this->view}.$f", compact('values', 'queryArr', 'col', 'cell'));
     }
 
@@ -91,13 +91,13 @@ class BannedIpController extends AppController
 
             $values = DB::table($this->table)->find((int)$id);
 
-            $this->setMeta(__("a.$f"));
+            $this->setMeta(__("{$this->lang}::a.{$f}"));
             return view("{$this->view}.{$f}", compact('values'));
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -136,14 +136,14 @@ class BannedIpController extends AppController
             if (DB::table($this->table)->where('id', $id)->update(['count' => '0', 'banned' => '0'])) {
 
                 // Сообщение об успехе
-                session()->put('success', __('s.cleared_successfully', ['id' => $id]));
+                session()->put('success', __("{$this->lang}::s.cleared_successfully", ['id' => $id]));
                 return redirect()->route("admin.{$this->route}.index");
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 }

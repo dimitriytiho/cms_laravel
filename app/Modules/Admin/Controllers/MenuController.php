@@ -4,6 +4,7 @@ namespace App\Modules\Admin\Controllers;
 
 use App\App;
 use App\Modules\Admin\Models\Menu;
+use App\Modules\Admin\Helpers\App as appHelpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -56,7 +57,7 @@ class MenuController extends AppController
             $values = DB::table($this->table)->where('menu_name_id', $current_menu_id)->paginate($perpage);
         }
 
-        $this->setMeta(__('a.' . Str::ucfirst($this->table)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
         return view("{$this->view}.$f", compact('menu', 'values', 'current_menu_id', 'menuNameCount'));
     }
 
@@ -80,7 +81,7 @@ class MenuController extends AppController
         // Если в таблице menu_name нет элементов, то ничего нельзя добавить в таблицу menu и поэтому не показываем в виде форму добавления
         $values = DB::table('menu_name')->count();
 
-        $this->setMeta(__('a.' . Str::ucfirst($f)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
         return view("{$this->view}.{$this->template}", compact('current_menu_id', 'values', 'menuName'));
     }
 
@@ -109,14 +110,14 @@ class MenuController extends AppController
                 cache()->flush();
 
                 // Сообщение об успехе
-                session()->put('success', __('s.created_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.created_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -165,13 +166,13 @@ class MenuController extends AppController
             // Потомки в массиве
             $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents($values->id ?? null, $this->table);
 
-            $this->setMeta(__("a.$f"));
+            $this->setMeta(__("{$this->lang}::a.{$f}"));
             return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'current_menu_id', 'menuName'));
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -204,10 +205,11 @@ class MenuController extends AppController
             // Если данные не изменины
             $lastData = $this->model::find((int)$id)->toArray();
             $current = $values->toArray();
-            if (!array_diff($lastData, $current)) {
+
+            if (!appHelpers::arrayDiff($lastData, $current)) {
 
                 // Сообщение об ошибке
-                session()->put('error', __('s.data_was_not_changed'));
+                session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
 
@@ -217,14 +219,14 @@ class MenuController extends AppController
                 cache()->flush();
 
                 // Сообщение об успехе
-                session()->put('success', __('s.saved_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -244,7 +246,7 @@ class MenuController extends AppController
                 // Если есть потомки, то ошибка
                 $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents((int)$id, $this->table);
                 if ($getIdParents) {
-                    session()->put('error', __('s.remove_not_possible') . ', ' . __('s.there_are_nested') . ' #');
+                    session()->put('error', __("{$this->lang}::s.remove_not_possible") . ', ' . __("{$this->lang}::s.there_are_nested") . ' #');
                     return redirect()->route("admin.{$this->route}.index");
                 }
 
@@ -254,7 +256,7 @@ class MenuController extends AppController
                     cache()->flush();
 
                     // Сообщение об успехе
-                    session()->put('success', __('s.removed_successfully', ['id' => $values->id]));
+                    session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
                     return redirect()->route("admin.{$this->route}.index");
                 }
             }
@@ -262,7 +264,7 @@ class MenuController extends AppController
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 }

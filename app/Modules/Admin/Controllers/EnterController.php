@@ -76,7 +76,7 @@ class EnterController extends AppController
         App::getError('Open the Admin login page', __METHOD__, false, 'warning');
 
         App::viewExists("{$this->view}.index", __METHOD__);
-        $this->setMeta(__('s.login'));
+        $this->setMeta(__("{$this->lang}::s.login"));
         return view("{$this->view}.index");
     }
 
@@ -286,7 +286,7 @@ class EnterController extends AppController
                     // Увеличение попыток входа
                     $this->incrementLoginAttempts($request);
 
-                    session()->put('error', __('auth.email_failed'));
+                    session()->put('error', __("{$this->lang}::auth.email_failed"));
                     $request->flashOnly('email');
                     return redirect()->route('enter');
                 }
@@ -300,7 +300,7 @@ class EnterController extends AppController
 
                 // Отправка на email кода для верификации
                 try {
-                    Mail::to($request->email)->send(new SendMail(__('a.Code'), $code));
+                    Mail::to($request->email)->send(new SendMail(__("{$this->lang}::a.Code"), $code));
                 } catch (\Exception $e) {
                     Log::error("Error sending mail. Email: $request->email. " . App::dataUser() . "Error: $e. In " . __METHOD__);
                 }
@@ -323,7 +323,7 @@ class EnterController extends AppController
                     // Увеличение попыток входа
                     $this->incrementLoginAttempts($request);
 
-                    $request->session()->put('error', __('auth.code_incorrect'));
+                    $request->session()->put('error', __("{$this->lang}::auth.code_incorrect"));
                     $request->flashOnly('confirm');
                 }
                 return redirect()->route('enter');
@@ -386,7 +386,7 @@ class EnterController extends AppController
         // Сообщение об открытой странице входа
         Log::warning('Open the Admin login page. ' . App::dataUser());
         App::viewExists('admin.enter', __METHOD__);
-        $this->setMeta(__('s.login'));
+        $this->setMeta(__("{$this->lang}::s.login"));
         return view('admin.enter', compact('auth_view', 'form_name'));
     }*/
 

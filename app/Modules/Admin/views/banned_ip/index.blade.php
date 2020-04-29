@@ -8,32 +8,32 @@
     @if (!empty($values))
         <div class="row">
             <div class="col">
-                <form action="{{ route("admin.$route.index") }}" class="mb-3">
+                <form action="{{ route("admin.{$route}.index") }}" class="mb-3">
                     <div class="form-row">
                         <div class="col-sm-2 mb-2">
                             <label for="col" class="sr-only"></label>
                             <select class="form-control" name="col">
                                 @if ($queryArr)
                                     @foreach ($queryArr as $option)
-                                        <option value="{{ $option }}" @if ($col === $option) selected @endif>{{ __("f.{$option}") }}</option>
+                                        <option value="{{ $option }}" @if ($col === $option) selected @endif>@lang("{$lang}::f.{$option}")</option>
                                     @endforeach
                                 @endif
                             </select>
                         </div>
                         <div class="col col-sm-3">
                             <label for="cell" class="sr-only"></label>
-                            <input type="text" name="cell" class="form-control" placeholder="{{ __('a.search') }}..." value="@if ($cell){{ $cell }}@endif">
+                            <input type="text" name="cell" class="form-control" placeholder="@lang("{$lang}::a.search")..." value="@if ($cell){{ $cell }}@endif">
                         </div>
                         <div class="col-1 d-flex">
                             <div>
                                 <button type="submit" class="btn btn-primary btn-icons">
-                                    <i aria-hidden="true" class="material-icons" title="{{ __('a.search') }}">search</i>
+                                    <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.search")">search</i>
                                 </button>
                             </div>
                             @if ($cell)
                                 <div>
                                     <a href="{{ route("admin.$route.index") }}" class="btn btn-outline-primary ml-2 btn-icons">
-                                        <i aria-hidden="true" class="material-icons" title="{{ __('c.reset') }}">find_replace</i>
+                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::c.reset")">find_replace</i>
                                     </a>
                                 </div>
                             @endif
@@ -44,11 +44,11 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col" class="font-weight-light">{{ __('a.action') }}</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::a.action")</th>
                             <th scope="col" class="font-weight-light">ID</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.ip') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.qty') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.banned') }}</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.ip")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.qty")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.banned")</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -56,7 +56,7 @@
                             <tr @if ($v->banned == 1) class="table-active"@endif>
                                 <th scope="row">
                                     <a href="{{ route("admin.$route.show", $v->id) }}" class="font-weight-light">
-                                        <i aria-hidden="true" class="material-icons" title="{{ __('a.edit') }}">edit</i>
+                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.edit")">edit</i>
                                     </a>
                                 </th>
                                 <td class="font-weight-light">{{ $v->id }}</td>
@@ -77,7 +77,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <p class="font-weight-light text-center text-secondary mt-3">{{ __('a.shown') . $values->count() . __('a.of') .  $values->total()}}</p>
+                <p class="font-weight-light text-center text-secondary mt-3">{{ __("{$lang}::a.shown") . $values->count() . __("{$lang}::a.of") .  $values->total()}}</p>
             </div>
         </div>
     @endif

@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col">
                     <p>
-                        <span class="text-secondary">{{ __('a.selected') }}:&nbsp;</span>
+                        <span class="text-secondary">@lang("{$lang}::a.selected"):&nbsp;</span>
                         <span>{{ $menuName->title }}</span>
                     </p>
                 </div>
@@ -18,7 +18,7 @@
         @endif
         <div class="row">
             <div class="col">
-                <form action="{{ isset($values->id) ? route("admin.$route.update", $values->id) : route("admin.$route.store") }}" method="post" class="needs-validation" novalidate>
+                <form action="{{ isset($values->id) ? route("admin.{$route}.update", $values->id) : route("admin.{$route}.store") }}" method="post" class="needs-validation" novalidate>
                     @if (isset($values->id))
                         @method('put')
                     @endif
@@ -31,14 +31,14 @@
                             {!! input('slug', $values->slug ?? null) !!}
                         </div>
                         <div class="mt-4">
-                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="{{ __('a.generate_link') }}">autorenew</button>
+                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="@lang("{$lang}::a.generate_link")">autorenew</button>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="parent_id">{{ __('f.parent_id') }}</label>
+                                <label for="parent_id">@lang("{$lang}::f.parent_id")</label>
                                 @php
 
                                     if (!empty($table)) {
@@ -51,7 +51,7 @@
                                             'attrs' => [
                                                 'name' => 'parent_id',
                                             ],
-                                            'prepend' => '<option value="0"> ' . __('f.parent_id') . ' </option>',
+                                            'prepend' => '<option value="0"> ' . __("{$lang}::f.parent_id") . ' </option>',
                                         ]);
                                     }
 
@@ -96,14 +96,14 @@
                     @endif
 
                     <div id="btn-sticky">
-                        <button type="submit" class="btn btn-primary mt-3 btn-pulse">{{ isset($values->id) ? __('f.save') : __('f.submit') }}</button>
+                        <button type="submit" class="btn btn-primary mt-3 btn-pulse">{{ isset($values->id) ? __("{$lang}::f.save") : __("{$lang}::f.submit") }}</button>
                     </div>
                 </form>
                 @if (isset($values->id))
-                    <form action="{{ route("admin.$route.destroy", $values->id) }}" method="post" class="text-right confirm-form">
+                    <form action="{{ route("admin.{$route}.destroy", $values->id) }}" method="post" class="text-right confirm-form">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="btn btn-outline-primary mt-3 position-relative t--3  btn-pulse">{{ __('s.remove') }}</button>
+                        <button type="submit" class="btn btn-outline-primary mt-3 position-relative t--3  btn-pulse">@lang("{$lang}::s.remove")</button>
                     </form>
                 @endif
             </div>

@@ -12,9 +12,9 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col" class="font-weight-light">{{ __('a.action') }}</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::a.action")</th>
                             <th scope="col" class="font-weight-light">ID</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.title') }}</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.title")</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -22,7 +22,7 @@
                             <tr>
                                 <th scope="row">
                                     <a href="{{ route("admin.$route.edit", $v->id) }}" class="font-weight-light">
-                                        <i aria-hidden="true" class="material-icons" title="{{ __('a.edit') }}">edit</i>
+                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.edit")">edit</i>
                                     </a>
                                 </th>
                                 <td class="font-weight-light">{{ $v->id }}</td>
@@ -41,7 +41,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <p class="font-weight-light text-center text-secondary mt-3">{{ __('a.shown') . $values->count() . __('a.of') .  $values->total()}}</p>
+                <p class="font-weight-light text-center text-secondary mt-3">{{ __("{$lang}::a.shown") . $values->count() . __("{$lang}::a.of") .  $values->total()}}</p>
             </div>
         </div>
     @endif

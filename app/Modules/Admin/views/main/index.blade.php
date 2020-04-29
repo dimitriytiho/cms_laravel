@@ -15,7 +15,7 @@
     <section>
         <div class="row mt-4">
             <div class="col">
-                <h5 class="text-primary">{{ auth()->user()->name . __('c.welcome') }}</h5>
+                <h5 class="text-primary">{{ auth()->user()->name . __("{$lang}::c.welcome") }}</h5>
             </div>
         </div>
     </section>
@@ -23,7 +23,7 @@
     <section class="transliterator">
         <div class="row mt-5 mb-3">
             <div class="col">
-                {!! $constructor::adminH2(__('a.transliterator')) !!}
+                {!! $constructor::adminH2(__("{$lang}::a.transliterator")) !!}
             </div>
         </div>
         <div class="row">
@@ -33,7 +33,7 @@
                         {!! input('cyrillic') !!}
                     </div>
                     <div class="mt-4">
-                        <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="transliterator" title="{{ __('a.generate') }}">autorenew</button>
+                        <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="transliterator" title="{{ __("{$lang}::a.generate") }}">autorenew</button>
                     </div>
                 </div>
                 {!! input('latin') !!}
@@ -48,7 +48,7 @@
         <section class="key-to-enter">
             <div class="row mt-5 mb-3">
                 <div class="col">
-                    {!! $constructor::adminH2(__('a.key_to_enter')) !!}
+                    {!! $constructor::adminH2(__("{$lang}::a.key_to_enter")) !!}
                 </div>
             </div>
             <div class="row">
@@ -58,10 +58,10 @@
                             {!! input('to_change_key', $key->key) !!}
                         </div>
                         <div class="mt-4">
-                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="key-to-enter" title="{{ __('f.save') }}">save_alt</button>
+                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="key-to-enter" title="@lang("{$lang}::f.save")">save_alt</button>
                         </div>
                     </div>
-                    <p class="text-secondary"><sup>*</sup> {{ __('a.key_description') }}</p>
+                    <p class="text-secondary"><sup>*</sup> @lang("{$lang}::a.key_description")</p>
                 </div>
             </div>
             @if (\App\App::get('settings')['change_key'] ?? null)

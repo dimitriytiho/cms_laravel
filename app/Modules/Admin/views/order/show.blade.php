@@ -8,8 +8,8 @@
             <div class="col">
                 {!!
 
-                $constructor::adminH2(__('a.notes'), 'mt-3 mb-3') !!}
-                <form action="{{ route("admin.$route.update", $values->id) }}" method="post" class="needs-validation mb-4" novalidate>
+                $constructor::adminH2(__("{$lang}::a.notes"), 'mt-3 mb-3') !!}
+                <form action="{{ route("admin.{$route}.update", $values->id) }}" method="post" class="needs-validation mb-4" novalidate>
                     @method('put')
                     @csrf
                     <div class="row">
@@ -19,24 +19,24 @@
                         <div class="col-md-6">
                             {!! select('status', $statuses, $values->status ?? null) !!}
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary mt-2 btn-pulse">{{ __('f.save') }}</button>
+                                <button type="submit" class="btn btn-primary mt-2 btn-pulse">@lang("{$lang}::f.save")</button>
                             </div>
                         </div>
                     </div>
                 </form>
                 {!!
 
-                $constructor::adminH2(__('a.Order'), 'mt-3 mb-3') !!}
+                $constructor::adminH2(__("{$lang}::a.Order"), 'mt-3 mb-3') !!}
                 <table class="table table-striped mb-4">
                     <thead>
                     <tr>
                         <th scope="col" class="font-weight-light">ID</th>
-                        <th scope="col" class="font-weight-light">{{ __('s.delivery') }}</th>
-                        <th scope="col" class="font-weight-light">{{ __('s.delivery_sum') }}</th>
-                        <th scope="col" class="font-weight-light">{{ __('s.discount') }}</th>
-                        <th scope="col" class="font-weight-light">{{ __('s.discount_code') }}</th>
-                        <th scope="col" class="font-weight-light">{{ __('s.qty') }}</th>
-                        <th scope="col" class="font-weight-light">{{ __('s.sum') }}</th>
+                        <th scope="col" class="font-weight-light">@lang("{$lang}::s.delivery")</th>
+                        <th scope="col" class="font-weight-light">@lang("{$lang}::s.delivery_sum")</th>
+                        <th scope="col" class="font-weight-light">@lang("{$lang}::s.discount")</th>
+                        <th scope="col" class="font-weight-light">@lang("{$lang}::s.discount_code")</th>
+                        <th scope="col" class="font-weight-light">@lang("{$lang}::s.qty")</th>
+                        <th scope="col" class="font-weight-light">@lang("{$lang}::s.sum")</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -56,19 +56,19 @@
                     <table class="table table-striped">
                         <tbody>
                         <tr>
-                            <th class="font-weight-light" scope="row">{{ __("f.message") }}</th>
+                            <th class="font-weight-light" scope="row">@lang("{$lang}::f.message")</th>
                             <td>{{ $values->message }}</td>
                         </tr>
                         <tr>
-                            <th class="font-weight-light" scope="row">{{ __("f.ip") }}</th>
+                            <th class="font-weight-light" scope="row">@lang("{$lang}::f.ip")</th>
                             <td>{{ $values->ip }}</td>
                         </tr>
                         <tr>
-                            <th class="font-weight-light" scope="row">{{ __("f.created_at") }}</th>
+                            <th class="font-weight-light" scope="row">@lang("{$lang}::f.created_at")</th>
                             <td class="text-secondary">{{ d($values->created_at, config('admin.date_format')) }}</td>
                         </tr>
                         <tr>
-                            <th class="font-weight-light" scope="row">{{ __("f.updated_at") }}</th>
+                            <th class="font-weight-light" scope="row">@lang("{$lang}::f.updated_at")</th>
                             <td class="text-secondary">{{ d($values->updated_at, config('admin.date_format')) }}</td>
                         </tr>
                         </tbody>
@@ -77,18 +77,18 @@
                 @if($orderProducts)
                     {!!
 
-                    $constructor::adminH2(__('a.Products'), 'mt-3 mb-3') !!}
+                    $constructor::adminH2(__("{$lang}::a.Products"), 'mt-3 mb-3') !!}
                     <table class="table table-striped mb-4">
                         <thead>
                         <tr>
-                            <th scope="col" class="font-weight-light">{{ __('a.action') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.img') }}</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::a.action")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.img")</th>
                             <th scope="col" class="font-weight-light">ID</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.title') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.slug') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.status') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('s.qty') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('s.price') }}</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.title")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.slug")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.status")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::s.qty")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::s.price")</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -96,7 +96,7 @@
                             <tr>
                                 <th scope="row">
                                     <a href="{{ route("admin.product.edit", $v->product->id) }}" class="font-weight-light">
-                                        <i aria-hidden="true" class="material-icons" title="{{ __('a.edit') }}">edit</i>
+                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.edit")">edit</i>
                                     </a>
                                 </th>
                                 <th class="font-weight-light">
@@ -105,7 +105,7 @@
                                 <th class="font-weight-light">{{ $v->product->id }}</th>
                                 <th class="font-weight-light">{{ $v->product->title }}</th>
                                 <th class="font-weight-light">{{ $v->product->slug }}</th>
-                                <th class="font-weight-light">{{ __("s.{$v->product->status}") }}</th>
+                                <th class="font-weight-light">{{ __("{$lang}::s.{$v->product->status}") }}</th>
                                 <th class="font-weight-light">{{ $v->qty }}</th>
                                 <th class="font-weight-light">{{ $v->product->price }}</th>
                             </tr>
@@ -115,34 +115,34 @@
                 @endif
                 {!!
 
-                $constructor::adminH2(__('s.user'), 'mt-3 mb-3') !!}
+                $constructor::adminH2(__("{$lang}::s.user"), 'mt-3 mb-3') !!}
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <tbody>
                         <tr>
-                            <th class="font-weight-light" scope="row">{{ __("f.user_id") }}</th>
+                            <th class="font-weight-light" scope="row">@lang("{$lang}::f.user_id")</th>
                             <td>{{ $values->user_id }}</td>
                         </tr>
                         <tr>
-                            <th class="font-weight-light" scope="row">{{ __("f.name") }}</th>
+                            <th class="font-weight-light" scope="row">@lang("{$lang}::f.name")</th>
                             <td>
                                 <a href="{{ route("admin.user.edit", $values->user->id) }}">{{ $values->user->name }}</a>
                             </td>
                         </tr>
                         <tr>
-                            <th class="font-weight-light" scope="row">{{ __("f.email") }}</th>
+                            <th class="font-weight-light" scope="row">@lang("{$lang}::f.email")</th>
                             <td>{{ $values->user->email }}</td>
                         </tr>
                         <tr>
-                            <th class="font-weight-light" scope="row">{{ __("f.tel") }}</th>
+                            <th class="font-weight-light" scope="row">@lang("{$lang}::f.tel")</th>
                             <td>{{ $values->user->tel }}</td>
                         </tr>
                         </tbody>
                     </table>
-                    <form action="{{ route("admin.$route.destroy", $values->id) }}" method="post" class="text-right mb-5 confirm-form">
+                    <form action="{{ route("admin.{$route}.destroy", $values->id) }}" method="post" class="text-right mb-5 confirm-form">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="btn btn-outline-primary mt-3 btn-pulse">{{ __('s.remove') }}</button>
+                        <button type="submit" class="btn btn-outline-primary mt-3 btn-pulse">@lang("{$lang}::s.remove")</button>
                     </form>
                 </div>
             </div>

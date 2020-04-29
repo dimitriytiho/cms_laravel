@@ -56,8 +56,9 @@ S;
      */
     public static function adminMainBlock($title, $count, $icon, $link, $bottom_title = null, $mt = null, $mb = 4, $class = null)
     {
-        $title = __("a.$title");
-        $bottom_title = $bottom_title ?: __('c.read_more');
+        $lang = lang();
+        $title = __("{$lang}::a.{$title}");
+        $bottom_title = $bottom_title ?: __("{$lang}::c.read_more");
         $count = $count ?: '0';
         $mt = $mt ? "mt-$mt": null;
         $mb = $mb ? "mb-$mb": null;
@@ -97,10 +98,11 @@ S;
      */
     public static function adminGrayBlock($text, $link, $title = null, $icon = null, $bottom_title = null, $mt = null, $mb = 4, $class = null, $bg_dark = null)
     {
+        $lang = lang();
         $route = route('admin.main');
-        $title = $title ? "<p class='font-weight-bold'><a href='$route/$link'>" . __("a.$title") . '</a></p>' : null;
+        $title = $title ? "<p class='font-weight-bold'><a href='$route/$link'>" . __("{$lang}::a.{$title}") . '</a></p>' : null;
         $icon = $icon ?: 'arrow_forward';
-        $bottom_title = $bottom_title ?: __('c.read_more');
+        $bottom_title = $bottom_title ?: __("{$lang}::c.read_more");
         $mt = $mt ? "mt-$mt": null;
         $mb = $mb ? "mb-$mb": null;
         $bg_dark = $bg_dark ? 'bg-primary text-white a-light' : null;
@@ -131,7 +133,8 @@ S;
      */
     public static function adminInfoBlock($title, $count, $mt = null, $mb = 4, $class = null)
     {
-        $title = $title ?: __("a.$title");
+        $lang = lang();
+        $title = $title ?: __("{$lang}::a.{$title}");
         $count = $count ?: '0';
         $mt = $mt ? "mt-$mt": null;
         $mb = $mb ? "mb-$mb": null;

@@ -16,16 +16,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-secondary">{{ __('s.confirm') }}</h4>
+                <h4 class="modal-title text-secondary">@lang("{$lang}::s.confirm")</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h5 class="mt-3 mb-4">{{ __('a.you_sure') }}</h5>
+                <h5 class="mt-3 mb-4">@lang("{$lang}::a.you_sure")</h5>
                 <div class="text-right">
-                    <button type="button" class="btn btn-primary btn-pulse mr-1" data-dismiss="modal">{{ __('s.cancel') }}</button>
-                    <button type="button" class="btn btn-outline-primary btn-pulse">Ok</button>
+                    <button type="button" class="btn btn-primary btn-pulse mr-1" data-dismiss="modal">@lang("{$lang}::s.cancel")</button>
+                    <button type="button" class="btn btn-outline-primary btn-pulse">Ок</button>
                 </div>
             </div>
         </div>

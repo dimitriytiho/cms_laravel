@@ -38,7 +38,7 @@
                         session()->forget('error')
                     @endphp
                 @endif
-                <button type="button" class="close" data-dismiss="alert" aria-label="@lang('s.Close')">
+                <button type="button" class="close" data-dismiss="alert" aria-label="@lang("{$lang}::s.Close")">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -64,7 +64,7 @@
                         session()->forget('success')
                     @endphp
                 @endif
-                <button type="button" class="close" data-dismiss="alert" aria-label="@lang('s.Close')">
+                <button type="button" class="close" data-dismiss="alert" aria-label="@lang("{$lang}::s.Close")">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -82,7 +82,7 @@
                 @php
                     session()->forget('info')
                 @endphp
-                <button type="button" class="close" data-dismiss="alert" aria-label="@lang('s.Close')">
+                <button type="button" class="close" data-dismiss="alert" aria-label="@lang("{$lang}::s.Close")">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>

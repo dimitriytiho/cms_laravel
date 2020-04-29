@@ -46,7 +46,7 @@ class CategoryController extends AppController
             $products = Product::where('status', $status)->orderBy('id', 'desc')->take($this->limit)->get();
         }
 
-        $this->setMeta(__('sh.catalog'));
+        $this->setMeta(__("{$this->lang}::sh.catalog"));
         return view("{$this->viewPathModule}.{$this->c}_index", compact('cat', 'products'));
     }
 

@@ -7,7 +7,7 @@
 @section('content')
     <div class="row">
         <div class="col">
-            <form action="{{ isset($values->id) ? route("admin.$route.update", $values->id) : route("admin.$route.store") }}" method="post" class="needs-validation" novalidate>
+            <form action="{{ isset($values->id) ? route("admin.{$route}.update", $values->id) : route("admin.{$route}.store") }}" method="post" class="needs-validation" novalidate>
                 @if (isset($values->id))
                     @method('put')
                 @endif
@@ -29,22 +29,22 @@
                 @endif
 
                 <div>
-                    <button type="submit" class="btn btn-primary mt-3 btn-pulse">{{ isset($values->id) ? __('f.save') : __('f.submit') }}</button>
+                    <button type="submit" class="btn btn-primary mt-3 btn-pulse">{{ isset($values->id) ? __("{$lang}::f.save") : __("{$lang}::f.submit") }}</button>
                 </div>
             </form>
             @if (!empty($getIdParents))
                 <div class="text-right mt--3">
-                    <div class="small text-secondary">{{ __('s.remove_not_possible') }},<br>{{ __('s.there_are_nested') }} ID:</div>
+                    <div class="small text-secondary">@lang("{$lang}::s.remove_not_possible"),<br>@lang("{$lang}::s.there_are_nested") ID:</div>
                     @foreach ($getIdParents as $v)
                         <a href="{{ route("admin.$belongsToTable.edit", $v->id) }}">{{ $v->id }}</a>
                     @endforeach
                 </div>
             @else
                 @if (isset($values->id))
-                    <form action="{{ route("admin.$route.destroy", $values->id) }}" method="post" class="text-right confirm-form">
+                    <form action="{{ route("admin.{$route}.destroy", $values->id) }}" method="post" class="text-right confirm-form">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="btn btn-outline-primary mt-3 position-relative t--3 btn-pulse">{{ __('s.remove') }}</button>
+                        <button type="submit" class="btn btn-outline-primary mt-3 position-relative t--3 btn-pulse">@lang("{$lang}::s.remove")</button>
                     </form>
                 @endif
             @endif

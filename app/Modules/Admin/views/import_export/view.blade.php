@@ -11,7 +11,7 @@
                 <div class="btn-group mb-4" role="group" aria-label="Buttons group">
                     @if (!empty($queryArr))
                         @foreach ($queryArr as $v)
-                            <a href="{{ route('admin.import_export') . '?' . $v }}" class="btn btn-primary @if ($query === $v) active @endif">{{ __("a.{$v}_many") }}</a>
+                            <a href="{{ route('admin.import_export') . '?' . $v }}" class="btn btn-primary @if ($query === $v) active @endif">@lang("{$lang}::a.{$v}_many")</a>
                         @endforeach
                     @endif
                 </div>
@@ -23,11 +23,11 @@
                     Табы --}}
                     <ul class="nav nav-tabs" role="tablist" id="import-export">
                         <li class="nav-item">
-                            <a class="nav-link active" id="export-tab" data-toggle="tab" href="#export" role="tab" aria-controls="export" aria-selected="true">{{ __('a.export') }}</a>
+                            <a class="nav-link active" id="export-tab" data-toggle="tab" href="#export" role="tab" aria-controls="export" aria-selected="true">@lang("{$lang}::a.export")</a>
                         </li>
                         @if ($routeImport)
                             <li class="nav-item">
-                                <a class="nav-link" id="import-tab" data-toggle="tab" href="#import" role="tab" aria-controls="import" aria-selected="false">{{ __('a.import') }}</a>
+                                <a class="nav-link" id="import-tab" data-toggle="tab" href="#import" role="tab" aria-controls="import" aria-selected="false">@lang("{$lang}::a.import")</a>
                             </li>
                         @endif
                     </ul>
@@ -36,15 +36,15 @@
                     Контент табов --}}
                     <div class="tab-content">
                         <div class="tab-pane fade show active pt-4" id="export" role="tabpanel" aria-labelledby="export-tab">
-                            <a class="btn btn-primary btn-pulse mt-3" href="{{ $routeExport }}">{{ __('a.export') }}</a>
+                            <a class="btn btn-primary btn-pulse mt-3" href="{{ $routeExport }}">@lang("{$lang}::a.export")</a>
                         </div>
                         @if ($routeImport)
                             <div class="tab-pane fade pt-4" id="import" role="tabpanel" aria-labelledby="import-tab">
                                 <div class="custom-file mt-3">
                                     <input type="file" name="import_file" class="custom-file-input">
-                                    <label class="custom-file-label" for="import_file">{{ __('a.choose_file') }}</label>
+                                    <label class="custom-file-label" for="import_file">@lang("{$lang}::a.choose_file")</label>
                                 </div>
-                                <button class="btn btn-primary btn-pulse mt-3">{{ __('a.import') }}</button>
+                                <button class="btn btn-primary btn-pulse mt-3">@lang("{$lang}::a.import")</button>
                             </div>
                         @endif
                     </div>

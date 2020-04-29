@@ -23,7 +23,7 @@ class TestController extends AppController
     public function index()
     {
         App::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
-        //$this->setMeta(__('c.home'), __('c.You_are_on_home'));
+        //$this->setMeta(__("{$this->lang}::c.home"), __("{$this->lang}::c.You_are_on_home"));
         return view("{$this->viewPathModule}.{$this->c}_index");
     }
 

@@ -19,10 +19,10 @@
                 @if (isset($values->id)){{-- На странице создания элемента табы не показываем  --}}
                 <ul class="nav nav-tabs" role="tablist" id="tabs-edit">
                     <li class="nav-item">
-                        <a class="nav-link active" id="tab-content" data-toggle="tab" href="#tab-content-link" role="tab" aria-controls="tab-content-link" aria-selected="true">{{ __('a.content') }}</a>
+                        <a class="nav-link active" id="tab-content" data-toggle="tab" href="#tab-content-link" role="tab" aria-controls="tab-content-link" aria-selected="true">@lang("{$lang}::a.content")</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="tab-main" data-toggle="tab" href="#tab-main-link" role="tab" aria-controls="tab-main-link" aria-selected="false">{{ __('a.main') }}</a>
+                        <a class="nav-link" id="tab-main" data-toggle="tab" href="#tab-main-link" role="tab" aria-controls="tab-main-link" aria-selected="false">@lang("{$lang}::a.main")</a>
                     </li>
                 </ul>
                 {{--
@@ -49,7 +49,7 @@
                                 {!! input('slug', $values->slug ?? null) !!}
                             </div>
                             <div class="mt-4">
-                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="{{ __('a.generate_link') }}">autorenew</button>
+                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="@lang("{$lang}::a.generate_link")">autorenew</button>
                             </div>
                         </div>
 
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="parent_id">{{ __('f.parent_id') }}</label>
+                                    <label for="parent_id">@lang("{$lang}::f.parent_id")</label>
                                     @php
 
                                         if (!empty($table)) {
@@ -73,7 +73,7 @@
                                                 'attrs' => [
                                                     'name' => 'parent_id',
                                                 ],
-                                                'prepend' => '<option value="0"> ' . __('f.parent_id') . ' </option>',
+                                                'prepend' => '<option value="0"> ' . __("{$lang}::f.parent_id") . ' </option>',
                                             ]);
                                         }
 
@@ -122,16 +122,16 @@
                 @endif
                 <div>
                     <span id="btn-sticky">
-                        <button type="submit" class="btn btn-primary mt-3 mr-2 btn-pulse">{{ isset($values->id) ? __('f.save') : __('f.submit') }}</button>
+                        <button type="submit" class="btn btn-primary mt-3 mr-2 btn-pulse">{{ isset($values->id) ? __("{$lang}::f.save") : __("{$lang}::f.submit") }}</button>
                     </span>
                     @if (isset($values->slug))
-                        <a href="{{ route($view, $values->slug) }}" class="btn btn-outline-primary mt-3 btn-pulse" target="_blank">{{ __('s.go') }}</a>
+                        <a href="{{ route($view, $values->slug) }}" class="btn btn-outline-primary mt-3 btn-pulse" target="_blank">@lang("{$lang}::s.go")</a>
                     @endif
                 </div>
             </form>
             @if (!empty($getIdParents))
                 <div class="text-right mt--3">
-                    <div class="small text-secondary">{{ __('s.remove_not_possible') }},<br>{{ __('s.there_are_nested') }} ID:</div>
+                    <div class="small text-secondary">@lang("{$lang}::s.remove_not_possible"),<br>@lang("{$lang}::s.there_are_nested") ID:</div>
                     @foreach ($getIdParents as $v)
                         <a href="{{ route("admin.{$route}.edit", $v->id) }}">{{ $v->id }}</a>
                     @endforeach
@@ -141,7 +141,7 @@
                     <form action="{{ route("admin.{$route}.destroy", $values->id) }}" method="post" class="text-right confirm-form">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="btn btn-outline-primary mt-3 position-relative t--3 btn-pulse">{{ __('s.remove') }}</button>
+                        <button type="submit" class="btn btn-outline-primary mt-3 position-relative t--3 btn-pulse">@lang("{$lang}::s.remove")</button>
                     </form>
                 @endif
             @endif

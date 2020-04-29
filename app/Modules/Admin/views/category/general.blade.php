@@ -7,7 +7,7 @@
 @section('content')
     <div class="row">
         <div class="col">
-            <form action="{{ isset($values->id) ? route("admin.$route.update", $values->id) : route("admin.$route.store") }}" method="post" class="needs-validation" novalidate>
+            <form action="{{ isset($values->id) ? route("admin.{$route}.update", $values->id) : route("admin.{$route}.store") }}" method="post" class="needs-validation" novalidate>
                 @if (isset($values->id))
                     @method('put')
                 @endif
@@ -19,7 +19,7 @@
                         {!! input('slug', $values->slug ?? null) !!}
                     </div>
                     <div class="mt-4">
-                        <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="{{ __('a.generate_link') }}">autorenew</button>
+                        <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="@lang("{$lang}::a.generate_link")">autorenew</button>
                     </div>
                 </div>
 
@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="parent_id">{{ __('f.parent_id') }}</label>
+                            <label for="parent_id">@lang("{$lang}::f.parent_id")</label>
                             @php
 
                                 if (!empty($table)) {
@@ -43,7 +43,7 @@
                                         'attrs' => [
                                             'name' => 'parent_id',
                                         ],
-                                        'prepend' => '<option value="0"> ' . __('f.parent_id') . ' </option>',
+                                        'prepend' => '<option value="0"> ' . __("{$lang}::f.parent_id") . ' </option>',
                                     ]);
                                 }
 
@@ -83,24 +83,24 @@
 
                 <div>
                     <span id="btn-sticky">
-                        <button type="submit" class="btn btn-primary mt-3 mr-2 btn-pulse">{{ isset($values->id) ? __('f.save') : __('f.submit') }}</button>
+                        <button type="submit" class="btn btn-primary mt-3 mr-2 btn-pulse">{{ isset($values->id) ? __("{$lang}::f.save") : __("{$lang}::f.submit") }}</button>
                     </span>
                     @if (isset($values->slug))
-                        <a href="{{ route($view, $values->slug) }}" class="btn btn-outline-primary mt-3 btn-pulse" target="_blank">{{ __('s.go') }}</a>
+                        <a href="{{ route($view, $values->slug) }}" class="btn btn-outline-primary mt-3 btn-pulse" target="_blank">@lang("{$lang}::s.go")</a>
                     @endif
                 </div>
             </form>
             @if (!empty($getIdParents) || !empty($issetGetIdProducts))
                 <div class="text-right mt--3">
                     @if (!empty($getIdParents))
-                        <div class="small text-secondary">{{ __('s.remove_not_possible') }},<br>{{ __('s.there_are_nested') }} ID:</div>
+                        <div class="small text-secondary">@lang("{$lang}::s.remove_not_possible"),<br>@lang("{$lang}::s.there_are_nested") ID:</div>
                         @foreach ($getIdParents as $v)
-                            <a href="{{ route("admin.$route.edit", $v->id) }}">{{ $v->id }}</a>
+                            <a href="{{ route("admin.{$route}.edit", $v->id) }}">{{ $v->id }}</a>
                         @endforeach
                     @endif
 
                     @if ($issetGetIdProducts)
-                        <div class="small text-secondary">{{ __('s.there_are_nested') }} {{ Str::lower(__('a.Products')) }}:</div>
+                        <div class="small text-secondary">@lang("{$lang}::s.there_are_nested") {{ Str::lower(__("{$lang}::a.Products")) }}:</div>
                         @foreach ($getIdProducts[0]->products as $v)
                             <a href="{{ route("admin.product.edit", $v->id) }}">{{ $v->id }}</a>
                         @endforeach
@@ -108,10 +108,10 @@
                 </div>
             @else
                 @if (isset($values->id))
-                    <form action="{{ route("admin.$route.destroy", $values->id) }}" method="post" class="text-right confirm-form">
+                    <form action="{{ route("admin.{$route}.destroy", $values->id) }}" method="post" class="text-right confirm-form">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="btn btn-outline-primary mt-3 position-relative t--3 btn-pulse">{{ __('s.remove') }}</button>
+                        <button type="submit" class="btn btn-outline-primary mt-3 position-relative t--3 btn-pulse">@lang("{$lang}::s.remove")</button>
                     </form>
                 @endif
             @endif

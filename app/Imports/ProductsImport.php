@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Product;
+use App\Modules\Admin\Models\Product;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class ProductsImport implements ToModel

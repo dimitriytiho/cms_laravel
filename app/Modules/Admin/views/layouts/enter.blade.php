@@ -20,7 +20,7 @@
         <div class="container mt-4 mb-2">
             <div class="row">
                 <div class="col">
-                    <div class="alert alert-danger p-3">{{ __('service.Please_enable_JavaScript') }}</div>
+                    <div class="alert alert-danger p-3">@lang("{$lang}::service.Please_enable_JavaScript")</div>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
 <div class="app" id="app">
     <div class="container-fluid">
         <div class="mt-2 a-primary">
-            <a href="{{ route('index') }}" title="{{ __('c.home') }}">
+            <a href="{{ route('index') }}" title="@lang("{$lang}::c.home")">
                 <i class="material-icons">apps</i>
             </a>
         </div>

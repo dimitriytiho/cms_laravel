@@ -35,6 +35,13 @@ class AppServiceProvider extends ServiceProvider
         // ЗДЕСЬ ПИСАТЬ КОД, КОТОРЫЙ ЗАПУСКАЕТСЯ ПОСЛЕ ЗАГРУЗКИ ВСЕХ СЕРВИС-ПРОВАЙДЕРОВ
 
 
+        // Добавляем папку для переводов, т.е. namespace для переводов
+        $modulesPath = config('modules.path');
+        $modulesNamespace = config('modules.namespace');
+        $modulesLang = config('modules.lang');
+        $this->loadTranslationsFrom("{$modulesPath}/{$modulesLang}", "{$modulesNamespace}\\{$modulesLang}");
+
+
         // Паттерн реестр
         App::$registry = Registry::instance();
 

@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\App;
+use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -55,7 +56,7 @@ class OrderController extends AppController
             $values = $this->model::paginate($perpage);
         }
 
-        $this->setMeta(__('a.' . Str::ucfirst($this->table)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
         return view("{$this->view}.$f", compact('values', 'queryArr', 'col', 'cell'));
     }
 
@@ -108,13 +109,13 @@ class OrderController extends AppController
             }*/
             //dump($orderProducts); //->product->id
 
-            $this->setMeta(__("a.$f"));
+            $this->setMeta(__("{$this->lang}::a.{$f}"));
             return view("{$this->view}.{$f}", compact('values', 'statuses', 'orderProducts'));
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -148,24 +149,24 @@ class OrderController extends AppController
             $lastData = $this->model::find((int)$id)->toArray();
             $current = $values->toArray();
 
-            if (!array_diff($lastData, $current)) {
+            if (!appHelpers::arrayDiff($lastData, $current)) {
 
                 // Сообщение об ошибке
-                session()->put('error', __('s.data_was_not_changed'));
+                session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
                 return redirect()->route("admin.{$this->route}.show", $values->id);
             }
 
             if ($values->save()) {
 
                 // Сообщение об успехе
-                session()->put('success', __('s.saved_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.show", $values->id);
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -188,7 +189,7 @@ class OrderController extends AppController
                 if ($values->delete() && $orderProduct) {
 
                     // Сообщение об успехе
-                    session()->put('success', __('s.removed_successfully', ['id' => $values->id]));
+                    session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
                     return redirect()->route("admin.{$this->route}.index");
                 }
             }
@@ -196,7 +197,7 @@ class OrderController extends AppController
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 }

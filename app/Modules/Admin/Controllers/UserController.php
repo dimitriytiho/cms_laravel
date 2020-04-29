@@ -70,7 +70,7 @@ class UserController extends AppController
             $values = $this->model::paginate($perpage);
         }
 
-        $this->setMeta(__('a.' . Str::ucfirst($this->table)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
         return view("{$this->view}.$f", compact('values', 'queryArr', 'col', 'cell'));
     }
 
@@ -96,7 +96,7 @@ class UserController extends AppController
             }
         }
 
-        $this->setMeta(__('a.' . Str::ucfirst($f)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
         return view("{$this->view}.{$this->template}", compact('roles', 'statuses'));
     }
 
@@ -138,14 +138,14 @@ class UserController extends AppController
             if ($values->save()) {
 
                 // Сообщение об успехе
-                session()->put('success', __('s.created_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.created_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -195,13 +195,13 @@ class UserController extends AppController
             $imgUploadID = $this->imgUploadID = $values->id;
 
 
-            $this->setMeta(__("a.$f"));
+            $this->setMeta(__("{$this->lang}::a.{$f}"));
             return view("{$this->view}.{$this->template}", compact('values', 'roles', 'statuses', 'imgRequestName', 'imgUploadID'));
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -279,7 +279,7 @@ class UserController extends AppController
             } else {
 
                 // Сообщение об ошибке
-                session()->put('error', __('s.data_was_not_changed'));
+                session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
 
@@ -299,14 +299,14 @@ class UserController extends AppController
                 }
 
                 // Сообщение об успехе
-                session()->put('success', __('s.saved_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -337,7 +337,7 @@ class UserController extends AppController
                     Img::deleteImg($img, config("admin.img{$this->class}Default"));
 
                     // Сообщение об успехе
-                    session()->put('success', __('s.removed_successfully', ['id' => $values->id]));
+                    session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
                     return redirect()->route("admin.{$this->route}.index");
                 }
             }
@@ -345,7 +345,7 @@ class UserController extends AppController
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 

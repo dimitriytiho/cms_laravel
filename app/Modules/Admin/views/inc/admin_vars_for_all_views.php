@@ -34,6 +34,6 @@ if ($menuAside && is_array($menuAside) && count($menuAside) > 2) {
 
 }
 
-
+$lang = lang();
 $currentRoute = Routes::currentRoute(Request::path()) ?? null;
 $currentRoutesExclude = Routes::currentRoutes($currentRoute) ?? null;

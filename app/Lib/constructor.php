@@ -48,7 +48,8 @@ S;
  */
 function input($name, $value = null, $required = true, $type = null, $label = true, $placeholder = null, $class = null, $attrs = [], $classInput = null)
 {
-    $title = __("f.$name");
+    $lang = lang();
+    $title = __("{$lang}::f.{$name}");
     $required = $required ? 'required' : null;
     $type = $type ? $type : 'text';
     $star = $required ? '<sup>*</sup>' : null;
@@ -57,7 +58,7 @@ function input($name, $value = null, $required = true, $type = null, $label = tr
     $placeholderStar = $label && $required ? '*' : null;
     $placeholderLabel = !$label && $required ? '...' : null;
     $placeholder = $placeholder ?: $title . $placeholderStar . $placeholderLabel;
-    $_required = __('f.required');
+    $_required = __("{$lang}::f.required");
     $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
     $part = '';
     if ($attrs) {
@@ -94,7 +95,8 @@ S;
  */
 function textarea($name, $value = null, $required = true, $label = true, $placeholder = null, $class = null, $attrs = [], $rows = 3)
 {
-    $title = __("f.$name");
+    $lang = lang();
+    $title = __("{$lang}::f.{$name}");
     $required = $required ? 'required' : null;
     $star = $required ? '<sup>*</sup>' : null;
     $label = $label ? null : 'class="sr-only"';
@@ -106,7 +108,7 @@ function textarea($name, $value = null, $required = true, $label = true, $placeh
     //$value = $value ?: $placeholder;
 
     $rows = (int)$rows;
-    $_required = __('f.required');
+    $_required = __("{$lang}::f.required");
     $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
     $part = '';
     if ($attrs) {
@@ -142,7 +144,8 @@ S;
  */
 function select($name, $options, $value = null, $label = true, $class = null, $attrs = [], $option_id_value = null, $translation = null)
 {
-    $title = __("f.$name");
+    $lang = lang();
+    $title = __("{$lang}::f.{$name}");
     $value = $value ?: old($name) ?: null;
     $label = $label ? null : 'class="sr-only"';
 
@@ -158,7 +161,7 @@ function select($name, $options, $value = null, $label = true, $class = null, $a
 
                 } else {
 
-                    $t = $translation ? $vv : __("s.{$vv}");
+                    $t = $translation ? $vv : __("{$lang}::s.{$vv}");
                     $opts .= "{$t}</option>\n";
                 }
                 $i++;
@@ -168,8 +171,8 @@ function select($name, $options, $value = null, $label = true, $class = null, $a
         $opts = '';
         foreach ($options as $k => $v) {
             $selected = $value === $v ? ' selected' : null;
-            $t = __("s.$v");
-            $t = $translation ? $v : __("s.{$v}");
+            $t = __("{$lang}::s.{$v}");
+            $t = $translation ? $v : __("{$lang}::s.{$v}");
             $v = $option_id_value ? $k : $v;
             $opts .= "<option value='{$v}' {$selected}>{$t}</option>\n";
         }
@@ -205,11 +208,12 @@ S;
  */
 function checkbox($name, $required = true, $checked = null, $class = null, $id = null, $title = null)
 {
-    $title = $title ?: __("f.$name");
+    $lang = lang();
+    $title = $title ?: __("{$lang}::f.{$name}");
     $id = $id ?: $name;
     $checked = $checked || old($name) ? 'checked' : null;
     $required = $required ? 'required' : null;
-    $_required = __('f.required');
+    $_required = __("{$lang}::f.required");
     $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
 
     return <<<S
@@ -242,7 +246,8 @@ function hidden($name, $value)
  * $attrs - если нужны дополнительные атрибуты, необязательный параметр.
  */
 function modal($id, $title, $body = null, $class = null, $attrs = null) {
-    $close = __('s.Close');
+    $lang = lang();
+    $close = __("{$lang}::s.Close");
 
     return <<<S
 <div class="modal fade" id="{$id}" tabindex="-1" role="dialog" aria-labelledby="{$id}" aria-hidden="true" {$attrs}>
@@ -265,9 +270,10 @@ S;
 
 
 function modalFooter($orderBtn = true) {
-    $close = __('sh.continue_shopping');
-    //$close = $orderBtn ? __('sh.continue_shopping') : __('s.Close');
-    $makeOrder = __('sh.make_an_order');
+    $lang = lang();
+    $close = __("{$lang}::sh.continue_shopping");
+    //$close = $orderBtn ? __("{$lang}::sh.continue_shopping") : __("{$lang}::s.Close");
+    $makeOrder = __("{$lang}::sh.make_an_order");
     $routeCart = route('cart');
     $orderBtn = $orderBtn ? "<a href=\"{$routeCart}\" class=\"btn btn-primary\">{$makeOrder}</a>" : null;
 

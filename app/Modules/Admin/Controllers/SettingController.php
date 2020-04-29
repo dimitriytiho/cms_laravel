@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\App;
+use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -57,7 +58,7 @@ class SettingController extends AppController
             $values = $this->model::paginate($perpage);
         }
 
-        $this->setMeta(__('a.' . Str::ucfirst($this->table)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
         return view("{$this->view}.$f", compact('values', 'queryArr', 'col', 'cell'));
     }
 
@@ -72,7 +73,7 @@ class SettingController extends AppController
         App::viewExists("{$this->view}.{$this->template}", __METHOD__);
         $disabled = null;
 
-        $this->setMeta(__('a.' . Str::ucfirst($f)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
         return view("{$this->view}.{$this->template}", compact('disabled'));
     }
 
@@ -100,14 +101,14 @@ class SettingController extends AppController
                 cache()->flush();
 
                 // Сообщение об успехе
-                session()->put('success', __('s.created_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.created_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -138,13 +139,13 @@ class SettingController extends AppController
             $title = $values->title;
             $disabled = in_array($title, $this->titleNoEditArr) ? 'disabled' : null;
 
-            $this->setMeta(__("a.$f"));
+            $this->setMeta(__("{$this->lang}::a.{$f}"));
             return view("{$this->view}.{$this->template}", compact('values', 'disabled'));
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -171,10 +172,10 @@ class SettingController extends AppController
             // Если данные не изменины
             $lastData = $this->model::find((int)$id)->toArray();
             $current = $values->toArray();
-            if (!array_diff($lastData, $current)) {
+            if (!appHelpers::arrayDiff($lastData, $current)) {
 
                 // Сообщение об ошибке
-                session()->put('error', __('s.data_was_not_changed'));
+                session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
 
@@ -184,14 +185,14 @@ class SettingController extends AppController
                 cache()->flush();
 
                 // Сообщение об успехе
-                session()->put('success', __('s.saved_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -212,14 +213,14 @@ class SettingController extends AppController
                 cache()->flush();
 
                 // Сообщение об успехе
-                session()->put('success', __('s.removed_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.index");
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 }

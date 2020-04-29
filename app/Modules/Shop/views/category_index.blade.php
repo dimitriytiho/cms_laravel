@@ -30,11 +30,11 @@
                     <h1 class="font-weight-light text-secondary mt-5">{{ $title }}</h1>
                     <div class="cart">
                         <a href="{{ route('cart') }}" class="btn btn-outline-dark btn-sm cart_show">
-                            <span class="cart_text">{{ __('sh.cart') }}</span>
+                            <span class="cart_text">@lang("{$lang}::sh.cart")</span>
                             <span class="cart_count_qty">@if (session()->has('cart.qty')){{ session()->get('cart.qty') }}@endif</span>
                             <span class="cart_count_sum"></span>
                         </a>
-                        {!! modal('cart_modal', __('sh.cart'), null, 'modal-lg') !!}
+                        {!! modal('cart_modal', __("{$lang}::sh.cart"), null, 'modal-lg') !!}
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                                         </a>
                                     </h5>
                                     <p class="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="{{ route('cart_plus', $product->id) }}" class="btn btn-outline-dark btn-sm cart_plus" data-id="{{ $product->id }}">{{ __('sh.add_to_cart') }}</a>
+                                    <a href="{{ route('cart_plus', $product->id) }}" class="btn btn-outline-dark btn-sm cart_plus" data-id="{{ $product->id }}">@lang("{$lang}::sh.add_to_cart")</a>
                                 </div>
                             </div>
                         </div>

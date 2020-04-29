@@ -22,7 +22,7 @@ Materialize css шаблон
 </head>
 <body class="blue-grey lighten-1">
 <div id="app">
-    <a href="{{ route('index') }}" class="blue-grey-text tooltipped cur" data-position="right" data-tooltip="{{ __('c.home') }}">
+    <a href="{{ route('index') }}" class="blue-grey-text tooltipped cur" data-position="right" data-tooltip="@lang("{$lang}::c.home")">
         <i class="material-icons">apps</i>
     </a>
     {{--
@@ -43,33 +43,33 @@ Materialize css шаблон
                     <div class="col s6 offset-s3 white z-depth-3 rounded">
                         <div class="row">
                             <div class="col s10 offset-s1">
-                                <h1 class="blue-grey-text">{{ __('s.login') }}</h1>
+                                <h1 class="blue-grey-text">@lang("{$lang}::s.login")</h1>
                                 <form method="post" action="{{ route('enter') }}">
                                     @csrf
                                     @if (empty($auth_view))
                                         <div class="input-field">
                                             <input type="email" class="validate" name="email" id="email" value = "{{ old('email') }}" required autocomplete="email">
-                                            <label for="email">{{ __('forms.Email') }}</label>
+                                            <label for="email">@lang("{$lang}::forms.Email")</label>
                                         </div>
                                     @elseif($auth_view == 'confirm')
                                         <div class="input-field">
                                             <input type="text" class="validate" name="confirm" id="confirm" required autocomplete="confirm">
-                                            <label for="confirm">{{ __('forms.Verification_code') }}</label>
+                                            <label for="confirm">@lang("{$lang}::forms.Verification_code")</label>
                                         </div>
                                     @elseif($auth_view == 'password')
                                         <div class="input-field">
                                             <input type="password" class="validate" name="password" id="password" required autocomplete="current-password">
-                                            <label for="password">{{ __('forms.Password') }}</label>
+                                            <label for="password">@lang("{$lang}::forms.Password")</label>
                                         </div>
                                         <div>
                                             <label for="remember">
                                                 <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                <span>{{ __('auth.Remember_me') }}</span>
+                                                <span>@lang("{$lang}::auth.Remember_me")</span>
                                             </label>
                                         </div>
                                     @endif
                                     <div class="main__btn">
-                                        <button  type="submit" class="btn waves-effect waves-light blue-grey lighten-1">{{ __('forms.Send') }}</button>
+                                        <button  type="submit" class="btn waves-effect waves-light blue-grey lighten-1">@lang("{$lang}::forms.Send")</button>
                                     </div>
                                 </form>
                             </div>
@@ -85,7 +85,9 @@ Materialize css шаблон
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
-        {{-- Служебные сообщения в тосте --}}
+        {{--
+
+        Служебные сообщения в тосте --}}
         @if (isset($errors) && $errors->any())
             @foreach( $errors->all() as $v )
                 M.toast({html: '{{ $v }}'});

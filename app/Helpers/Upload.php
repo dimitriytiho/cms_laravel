@@ -250,6 +250,7 @@ class Upload
      */
     public static function getNewKey($newKey = null, $mailAdmins = true)
     {
+        $lang = lang();
         $key = $newKey ?: Str::lower(Str::random(18));
 
         // Зашифровать
@@ -274,7 +275,7 @@ class Upload
                 $emails = DB::table('users')->select('email')->whereIn('role_id', $roleIds)->get();
                 $emails = $emails->toArray();
                 if ($emails) {
-                    Mail::to($emails)->send(new SendMail(__('a.Key_use_site') . config('add.domain'), $key));
+                    Mail::to($emails)->send(new SendMail(__("{$lang}::a.Key_use_site") . config('add.domain'), $key));
                 }
             } catch (\Exception $e) {
                 Log::error("Error sending email $e, in " . __METHOD__);

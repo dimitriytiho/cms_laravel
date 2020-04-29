@@ -2,8 +2,8 @@
 
 namespace App\Exports;
 
-use App\Category;
 use App\Helpers\ImportExport;
+use App\Modules\Admin\Models\Category;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;

@@ -8,32 +8,32 @@
     @if (!empty($values))
         <div class="row">
             <div class="col">
-                <form action="{{ route("admin.$route.index") }}" class="mb-3">
+                <form action="{{ route("admin.{$route}.index") }}" class="mb-3">
                     <div class="form-row">
                         <div class="col-sm-2 mb-2">
                             <label for="col" class="sr-only"></label>
                             <select class="form-control" name="col">
                                 @if ($queryArr)
                                     @foreach ($queryArr as $option)
-                                        <option value="{{ $option }}" @if ($col === $option) selected @endif>{{ __("f.{$option}") }}</option>
+                                        <option value="{{ $option }}" @if ($col === $option) selected @endif>@lang("{$lang}::f.{$option}")</option>
                                     @endforeach
                                 @endif
                             </select>
                         </div>
                         <div class="col col-sm-3">
                             <label for="cell" class="sr-only"></label>
-                            <input type="text" name="cell" class="form-control" placeholder="{{ __('a.search') }}..." value="@if ($cell){{ $cell }}@endif">
+                            <input type="text" name="cell" class="form-control" placeholder="@lang("{$lang}::a.search")..." value="@if ($cell){{ $cell }}@endif">
                         </div>
                         <div class="col-1 d-flex">
                             <div>
                                 <button type="submit" class="btn btn-primary btn-icons">
-                                    <i aria-hidden="true" class="material-icons" title="{{ __('a.search') }}">search</i>
+                                    <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.search")">search</i>
                                 </button>
                             </div>
                             @if ($cell)
                                 <div>
-                                    <a href="{{ route("admin.$route.index") }}" class="btn btn-outline-primary ml-2 btn-icons">
-                                        <i aria-hidden="true" class="material-icons" title="{{ __('c.reset') }}">find_replace</i>
+                                    <a href="{{ route("admin.{$route}.index") }}" class="btn btn-outline-primary ml-2 btn-icons">
+                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::c.reset")">find_replace</i>
                                     </a>
                                 </div>
                             @endif
@@ -44,15 +44,15 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col" class="font-weight-light">{{ __('a.action') }}</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::a.action")</th>
                             <th scope="col" class="font-weight-light">ID</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.user_id') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.name') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.email') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.tel') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('s.qty') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('s.sum') }}</th>
-                            <th scope="col" class="font-weight-light">{{ __('f.status') }}</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.user_id")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.name")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.email")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.tel")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::s.qty")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::s.sum")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.status")</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -75,13 +75,13 @@
                             @endphp
                             <tr class="{{ $trClass }}">
                                 <th scope="row" class="d-flex align-items-center">
-                                    <a href="{{ route("admin.$route.show", $v->id) }}" class="font-weight-light">
-                                        <i aria-hidden="true" class="material-icons" title="{{ __('a.edit') }}">edit</i>
+                                    <a href="{{ route("admin.{$route}.show", $v->id) }}" class="font-weight-light">
+                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.edit")">edit</i>
                                     </a>
-                                    {{--<form action="{{ route("admin.$route.destroy", $v->id) }}" method="post" class="confirm-form">
+                                    {{--<form action="{{ route("admin.{$route}.destroy", $v->id) }}" method="post" class="confirm-form">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-link btn-pulse"><i aria-hidden="true" class="material-icons" title="{{ __('s.remove') }}">delete_outline</i></button>
+                                        <button type="submit" class="btn btn-link btn-pulse"><i aria-hidden="true" class="material-icons" title="@lang("{$lang}::s.remove")">delete_outline</i></button>
                                     </form>--}}
                                 </th>
                                 <td class="font-weight-light">{{ $v->id }}</td>
@@ -93,7 +93,7 @@
                                 <td>{{ $v->user->tel }}</td>
                                 <td class="font-weight-light">{{ $v->qty }}</td>
                                 <td class="font-weight-light">{{ $v->sum }}</td>
-                                <td class="font-weight-light">{{ __("s.{$v->status}") }}</td>
+                                <td class="font-weight-light">@lang("{$lang}::s.{$v->status}")</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -108,7 +108,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <p class="font-weight-light text-center text-secondary mt-3">{{ __('a.shown') . $values->count() . __('a.of') .  $values->total()}}</p>
+                <p class="font-weight-light text-center text-secondary mt-3">{{ __("{$lang}::a.shown") . $values->count() . __("{$lang}::a.of") .  $values->total()}}</p>
             </div>
         </div>
     @endif

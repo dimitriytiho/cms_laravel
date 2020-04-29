@@ -23,4 +23,23 @@ class App
         }
         return false;
     }
+
+
+    /*
+     * Сравнивает значения одного массива с другим.
+     * Возвращает true или false.
+     * $arr1, $arr2 - массивы.
+     */
+    public static function arrayDiff($arr1, $arr2)
+    {
+        if ($arr1 && $arr2 && is_array($arr1) && is_array($arr2)) {
+            foreach ($arr1 as $k => $v) {
+
+                if ($v != $arr2[$k]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

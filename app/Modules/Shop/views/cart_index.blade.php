@@ -28,7 +28,7 @@
                 <div class="col pt-4 no_js">
                     @include("{$viewPathModule}.cart_modal")
                     @if (!$cartSession)
-                        <a href="{{ route('catalog') }}" class="btn btn-primary mt-4">{{ __('sh.catalog') }}</a>
+                        <a href="{{ route('catalog') }}" class="btn btn-primary mt-4">@lang("{$lang}::sh.catalog")</a>
                     @endif
                 </div>
             </div>
@@ -43,7 +43,7 @@
                         {!! textarea('address', null, true, null, 'address') !!}
                         {!! textarea('message', null, null, null, 'message') !!}
                         {!! checkbox('accept', null, true) !!}
-                        <button type="submit" class="btn btn-primary">{{ __('f.submit') }}</button>
+                        <button type="submit" class="btn btn-primary">@lang("{$lang}::f.submit")</button>
                         </form>
                     </div>
                 </div>

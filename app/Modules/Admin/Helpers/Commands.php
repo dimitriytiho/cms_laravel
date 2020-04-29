@@ -18,8 +18,10 @@ class Commands
     {
         if ($command) {
             try {
+                $lang = lang();
+
                 /*Artisan::call($command);
-                return __('a.completed_successfully');*/
+                return __("{$lang}::a.completed_successfully");*/
 
                 $command = 'cd ' . base_path() . " && php artisan $command";
                 $process = Process::fromShellCommandline($command);
@@ -27,7 +29,7 @@ class Commands
                 $process->run();
                 if (!$process->isSuccessful()) {
                     Log::error('Error in try ' . __METHOD__);
-                    return __('s.whoops');
+                    return __("{$lang}::s.whoops");
                 }
                 return $process->getOutput();
 

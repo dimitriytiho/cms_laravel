@@ -26,7 +26,7 @@ class PageController extends AppController
     {
         //dump(session()->all());
 
-        //Mail::to('dimitriyyuliya@gmail.com')->send(new SendMail(__('a.Code'), '12345'));
+        //Mail::to('dimitriyyuliya@gmail.com')->send(new SendMail(__("{$this->lang}::a.Code"), '12345'));
 
         /*$mobileDetect = new \Mobile_Detect();
         dump($mobileDetect->isMobile());
@@ -34,7 +34,7 @@ class PageController extends AppController
 
 
         App::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
-        $this->setMeta(__('c.home'), __('c.You_are_on_home'));
+        $this->setMeta(__("{$this->lang}::c.home"), __("{$this->lang}::c.You_are_on_home"));
         return view("{$this->viewPathModule}.{$this->c}_index");
     }
 
@@ -85,7 +85,7 @@ class PageController extends AppController
     public function contactUs(Request $request)
     {
         App::viewExists("{$this->viewPathModule}.{$this->c}_contact_us", __METHOD__);
-        $this->setMeta(__('c.contact_us'));
+        $this->setMeta(__("{$this->lang}::c.contact_us"));
         return view("{$this->viewPathModule}.{$this->c}_contact_us");
     }
 
@@ -94,8 +94,8 @@ class PageController extends AppController
     {
         App::viewExists('views.errors.404', __METHOD__);
 
-        $title = __('s.page_not_found');
-        $message = __('s.whoops_no_page');
+        $title = __("{$this->lang}::s.page_not_found");
+        $message = __("{$this->lang}::s.whoops_no_page");
 
         App::getError($title, __METHOD__, null, 'info');
         $this->setMeta($title);

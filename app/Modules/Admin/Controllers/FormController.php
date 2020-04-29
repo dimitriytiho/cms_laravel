@@ -51,7 +51,7 @@ class FormController extends AppController
             $values = $this->model::paginate($perpage);
         }
 
-        $this->setMeta(__('a.' . Str::ucfirst($this->table)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
         return view("{$this->view}.$f", compact('values', 'queryArr', 'col', 'cell'));
     }
 
@@ -90,13 +90,13 @@ class FormController extends AppController
 
             $values = $this->model::find((int)$id); // Такой запрос, если используется связь
 
-            $this->setMeta(__("a.$f"));
+            $this->setMeta(__("{$this->lang}::a.{$f}"));
             return view("{$this->view}.{$f}", compact('values'));
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -137,14 +137,14 @@ class FormController extends AppController
             if ($values && $values->delete()) {
 
                 // Сообщение об успехе
-                session()->put('success', __('s.removed_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.index");
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 }

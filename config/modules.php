@@ -18,6 +18,9 @@ return [
     // Папка с видами
     'views' => 'views',
 
+    // Папка с переводами
+    'lang' => 'lang',
+
     'modules' => [
         'Admin' => [
             'routes' => true,

@@ -172,7 +172,7 @@ class App extends Model
      */
     public static function getError(string $message, $method, $abort = true, $error = 'error')
     {
-        $message = "{$message}. " . self::dataUser() . "Error in {$method}";
+        $message = "{$message}. " . self::dataUser() . "In {$method}";
         Log::$error($message);
         if ($abort) {
             abort('404', $message);

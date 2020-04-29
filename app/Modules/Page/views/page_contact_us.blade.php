@@ -35,33 +35,33 @@
                     <form method="post" action="{{ route('post_contact_us') }}" class="needs-validation loader-submit" novalidate>
                         @csrf
                         <div class="form-group">
-                            <label for="name" class="sr-only">{{ __('f.name') }}</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="{{ __('f.name') . '...' }}">
+                            <label for="name" class="sr-only">@lang("{$lang}::f.name")</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="@lang("{$lang}::f.name")...">
                         </div>
                         <div class="form-group">
-                            <label for="tel" class="sr-only">{{ __('f.tel') }}</label>
-                            <input type="text" class="form-control" name="tel" id="tel" placeholder="{{ __('f.tel') . '...' }}">
+                            <label for="tel" class="sr-only">@lang("{$lang}::f.tel")</label>
+                            <input type="text" class="form-control" name="tel" id="tel" placeholder="@lang("{$lang}::f.tel")...">
                         </div>
                         <div class="form-group">
-                            <label for="email" class="sr-only">{{ __('f.email') }}</label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="{{ __('f.email') . '...' }}">
+                            <label for="email" class="sr-only">@lang("{$lang}::f.email")</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="@lang("{$lang}::f.email")...">
                         </div>
                         <div class="form-group">
-                            <label for="message" class="sr-only">{{ __('f.message') }}</label>
-                            <textarea class="form-control" name="message" id="message" placeholder="{{ __('f.message') . '...' }}" rows="3"></textarea>
+                            <label for="message" class="sr-only">@lang("{$lang}::f.message")</label>
+                            <textarea class="form-control" name="message" id="message" placeholder="@lang("{$lang}::f.message")..." rows="3"></textarea>
                         </div>
                         <div class="custom-control custom-checkbox mr-sm-2">
                             <input type="checkbox" class="custom-control-input" name="accept" id="accept">
-                            <label class="custom-control-label" for="accept">{{ __('f.accept') }}</label>
+                            <label class="custom-control-label" for="accept">@lang("{$lang}::f.accept")</label>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">{{ __('f.submit') }}</button>
+                        <button type="submit" class="btn btn-primary mt-3">@lang("{$lang}::f.submit")</button>
                     </form>
                     {{-- {!! Form::open()->route('post_contact_us')->locale('forms')->attrs(['class' => 'needs-validation loader-submit']) !!}
-                        {!! Form::text('name', 'Name')->label(null)->placeholder(__('f.name') . '...')->required() !!}
-                        {!! Form::text('tel', 'Phone')->label(null)->placeholder(__('f.tel') . '...')
+                        {!! Form::text('name', 'Name')->label(null)->placeholder(__("{$lang}::f.name") . '...')->required() !!}
+                        {!! Form::text('tel', 'Phone')->label(null)->placeholder(__("{$lang}::f.tel") . '...')
                         ->required() !!}
-                        {!! Form::text('email', 'Email')->label(null)->placeholder(__('f.email') . '...')->required() !!}
-                        {!! Form::textarea('message', 'Message')->label(null)->placeholder(__('f.message') . '...')->required() !!}
+                        {!! Form::text('email', 'Email')->label(null)->placeholder(__("{$lang}::f.email") . '...')->required() !!}
+                        {!! Form::textarea('message', 'Message')->label(null)->placeholder(__("{$lang}::f.message") . '...')->required() !!}
                         {!! Form::checkbox('accept', 'Accept', '1')->required() !!}
                         {!! Form::submit('Send')->attrs(['class'=> 'mt-3'])->required(false) !!}
                     {!! Form::close() !!} --}}

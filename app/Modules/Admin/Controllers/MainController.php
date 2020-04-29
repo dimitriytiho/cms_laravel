@@ -50,7 +50,7 @@ class MainController extends AppController
             }
         }
 
-        $this->setMeta(__("a.{$this->currentRoute['title']}"));
+        $this->setMeta(__("{$this->lang}::a.{$this->currentRoute['title']}"));
         return view("{$this->view}.{$f}", compact('count_forms', 'count_pages', 'count_users', 'key', 'count_orders'));
     }
 
@@ -86,7 +86,7 @@ class MainController extends AppController
             $key = $request->key ?? null;
             if ($key) {
                 Upload::getNewKey($key);
-                return __('a.key_success');
+                return __("{$this->lang}::a.key_success");
             }
         }
         App::getError('Request No Ajax', __METHOD__);
@@ -106,7 +106,7 @@ class MainController extends AppController
                     $values->password = Hash::make($password);
 
                     if ($values->save()) {
-                        return __('s.changed_successfully', ['id' => $userId]);
+                        return __("{$this->lang}::s.changed_successfully", ['id' => $userId]);
                     }
                 }
             }

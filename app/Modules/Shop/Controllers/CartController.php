@@ -47,7 +47,7 @@ class CartController extends AppController
         $cartSession = session()->has('cart') ? session()->get('cart') : [];
         $noBtnModal = true;
 
-        $this->setMeta(__('sh.cart'));
+        $this->setMeta(__("{$this->lang}::sh.cart"));
         return view("{$this->viewPathModule}.{$this->c}_index", compact('cartSession', 'noBtnModal'));
     }
 
@@ -84,7 +84,7 @@ class CartController extends AppController
             if ($request->ajax()) {
                 return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render(); //->with(compact('product'))
             }
-            return back(); // ->with('success', __('sh.success_plus'))
+            return back(); // ->with('success', __("{$this->lang}::sh.success_plus"))
         }
         App::getError("{$this->class} request", __METHOD__);
     }
@@ -110,7 +110,7 @@ class CartController extends AppController
             if ($request->ajax()) {
                 return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render(); //->with(compact('product'))
             }
-            return back(); // ->with('success', __('sh.success_minus'))
+            return back(); // ->with('success', __("{$this->lang}::sh.success_minus"))
         }
         App::getError("{$this->class} request", __METHOD__);
     }
@@ -135,7 +135,7 @@ class CartController extends AppController
             if ($request->ajax()) {
                 return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render();
             }
-            return back(); // ->with('success', __('sh.success_destroy'))
+            return back(); // ->with('success', __("{$this->lang}::sh.success_destroy"))
         }
         App::getError("{$this->class} request", __METHOD__);
     }
@@ -273,8 +273,8 @@ class CartController extends AppController
 
                 // Письмо пользователю
                 try {
-                    $title = __('s.You_placed_order') . config('add.domain');
-                    $body = __('s.Your_order_was_successfully_received');
+                    $title = __("{$this->lang}::s.You_placed_order") . config('add.domain');
+                    $body = __("{$this->lang}::s.Your_order_was_successfully_received");
 
                     // Отправить письмо
                     Mail::to($dataUser['email'])
@@ -286,7 +286,7 @@ class CartController extends AppController
 
                 // Письмо администратору
                 try {
-                    $title = __('s.An_order_has_been_placed', ['order_id' => __($orderId)]) . config('add.domain');
+                    $title = __("{$this->lang}::s.An_order_has_been_placed", ['order_id' => __("{$this->lang}::{$orderId}")]) . config('add.domain');
                     $email_admin = \App\Helpers\Str::strToArr(App::get('settings')['admin_email'] ?? null);
 
                     // Данные пользователя
@@ -307,7 +307,7 @@ class CartController extends AppController
 
 
                 // Сообщение об успехе
-                session()->put('success', __('sh.order_successfully'));
+                session()->put('success', __("{$this->lang}::sh.order_successfully"));
                 return redirect()->route('index');
             }
         }

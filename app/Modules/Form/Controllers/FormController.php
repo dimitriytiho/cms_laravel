@@ -101,8 +101,8 @@ class FormController extends AppController
 
                 // Письмо пользователю
                 try {
-                    $title = __('s.You_have_filled_out_form') . config('add.domain');
-                    $body = __('s.Your_form_has_been_received');
+                    $title = __("{$this->lang}::s.You_have_filled_out_form") . config('add.domain');
+                    $body = __("{$this->lang}::s.Your_form_has_been_received");
 
                     Mail::to($data['email'])
                         ->send(new SendMail($title, $body));
@@ -114,7 +114,7 @@ class FormController extends AppController
                 // Письмо администратору
                 try {
                     $template = Str::snake(__FUNCTION__); // Из contactUs будет contact_us
-                    $title = __('s.Completed_form', ['name' => __("c.{$template}")]) . config('add.domain');
+                    $title = __("{$this->lang}::s.Completed_form", ['name' => __("{$this->lang}::c.{$template}")]) . config('add.domain');
                     $email_admin = \App\Helpers\Str::strToArr(App::$registry->get('settings')['admin_email'] ?? null);
 
                     Mail::to($email_admin)
@@ -125,7 +125,7 @@ class FormController extends AppController
                 }
 
                 // Сообщение об успехе
-                session()->put('success', __('s.Your_form_successfully'));
+                session()->put('success', __("{$this->lang}::s.Your_form_successfully"));
                 return redirect()->route('index');
             }
         }

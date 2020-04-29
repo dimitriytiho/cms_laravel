@@ -200,7 +200,7 @@ class Setting extends Model
                 'controller' => null,
                 'parent_id' => null,
                 'slug' => '/logs',
-                'item' => 'list',
+                'item' => 'event_note',
             ],
             19 => [
                 'title' => 'ImportExport',

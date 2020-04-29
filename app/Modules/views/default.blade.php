@@ -55,7 +55,7 @@
 <script>
     var body = document.querySelector('body'),
         path = '{{ route('index') }}',
-        slug = '{{ str_replace('-', '_', Request::path()) }}',
+        slug = '{{ str_replace('-', '_', request()->path()) }}',
         site_title = '{{ \App\App::get('settings')['site_name'] ?? ' ' }}',
         site_tel = '{{ \App\App::get('settings')['tel'] ?? ' ' }}',
         site_email = '{{ \App\App::get('settings')['site_email'] ?? ' ' }}',

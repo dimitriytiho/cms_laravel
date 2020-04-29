@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Category;
+use App\Modules\Admin\Models\Category;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class CategoriesImport implements ToModel

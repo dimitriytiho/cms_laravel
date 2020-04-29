@@ -34,7 +34,7 @@ class ImportExportController extends AppController
     {
         $method = __FUNCTION__;
 
-        // Массив возможных гет запросов
+        // Массив возможных get запросов
         $queryArr = [
             'user',
             'product',
@@ -58,7 +58,7 @@ class ImportExportController extends AppController
             $routeImport = route("admin.import_{$query}");;
         }
 
-        $this->setMeta(__("a.{$this->class}"));
+        $this->setMeta(__("{$this->lang}::a.{$this->class}"));
         return view("{$this->view}.{$method}", compact('queryArr', 'query', 'routeExport', 'routeImport'));
     }
 
@@ -68,7 +68,7 @@ class ImportExportController extends AppController
     {
         // Сохранить файл в /storage/app/import_export/products.xlsx
         /*Excel::store(new ProductsExport, 'import_export/products.xlsx');
-        return back()->with('success', __('a.upload_success'));*/
+        return back()->with('success', __("{$this->lang}::a.upload_success"));*/
 
         // Скачать файл
         return Excel::download(new UsersExport(), 'users.xlsx');
@@ -80,7 +80,7 @@ class ImportExportController extends AppController
     {
         // Сохранить файл в /storage/app/import_export/products.xlsx
         /*Excel::store(new ProductsExport, 'import_export/products.xlsx');
-        return back()->with('success', __('a.upload_success'));*/
+        return back()->with('success', __("{$this->lang}::a.upload_success"));*/
 
         // Скачать файл
         return Excel::download(new ProductsExport(), 'products.xlsx');
@@ -139,7 +139,7 @@ str_replace('', '', '');
                                     ->count();
 
                                 if ($uniqueCount) {
-                                    return back()->with('error',  __('a.not_unique_element', ['id' => $values['id']]) . $unique);
+                                    return back()->with('error',  __("{$this->lang}::a.not_unique_element", ['id' => $values['id']]) . $unique);
                                 }
                             }
 
@@ -178,7 +178,7 @@ str_replace('', '', '');
                         ->update($values);
                 }
 
-                $messageUpdate = __('a.updated_elements') . count($uploadData);
+                $messageUpdate = __("{$this->lang}::a.updated_elements") . count($uploadData);
             }
 
             // Вставляем ряды в БД
@@ -186,7 +186,7 @@ str_replace('', '', '');
             if (!empty($insertData)) {
 
                 DB::table($table)->insert($insertData);
-                $messageInsert = __('a.new_elements_inserted') . count($insertData);
+                $messageInsert = __("{$this->lang}::a.new_elements_inserted") . count($insertData);
             }
 
             //Excel::import(new ProductsImport, request()->file('import_file'));
@@ -194,9 +194,9 @@ str_replace('', '', '');
             // Сообщение ошибки, если были пропущены ряды, в которых не заполнены обязательные поля
             if ($validateRow) {
                 $validateRow = rtrim($validateRow, ', ');
-                session()->put('error', __('a.rows_were_skipped') . $validateRow);
+                session()->put('error', __("{$this->lang}::a.rows_were_skipped") . $validateRow);
             }
-            return back()->with('success', __('a.upload_success') . $messageUpdate . $messageInsert);
+            return back()->with('success', __("{$this->lang}::a.upload_success") . $messageUpdate . $messageInsert);
         }
         App::getError('Request No Post', __METHOD__);
     }
@@ -261,7 +261,7 @@ str_replace('', '', '');
                                     ->count();
 
                                 if ($uniqueCount) {
-                                    return back()->with('error',  __('a.not_unique_element', ['id' => $values['id']]) . $unique);
+                                    return back()->with('error',  __("{$this->lang}::a.not_unique_element", ['id' => $values['id']]) . $unique);
                                 }
                             }
 
@@ -300,7 +300,7 @@ str_replace('', '', '');
                         ->update($values);
                 }
 
-                $messageUpdate = __('a.updated_elements') . count($uploadData);
+                $messageUpdate = __("{$this->lang}::a.updated_elements") . count($uploadData);
             }
 
             // Вставляем ряды в БД
@@ -308,15 +308,15 @@ str_replace('', '', '');
             if (!empty($insertData)) {
 
                 DB::table($table)->insert($insertData);
-                $messageInsert = __('a.new_elements_inserted') . count($insertData);
+                $messageInsert = __("{$this->lang}::a.new_elements_inserted") . count($insertData);
             }
 
             // Сообщение ошибки, если были пропущены ряды, в которых не заполнены обязательные поля
             if ($validateRow) {
                 $validateRow = rtrim($validateRow, ', ');
-                session()->put('error', __('a.rows_were_skipped') . $validateRow);
+                session()->put('error', __("{$this->lang}::a.rows_were_skipped") . $validateRow);
             }
-            return back()->with('success', __('a.upload_success') . $messageUpdate . $messageInsert);
+            return back()->with('success', __("{$this->lang}::a.upload_success") . $messageUpdate . $messageInsert);
         }
         App::getError('Request No Post', __METHOD__);
     }

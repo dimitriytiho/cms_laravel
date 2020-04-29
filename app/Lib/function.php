@@ -6,6 +6,18 @@ function du($arr, $die = false) {
 }
 
 
+// Возвращает пространство имён для переводов
+function lang() {
+    $modulesNamespace = config('modules.namespace');
+    $modulesLang = config('modules.lang');
+
+    if ($modulesNamespace && $modulesLang) {
+        return "{$modulesNamespace}\\{$modulesLang}";
+    }
+    return false;
+}
+
+
 /*
  * Возвращает дату в нужном формате.
  * $date - дата в формате: 1544636288 или 2019-07-18 13:00:00.
@@ -25,6 +37,10 @@ function d($date, $format = null) {
             $m = strpos($format, 'M'); // Сокращённое название месяца
 
             if ($f || $m) {
+
+                // Пространство имён для переводов
+                $lang = lang();
+
                 // Номер месяца
                 $number = $datetime ? date_format(date_create($date), 'n') : date('n', (int)$date);
                 $months = \App\Helpers\Date::months();
@@ -33,11 +49,11 @@ function d($date, $format = null) {
                 if ($f) {
                     $month = $months[$number];
                     //$month = months()[$number];
-                    $format = str_replace('F', __("date.$month"), $format);
+                    $format = str_replace('F', __("{$lang}::date.{$month}"), $format);
 
                 // Заменяется M на название месяца
                 } elseif ($m) {
-                    $month = mb_substr( __("date.{$months[$number]}") , 0, 3, 'utf-8');
+                    $month = mb_substr( __("{$lang}::date.{$months[$number]}") , 0, 3, 'utf-8');
                     $format = str_replace('M', $month, $format);
                 }
             }

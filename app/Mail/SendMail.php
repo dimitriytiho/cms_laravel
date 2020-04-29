@@ -15,6 +15,7 @@ class SendMail extends Mailable
 
     private $layout;
     private $viewPath;
+    private $lang;
     public $title;
     public $body;
     public $values;
@@ -46,6 +47,7 @@ class SendMail extends Mailable
     public function __construct($title, $body = null, $values = null, $template = null, $h1 = true)
     {
         $this->layout = 'mail';
+        $this->lang = lang();
         $this->title = $title;
         $this->body = $body;
         $this->values = $values;
@@ -76,6 +78,7 @@ class SendMail extends Mailable
         $h1 = $this->h1;
         $body = $this->body;
         $view = null;
+        $lang = $this->lang;
 
 
         if ($this->template && view()->exists("{$this->viewPath}.mail.{$this->template}")) {
@@ -85,11 +88,11 @@ class SendMail extends Mailable
         $site_name = App::get('settings')['site_name'] ?? ' ';
         $color = config('add.scss.primary', '#ccc');
         $email = App::get('settings')['site_email'] ?? ' ';
-        $tel = isset(App::get('settings')['tel']) ? __('s.or_call') .  App::get('settings')['tel'] : null;
+        $tel = isset(App::get('settings')['tel']) ? __("{$lang}::s.or_call") .  App::get('settings')['tel'] : null;
 
 
         return $this->view("{$this->viewPath}.{$this->layout}")
-            ->subject(__('s.Information_letter'))
-            ->with(compact('view', 'title', 'values', 'h1', 'body', 'site_name', 'color', 'email', 'tel'));
+            ->subject(__("{$lang}::s.Information_letter"))
+            ->with(compact('view', 'lang', 'title', 'values', 'h1', 'body', 'site_name', 'color', 'email', 'tel'));
     }
 }

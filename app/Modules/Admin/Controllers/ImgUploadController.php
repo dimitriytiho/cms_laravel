@@ -73,12 +73,12 @@ class ImgUploadController extends AppController
                 $maxSize = 2097152;
                 $maxSizeRound = (int)round($maxSize / 1000000);
                 if ($size > $maxSize) {
-                    return response()->json(['answer' => __('s.maximum_file_size', ['size' => $maxSizeRound])]);
+                    return response()->json(['answer' => __("{$this->lang}::s.maximum_file_size", ['size' => $maxSizeRound])]);
                 }
 
                 // Если разрешение файла не в разрешённых
                 if (!in_array($ext, $extValid)) {
-                    return response()->json(['answer' => __('s.allowed_to_upload_files') . $extValidText]);
+                    return response()->json(['answer' => __("{$this->lang}::s.allowed_to_upload_files") . $extValidText]);
                 }
 
                 // Путь на сервере для картинки
@@ -139,7 +139,7 @@ class ImgUploadController extends AppController
                     \Illuminate\Support\Facades\File::delete(($imgSavePath . $imgName));
                 }
             }
-            return response()->json(['answer' => __('s.whoops')]);
+            return response()->json(['answer' => __("{$this->lang}::s.whoops")]);
         }
         App::getError('Request No Post', __METHOD__);
     }
@@ -187,11 +187,11 @@ class ImgUploadController extends AppController
                     Img::deleteImg($img);
 
                     // Ответ JS
-                    return __('s.removed_successfully_name', ['name' => $img]);
+                    return __("{$this->lang}::s.removed_successfully_name", ['name' => $img]);
                 }
 
             } else {
-                return __('s.whoops');
+                return __("{$this->lang}::s.whoops");
             }
         }
         App::getError('Request No Ajax', __METHOD__);

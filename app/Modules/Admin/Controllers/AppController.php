@@ -31,6 +31,7 @@ class AppController extends Controller
     protected $route;
     protected $model;
     protected $view;
+    protected $lang;
 
     protected $user;
     protected $isAdmin;
@@ -44,9 +45,10 @@ class AppController extends Controller
 
         $modulesPath = config('modules.path');
         $this->namespace = config('modules.namespace');
+        $modulesLang = config('modules.lang');
 
         // Если нет данных, то выдадим ошибку
-        if (!$this->namespace || !$this->module || !$modulesPath) {
+        if (!$this->namespace || !$this->module || !$modulesPath || !$modulesLang) {
             App::getError('Not data in Module', __METHOD__);
         }
 
@@ -58,6 +60,10 @@ class AppController extends Controller
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
         $viewPath = $this->viewPath  = 'views';
         View::getFinder()->setPaths("{$modulesPath}/{$this->viewPath}");
+
+
+        // Добавляем namespace для переводов
+        $lang = $this->lang = "{$this->namespace}\\{$modulesLang}";
 
 
         Locale::setLocaleFromCookie($request);
@@ -112,6 +118,6 @@ class AppController extends Controller
         $imgRequestName = $this->imgRequestName = null;
         $imgUploadID = $this->imgUploadID = null;
 
-        View::share(compact('viewPath', 'currentRoute', 'controller', 'c', 'table', 'currentRoutesExclude', 'asideWidth', 'asideText', 'menuAsideChunk', 'menuAside', 'imgRequestName', 'imgUploadID', 'namespaceHelpers', 'modulesPath', 'constructor'));
+        View::share(compact('viewPath', 'lang', 'currentRoute', 'controller', 'c', 'table', 'currentRoutesExclude', 'asideWidth', 'asideText', 'menuAsideChunk', 'menuAside', 'imgRequestName', 'imgUploadID', 'namespaceHelpers', 'modulesPath', 'constructor'));
     }
 }

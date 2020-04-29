@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\App;
+use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Helpers\Img;
 use App\Modules\Admin\Helpers\Slug;
 use App\Modules\Admin\Models\Product;
@@ -56,7 +57,7 @@ class ProductController extends AppController
             $values = $this->model::paginate($perpage);
         }
 
-        $this->setMeta(__('a.' . Str::ucfirst($this->table)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
         return view("{$this->view}.$f", compact('values', 'queryArr', 'col', 'cell'));
     }
 
@@ -70,7 +71,7 @@ class ProductController extends AppController
         $f = __FUNCTION__;
         App::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
-        $this->setMeta(__('a.' . Str::ucfirst($f)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
         return view("{$this->view}.{$this->template}");
     }
 
@@ -117,14 +118,14 @@ class ProductController extends AppController
                 cache()->flush();
 
                 // Сообщение об успехе
-                session()->put('success', __('s.created_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.created_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -173,13 +174,13 @@ class ProductController extends AppController
             // ID элемента, для которого картинка Dropzone JS
             $imgUploadID = $this->imgUploadID = $values->id;
 
-            $this->setMeta(__("a.$f"));
+            $this->setMeta(__("{$this->lang}::a.{$f}"));
             return view("{$this->view}.{$this->template}", compact('values', 'imgRequestName', 'imgUploadID', 'gallery'));
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -225,10 +226,10 @@ class ProductController extends AppController
             // Если данные не изменины
             $lastData = $this->model::find((int)$id)->toArray();
             $current = $values->toArray();
-            if (!array_diff($lastData, $current)) {
+            if (!appHelpers::arrayDiff($lastData, $current)) {
 
                 // Сообщение об ошибке
-                session()->put('error', __('s.data_was_not_changed'));
+                session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
 
@@ -238,14 +239,14 @@ class ProductController extends AppController
                 cache()->flush();
 
                 // Сообщение об успехе
-                session()->put('success', __('s.saved_successfully', ['id' => $values->id]));
+                session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
         }
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -273,7 +274,7 @@ class ProductController extends AppController
                     }
                     $ordersPart = rtrim($ordersPart, ' ,');
 
-                    session()->put('error', __('s.product_is_present_in_order') . $ordersPart);
+                    session()->put('error', __("{$this->lang}::s.product_is_present_in_order") . $ordersPart);
                     return redirect()->back();
                 }
 
@@ -297,7 +298,7 @@ class ProductController extends AppController
                     cache()->flush();
 
                     // Сообщение об успехе
-                    session()->put('success', __('s.removed_successfully', ['id' => $values->id]));
+                    session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
                     return redirect()->route("admin.{$this->route}.index");
                 }
             }
@@ -305,7 +306,7 @@ class ProductController extends AppController
 
         // Сообщение об ошибке
         App::getError('Request', __METHOD__, null);
-        session()->put('error', __('s.something_went_wrong'));
+        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 }
