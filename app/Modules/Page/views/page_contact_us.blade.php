@@ -34,7 +34,20 @@
                 <div class="col-md-6 my-4">
                     <form method="post" action="{{ route('post_contact_us') }}" class="needs-validation loader-submit" novalidate>
                         @csrf
-                        <div class="form-group">
+                        {!! input('name', null, true, null, null) !!}
+                        {!! input('tel', null, true, null, null) !!}
+                        {!! input('email', null, true, null, null) !!}
+                        {!! textarea('message', null, true, null, true) !!}
+                        {!! checkbox('accept', true, true) !!}
+                        {{--
+
+
+                        Google reCaptcha --}}
+                        {{--<div class="mb-2">
+                            <div class="g-recaptcha" data-sitekey="{{ config('add.recaptcha_public_key') }}"></div>
+                        </div>--}}
+
+                        {{--<div class="form-group">
                             <label for="name" class="sr-only">@lang("{$lang}::f.name")</label>
                             <input type="text" class="form-control" name="name" id="name" placeholder="@lang("{$lang}::f.name")...">
                         </div>
@@ -53,7 +66,7 @@
                         <div class="custom-control custom-checkbox mr-sm-2">
                             <input type="checkbox" class="custom-control-input" name="accept" id="accept">
                             <label class="custom-control-label" for="accept">@lang("{$lang}::f.accept")</label>
-                        </div>
+                        </div>--}}
                         <button type="submit" class="btn btn-primary mt-3">@lang("{$lang}::f.submit")</button>
                     </form>
                     {{-- {!! Form::open()->route('post_contact_us')->locale('forms')->attrs(['class' => 'needs-validation loader-submit']) !!}
@@ -122,7 +135,7 @@
 
 Подключаем js файл --}}
 @if(is_file(public_path("js/{$m}.js")))
-@section('js')
-    <script src="{{ asset("js/{$m}.js") }}" defer></script>
-@endsection
+    @section('js')
+        <script src="{{ asset("js/{$m}.js") }}" defer></script>
+    @endsection
 @endif

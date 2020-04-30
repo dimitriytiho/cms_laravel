@@ -24,6 +24,7 @@ return [
     'refusal' => 'Refusal',
     'verification_code' => 'Verification code',
     'remember' => 'Remember me',
+    '_token' => 'Token',
 
     'id' => 'ID',
     'ip' => 'IP',

@@ -18,7 +18,7 @@
     </tr>
     <tr style="text-align: left;">
         <td style="padding: 8px; border: 1px solid #ddd; font-size: 16px;">@lang("{$lang}::f.accept")</td>
-        <td style="padding: 8px; border: 1px solid #ddd; font-size: 16px;">{{ isset($values['accept']) && $values['accept'] == '1' ? __("{$lang}::f.Received") : __("{$lang}::f.Refusal") }}</td>
+        <td style="padding: 8px; border: 1px solid #ddd; font-size: 16px;">{{ isset($values['accept']) && $values['accept'] == '1' ? __("{$lang}::f.received") : __("{$lang}::f.refusal") }}</td>
     </tr>
     <tr style="text-align: left;">
         <td style="padding: 8px; border: 1px solid #ddd; font-size: 16px;">@lang("{$lang}::f.date")</td>

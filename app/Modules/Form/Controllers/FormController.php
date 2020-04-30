@@ -29,8 +29,6 @@ class FormController extends AppController
         if ($request->isMethod('post')) {
             $data = $request->all();
 
-            $passwordDefault = '$2y$10$0v6wawOOs/cwp.wAPmbJNe4q3wUSnBqfV7UQL7YbpTtJE0dJ8bMKK'; // 123321q - такой пароль по-умолчанию у пользователей со статусом guest (не зарегистрированный пользователь)
-
             // Валидация
             $rules = [
                 'name' => 'required',
@@ -38,66 +36,36 @@ class FormController extends AppController
                 'email' => 'required|email',
                 'message' => 'required',
                 'accept' => 'accepted',
+                //'g-recaptcha-response' => 'required',
             ];
 
             $this->validate($request, $rules);
 
-            // Данные пользователя
-            $dataUser['email'] = s($data['email'], null, true);
-            $user = new User();
-            $noChangeUser = null;
+            /*if (Form::googleReCaptcha($data)) {
+                unset($data['g-recaptcha-response']);
 
-            // Проверяем существует ли такой пользователь
-            $issetUser = $user->getUser($dataUser['email']);
-            if ($issetUser) {
-                $userID = $issetUser->id;
+                // code form...
+            }*/
 
-                // Проверяем не админ ли
-                $noChangeUser = $user->getAdmin($issetUser);
+            $data['accept'] = $data['accept'] ? '1' : '0'; // В чекбокс запишем 1
+            $data['ip'] = $request->ip();
 
-                // Если текущий пользователь не админ, то обновим его данные
-                if (!$noChangeUser) {
-                    $dataUser['name'] = s($data['name']);
-                    $dataUser['tel'] = s($data['tel']);
-                    $dataUser['ip'] = $request->ip();
-
-                    $issetUser->fill($dataUser);
-                    $issetUser->update();
-                }
-
-                // Если не существует, то созданим нового
-            } else {
-
-                $dataUser['role_id'] = array_search('guest', config('admin.user_roles')) ?: 2; // Устанавливается роль guest
-                $dataUser['name'] = s($data['name']);
-                $dataUser['tel'] = s($data['tel']);
-                $dataUser['password'] = $passwordDefault;
-                $dataUser['accept'] = $data['accept'] ? '1' : '0';
-                $dataUser['ip'] = $request->ip();
-
-                $user->fill($dataUser);
-                if ($user->save()) {
-                    $userID = $user->id;
-
-                } else {
-
-                    // Сообщение что-то пошло не так
-                    App::getError($this->class, __METHOD__);
-                }
-            }
+            // Сохраним пользователя отправителя формы. Если есть пользователь, то обновим его данные, если нет, то создадим. Также если пользователь Админ или Редактор, то не будем обновлять его данные.
+            $userId = Form::userFormSave($data) ?: App::getError($this->class, __METHOD__);
 
 
             // Данные form
-            $dataForm['user_id'] = $userID;
+            $dataForm['user_id'] = $userId;
             $dataForm['message'] = s($data['message']);
             $dataForm['ip'] = $request->ip();
 
             $form = new Form();
             $form->fill($dataForm);
 
-            $method = Str::kebab(__FUNCTION__); // Из contactUs будет contact-us
+            //$method = Str::kebab(__FUNCTION__); // Из contactUs будет contact-us
             if ($form->save()) {
-                $data['date'] = App::$registry->get('settings')['date_format_admin'] ?? 'd.m.Y H:i';
+                $format = config('admin.date_format') ?? 'd.m.Y H:i';
+                $data['date'] = date($format);
 
                 // Письмо пользователю
                 try {
@@ -113,7 +81,8 @@ class FormController extends AppController
 
                 // Письмо администратору
                 try {
-                    $template = Str::snake(__FUNCTION__); // Из contactUs будет contact_us
+                    //$template = Str::snake(__FUNCTION__); // Из contactUs будет contact_us
+                    $template = 'table_form'; // Все данные в таблице
                     $title = __("{$this->lang}::s.Completed_form", ['name' => __("{$this->lang}::c.{$template}")]) . config('add.domain');
                     $email_admin = \App\Helpers\Str::strToArr(App::$registry->get('settings')['admin_email'] ?? null);
 

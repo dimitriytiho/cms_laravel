@@ -173,15 +173,6 @@
 
 
                 --}}
-
-
-
-
-
-
-
-
-
                 @if (isset($values->id) && isset($values->updated_at) && isset($values->created_at))
                     <div class="row">
                         <div class="col-md-6">

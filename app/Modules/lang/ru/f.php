@@ -24,6 +24,7 @@ return [
     'refusal' => 'Отказ',
     'verification_code' => 'Код верификации',
     'remember' => 'Запомнить меня',
+    '_token' => 'Токен',
 
     'id' => 'ID',
     'ip' => 'IP',

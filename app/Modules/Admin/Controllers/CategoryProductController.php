@@ -17,7 +17,7 @@ class CategoryProductController extends AppController
 
             if ((int)$productID && (int)$categoryID) {
                 if (DB::table('category_product')->insert(['category_id' => (int)$categoryID, 'product_id' => (int)$productID])) {
-                    return __("{$this->lang}::s.something_went_wrongs.add_successfully", ['id' => (int)$categoryID]);
+                    return __("{$this->lang}::s.add_successfully", ['id' => (int)$categoryID]);
                 }
             }
         }

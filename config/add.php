@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Str;
+
+
 return [
 
     /*
@@ -68,8 +71,8 @@ return [
     'imgPath' => public_path() . '/' . env('APP_IMG', 'img'),
 
     // Протокол и домен
-    'protocol' => \Illuminate\Support\Str::before(env('APP_URL'), '://'),
-    'domain' => \Illuminate\Support\Str::after(env('APP_URL'), '://'),
+    'protocol' => Str::before(env('APP_URL'), '://'),
+    'domain' => Str::after(env('APP_URL'), '://'),
 
     // Статусы страниц (неактивная должна стоять первой)
     'page_statuses' => [
@@ -86,5 +89,9 @@ return [
     'list_pages_for_sitemap_no_db' => [
         'contact-us',
     ],
+
+    'recaptcha_public_key' => '',
+    'recaptcha_secret_key' => '',
+    'smsru' => '',
 
 ];

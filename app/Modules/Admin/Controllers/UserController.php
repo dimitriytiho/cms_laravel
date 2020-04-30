@@ -324,11 +324,21 @@ class UserController extends AppController
             if ($values) {
                 $img = $values->img ?? null;
 
-                // Проверим есть ли заказы
-                $orders = DB::table('orders')->where('user_id', (int)$id)->count();
-                if ($orders) {
-                    session()->put('error', __('s.user_has') . Str::lower(__('a.Orders')));
-                    return redirect()->back();
+                // Если включен shop
+                if (App::issetModule('Shop')) {
+
+                    // Проверим есть ли заказы
+                    $orders = DB::table('orders')->where('user_id', (int)$id)->get()->toArray();
+                    if ($orders) {
+                        $ordersPart = '';
+                        foreach ($orders as $order) {
+                            $ordersPart .= "#{$order->id} ,";
+                        }
+                        $ordersPart = rtrim($ordersPart, ' ,');
+
+                        session()->put('error', __("{$this->lang}::s.user_has") . Str::lower(__("{$this->lang}::a.Orders")) . " {$ordersPart}");
+                        return redirect()->back();
+                    }
                 }
 
                 if ($values->delete()) {

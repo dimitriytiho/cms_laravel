@@ -12,6 +12,31 @@ $transition - скорость анимации, по-умолчанию $transi
 $value - какое свойство анимировать, по-умолчанию all.
 */
 
+@media (max-width: 576px) {
+  .g-recaptcha {
+    transform: scale(0.8);
+    transform-origin: left center;
+  }
+}
+
+@media (max-width: 380px) {
+  .g-recaptcha {
+    transform: scale(0.7);
+  }
+}
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
 .animate-spin {
   -webkit-animation: spin 2s infinite linear;
           animation: spin 2s infinite linear;
