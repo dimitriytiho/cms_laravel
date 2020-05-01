@@ -54,20 +54,15 @@ return [
         'wonderful',
     ],
 
+    // Выбор редактора для контента
+    'editor' => 'codemirror', // Есть варианты: codemirror, ckeditor,
+
     // Статусы заказов
     'order_statuses' => [
         'new', // Должен быть первый new статус, т.е. новый
         'in_process',
         'completed',
     ],
-
-
-    // Виды доставки
-    'delivery' => [
-        'courier', // Курьером
-        'pickup', // Самовывоз
-    ],
-
 
     // Команды для терминала на странице Дополнительно
     'commands' => [
@@ -80,8 +75,7 @@ return [
         'make:migration',
     ],
 
-
-    // КАРТИНКИ - для новых, используйте название как написаны, в конце подставляя свои, например imgBrand
+    // Картинки - для новых, используйте название как написаны, в конце подставляя свои, например imgBrand
     // Пользователи
     'imgUser' => '/' . env('APP_IMG', 'img') . '/users-photo',
     'imgPathUser' => public_path() . '/' . env('APP_IMG', 'img') . '/users-photo',

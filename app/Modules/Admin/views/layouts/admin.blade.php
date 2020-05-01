@@ -98,24 +98,37 @@
 
     Для страницы редактирования --}}
 @if ($create_edit)
-    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var codemirror = document.querySelector('.codemirror')
-            if (codemirror) {
-                editor = CodeMirror.fromTextArea(codemirror, {
-                    tabMode: 'indent',
-                    lineNumbers: true,
-                    lineWrapping: true,
-                    matchBrackets: true,
-                    indentUnit: 4
-                })
-                editor.setSize('auto', 'auto')
-            }
-        }, false)
+    {{--
 
-    </script>
+    Выбор редактора кода --}}
+    @if (config('admin.editor') === 'ckeditor')
+        <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+        <script>
+            CKEDITOR.config.height = '600px'
+        </script>
+        {{-- CKEDITOR.config.filebrowserImageBrowseUrl = '/file-manager/ckeditor'
+
+        --}}
+    @elseif(config('admin.editor') === 'codemirror')
+        <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var codemirror = document.querySelector('.codemirror')
+                if (codemirror) {
+                    editor = CodeMirror.fromTextArea(codemirror, {
+                        tabMode: 'indent',
+                        lineNumbers: true,
+                        lineWrapping: true,
+                        matchBrackets: true,
+                        indentUnit: 4
+                    })
+                    editor.setSize('auto', 'auto')
+                }
+            }, false)
+
+        </script>
+    @endif
 @endif
 <script>
     var main = {

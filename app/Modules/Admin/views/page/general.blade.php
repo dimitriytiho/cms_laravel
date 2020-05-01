@@ -32,56 +32,55 @@
                     <div class="tab-pane fade show active pt-4" id="tab-content-link" role="tabpanel" aria-labelledby="tab-content">
                         {{--
 
-
                         Тело таба с контентом --}}
-                        {!! textarea('body', $values->body ?? null, null, true, null, 'codemirror', null, 20) !!}
+                        {!! textarea('body', $values->body ?? null, null, true, null, config('admin.editor'), null, 20) !!}
                     </div>
                     <div class="tab-pane fade pt-4" id="tab-main-link" role="tabpanel" aria-labelledby="tab-main">
                 @endif
-                        {{--
+                    {{--
 
 
-                        Тело таба с основным --}}
-                        {!! input('title', $values->title ?? null) !!}
+                    Тело таба с основным --}}
+                    {!! input('title', $values->title ?? null) !!}
 
-                        <div class="d-flex justify-content-between w-100">
-                            <div class="w-96">
-                                {!! input('slug', $values->slug ?? null) !!}
-                            </div>
-                            <div class="mt-4">
-                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="@lang("{$lang}::a.generate_link")">autorenew</button>
+                    <div class="d-flex justify-content-between w-100">
+                        <div class="w-96">
+                            {!! input('slug', $values->slug ?? null) !!}
+                        </div>
+                        <div class="mt-4">
+                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="@lang("{$lang}::a.generate_link")">autorenew</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {!! textarea('description', $values->description ?? null, null) !!}
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="parent_id">@lang("{$lang}::f.parent_id")</label>
+                                @php
+
+                                    if (!empty($table)) {
+
+                                        new App\Widgets\Menu\Menu([
+                                            'tpl' => MENU . '/select_admin',
+                                            'sql' => "SELECT id, parent_id, title FROM $table ORDER BY id DESC",
+                                            'container' => 'select',
+                                            'cache' => false,
+                                            'class' => 'form-control custom-select',
+                                            'attrs' => [
+                                                'name' => 'parent_id',
+                                            ],
+                                            'prepend' => '<option value="0"> ' . __("{$lang}::f.parent_id") . ' </option>',
+                                        ]);
+                                    }
+
+                                @endphp
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                {!! textarea('description', $values->description ?? null, null) !!}
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="parent_id">@lang("{$lang}::f.parent_id")</label>
-                                    @php
-
-                                        if (!empty($table)) {
-
-                                            new App\Widgets\Menu\Menu([
-                                                'tpl' => MENU . '/select_admin',
-                                                'sql' => "SELECT id, parent_id, title FROM $table ORDER BY id DESC",
-                                                'container' => 'select',
-                                                'cache' => false,
-                                                'class' => 'form-control custom-select',
-                                                'attrs' => [
-                                                    'name' => 'parent_id',
-                                                ],
-                                                'prepend' => '<option value="0"> ' . __("{$lang}::f.parent_id") . ' </option>',
-                                            ]);
-                                        }
-
-                                    @endphp
-                                </div>
-                            </div>
-                        </div>
-                        {{-- На странице создания элемента табы не показываем  --}}
+                    </div>
+                    {{-- На странице создания элемента табы не показываем  --}}
                 @if (isset($values->id))
                     </div>
                 </div>
