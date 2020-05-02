@@ -74,7 +74,7 @@
                         </tbody>
                     </table>
                 </div>
-                @if($orderProducts)
+                @if ($orderProducts)
                     {!!
 
                     $constructor::adminH2(__("{$lang}::a.Products"), 'mt-3 mb-3') !!}

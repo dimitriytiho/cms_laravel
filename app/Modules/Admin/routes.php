@@ -8,15 +8,17 @@ $namespace = '\App\\Modules\\admin\\Controllers';
 
 //Route::namespace($namespace)->prefix($admin)->get('/', 'MainController@index')->name('admin.main')->middleware('admin');
 
-// Страница входа в админку
-Route::namespace($namespace)->name('enter')->group(function () {
+// Страница входа в админку. Если включена авторизация, то админы авторизируется в публичной части сайта.
+if (!config('add.auth')) {
+    Route::namespace($namespace)->name('enter')->group(function () {
 
-    $key = \App\Helpers\Upload::getKeyAdmin();
-    $keyRoute = "enter/{$key}";
-    Route::post($keyRoute, 'EnterController@enterPost')->name('_post')->middleware('banned-ip');
-    Route::get($keyRoute, 'EnterController@index');
+        $key = \App\Helpers\Upload::getKeyAdmin();
+        $keyRoute = "enter/{$key}";
+        Route::post($keyRoute, 'EnterController@enterPost')->name('_post')->middleware('banned-ip');
+        Route::get($keyRoute, 'EnterController@index');
 
-});
+    });
+}
 
 
 // Роуты для админки
@@ -29,7 +31,7 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware('admin'
     Route::get('export-user', 'importExportController@exportUser')->name('export_user');
 
     // Если включен shop
-    if (App::issetModule('Shop')) {
+    if (config('add.shop')) {
 
         // Product
         Route::get('export-product', 'importExportController@exportProduct')->name('export_product');
@@ -77,7 +79,7 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware('admin'
     Route::post('cyrillic-to-latin', 'MainController@cyrillicToLatin');
 
     // Если не включена авторизация на сайте
-    if (!App::issetModule('Auth')) {
+    if (!config('add.auth')) {
         Route::post('to-change-key', 'MainController@toChangeKey');
     }
 });

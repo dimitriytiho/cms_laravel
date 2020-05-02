@@ -167,7 +167,7 @@ class EnterController extends AppController
                 return redirect()->route('admin.main');
             }*/
         }
-
+        App::getError('No post request', __METHOD__);
         /*$credentials = $request->only('email', 'password');
         $remember = $request->remember ?? null;
 
@@ -233,9 +233,15 @@ class EnterController extends AppController
         User::saveIpStatic($email, $ip);
 
         // Сохранить сообщение об совершённом входе в админку
-        Log::info("Login Admin completed to the dashboard. " . App::dataUser());
+        Log::info('Authorization of user with access Admin. ' . App::dataUser());
 
         return redirect()->route('admin.main');
+    }
+
+
+    protected function redirectPath()
+    {
+        return route('index');
     }
 
 

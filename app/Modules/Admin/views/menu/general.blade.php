@@ -5,8 +5,8 @@
 
 --}}
 @section('content')
-    @if($values && !empty($menuName))
-        @if(isset($menuName->title))
+    @if ($values && !empty($menuName))
+        @if (isset($menuName->title))
             <div class="row">
                 <div class="col">
                     <p>

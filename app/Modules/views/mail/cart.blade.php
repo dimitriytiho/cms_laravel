@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($values as $k => $v)
+        @foreach ($values as $k => $v)
             @if (is_int($k))
                 <tr>
                     <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">{{ $k }}</td>

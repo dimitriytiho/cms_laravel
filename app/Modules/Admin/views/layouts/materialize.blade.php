@@ -89,7 +89,7 @@ Materialize css шаблон
 
         Служебные сообщения в тосте --}}
         @if (isset($errors) && $errors->any())
-            @foreach( $errors->all() as $v )
+            @foreach ( $errors->all() as $v )
                 M.toast({html: '{{ $v }}'});
             @endforeach
         @endif

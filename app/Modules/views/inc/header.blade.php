@@ -9,7 +9,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                @if (\App\App::issetModule('Shop'))
+                @if (config('add.shop'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('catalog') }}">Каталог</a>
                     </li>
@@ -20,7 +20,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('contact_us') }}">Связаться с нами</a>
                 </li>
-                @if (\App\App::issetModule('Auth'))
+                @if (config('add.auth'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
                     </li>
@@ -29,9 +29,11 @@
                         <a class="nav-link" href="{{ route('enter') }}">Вход</a>
                     </li>
                 @endif
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.main') }}">Админ</a>
-                </li>
+                @if (Auth::check() && Auth::user()->Admin())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.main') }}">Админ</a>
+                    </li>
+                @endif
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

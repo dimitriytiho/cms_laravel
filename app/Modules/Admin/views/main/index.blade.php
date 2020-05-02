@@ -3,7 +3,7 @@
 @section('content')
     <section>
         <div class="row">
-            @if (\App\App::issetModule('Shop'))
+            @if (config('add.shop'))
                 {!! $constructor::adminMainBlock('Orders', $count_orders ?? '0', 'shopping_cart', 'order') !!}
             @endif
             {!! $constructor::adminMainBlock('Forms', $count_forms ?? '0', 'insert_comment', 'form') !!}
@@ -44,7 +44,7 @@
     {{--
 
     Если не включена авторизация на сайте, то можно сформировать slug для входа --}}
-    @if (!\App\App::issetModule('Auth'))
+    @if (!config('add.auth'))
         <section class="key-to-enter">
             <div class="row mt-5 mb-3">
                 <div class="col">

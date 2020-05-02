@@ -14,7 +14,7 @@
                 @csrf
 
                 {!! input('title', $values->title ?? null, null, 'text', null, null, null, [$disabled => null]) !!}
-                @if($disabled)
+                @if ($disabled)
                         {!! hidden('title', $values->title ?? null) !!}
                 @endif
 

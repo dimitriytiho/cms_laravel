@@ -7,4 +7,6 @@ mix.js('app/Modules/js/index.js', 'public/js/app.js')
 .js('app/Modules/Admin/js/index.js', 'public/js/append.js')
 .sass('app/Modules/Admin/sass/index.scss', 'public/css/append.css')
 .js('app/Modules/Shop/js/index.js', 'public/js/shop.js')
-.sass('app/Modules/Shop/sass/index.scss', 'public/css/shop.css');
+.sass('app/Modules/Shop/sass/index.scss', 'public/css/shop.css')
+.js('app/Modules/Auth/js/index.js', 'public/js/auth.js')
+.sass('app/Modules/Auth/sass/index.scss', 'public/css/auth.css');

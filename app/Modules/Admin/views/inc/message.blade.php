@@ -22,14 +22,14 @@
     <div class="row mt-2">
         <div class="col">
             <div class="alert alert-danger alert-dismissible fade show py-3 px-4" role="alert">
-                @if($errors->any())
+                @if ($errors->any())
                     <ul class="list-unstyled mb-0">
-                        @foreach($errors->all() as $error)
+                        @foreach ($errors->all() as $error)
                             <li class="mt-1">{{ $error }}</li>
                         @endforeach
                     </ul>
                 @endif
-                @if($errors->any() && session()->has('error'))
+                @if ($errors->any() && session()->has('error'))
                     <br>
                 @endif
                 @if (session()->has('error'))

@@ -67,8 +67,8 @@
 {{--
 
 Если в контенте есть скрипты, то они выведятся здесь, через метод \App\App::getDownScript() --}}
-@if(!empty(\App\App::get('scripts')))
-    @foreach(\App\App::get('scripts') as $script)
+@if (!empty(\App\App::get('scripts')))
+    @foreach (\App\App::get('scripts') as $script)
         {!! $script . PHP_EOL !!}
     @endforeach
 @endif

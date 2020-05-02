@@ -325,7 +325,7 @@ class UserController extends AppController
                 $img = $values->img ?? null;
 
                 // Если включен shop
-                if (App::issetModule('Shop')) {
+                if (config('add.shop')) {
 
                     // Проверим есть ли заказы
                     $orders = DB::table('orders')->where('user_id', (int)$id)->get()->toArray();

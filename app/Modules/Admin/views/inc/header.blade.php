@@ -42,14 +42,14 @@
     {{--
 
     Меню для мобильных --}}
-    @if($menuAsideChunk)
+    @if ($menuAsideChunk)
         <div class="js-none" id="menu-mobile">
             <div class="row my-4">
-                @foreach($menuAsideChunk as $chunk)
-                    @if($chunk)
+                @foreach ($menuAsideChunk as $chunk)
+                    @if ($chunk)
                         <div class="col-sm-6 col-12">
-                            @foreach($chunk as $elMenu)
-                                @if(!$elMenu['parent_id'] && !(in_array($elMenu['controller'], config('admin.editor_section_banned')) && !$isAdmin))
+                            @foreach ($chunk as $elMenu)
+                                @if (!$elMenu['parent_id'] && !(in_array($elMenu['controller'], config('admin.editor_section_banned')) && !$isAdmin))
                                     <a href="{{ route('admin.main') . $elMenu['slug'] }}" class="d-block py-1">@lang("{$lang}::a.{$elMenu['title']}")</a>
                                 @endif
                             @endforeach

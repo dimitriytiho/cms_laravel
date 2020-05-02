@@ -39,7 +39,7 @@ class Setting extends Model
             ];
 
         // Если включен shop
-        if (App::issetModule('Shop')) {
+        if (config('add.shop')) {
             $menu = $menu + [
                 2 => [
                     'title' => 'Orders',
@@ -64,7 +64,7 @@ class Setting extends Model
             ];
 
         // Если включен shop
-        if (App::issetModule('Shop')) {
+        if (config('add.shop')) {
             $menu = $menu + [
                 4 => [
                     'title' => 'Categories',

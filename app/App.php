@@ -143,7 +143,7 @@ class App extends Model
         if ($referer) {
             $referer = !empty(request()->server('HTTP_REFERER')) ? '. Referer: ' . request()->server('HTTP_REFERER') . '. ' : null;
         }
-        return "URL: " . request()->url() . ".{$email} IP: " . request()->ip() . ". {$referer}";
+        return "URL: " . request()->url() . "{$email} IP: " . request()->ip() . ". {$referer}";
     }
 
 

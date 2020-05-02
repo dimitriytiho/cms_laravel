@@ -34,10 +34,10 @@ return [
             'routes' => true,
             'webpack' => true,
         ],
-        /*'Auth' => [
+        'Auth' => [
             'routes' => true,
             'webpack' => true,
-        ],*/
+        ],
     ],
 
 ];

@@ -1,7 +1,5 @@
 <?php
 
-use App\App;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +11,6 @@ use App\App;
 |
 */
 
-
-
 // Если выключен веб-сайт, то редирект на страницу /public/error.php
 if (config('add.site_off')) {
     Route::domain(env('APP_URL'))->group(function () {
@@ -24,7 +20,7 @@ if (config('add.site_off')) {
 }
 
 // Если в запросе /public, то сделается редирект на без /public
-$url = \Illuminate\Http\Request::capture()->url();
+$url = request()->capture()->url();
 $public = '/public';
 if (stripos($url, $public)) {
     $url = str_replace($public, '', $url);
@@ -39,11 +35,10 @@ if (stripos($url, $public)) {
 
 
 // Если включена авторизация на сайте
-if (App::issetModule('Auth')) {
+/*if (config('add.auth')) {
     Auth::routes();
-
     Route::get('home', 'HomeController@index')->name('home');
-}
+}*/
 
 
 //Route::get(env('APP_ADMIN', 'admin') . '/login/{key}', 'Voyager\AuthController@login')->middleware(['web'])->name('voyager.login');

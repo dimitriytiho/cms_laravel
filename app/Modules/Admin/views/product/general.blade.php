@@ -83,7 +83,7 @@
                             </div>
                         </div>
 
-                        @if(isset($values->id))
+                        @if (isset($values->id))
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -110,7 +110,7 @@
                                 <div class="col-md-6 mt-1">
                                     <div class="border mt-4 px-2 py-1" id="category-many-elements">
                                         @if ($values->category)
-                                            @foreach($values->category as $v)
+                                            @foreach ($values->category as $v)
                                                 <div class="mr-4 many-elements">
                                                     <span class="many-elements__text">{{ $v->title }}</span>
                                                     <a data-url="{{ route('admin.product_destroy_category') }}" data-category-id="{{ $v->id }}" class="text-primary many-elements__close cur">&times;</a>
@@ -156,7 +156,7 @@
                                 </div>
                                 <div class="col-12 mt-4 img-view" id="dropzone-gallery">
                                     @if (!empty($gallery))
-                                        @foreach($gallery as $img)
+                                        @foreach ($gallery as $img)
                                             <a href="{{ asset($img->img) }}" target="_blank">
                                                 <i class="material-icons img-remove" data-img="{{ $img->img }}" data-max-files="{{ config('admin.maxFilesMany') }}">clear</i>
                                                 <img src="{{ asset($img->img) }}" alt="@lang("{$lang}::f.img")">

@@ -97,6 +97,17 @@
 
 /***/ }),
 
+/***/ "./app/Modules/Auth/sass/index.scss":
+/*!******************************************!*\
+  !*** ./app/Modules/Auth/sass/index.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./app/Modules/Shop/sass/index.scss":
 /*!******************************************!*\
   !*** ./app/Modules/Shop/sass/index.scss ***!
@@ -3784,16 +3795,17 @@ module.exports = function(module) {
 /***/ }),
 
 /***/ 0:
-/*!********************************************************************************************************************************************!*\
-  !*** multi ./app/Modules/js/index.js ./app/Modules/sass/index.scss ./app/Modules/Admin/sass/index.scss ./app/Modules/Shop/sass/index.scss ***!
-  \********************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** multi ./app/Modules/js/index.js ./app/Modules/sass/index.scss ./app/Modules/Admin/sass/index.scss ./app/Modules/Shop/sass/index.scss ./app/Modules/Auth/sass/index.scss ***!
+  \*******************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/js/index.js */"./app/Modules/js/index.js");
 __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/sass/index.scss */"./app/Modules/sass/index.scss");
 __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/Admin/sass/index.scss */"./app/Modules/Admin/sass/index.scss");
-module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/Shop/sass/index.scss */"./app/Modules/Shop/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/Shop/sass/index.scss */"./app/Modules/Shop/sass/index.scss");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/Auth/sass/index.scss */"./app/Modules/Auth/sass/index.scss");
 
 
 /***/ })
