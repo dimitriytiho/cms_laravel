@@ -1,30 +1,33 @@
 <?php
 
+
 namespace App\Mail;
+
 
 use App\App;
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 
-class SendMail extends Mailable
+class SendServiceMail extends Notification
 {
-    use Queueable, SerializesModels;
+    use Queueable;
 
-    private $layout;
-    private $viewPath;
-    private $lang;
     public $title;
     public $body;
     public $values;
     public $template;
     public $h1;
+    private $layout;
+    private $viewPath;
+    private $lang;
 
     /**
-     * Create a new message instance.
+     * Create a new notification instance.
      *
      * @return void
+     *
      *
      * Переменные для отправки письма
      * $title - Заголовок письма.
@@ -32,15 +35,7 @@ class SendMail extends Mailable
      * $values - Данные для использования в видах, необязательный параметр.
      * $template - Название вида для оптравки письма из папки views/mail (к примеру user), необязательный параметр.
      * $h1 - Если нужно H1 передать из вида $template, то передайте null, тогда заголовок $title используйте в виде, который передаёте в $template, необязательный параметр.
-
-    MAIL_DRIVER=smtp
-    MAIL_HOST=smtp.yandex.ru
-    MAIL_PORT=587 // Возможно 25, 465
-    MAIL_USERNAME=drovaivan@yandex.ru
-    MAIL_PASSWORD=prostoy
-    MAIL_ENCRYPTION=tls
-    MAIL_FROM_ADDRESS="${MAIL_USERNAME}"
-    MAIL_FROM_NAME="${APP_NAME}"
+     *
      *
      */
     public function __construct($title, $body = null, $values = null, $template = null, $h1 = true)
@@ -64,13 +59,24 @@ class SendMail extends Mailable
         }
     }
 
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        return ['mail'];
+    }
 
     /**
-     * Build the message.
+     * Get the mail representation of the notification.
      *
-     * @return $this
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function build()
+    public function toMail($notifiable)
     {
         $title = $this->title;
         $values = $this->values;
@@ -81,17 +87,26 @@ class SendMail extends Mailable
         $site_name = App::get('settings')['site_name'] ?? ' ';
         $color = config('add.scss.primary', '#ccc');
 
-
         if ($this->template && view()->exists("{$this->viewPath}.mail.{$this->template}")) {
-            $view = view("{$this->viewPath}.mail.{$this->template}", compact('title', 'values', 'body', 'color', 'site_name'))->render();
+            $view = view("{$this->viewPath}.mail.{$this->template}",
+                compact('title', 'values', 'body', 'color', 'site_name'))
+                ->render();
         }
 
         $email = App::get('settings')['site_email'] ?? ' ';
         $tel = isset(App::get('settings')['tel']) ? __("{$lang}::s.or_call") .  App::get('settings')['tel'] : null;
 
+        return (new MailMessage)
+            ->view("{$this->viewPath}.{$this->layout}",
+                compact('view', 'lang', 'title', 'values', 'h1', 'body', 'site_name', 'color', 'email', 'tel'))
+            ->subject(__("{$this->lang}::s.Information_letter"));
 
-        return $this->view("{$this->viewPath}.{$this->layout}",
-            compact('view', 'lang', 'title', 'values', 'h1', 'body', 'site_name', 'color', 'email', 'tel'))
-            ->subject(__("{$lang}::s.Information_letter"));
+
+
+        /*return (new MailMessage)
+            ->greeting('Hello!')
+            ->line('One of your invoices has been paid!')
+            ->action('View Invoice', url('/invoice/'.$this->invoice->id))
+            ->line('Thank you for using our application!');*/
     }
 }

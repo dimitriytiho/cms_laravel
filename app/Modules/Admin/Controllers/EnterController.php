@@ -2,9 +2,8 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\Modules\Admin\Models\BannedIp;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Modules\Admin\Models\User;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -19,6 +18,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use App\Modules\AppController as AppController;
+use App\Helpers\User as userHelpers;
 
 class EnterController extends AppController
 {
@@ -97,48 +97,8 @@ class EnterController extends AppController
             if ($this->hasTooManyLoginAttempts($request)) {
                 $this->fireLockoutEvent($request);
 
-
-                // Через n кол-во блокировой блокируется IP c помощью таблицы banned_ip
-                $tableBanned = 'banned_ip';
-                $bannedIpCount = (int)(App::get('settings')['banned_ip_count'] ?? null);
-                $ip = $request->ip() ?? null;
-
-                if ($bannedIpCount && $ip) {
-                    $issetIP = $values = DB::table($tableBanned)->where('ip', $ip)->get();
-
-                    // Если существует IP в таблице banned_ip
-                    if (isset($issetIP[0])) {
-                        $countLast = (int)$issetIP[0]->count;
-                        $ifCountBig = $countLast > $bannedIpCount;
-
-                        // Если число попыток больше n в настройках banned_ip_count
-                        if ($ifCountBig) {
-
-                            // Обновить запись с этим ip, изменив на banned = 1
-                            DB::table($tableBanned)->where('ip', $ip)->update(['banned' => '1']);
-
-                        } else {
-
-                            // Обновить запись с этим ip, прибавив 1 к полю count
-                            DB::table($tableBanned)->where('ip', $ip)->increment('count', 1);
-                        }
-
-                    // Если нет IP в таблице banned_ip
-                    } else {
-
-                        $data['ip'] = $ip;
-
-                        $bannedIP = new BannedIp();
-                        $bannedIP->fill($data);
-
-                        if (!$bannedIP->save()) {
-
-                            // Сообщение что-то пошло не так
-                            $message = 'Error Banned IP save and in ' . __METHOD__;
-                            Log::warning($message);
-                        }
-                    }
-                }
+                // После n раз (10 по-умолчанию), когда сработает laravel защита попыток входа, пользователь будет заблокирован к авторизации.
+                userHelpers::bannedUser();
 
                 return $this->sendLockoutResponse($request);
             }

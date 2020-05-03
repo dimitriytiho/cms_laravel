@@ -10,7 +10,7 @@ if (config('add.auth')) {
         Route::get('logout', 'LoginController@logout')->name('logout');
         Route::post('password/confirm', 'ConfirmPasswordController@confirm')->name('password.confirm_post');
         Route::get('password/confirm', 'ConfirmPasswordController@confirm')->name('password.confirm');
-        Route::get('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
         Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
         Route::post('password/reset', 'ResetPasswordController@reset')->name('password.update');
         Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');

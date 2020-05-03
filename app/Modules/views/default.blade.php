@@ -1,3 +1,10 @@
+@php
+
+use App\App;
+use App\Widgets\PanelDashboard\PanelDashboard;
+use App\Helpers\Locale;
+
+@endphp
 {{--
 
 Основной шаблон по-умолчанию
@@ -29,7 +36,7 @@
 {{--
 
     Панель администратора --}}
-{!! \App\Widgets\PanelDashboard\PanelDashboard::run() !!}
+{!! PanelDashboard::run() !!}
 
 <div id="app">
     @yield('header')
@@ -56,19 +63,19 @@
     var body = document.querySelector('body'),
         path = '{{ route('index') }}',
         slug = '{{ str_replace('-', '_', request()->path()) }}',
-        site_title = '{{ \App\App::get('settings')['site_name'] ?? ' ' }}',
-        site_tel = '{{ \App\App::get('settings')['tel'] ?? ' ' }}',
-        site_email = '{{ \App\App::get('settings')['site_email'] ?? ' ' }}',
+        site_title = '{{ App::get('settings')['site_name'] ?? ' ' }}',
+        site_tel = '{{ App::get('settings')['tel'] ?? ' ' }}',
+        site_email = '{{ App::get('settings')['site_email'] ?? ' ' }}',
         main_color = '{{ config('add.scss')['primary'] ?: '#ccc' }}',
         height = '{{ config('add.height') ?: 600 }}'
 
-    {!! \App\Helpers\Locale::translationsJson() !!}
+    {!! Locale::translationsJson() !!}
 </script>
 {{--
 
-Если в контенте есть скрипты, то они выведятся здесь, через метод \App\App::getDownScript() --}}
-@if (!empty(\App\App::get('scripts')))
-    @foreach (\App\App::get('scripts') as $script)
+Если в контенте есть скрипты, то они выведятся здесь, через метод App::getDownScript() --}}
+@if (!empty(App::get('scripts')))
+    @foreach (App::get('scripts') as $script)
         {!! $script . PHP_EOL !!}
     @endforeach
 @endif

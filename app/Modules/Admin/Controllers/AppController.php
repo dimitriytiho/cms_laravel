@@ -78,7 +78,7 @@ class AppController extends Controller
 
             // Если Редактор откроет запрещённый раздел, выбросится исключение
             if (in_array($this->controller, config('admin.editor_section_banned')) && !$isAdmin) {
-                App::getError('Editor section BANNED!', __METHOD__);
+                App::getError('Editor section Banned!', __METHOD__);
             }
 
             View::share(compact('isAdmin'));

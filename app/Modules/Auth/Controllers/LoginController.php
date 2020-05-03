@@ -3,7 +3,6 @@
 namespace App\Modules\Auth\Controllers;
 
 use App\App;
-use App\Modules\Admin\Models\BannedIp;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -16,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Helpers\User as userHelpers;
 
 class LoginController extends AppController
 {
@@ -60,6 +60,33 @@ class LoginController extends AppController
 
 
     /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm(Request $request)
+    {
+        return view("{$this->viewPathModule}.{$this->view}");
+    }
+
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
+    }
+
+
+    /**
      * Handle a login request to the application.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -81,48 +108,8 @@ class LoginController extends AppController
             if ($this->hasTooManyLoginAttempts($request)) {
                 $this->fireLockoutEvent($request);
 
-
-                // Через n кол-во блокировой блокируется IP c помощью таблицы banned_ip
-                $tableBanned = 'banned_ip';
-                $bannedIpCount = (int)(App::get('settings')['banned_ip_count'] ?? null);
-                $ip = $request->ip() ?? null;
-
-                if ($bannedIpCount && $ip) {
-                    $issetIP = $values = DB::table($tableBanned)->where('ip', $ip)->get();
-
-                    // Если существует IP в таблице banned_ip
-                    if (isset($issetIP[0])) {
-                        $countLast = (int)$issetIP[0]->count;
-                        $ifCountBig = $countLast > $bannedIpCount;
-
-                        // Если число попыток больше n в настройках banned_ip_count
-                        if ($ifCountBig) {
-
-                            // Обновить запись с этим ip, изменив на banned = 1
-                            DB::table($tableBanned)->where('ip', $ip)->update(['banned' => '1']);
-
-                        } else {
-
-                            // Обновить запись с этим ip, прибавив 1 к полю count
-                            DB::table($tableBanned)->where('ip', $ip)->increment('count', 1);
-                        }
-
-                    // Если нет IP в таблице banned_ip
-                    } else {
-
-                        $data['ip'] = $ip;
-
-                        $bannedIP = new BannedIp();
-                        $bannedIP->fill($data);
-
-                        if (!$bannedIP->save()) {
-
-                            // Сообщение что-то пошло не так
-                            $message = 'Error Banned IP save and in ' . __METHOD__;
-                            Log::warning($message);
-                        }
-                    }
-                }
+                // После n раз (10 по-умолчанию), когда сработает laravel защита попыток входа, пользователь будет заблокирован к авторизации.
+                //userHelpers::bannedUser();
 
                 return $this->sendLockoutResponse($request);
             }
@@ -138,6 +125,7 @@ class LoginController extends AppController
         App::getError('No post request', __METHOD__);
     }
 
+
     protected function attemptLogin(Request $request)
     {
         return $this->guard()->attempt(
@@ -145,20 +133,12 @@ class LoginController extends AppController
         );
     }
 
-    protected function guard()
-    {
-        return Auth::guard();
-    }
 
     protected function credentials(Request $request)
     {
         return $request->only($this->username(), 'password');
     }
 
-    public function username()
-    {
-        return 'email';
-    }
 
     protected function sendLoginResponse(Request $request)
     {
@@ -169,9 +149,10 @@ class LoginController extends AppController
             ?: redirect()->intended($this->redirectPath());
     }
 
+
+    // Действия после успешной авторизации
     protected function authenticated(Request $request, $user)
     {
-        // Действия после успешной авторизации
         $email = $request->email;
         $ip = $request->ip();
 
@@ -186,52 +167,11 @@ class LoginController extends AppController
         return redirect()->route('home');
     }
 
+
     protected function sendFailedLoginResponse(Request $request)
     {
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
         ]);
-    }
-
-    /**
-     * Show the application's login form.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function showLoginForm(Request $request)
-    {
-        return view("{$this->viewPathModule}.{$this->view}");
-    }
-
-    /**
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        if ($response = $this->loggedOut($request)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new Response('', 204)
-            : redirect()->route('login');
-    }
-
-    /**
-     * The user has logged out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return mixed
-     */
-    protected function loggedOut(Request $request)
-    {
-        //
     }
 }

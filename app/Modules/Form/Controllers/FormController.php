@@ -5,7 +5,6 @@ namespace App\Modules\Form\Controllers;
 use App\App;
 use App\Modules\Form\Models\Form;
 use App\Mail\SendMail;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
@@ -31,10 +30,10 @@ class FormController extends AppController
 
             // Валидация
             $rules = [
-                'name' => 'required',
-                'tel' => 'required',
-                'email' => 'required|email',
-                'message' => 'required',
+                'name' => ['required', 'string', 'max:190'],
+                'tel' => ['required', 'max:190'],
+                'email' => ['required|email', 'string', 'max:190'],
+                'message' => ['required', 'string'],
                 'accept' => 'accepted',
                 //'g-recaptcha-response' => 'required',
             ];

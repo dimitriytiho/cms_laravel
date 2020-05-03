@@ -1,5 +1,6 @@
 <?php
 
+$modules = 'Modules'; // Внимание, не меняйте название папки, т.к. после этого необходимо поменять все namespace!
 //$admin = is_file(__DIR__ . '/admin.php') ? include('admin.php') : null;
 
 
@@ -11,9 +12,9 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'path' => app_path(env('APP_MODULES')),
-    'path_file' => 'app/' . env('APP_MODULES'),
-    'namespace' => 'App\\' . env('APP_MODULES'),
+    'path' => app_path($modules),
+    'path_file' => "app/{$modules}",
+    'namespace' => "App\\{$modules}",
 
     // Папка с видами
     'views' => 'views',

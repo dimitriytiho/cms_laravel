@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Mail\SendMail;
+use App\Mail\SendServiceMail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,6 +48,7 @@ class User extends Authenticatable
     protected $model;
     protected $table;
     protected $view;
+    protected $lang;
 
 
     // Расширяем модель
@@ -57,6 +60,7 @@ class User extends Authenticatable
         $this->model = "\App\\{$this->class}";
         $this->table = with($this)->getTable();
         $this->view = Str::snake($this->class);
+        $this->lang = lang();
     }
 
 
@@ -65,6 +69,20 @@ class User extends Authenticatable
     public function role() {
         return $this->belongsTo(Role::class);
     }
+
+
+    // Меняем шаблон письма при сбросе пароля
+    public function sendPasswordResetNotification($token)
+    {
+        $title = __("{$this->lang}::f.link_to_change_password");
+        $values = [
+            'title' => __("{$this->lang}::f.you_forgot_password"),
+            'btn' => __("{$this->lang}::f.reset_password"),
+            'link' => route('password.reset', $token),
+        ];
+        $this->notify(new SendServiceMail($title , null, $values, 'service'));
+    }
+
 
 
     /********************** Дополнительные методы **********************/

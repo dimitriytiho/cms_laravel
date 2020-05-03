@@ -5,13 +5,8 @@ namespace App\Modules\Auth\Controllers;
 use App\App;
 use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
@@ -76,65 +71,35 @@ class RegisterController extends AppController
     protected function register(Request $request)
     {
         if ($request->isMethod('post')) {
+
+            // Валидация
             $rules = [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'name' => ['required', 'string', 'max:190'],
+                'email' => ['required', 'string', 'email', 'max:190', 'unique:users'],
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
+                'accept' => ['accepted'],
             ];
             $this->validate($request, $rules);
 
-            event(new Registered($user = $this->create($request->all())));
+            // Данные запроса
+            $request->offsetUnset('password_confirmation');
+            $request->merge([
+                'password' => Hash::make($request->password),
+                'accept' => $request->accept ? '1' : '0',
+                'ip' => $request->ip(),
+            ]);
 
-            $this->guard()->login($user);
+            // Сохранить данные в БД
+            $user = new User();
+            $user->fill($request->all());
+            if ($user->save()) {
 
-            if ($response = $this->registered($request, $user)) {
-                return $response;
+                // Авторизируем нового пользователя
+                $this->guard()->login($user);
+
+                return redirect()->route('login');
             }
-
-            return $request->wantsJson()
-                ? new Response('', 201)
-                : redirect($this->redirectPath());
         }
         App::getError('No post request', __METHOD__);
-    }
-
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
-
-
-    /**
-     * Get the guard to be used during registration.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected function guard()
-    {
-        return Auth::guard();
-    }
-
-
-    /**
-     * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function registered(Request $request, $user)
-    {
-        //
     }
 }

@@ -4,6 +4,7 @@ namespace App\Modules\Auth\Controllers;
 
 use App\App;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
@@ -35,6 +36,23 @@ class AppController extends \App\Modules\AppController
         $viewPathModule = $this->viewPathModule  = "{$module}.views";
 
         View::share(compact('module', 'm', 'model', 'route', 'viewPathModule'));
+    }
+
+
+    /**
+     * Get the guard to be used during registration.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard();
+    }
+
+
+    public function username()
+    {
+        return 'email';
     }
 
 

@@ -25,6 +25,9 @@ return [
     'verification_code' => 'Код верификации',
     'remember' => 'Запомнить меня',
     '_token' => 'Токен',
+    'reset_password' => 'Сбросить пароль',
+    'link_to_change_password' => 'Ссылка для изменения пароля',
+    'you_forgot_password' => 'Вы забыли свой пароль? Нажмите кнопку, чтобы сбросить его.',
 
     'id' => 'ID',
     'ip' => 'IP',

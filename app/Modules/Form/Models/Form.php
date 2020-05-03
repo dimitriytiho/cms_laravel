@@ -2,7 +2,6 @@
 
 namespace App\Modules\Form\Models;
 
-use App\App;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 

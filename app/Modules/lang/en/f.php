@@ -25,6 +25,9 @@ return [
     'verification_code' => 'Verification code',
     'remember' => 'Remember me',
     '_token' => 'Token',
+    'reset_password' => 'Reset the password',
+    'link_to_change_password' => 'Link to change your password',
+    'you_forgot_password' => 'You forgot your password? Click the button to reset it.',
 
     'id' => 'ID',
     'ip' => 'IP',
