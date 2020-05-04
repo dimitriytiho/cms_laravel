@@ -19,5 +19,6 @@ return [
     'welcome' => ' welcome.',
     'read_more' => 'Read more',
     'reset' => 'Reset',
+    'nothing_found' => 'Nothing found, try again...',
 
 ];

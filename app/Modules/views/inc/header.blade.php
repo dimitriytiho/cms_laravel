@@ -35,9 +35,10 @@
                     </li>
                 @endif
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+            <form action="{{ route('search') }}" class="form-inline my-2 my-lg-0 search_js" autocomplete="off">
+                <input type="text" class="form-control mr-sm-2 search_js__input" name="s" placeholder="@lang("{$lang}::a.search")" aria-label="Search" value="{{ $searchQuery }}">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">@lang("{$lang}::a.search")</button>
+                <div class="search_js__child"></div>
             </form>
         </div>
     </nav>

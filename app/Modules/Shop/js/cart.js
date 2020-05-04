@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // id модального окна
     const modalID = 'cart_modal'
 
-
     // Проверяем подключен ли jQuery
     if (window.jQuery) {
 
@@ -139,10 +138,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 cartSum = $('#cart_modal_sum').text()
 
             // Вставляем кол-во из корзины в кнопку вызова
-            $('.cart_count_qty').text(cartQty)
+            //$('.cart_count_qty').text(cartQty)
 
             // Вставляем сумму из корзины в кнопку вызова
-            //$('.cart_count_sum').text(cartSum)
+            $('.cart_count_sum').text(cartSum ? cartSum + ' ₽' : '')
         }
     }
 

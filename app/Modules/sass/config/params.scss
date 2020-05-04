@@ -49,3 +49,13 @@ $gray-700: #495057;
 $gray-704: #40464c;
 $gray-800: #343a40;
 $gray-900: #212529; // dark
+
+// Box-shadow
+$box-shadow-sm: 0 .125rem .25rem rgba($black, .075);
+$box-shadow: 0 .5rem 1rem rgba($black, .15);
+$box-shadow-lg: 0 1rem 3rem rgba($black, .175);
+
+// Z-index
+$z-index-min: 10;
+$z-index-normal: 100;
+$z-index-max: 9999;

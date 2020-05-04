@@ -60,7 +60,8 @@ use App\Helpers\Locale;
 
 --}}
 <script>
-    var body = document.querySelector('body'),
+    var body = $('body'),
+        _token = document.querySelector('meta[name="csrf-token"]'),
         path = '{{ route('index') }}',
         slug = '{{ str_replace('-', '_', request()->path()) }}',
         site_title = '{{ App::get('settings')['site_name'] ?? ' ' }}',
@@ -68,6 +69,10 @@ use App\Helpers\Locale;
         site_email = '{{ App::get('settings')['site_email'] ?? ' ' }}',
         main_color = '{{ config('add.scss')['primary'] ?: '#ccc' }}',
         height = '{{ config('add.height') ?: 600 }}'
+
+    if (_token) {
+        _token = _token.content
+    }
 
     {!! Locale::translationsJson() !!}
 </script>

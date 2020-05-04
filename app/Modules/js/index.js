@@ -3,6 +3,8 @@
 
 window.Bootstrap = require('bootstrap.native/dist/bootstrap-native-v4')
 
+import './components'
+import './search'
 import './forms'
 import './pulse'
 import './validate'

@@ -12,6 +12,41 @@ $transition - скорость анимации, по-умолчанию $transi
 $value - какое свойство анимировать, по-умолчанию all.
 */
 
+.search_js {
+  position: relative;
+}
+
+.search_js__child {
+  position: absolute;
+  top: 2.7rem;
+  width: 18rem;
+  background-color: #fff;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+  z-index: 1;
+}
+
+.search_js__child--link {
+  padding: 0.8rem 1.6rem;
+  display: block;
+  transition: all 0.25s;
+}
+
+.search_js__child--link:hover {
+  background-color: #f8f9fa;
+}
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
 @media (max-width: 576px) {
   .g-recaptcha {
     transform: scale(0.8);

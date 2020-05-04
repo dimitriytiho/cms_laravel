@@ -108,9 +108,10 @@ document.addEventListener('DOMContentLoaded', function () {
       modalInstance.show();
       var cartQty = $('#cart_modal_qty').text(),
           cartSum = $('#cart_modal_sum').text(); // Вставляем кол-во из корзины в кнопку вызова
+      //$('.cart_count_qty').text(cartQty)
+      // Вставляем сумму из корзины в кнопку вызова
 
-      $('.cart_count_qty').text(cartQty); // Вставляем сумму из корзины в кнопку вызова
-      //$('.cart_count_sum').text(cartSum)
+      $('.cart_count_sum').text(cartSum ? cartSum + ' ₽' : '');
     };
 
     // Если есть класс .no_js, то отключаем JS
@@ -245,7 +246,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/Shop/js/index.js */"./app/Modules/Shop/js/index.js");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7/app/Modules/Shop/js/index.js */"./app/Modules/Shop/js/index.js");
 
 
 /***/ })

@@ -119,6 +119,17 @@
 
 /***/ }),
 
+/***/ "./app/Modules/js/components/index.js":
+/*!********************************************!*\
+  !*** ./app/Modules/js/components/index.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+//import './test'
+
+/***/ }),
+
 /***/ "./app/Modules/js/forms.js":
 /*!*********************************!*\
   !*** ./app/Modules/js/forms.js ***!
@@ -153,14 +164,20 @@ document.addEventListener('click', function (e) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./forms */ "./app/Modules/js/forms.js");
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_forms__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pulse */ "./app/Modules/js/pulse.js");
-/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_pulse__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validate */ "./app/Modules/js/validate/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components */ "./app/Modules/js/components/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./search */ "./app/Modules/js/search.js");
+/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_search__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./forms */ "./app/Modules/js/forms.js");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_forms__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pulse */ "./app/Modules/js/pulse.js");
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_pulse__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./validate */ "./app/Modules/js/validate/index.js");
 // require('./bootstrap');
 // window.Vue = require('vue');
 window.Bootstrap = __webpack_require__(/*! bootstrap.native/dist/bootstrap-native-v4 */ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js");
+
+
 
 
  // import Vue from 'vue'
@@ -247,6 +264,54 @@ document.addEventListener('click', function (e) {
     }, _timeDeleteDiv);
   }
 });
+
+/***/ }),
+
+/***/ "./app/Modules/js/search.js":
+/*!**********************************!*\
+  !*** ./app/Modules/js/search.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+document.addEventListener('DOMContentLoaded', function () {
+  var url = '/search-js',
+      searchClass = '.search_js',
+      searchInput = searchClass + '__input',
+      searchChild = searchClass + '__child';
+  body.on('keyup', searchInput, function () {
+    var self = $(this),
+        query = self.val(),
+        length = query.length,
+        child = self.closest(searchClass).find(searchChild);
+
+    if (length > 0) {
+      $.ajax({
+        type: 'POST',
+        url: url,
+        data: {
+          _token: _token,
+          query: query
+        },
+        success: function success(res) {
+          if (res) {
+            res = JSON.parse(res);
+            var html = '';
+            res.forEach(function (el) {
+              html += "<a href=\"".concat(el.slug, "\" class=\"search_js__child--link\">").concat(el.title, "</a>");
+            });
+            child.html(html);
+          }
+        }
+        /*,
+        error: function () {
+           console.log('error')
+        }*/
+
+      });
+    }
+  });
+}, false);
 
 /***/ }),
 
@@ -3801,11 +3866,11 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/js/index.js */"./app/Modules/js/index.js");
-__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/sass/index.scss */"./app/Modules/sass/index.scss");
-__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/Admin/sass/index.scss */"./app/Modules/Admin/sass/index.scss");
-__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/Shop/sass/index.scss */"./app/Modules/Shop/sass/index.scss");
-module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7.6/app/Modules/Auth/sass/index.scss */"./app/Modules/Auth/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7/app/Modules/js/index.js */"./app/Modules/js/index.js");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7/app/Modules/sass/index.scss */"./app/Modules/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7/app/Modules/Admin/sass/index.scss */"./app/Modules/Admin/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7/app/Modules/Shop/sass/index.scss */"./app/Modules/Shop/sass/index.scss");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7/app/Modules/Auth/sass/index.scss */"./app/Modules/Auth/sass/index.scss");
 
 
 /***/ })

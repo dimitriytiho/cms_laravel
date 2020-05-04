@@ -42,12 +42,12 @@
             @endforeach
             <tr>
                 <th colspan="4">@lang("{$lang}::sh.total"):</th>
-                <th id="cart_modal_qty">{{ $cartSession['qty'] }}</th>
+                <th id="cart_modal_qty">{{ $cartSession['qty'] ?? null }}</th>
                 <th></th>
             </tr>
             <tr>
                 <th colspan="4">@lang("{$lang}::sh.sum"):</th>
-                <th id="cart_modal_sum">{{ $cartSession['sum'] }}</th>
+                <th id="cart_modal_sum">{{ $cartSession['sum'] ?? null }}</th>
                 <th></th>
             </tr>
             </tbody>

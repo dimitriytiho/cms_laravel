@@ -38,6 +38,7 @@ class Cart
 
             } else {
 
+                // Для нового товара
                 if (config('shop.cart_elements')) {
                     foreach (config('shop.cart_elements') as $el) {
                         session()->put("cart.{$product->id}.{$el}", $product->$el);
@@ -61,28 +62,23 @@ class Cart
         if ($product) {
 
             // Общее кол-во в корзине
-            if (session()->has('cart.qty')) {
-                $cartQty = session()->get('cart.qty');
+            if (session()->has('cart.qty') && session()->has('cart.sum')) {
+                $productQty = session()->has("cart.{$product->id}") ? session()->get("cart.{$product->id}.qty") : 0;
 
-                // Если кол-во больше 1, то будем уменьшать
-                if ($cartQty > 1) {
-                    $cartQty = $cartQty - $qty;
+                // Если кол-во товара больше 1, то будем уменьшать
+                if ($productQty > 1) {
+
+                    // Для товара
+                    $productQty = $productQty - $qty;
+                    session()->put("cart.{$product->id}.qty", $productQty);
+
+                    // Общая кол-во в корзине
+                    $cartQty = session()->get('cart.qty') - $qty;
                     session()->put('cart.qty', $cartQty);
 
-
-
                     // Общая сумма в корзине
-                    if (session()->has('cart.sum')) {
-                        $cartSum = session()->get('cart.sum') - ($qty * $product->price);
-                        session()->put('cart.sum', $cartSum);
-                    }
-
-                    // Для каждого товара
-                    if (session()->has("cart.{$product->id}")) {
-                        $qty = session()->get("cart.{$product->id}.qty") - $qty;
-                        session()->put("cart.{$product->id}.qty", $qty);
-
-                    }
+                    $cartSum = session()->get('cart.sum') - ($qty * $product->price);
+                    session()->put('cart.sum', $cartSum);
                     return true;
                 }
             }
@@ -97,13 +93,13 @@ class Cart
      */
     public function destroy($product)
     {
-        if (session()->has('cart') && session()->has('cart.qty') && session()->has('cart.sum') && session()->has("cart.{$product->id}"))
+        if ($product && session()->has('cart') && session()->has('cart.qty') && session()->has('cart.sum') && session()->has("cart.{$product->id}"))
         {
             // Получаем данные из корзины
-            $cartQty = (int)session()->get('cart.qty');
-            $cartSum = (int)session()->get('cart.sum');
-            $productQty = (int)session()->get("cart.{$product->id}.qty");
-            $productPrice = (int)session()->get("cart.{$product->id}.price");
+            $cartQty = session()->get('cart.qty');
+            $cartSum = session()->get('cart.sum');
+            $productQty = session()->get("cart.{$product->id}.qty");
+            $productPrice = session()->get("cart.{$product->id}.price");
 
             // Изменяем данные в корзине
             if (($cartQty - $productQty) <= 0) {

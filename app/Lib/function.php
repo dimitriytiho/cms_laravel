@@ -82,6 +82,13 @@ function s($str, $only_strip_tags = null, $email = null)
 }
 
 
+// Преобразует html теги в их сущности
+function h($str)
+{
+    return htmlspecialchars($str, ENT_QUOTES, 'utf-8', false);
+}
+
+
 /*
  * Возвращает по-умолчанию строку с первой буквой в верхнем регистре.
  * $str - строка для преобразования.
