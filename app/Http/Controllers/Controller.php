@@ -12,7 +12,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-
     protected $class;
     protected $c;
     protected $model;

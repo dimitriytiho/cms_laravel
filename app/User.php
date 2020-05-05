@@ -2,14 +2,13 @@
 
 namespace App;
 
-use App\Mail\SendMail;
 use App\Mail\SendServiceMail;
+use App\Modules\Auth\Models\Role as RoleModel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use App\Modules\Auth\Models\Role as RoleModel;
 
 class User extends Authenticatable
 {

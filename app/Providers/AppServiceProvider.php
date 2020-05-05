@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\App;
+use App\Helpers\Services\Registry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
-use App\Helpers\Services\Registry;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -62,12 +62,12 @@ class AppServiceProvider extends ServiceProvider
     }
 
 
-
     private function setting()
     {
-        // dump(App::$registry->get('settings')['site_name']); // Пример использования
+        // dump(App::$registry->get('settings')['site_name']); // Пример использования или App::get('settings')['site_name']
         if (cache()->has('settings_for_site')) {
             $settings = cache()->get('settings_for_site');
+
         } else {
             $settings = DB::table('settings')->get();
 

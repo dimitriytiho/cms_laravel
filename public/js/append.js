@@ -14357,7 +14357,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel7/app/Modules/Admin/js/index.js */"./app/Modules/Admin/js/index.js");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/Desktop/laravel/app/Modules/Admin/js/index.js */"./app/Modules/Admin/js/index.js");
 
 
 /***/ })

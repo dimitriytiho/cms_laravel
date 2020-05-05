@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
--- Host: localhost    Database: laravel_kd
+-- Host: localhost    Database: kd_laravel
 -- ------------------------------------------------------
 -- Server version	5.6.38
 
@@ -243,7 +243,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_06_13_104905_create_pages_table',2),(5,'2019_06_13_111039_create_forms_table',2),(6,'2019_06_14_104905_create_uploads_table',2),(7,'2019_07_10_100248_create_roles_table',2),(8,'2019_07_10_284521_change_users_table',2),(9,'2019_08_07_124549_create_settings_table',2),(10,'2019_08_07_140457_create_menu_name_table',2),(11,'2019_08_07_140457_create_menu_table',2),(12,'2020_02_05_071222_create_categories_table',2),(13,'2020_02_05_071240_create_products_table',2),(14,'2020_02_05_073628_create_category_product_table',2),(15,'2020_02_05_204154_create_orders_table',2),(16,'2020_02_05_205458_create_order_product_table',2),(17,'2020_02_07_064509_create_users_last_data_table',2),(18,'2020_02_09_141027_create_banned_ip_table',2),(19,'2020_03_09_203758_create_product_gallery_table',2);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2019_08_19_000000_create_failed_jobs_table',1),(3,'2014_10_12_100000_create_password_resets_table',2),(4,'2019_06_13_104905_create_pages_table',2),(5,'2019_06_13_111039_create_forms_table',2),(6,'2019_06_14_104905_create_uploads_table',2),(7,'2019_07_10_100248_create_roles_table',2),(8,'2019_07_10_284521_change_users_table',3),(9,'2019_08_07_124549_create_settings_table',3),(10,'2019_08_07_140457_create_menu_name_table',3),(11,'2019_08_07_140457_create_menu_table',3),(12,'2020_02_05_071222_create_categories_table',3),(13,'2020_02_05_071240_create_products_table',3),(14,'2020_02_05_073628_create_category_product_table',3),(15,'2020_02_05_204154_create_orders_table',3),(16,'2020_02_05_205458_create_order_product_table',3),(17,'2020_02_07_064509_create_users_last_data_table',3),(18,'2020_02_09_141027_create_banned_ip_table',3),(19,'2020_03_09_203758_create_product_gallery_table',3);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -289,9 +289,9 @@ CREATE TABLE `orders` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
   `note` text COLLATE utf8mb4_unicode_ci,
-  `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
   `message` text COLLATE utf8mb4_unicode_ci,
-  `delivery` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `delivery` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `delivery_sum` double(8,2) DEFAULT NULL,
   `discount` double(8,2) DEFAULT NULL,
   `discount_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -302,7 +302,7 @@ CREATE TABLE `orders` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orders_user_id_foreign` (`user_id`),
-  CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+  CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -416,7 +416,7 @@ CREATE TABLE `products` (
   `sort` smallint(5) unsigned NOT NULL DEFAULT '500',
   `description` text COLLATE utf8mb4_unicode_ci,
   `body` text COLLATE utf8mb4_unicode_ci,
-  `img` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '/img',
+  `img` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '/img/img/default/no_image.jpg',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -457,7 +457,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'user','publicly','2019-06-13 09:33:27','2019-06-25 11:28:15'),(2,'guest','publicly','2019-06-13 09:33:27','2019-06-25 11:28:15'),(3,'admin','admin','2019-06-13 09:33:27','2019-06-25 11:28:15'),(4,'editor','admin','2019-06-13 09:33:27','2019-06-25 11:28:15');
+INSERT INTO `roles` VALUES (1,'user','public','2019-06-13 09:33:27','2019-06-25 11:28:15'),(2,'guest','public','2019-06-13 09:33:27','2019-06-25 11:28:15'),(3,'admin','admin','2019-06-13 09:33:27','2019-06-25 11:28:15'),(4,'editor','admin','2019-06-13 09:33:27','2019-06-25 11:28:15');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -486,7 +486,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (1,'site_name','string','ОмегаКонтур','2019-09-18 10:09:10','2020-03-15 05:07:52'),(2,'admin_email','string','dimitriyyuliya@gmail.com','2019-09-18 10:09:10','2019-09-18 10:09:10'),(3,'site_email','string','site@email.com','2019-09-18 10:09:10','2019-09-18 10:09:10'),(4,'tel','string','+7(777) 777-77-77','2019-09-18 10:09:10','2019-09-18 10:09:10'),(5,'date_format','string','j M Y','2019-09-18 10:09:10','2020-01-23 05:22:51'),(6,'change_key','string','0','2020-01-25 07:11:26','2020-01-29 05:17:40'),(7,'banned_ip_count','string','10','2020-01-25 07:21:17','2020-02-09 09:37:40');
+INSERT INTO `settings` VALUES (1,'site_name','string','ОмегаКонтур','2019-09-18 10:09:10','2020-04-20 15:40:56'),(2,'admin_email','string','dimitriyyuliya@gmail.com','2019-09-18 10:09:10','2019-09-18 10:09:10'),(3,'site_email','string','site@email.com','2019-09-18 10:09:10','2019-09-18 10:09:10'),(4,'tel','string','+7(777) 777-77-78','2019-09-18 10:09:10','2020-04-29 06:55:22'),(5,'date_format','string','j M Y','2019-09-18 10:09:10','2020-01-23 05:22:51'),(6,'change_key','string','0','2020-01-25 07:11:26','2020-01-29 05:17:40'),(7,'banned_ip_count','string','10','2020-01-25 07:21:17','2020-02-09 09:37:40');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,11 +532,11 @@ CREATE TABLE `users` (
   `role_id` int(10) unsigned NOT NULL DEFAULT '1',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
   `note` text COLLATE utf8mb4_unicode_ci,
   `ip` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `accept` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `img` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '/img',
+  `img` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '/img/default/no_user.png',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -554,7 +554,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Дмитрий','dimitriyyuliya@gmail.com','+7(111)111-11-11',NULL,3,NULL,'$2y$10$0v6wawOOs/cwp.wAPmbJNe4q3wUSnBqfV7UQL7YbpTtJE0dJ8bMKK','wonderful',NULL,'127.0.0.1','1','/img/default/no_user.png','z2Wrt4cGrrfgukecXOat17PfxkQiEPNizcqxz9I88zegolowBVbG5c9jEDdo','2020-01-22 04:37:34','2020-04-15 08:10:42');
+INSERT INTO `users` VALUES (1,'Дмитрий','dimitriyyuliya@gmail.com','+7(111)111-11-12',NULL,3,NULL,'$2y$10$0v6wawOOs/cwp.wAPmbJNe4q3wUSnBqfV7UQL7YbpTtJE0dJ8bMKK','wonderful',NULL,'127.0.0.1','1','/img/default/no_user.png','bJBHrizv4pooeLueXTrVWRUy2GptuGljHMOBDUge2rkBLGgAbRfKgkQBuUBe','2020-01-22 04:37:34','2020-05-05 06:48:14');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -592,7 +592,7 @@ CREATE TABLE `users_last_data` (
 
 LOCK TABLES `users_last_data` WRITE;
 /*!40000 ALTER TABLE `users_last_data` DISABLE KEYS */;
-INSERT INTO `users_last_data` VALUES (1,1,3,'Дмитрий','dimitriyyuliya@gmail.com','+7(111)111-11-12',NULL,'wonderful','127.0.0.1','/img/default/no_user.png','2020-04-15 08:10:42','2020-04-15 08:10:42');
+INSERT INTO `users_last_data` VALUES (1,1,3,'Дмитрий','dimitriyyuliya@gmail.com','+7(111)111-11-11',NULL,'wonderful','127.0.0.1','/img/default/no_user.png','2020-05-05 06:48:14','2020-05-05 06:48:14');
 /*!40000 ALTER TABLE `users_last_data` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -605,4 +605,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-16 17:40:49
+-- Dump completed on 2020-05-05  9:51:51
