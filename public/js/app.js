@@ -3866,11 +3866,11 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/dimitriyyuliya/Desktop/laravel/app/Modules/js/index.js */"./app/Modules/js/index.js");
-__webpack_require__(/*! /Users/dimitriyyuliya/Desktop/laravel/app/Modules/sass/index.scss */"./app/Modules/sass/index.scss");
-__webpack_require__(/*! /Users/dimitriyyuliya/Desktop/laravel/app/Modules/Admin/sass/index.scss */"./app/Modules/Admin/sass/index.scss");
-__webpack_require__(/*! /Users/dimitriyyuliya/Desktop/laravel/app/Modules/Shop/sass/index.scss */"./app/Modules/Shop/sass/index.scss");
-module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/Desktop/laravel/app/Modules/Auth/sass/index.scss */"./app/Modules/Auth/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/js/index.js */"./app/Modules/js/index.js");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/sass/index.scss */"./app/Modules/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/Admin/sass/index.scss */"./app/Modules/Admin/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/Shop/sass/index.scss */"./app/Modules/Shop/sass/index.scss");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/Auth/sass/index.scss */"./app/Modules/Auth/sass/index.scss");
 
 
 /***/ })

@@ -246,7 +246,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/Desktop/laravel/app/Modules/Shop/js/index.js */"./app/Modules/Shop/js/index.js");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/Shop/js/index.js */"./app/Modules/Shop/js/index.js");
 
 
 /***/ })

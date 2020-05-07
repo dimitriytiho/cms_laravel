@@ -2,7 +2,7 @@
     <div class="row">
         <div class="d-flex align-items-center bg-light shadow-sm py-1 transition a-secondary aside-width-change" id="header__icon"{!! $asideWidth !!}>
             <a href="{{ route('index') }}" class="d-flex align-items-center">
-                <img src="{{ asset(config('add.img') . '/omegakontur/touch-icon-iphone-retina.png') }}" class="pr-3 pl-2" alt="{{ env('APP_NAME') }}">
+                <img src="{{ asset(config('add.img') . '/omegakontur/admin/touch-icon-iphone-retina.png') }}" class="pr-3 pl-2" alt="{{ env('APP_NAME') }}">
                 <span class="aside-text fadein"{!! $asideText !!}>@lang("{$lang}::a.Website")</span>
             </a>
         </div>
