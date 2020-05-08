@@ -2,11 +2,16 @@
 
 namespace App\Http\Middleware;
 
+use App\App;
 use Closure;
 
 class Admin
 {
     /**
+     *
+     * Проверяет доступ для Админов и Редакторов.
+     *
+     *
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -18,8 +23,13 @@ class Admin
         //return $next($request);
 
         if (auth()->check() && auth()->user()->Admin()) {
+
+            // Продолжим
             return $next($request);
         }
+
+        // Запишем в логи и показажем страницу 404
+        App::getError('Request Admin', __METHOD__, false);
         return redirect()->route('not_found');
     }
 }

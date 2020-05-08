@@ -10,7 +10,7 @@ $namespace = '\App\\Modules\\admin\\Controllers';
 
 // Страница входа в админку. Если включена авторизация, то админы авторизируется в публичной части сайта.
 if (!config('add.auth')) {
-    Route::namespace($namespace)->name('enter')->group(function () {
+    Route::namespace($namespace)->name('enter')->middleware('access-ip-admin')->group(function () {
 
         $key = \App\Helpers\Upload::getKeyAdmin();
         $keyRoute = "enter/{$key}";
@@ -22,7 +22,7 @@ if (!config('add.auth')) {
 
 
 // Роуты для админки
-Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware('admin')->group(function () {
+Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['access-ip-admin', 'admin'])->group(function () {
     //Route::post('/menu/index', 'Admin\MenuController@index')->name('menu.index.post');
 
     // Routes import export

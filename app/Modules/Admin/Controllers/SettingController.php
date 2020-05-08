@@ -45,6 +45,7 @@ class SettingController extends AppController
             'id',
             'title',
             'value',
+            'section',
         ];
         $col = request()->query('col');
         $cell = request()->query('cell');

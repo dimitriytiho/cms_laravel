@@ -19,6 +19,7 @@
                 @endif
 
                 {!! input('value', $values->value ?? null, null) !!}
+                {!! input('section', $values->section ?? null, null) !!}
 
                 @if (isset($values->id) && isset($values->updated_at) && isset($values->created_at))
                     <div class="row">

@@ -49,6 +49,7 @@
                             <th scope="col" class="font-weight-light">@lang("{$lang}::f.title")</th>
                             {{--<th scope="col" class="font-weight-light">@lang("{$lang}::f.type")</th>--}}
                             <th scope="col" class="font-weight-light">@lang("{$lang}::f.value")</th>
+                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.section")</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,7 +63,8 @@
                                 <td class="font-weight-light">{{ $v->id }}</td>
                                 <td>{{ $v->title }}</td>
                                 {{--<td>{{ $v->type }}</td>--}}
-                                <td class="font-weight-light">{{ $v->value }}</td>
+                                <td class="font-weight-light">{{ Str::limit($v->value, 20) }}</td>
+                                <td class="font-weight-light">{{ $v->section }}</td>
                             </tr>
                         @endforeach
                         </tbody>

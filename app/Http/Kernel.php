@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
 
 
         // Добавленные в /app/Http/Middleware
+        'access-ip-admin' => \App\Http\Middleware\AccessIpAdmin::class,
         'admin' => \App\Http\Middleware\Admin::class,
         'banned-ip' => \App\Http\Middleware\BannedIp::class,
     ];

@@ -64,5 +64,6 @@ return [
     'banned' => 'Banned',
     'price' => 'Price',
     'old_price' => 'Old price',
+    'section' => 'Section',
 
 ];
