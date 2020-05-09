@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\App;
+use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\admin\Helpers\Img;
 use App\Modules\admin\Helpers\Slug;
 use App\Modules\Admin\Models\User;
@@ -96,8 +97,11 @@ class UserController extends AppController
             }
         }
 
+        // Если не Админ, то запишим id роли Админ
+        $roleIdAdmin = !auth()->user()->isAdmin() ? auth()->user()->getRoleIdAdmin() : null;
+
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}", compact('roles', 'statuses'));
+        return view("{$this->view}.{$this->template}", compact('roles', 'statuses', 'roleIdAdmin'));
     }
 
     /**
@@ -112,12 +116,20 @@ class UserController extends AppController
             $rules = [
                 'name' => 'required|string|max:190',
                 'email' => "required|string|email|unique:users,email|max:190",
-                'tel' => 'required|string|max:190',
+                //'tel' => 'required|string|max:190',
                 'password' => 'required|string|min:6|same:password_confirmation',
                 'role_id' => 'required|integer',
             ];
             $this->validate($request, $rules);
             $data = $request->all();
+
+            // Если не Админ выбирает роль Админ, то ошибка
+            if (!auth()->user()->isAdmin() && $data['role_id'] == auth()->user()->getRoleIdAdmin()) {
+
+                // Сообщение об ошибке
+                session()->put('error', __("{$this->lang}::s.admin_choose_admin"));
+                return redirect()->back();
+            }
 
             // Если нет картинки
             if (empty($data['img'])) {
@@ -194,9 +206,11 @@ class UserController extends AppController
             // ID элемента, для которого картинка Dropzone JS
             $imgUploadID = $this->imgUploadID = $values->id;
 
+            // Если не Админ, то запишим id роли Админ
+            $roleIdAdmin = !auth()->user()->isAdmin() ? auth()->user()->getRoleIdAdmin() : null;
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'roles', 'statuses', 'imgRequestName', 'imgUploadID'));
+            return view("{$this->view}.{$this->template}", compact('values', 'roles', 'statuses', 'imgRequestName', 'imgUploadID', 'roleIdAdmin'));
         }
 
         // Сообщение об ошибке
@@ -218,7 +232,7 @@ class UserController extends AppController
             $rules = [
                 'name' => 'required|string|max:190',
                 'email' => "required|string|email|unique:users,email,{$id}|max:190",
-                'tel' => 'required|string|max:190',
+                //'tel' => 'required|string|max:190',
                 'role_id' => 'required|integer',
                 //'password' => 'same:password_confirmation',
             ];
@@ -246,13 +260,20 @@ class UserController extends AppController
             $values = $this->model::find((int)$id);
             $values->fill($data);
 
+            // Если не Админ выбирает роль Админ, то ошибка
+            if (!auth()->user()->isAdmin() && $data['role_id'] == auth()->user()->getRoleIdAdmin()) {
+
+                // Сообщение об ошибке
+                session()->put('error', __("{$this->lang}::s.admin_choose_admin"));
+                return redirect()->back();
+            }
+
             // Если данные изменины
             $lastData = $this->model::with('role')->find((int)$id)->toArray();
             if (isset($lastData['role'])) unset($lastData['role']);
             $lastDataNew = [];
             $current = $values->toArray();
-
-            if (array_diff($lastData, $current)) {
+            if (appHelpers::arrayDiff($lastData, $current)) {
 
                 // В таблицу users_last_data запишутся предыдущие данные
                 foreach ($lastData as $k => $v) {
@@ -270,6 +291,7 @@ class UserController extends AppController
                     $last->fill($lastDataNew);
 
                     if (!$last->save()) {
+
                         // Сообщение что-то пошло не так
                         $message = 'Error UserLastData save and in ' . __METHOD__;
                         Log::warning($message);

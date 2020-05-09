@@ -100,6 +100,12 @@ class User extends Authenticatable
     }
 
 
+    // Возвращает id роли администратора.
+    public function getRoleIdAdmin() {
+        return 3;
+    }
+
+
     // Возвращает объект пользователя. Принимает email пользователя.
     public function getUser($email)
     {

@@ -141,8 +141,9 @@ S;
  * $attrs - передайте необходимые параметры в массиве ['id' => 'test', 'data-id' => 'dataTest'], необязательный параметр.
  * $option_id_value - передайте true, если передаёте массив $options, в котором ключи это id для вывода как значения для option, необязательный параметр.
  * $translation - если не надо переводить текст option, то передать true, необязательный параметр.
+ * $disabledValue - передать значения, для которого установить атрибут disabled.
  */
-function select($name, $options, $value = null, $label = true, $class = null, $attrs = [], $option_id_value = null, $translation = null)
+function select($name, $options, $value = null, $label = true, $class = null, $attrs = [], $option_id_value = null, $translation = null, $disabledValue = null)
 {
     $lang = lang();
     $title = __("{$lang}::f.{$name}");
@@ -171,10 +172,10 @@ function select($name, $options, $value = null, $label = true, $class = null, $a
         $opts = '';
         foreach ($options as $k => $v) {
             $selected = $value === $v ? ' selected' : null;
-            $t = __("{$lang}::s.{$v}");
+            $disabled = $k == $disabledValue ? ' disabled' : null;
             $t = $translation ? $v : __("{$lang}::s.{$v}");
             $v = $option_id_value ? $k : $v;
-            $opts .= "<option value='{$v}' {$selected}>{$t}</option>\n";
+            $opts .= "<option value='{$v}' {$selected}{$disabled}>{$t}</option>\n";
         }
     } else {
         return false;

@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-md-6">
                         @if (!empty($roles))
-                            {!! select('role_id', $roles, $values->role->name ?? null, true, null, null, true) !!}
+                            {!! select('role_id', $roles, $values->role->name ?? null, true, null, null, true, null, $roleIdAdmin) !!}
                         @endif
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         {!! input('email', $values->email ?? null) !!}
                     </div>
                     <div class="col-md-6">
-                        {!! input('tel', $values->tel ?? null) !!}
+                        {!! input('tel', $values->tel ?? null, null) !!}
                     </div>
                 </div>
                 <div class="row">
