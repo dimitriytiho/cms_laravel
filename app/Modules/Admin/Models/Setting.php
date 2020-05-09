@@ -13,13 +13,14 @@ class Setting extends Model
     // Возвращает массив названий настроек, название которых нельзя изменить из панели управления
     public static function titleNoEditArr() {
         return [
-            'site_name',
+            'name',
             'admin_email',
-            'site_email',
+            'email',
             'tel',
             'date_format',
             'change_key',
             'banned_ip_count',
+            'access_ip',
         ];
     }
 
@@ -167,13 +168,6 @@ class Setting extends Model
                 'slug' => '/menu-name/create',
                 'item' => 'add',
             ],
-            14 => [
-                'title' => 'Settings',
-                'controller' => 'Setting',
-                'parent_id' => null,
-                'slug' => '/setting',
-                'item' => 'tune',
-            ],
             15 => [
                 'title' => 'Create',
                 'controller' => 'Setting',
@@ -208,6 +202,13 @@ class Setting extends Model
                 'parent_id' => null,
                 'slug' => '/import-export',
                 'item' => 'import_export',
+            ],
+            14 => [
+                'title' => 'Settings',
+                'controller' => 'Setting',
+                'parent_id' => null,
+                'slug' => '/setting',
+                'item' => 'settings',
             ],
         ];
 

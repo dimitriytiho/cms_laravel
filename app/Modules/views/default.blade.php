@@ -64,11 +64,11 @@ use App\Helpers\Locale;
         _token = document.querySelector('meta[name="csrf-token"]'),
         path = '{{ route('index') }}',
         slug = '{{ str_replace('-', '_', request()->path()) }}',
-        site_title = '{{ App::get('settings')['site_name'] ?? ' ' }}',
-        site_tel = '{{ App::get('settings')['tel'] ?? ' ' }}',
-        site_email = '{{ App::get('settings')['site_email'] ?? ' ' }}',
-        main_color = '{{ config('add.scss')['primary'] ?: '#ccc' }}',
-        height = '{{ config('add.height') ?: 600 }}'
+        site_title = '{{ App::site('name') ?: ' ' }}',
+        site_tel = '{{ App::site('tel') ?: ' ' }}',
+        site_email = '{{ App::site('email') ?: ' ' }}',
+        main_color = '{{ config('add.scss')['primary'] ?? '#ccc' }}',
+        height = '{{ config('add.height') ?? 600 }}'
 
     if (_token) {
         _token = _token.content

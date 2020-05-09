@@ -78,12 +78,12 @@ class SendMail extends Mailable
         $body = $this->body;
         $view = null;
         $lang = $this->lang;
-        $site_name = App::get('settings')['site_name'] ?? ' ';
+        $site_name = App::get('settings')['name'] ?? ' ';
         $color = config('add.scss.primary', '#ccc');
 
 
         if ($this->template && view()->exists("{$this->viewPath}.mail.{$this->template}")) {
-            $view = view("{$this->viewPath}.mail.{$this->template}", compact('title', 'values', 'body', 'color', 'site_name'))->render();
+            $view = view("{$this->viewPath}.mail.{$this->template}", compact('title', 'values', 'body', 'color', 'name'))->render();
         }
 
         $email = App::get('settings')['site_email'] ?? ' ';

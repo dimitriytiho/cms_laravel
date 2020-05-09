@@ -8,6 +8,7 @@
     @if (!empty($values))
         <div class="row">
             <div class="col">
+                @include('inc.search')
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -22,7 +23,7 @@
                             <tr>
                                 <th scope="row">
                                     <a href="{{ route("admin.$route.edit", $v->id) }}" class="font-weight-light">
-                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.edit")">edit</i>
+                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.edit")">visibility</i>
                                     </a>
                                 </th>
                                 <td class="font-weight-light">{{ $v->id }}</td>

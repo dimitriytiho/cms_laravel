@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
 
-class App extends Model
+class App
 {
     // МОДЕЛЬ APP - ВСПОМОГАТЕЛЬНАЯ СТАТИЧНАЯ МОДЕЛЬ
 
@@ -36,6 +36,19 @@ class App extends Model
     public static function get($value)
     {
         return self::$registry->get($value) ?? null;
+    }
+
+    /*
+     * Возвращает настройку сайта.
+     * App::site('name') - достать настройку.
+     * $settingName - название настройки.
+     */
+    public static function site($settingName)
+    {
+        if ($settingName) {
+            return self::$registry->get('settings')[$settingName] ?? false;
+        }
+        return false;
     }
 
 
@@ -104,21 +117,21 @@ class App extends Model
      * $title - строка для вывода title.
      * $description - строка для вывода description, необязательный параметр.
      */
-    public static function setMeta($title, $description = '', $titleSEO = '', $keywords = null)
+    public static function setMeta($title, $description = '', $titleSeo = '', $keywords = null)
     {
-        $siteName = App::$registry->get('settings')['site_name'] ?? ' ';
+        $siteName = App::$registry->get('settings')['name'] ?? ' ';
 
         // Если нет $title, то передадим название сайта
         if (!$title) $title = $siteName;
 
-        // Если нет $titleSEO, то передадим в неё $title
-        if (!$titleSEO) $titleSEO = $title;
+        // Если нет $titleSeo, то передадим в неё $title
+        if (!$titleSeo) $titleSeo = $title;
 
         // Для главной страницы сначала название сайта, а для остальных - сначала title, потом название
-        $titleSEO = request()->is('/') ? "{$siteName} | {$titleSEO}" : "{$titleSEO} | {$siteName}";
+        $titleSeo = request()->is('/') ? "{$siteName} | {$titleSeo}" : "{$titleSeo} | {$siteName}";
 
         // Формируем метатеги
-        $getMeta = "<title>{$titleSEO}</title>\n\t";
+        $getMeta = "<title>{$titleSeo}</title>\n\t";
         $getMeta .= "<meta name=\"description\" content=\"{$description}\">\n";
 
         if ($keywords) {
@@ -126,10 +139,7 @@ class App extends Model
         }
 
         // Переменные передаются в виды
-        View::share(compact('title'));
-        View::share(compact('titleSEO'));
-        View::share(compact('description'));
-        View::share('getMeta', $getMeta);
+        View::share(compact('title', 'titleSeo', 'description', 'getMeta'));
     }
 
 

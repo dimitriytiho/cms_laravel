@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // ЗДЕСЬ ПИСАТЬ КОД, КОТОРЫЙ ЗАПУСКАЕТСЯ ПЕРЕД ЗАГРУЗКОЙ ПРИЛОЖЕНИЙ
+
+        // Костанты
         define('MENU', app_path('Widgets/Menu/tpl'));
     }
 
@@ -50,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
             header('X-Robots-Tag: noindex,nofollow'); // Заголовок запрещающий индексацию сайта
         }
 
+        // Дополнительное приложение Debugbar
         if (!config('add.debugbar')) {
             \Debugbar::disable();
         }
@@ -64,7 +67,13 @@ class AppServiceProvider extends ServiceProvider
 
     private function setting()
     {
-        // dump(App::$registry->get('settings')['site_name']); // Пример использования или App::get('settings')['site_name']
+        /*
+         * Использовать: echo App::site('name');
+         *
+         * Дополнительные варианты:
+         * echo App::get('settings')['site_name'];
+         * echo App::$registry->get('settings')['name'];
+         */
         if (cache()->has('settings_for_site')) {
             $settings = cache()->get('settings_for_site');
 
@@ -77,6 +86,7 @@ class AppServiceProvider extends ServiceProvider
 
         if (!empty($settings)) {
             $part = [];
+
             foreach ($settings as $v) {
                 $part[$v->title] = $v->value;
             }
@@ -88,7 +98,7 @@ class AppServiceProvider extends ServiceProvider
     // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ДЛЯ ВИДОВ
     private function views()
     {
-        $siteName = App::$registry->get('settings')['site_name'] ?? env('APP_NAME');
+        $siteName = App::site('name') ?? env('APP_NAME');
 
         // Если не вызван метод \App\Helpers\App\setMeta(), то по-умолчанию мета: title - название сайта, тег description - пустой
         View::share('getMeta', "<title>{$siteName}</title>\n\t<meta name='description' content=''>\n");
