@@ -9,6 +9,7 @@ class Registry
 
     public static $properties = [];
 
+
     // Положить свойство (имя, значение)
     public function set($name, $value)
     {

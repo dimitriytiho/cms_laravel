@@ -35,6 +35,6 @@ return [
     'Completed_successfully' => 'Completed successfully',
     'Fill_error' => 'Fill error',
     'Preventive_work_go' => 'Whoops! The fact is that at the moment on the website there are preventive work...',
-    'Preventive_work_contact' => 'If you need to contact us urgently, please email us: <a href="mailto::email">:email</a> or call: :tel',
+    'Preventive_work_contact' => 'If you need to contact us urgently, please email us: <a href="mailto::email">:email</a>',
 
 ];

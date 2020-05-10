@@ -32,11 +32,13 @@ class App
         if ($name) {
             self::$registry->set($name, $value);
         }
+        return;
     }
     public static function get($value)
     {
         return self::$registry->get($value) ?? null;
     }
+
 
     /*
      * Возвращает настройку сайта.
@@ -46,9 +48,9 @@ class App
     public static function site($settingName)
     {
         if ($settingName) {
-            return self::$registry->get('settings')[$settingName] ?? false;
+            return self::$registry->get('settings')[$settingName] ?? null;
         }
-        return false;
+        return null;
     }
 
 
@@ -140,6 +142,7 @@ class App
 
         // Переменные передаются в виды
         View::share(compact('title', 'titleSeo', 'description', 'getMeta'));
+        return;
     }
 
 
@@ -168,8 +171,8 @@ class App
             $message = "View $view not found. " . self::dataUser() . "Error in {$method}";
             Log::critical($message);
             abort('404', $message);
-            return;
         }
+        return;
     }
 
 

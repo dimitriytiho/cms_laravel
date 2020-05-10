@@ -80,17 +80,20 @@ class Date
      */
     public static function loopDate($min_year, $max_year = null)
     {
-        $min_year = substr((int)$min_year, 0, 4);
-        $max_year = $max_year ?: date('Y');
-        $max_year = substr((int)$max_year, 0, 4);
-        if ($min_year > $max_year) {
-            return false;
-        }
+        if ($min_year) {
+            $min_year = substr((int)$min_year, 0, 4);
+            $max_year = $max_year ?: date('Y');
+            $max_year = substr((int)$max_year, 0, 4);
+            if ($min_year > $max_year) {
+                return false;
+            }
 
-        while($min_year <= $max_year) {
-            $year[] = $min_year;
-            $min_year++;
+            while ($min_year <= $max_year) {
+                $year[] = $min_year;
+                $min_year++;
+            }
+            return array_reverse($year);
         }
-        return array_reverse($year);
+        return false;
     }
 }

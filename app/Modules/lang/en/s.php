@@ -22,7 +22,8 @@ return [
     'whoops_no_server' => 'Whoops! Mistake... Something went wrong... ',
     'you_can_go' => 'You can go back or go to the main page.',
 
-    'Please_do_not_reply_to_this_email' => 'Please do not reply to this email as it is automatically generated. For communication write to us: ',
+    'Please_do_not_reply_to_this_email' => 'Please do not reply to this email as it is automatically generated.',
+    'Please_contact_us' => 'For communication write to us: ',
     'Best_regards' => 'Best regards ',
     'or_call' => ' or call: ',
     'Information_letter' => 'Information letter',
@@ -38,7 +39,7 @@ return [
     'Completed_successfully' => 'Completed successfully',
     'Fill_error' => 'Fill error',
     'Preventive_work_go' => 'Whoops! The fact is that at the moment on the website there are preventive work...',
-    'Preventive_work_contact' => 'If you need to contact us urgently, please email us: <a href="mailto::email">:email</a> or call: :tel',
+    'Preventive_work_contact' => 'If you need to contact us urgently, please email us: <a href="mailto::email">:email</a>',
 
     'active' => 'Active',
     'inactive' => 'Inactive',

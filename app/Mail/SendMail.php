@@ -86,8 +86,9 @@ class SendMail extends Mailable
             $view = view("{$this->viewPath}.mail.{$this->template}", compact('title', 'values', 'body', 'color', 'name'))->render();
         }
 
-        $email = App::get('settings')['site_email'] ?? ' ';
-        $tel = isset(App::get('settings')['tel']) ? __("{$lang}::s.or_call") .  App::get('settings')['tel'] : null;
+        $email = App::site('email');
+        $tel = App::site('tel');
+        $tel = $tel ? __("{$lang}::s.or_call") . $tel : null;
 
 
         return $this->view("{$this->viewPath}.{$this->layout}",

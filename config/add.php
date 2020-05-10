@@ -29,9 +29,9 @@ return [
 
     // Перечислить те страницы, которые не нужно индексировать
     'disallow' => [
+        'search',
+        'search/*',
         //'success',
-        //'search',
-        //'search/*',
     ],
 
     // Кол-во элементов на странице для пагинации
@@ -69,7 +69,9 @@ return [
         'From' => 'Moscow, Russia',
         'Language' => 'Russian',
         'Doctype' => 'HTML5',
-        'IDE' => 'PHPStorm, Sublime Text, Photoshop, Illustrator',
+        'Framework' => 'Laravel',
+        'IDE' => 'PHPStorm, Visual Studio, Sublime Text, Photoshop, Illustrator',
+        'Brand' => 'OmegaKontur',
     ],
 
     // Папка для картинок
@@ -80,15 +82,20 @@ return [
     'protocol' => Str::before(env('APP_URL'), '://'),
     'domain' => Str::after(env('APP_URL'), '://'),
 
-    // Статусы страниц (неактивная должна стоять первой)
+    // Статусы страниц
     'page_statuses' => [
-        'inactive',
-        'active',
+        'inactive', // Неактивная должна стоять первой
+        'active', // Активная должна стоять второй
     ],
 
-    // Список таблиц информационных блоков (для обновления веб-сайта и пр.), у таблиц должный быть статусы активная и черновик.
-    'list_of_information_block_tables' => [
-        'pages',
+    // Список таблиц информационных блоков (для обновления веб-сайта и пр.), у таблиц должный быть статусы как в массиве page_statuses.
+    'list_of_information_block' => [
+        'tables' => [
+            'pages',
+        ],
+        'routes' => [ // Очерёдность должна быть как в массиве tables
+            '',
+        ],
     ],
 
     // Список страниц, которые нужно добавить в sitemap, которых нет в БД

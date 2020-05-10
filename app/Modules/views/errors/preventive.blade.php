@@ -1,3 +1,8 @@
+@php
+
+use App\App;
+
+@endphp
 @extends("{$viewPath}.default")
 {{--
 
@@ -18,7 +23,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <p class="mt-3 mb-5">@lang("{$lang}::s.Preventive_work_go")</p>
-                    <p class="mt-3 mb-5">{!! __("{$lang}::s.Preventive_work_contact", ['email' => \App\App::get('settings')['site_email'] ?? ' ', 'tel' => \App\App::get('settings')['tel'] ?? ' ']) !!}.</p>
+                    @if (App::site('email'))
+                        <p class="mt-3 mb-5">{!! __("{$lang}::s.Preventive_work_contact", ['email' => App::site('email') ?: ' ']) !!}@if (App::site('tel')) @lang("{$lang}::s.or_call") {{ App::site('tel') }}@endif.</p>
+                    @endif
                 </div>
                 <div class="col-md-6 text-md-center">
                     <picture>

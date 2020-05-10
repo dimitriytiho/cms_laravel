@@ -15,7 +15,7 @@ class Arr
         if (!empty($arr) && is_array($arr)) {
             $JS = "var $var_name = {";
             foreach ($arr as $k => $v) {
-                $JS .= "$k: " . self::arrToJS($v, null, false) . ',';
+                $JS .= "{$k}: " . self::arrToJS($v, null, false) . ',';
             }
             $JS = rtrim($JS, ',') . "}\n";
             return $JS;
@@ -42,7 +42,7 @@ class Arr
                 if ($only_name) {
                     $v = pathinfo($v)['filename'];
                 }
-                $part .= $obj ? "'$k': '$v'," : "'$v',";
+                $part .= $obj ? "'{$k}': '{$v}'," : "'{$v}',";
             }
             $part = rtrim($part, ',') . $r;
             return $part;

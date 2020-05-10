@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class Upload
 {
@@ -26,7 +27,7 @@ class Upload
         //self::htaccess();
 
         // Обновление ключа, если в настройках change_key отмечено 1
-        $changeKey = App::get('settings')['change_key'] ?? null;
+        $changeKey = App::site('change_key');
         if ($changeKey) {
             self::getNewKey();
         }
@@ -52,8 +53,8 @@ class Upload
             }
 
             $fileSassInit = "{$modulesPath}/sass/config/_init.scss";
-            if (\Illuminate\Support\Facades\File::exists(($fileSassInit))) {
-                \Illuminate\Support\Facades\File::replace($fileSassInit, $partSassInit);
+            if (File::exists(($fileSassInit))) {
+                File::replace($fileSassInit, $partSassInit);
             }
         }
 
@@ -104,8 +105,8 @@ class Upload
             $webpackPart = rtrim($webpackPart, "\n");
             $webpackPart .= ";\n";
             $webpackFile = base_path('webpack.mix.js');
-            if (\Illuminate\Support\Facades\File::exists(($webpackFile))) {
-                \Illuminate\Support\Facades\File::replace($webpackFile, $webpackPart);
+            if (File::exists(($webpackFile))) {
+                File::replace($webpackFile, $webpackPart);
             }
         }
     }
@@ -114,33 +115,34 @@ class Upload
     // Сформировать карту сайта
     public static function sitemap()
     {
-        $tables = config('add.list_of_information_block_tables');
+        $tables = config('add.list_of_information_block.tables');
+        $routes = config('add.list_of_information_block.routes');
         $list_pages = config('add.list_pages_for_sitemap_no_db');
-        $active = config('add.page_statuses')[1];
+        $active = config('add.page_statuses')[1] ?: 'active';
         $date = date('Y-m-d');
 
         $r = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
         $r .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
 
         if ($tables) {
-            foreach ($tables as $v) {
-                $values = DB::select("select slug from `$v` where status = '$active'");
+            foreach ($tables as $key => $table) {
+                $route = isset($routes[$key]) ? "{$routes[$key]}/" : null;
+                $values = DB::select("select slug from `$table` where status = '$active'");
 
                 foreach ($values as $slug) {
-                    $block = $v == 'pages' ? null : "$v/";
                     $r .= "\t<url>\n\t\t";
-                    $r .= '<loc>' . env('APP_URL') . "/{$block}$slug->slug/</loc>\n\t\t";
-                    $r .= "<lastmod>$date</lastmod>\n";
+                    $r .= '<loc>' . env('APP_URL') . "/{$route}{$slug->slug}/</loc>\n\t\t";
+                    $r .= "<lastmod>{$date}</lastmod>\n";
                     $r .= "\t</url>\n";
                 }
             }
         }
 
         if ($list_pages) {
-            foreach ($list_pages as $v) {
+            foreach ($list_pages as $page) {
                 $r .= "\t<url>\n\t\t";
-                $r .= '<loc>' . env('APP_URL') . "/$v/</loc>\n\t\t";
-                $r .= "<lastmod>$date</lastmod>\n";
+                $r .= '<loc>' . env('APP_URL') . "/{$page}/</loc>\n\t\t";
+                $r .= "<lastmod>{$date}</lastmod>\n";
                 $r .= "\t</url>\n";
             }
         }
@@ -274,6 +276,7 @@ class Upload
                 //$emails = DB::table('users')->where('role_id', '4')->orWhere('role_id', '3')->pluck('email');
                 $emails = DB::table('users')->select('email')->whereIn('role_id', $roleIds)->get();
                 $emails = $emails->toArray();
+
                 if ($emails) {
                     Mail::to($emails)->send(new SendMail(__("{$lang}::a.Key_use_site") . config('add.domain'), $key));
                 }
@@ -295,18 +298,16 @@ class Upload
             $r .= 'Allow from all' . PHP_EOL;
             $part = '';
             foreach ($banned_ip as $v) {
-                $part .= "$v, ";
+                $part .= "{$v}, ";
             }
-            $part = 'Deny from ' . rtrim( $part, ', ' );
+            $part = 'Deny from ' . rtrim($part, ', ');
             $r .= $part . PHP_EOL . PHP_EOL;
         }
 
         $r .= 'addDefaultCharset utf-8' . PHP_EOL . PHP_EOL;
-
         $r .= 'ErrorDocument 404 /not-found' . PHP_EOL;
         $r .= 'ErrorDocument 403 /not-found' . PHP_EOL;
         $r .= 'ErrorDocument 500 /error.php' . PHP_EOL . PHP_EOL;
-
         $r .= 'RewriteEngine On' . PHP_EOL . PHP_EOL;
 
         if (config('add.protocol') == 'https') {

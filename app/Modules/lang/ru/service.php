@@ -36,6 +36,6 @@ return [
     'Fill_error' => 'Ошибка заполнения',
     'Preventive_work' => 'Профилактические работы',
     'Preventive_work_go' => 'Упс! Дело в том, что в данный момент на сайте происходят профилактические работы...',
-    'Preventive_work_contact' => 'Если вам необходимо срочно с нами связаться, напишите нам: <a href="mailto::email">:email</a> или позвоните: :tel',
+    'Preventive_work_contact' => 'Если вам необходимо срочно с нами связаться, напишите нам: <a href="mailto::email">:email</a>',
 
 ];
