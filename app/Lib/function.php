@@ -1,5 +1,9 @@
 <?php
 
+use App\Main;
+use App\Helpers\Date;
+
+
 function du($arr, $die = false) {
     echo '<pre>' . PHP_EOL . print_r($arr, true) . PHP_EOL . '</pre>';
     if ($die) die;
@@ -26,7 +30,7 @@ function lang() {
 function d($date, $format = null) {
 
     if ($date || $date != '0000-00-00 00:00:00') {
-        $format = $format ?? \App\App::$registry->get('settings')['date_format'] ?? 'j M Y';
+        $format = $format ?? Main::site('date_format') ?: 'j M Y';
 
         // Считаются символы в дате и если 10, то формат 1544636288, если больше 10, то формат 2019-07-18 13:00:00
         $datetime = strlen($date) > 10;
@@ -43,7 +47,7 @@ function d($date, $format = null) {
 
                 // Номер месяца
                 $number = $datetime ? date_format(date_create($date), 'n') : date('n', (int)$date);
-                $months = \App\Helpers\Date::months();
+                $months = Date::months();
 
                 // Заменяется F на название месяца
                 if ($f) {

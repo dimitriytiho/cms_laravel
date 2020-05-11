@@ -5,130 +5,134 @@ namespace App\Widgets\Menu;
 
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class Menu
 {
-    // Настройки
-    protected $tpl; // Для указания пути используйте константу MENU, передать название шаблона из папки tpl
-    protected $submenu; // Передать $page->id
-    protected $cache = true; // Если не нужно кэшировать, то передать false
-    protected $cacheName = ''; // При кэшировании передать название кэша или оно возьмётся из название tpl
+    // Настройки виджета
+    private $options = [
 
-    // Настройки запроса
-    protected $table = 'menus'; // Необходимо, чтобы была модель, передаваемой таблицы
-    protected $where = []; // ['id', '7'] К примеру где id = 7
-    protected $orderBy = 'id';
-    protected $sort = 'desc';
-    protected $sql = ''; // Передать частный sql запрос, так делается дополнительный цикл, при этом не будут работать настройки: table, where, orderBy, sort ('SELECT * FROM menus ORDER BY id DESC')
+        // Общие
+        'tpl' => 'default', // Передать название шаблона из папки tpl
+        'submenu' => null, // Передать $page->id
+        'cache' => true, // Если не нужно кэшировать, то передать false
+        'cacheName' => '', // При кэшировании передать название кэша или оно возьмётся из название tpl
 
-    // Настройки вывода
-    protected $container = 'ul';
-    protected $class = null;
-    protected $attrs = []; // Массив атрибутов
-    protected $prepend = ''; // Для select можно передать перевый option
-    protected $js = null; // При использовании js не будут работать настройки: container, class, attrs, prepend
+        // Запрос Sql
+        'table' => 'menu', // Необходимо, чтобы была модель, передаваемой таблицы
+        'where' => [], // 'id', '7' К примеру где id = 7 или множественно [['id', '7'], ['accept', '1'],]
+        'orderBy' => 'id',
+        'sort' => 'desc',
+        'sql' => '', // Передать частный sql запрос, так делается дополнительный цикл, при этом не будут работать настройки: table, where, orderBy, sort ('SELECT * FROM menus ORDER BY id DESC')
 
-    // Служебные
-    private $data;
-    private $tree;
-    public $menuHtml;
+        // Вывод для Html
+        'container' => 'ul',
+        'class' => null,
+        'attrs' => [], // Массив атрибутов html
+        'prepend' => '', // Для select можно передать перевый option
+    ];
 
 
-    public function __construct($options = [])
+
+    // Входной основной метод
+    public static function init($params = [])
     {
-        $this->getOptions($options);
-        $this->tpl = is_file("{$this->tpl}.php") ? "{$this->tpl}.php" : __DIR__ . '/tpl/default.php';
-        $this->run();
+        $params = self::getParams($params);
+        self::run($params);
     }
 
 
-    public function getOptions($options)
+
+
+    // Заполняем настройки
+    private static function getParams($params = [])
     {
-        foreach ($options as $k => $v) {
-            if (property_exists($this, $k)) {
-                $this->$k = $v;
-            }
+        $self = new self();
+        $data = [];
+        $name = class_basename(__CLASS__);
+
+        foreach ($self->options as $propName => $value) {
+            isset($params[$propName]) ? $data[$propName] = $params[$propName] : $data[$propName] = $value;
         }
+
+        // Назначим шаблон html
+        $data['tpl'] = is_file(__DIR__ . "{$data['tpl']}.php") ? __DIR__ . "{$data['tpl']}.php" : __DIR__ . '/tpl/default.php';
+
+        // Если не передаётся cacheName, то будет имя шаблона меню tpl
+        $data['cacheName'] = $data['cacheName'] ?: "{$name}_{$data['tpl']}";
+
+        return $data;
     }
 
 
-    protected function run()
+    // Получаем данные
+    private static function run($params)
     {
-        // Если не передаётся cacheName, то будет имя шаблона меню tpl
-        $this->cacheName = $this->cacheName ?: $this->tpl;
-        $this->menuHtml = cache()->has($this->cacheName) ? cache()->get($this->cacheName) : null;
+        // Если не существует таблица
+        if (!Schema::hasTable($params['table'])) {
+            return false;
+        }
 
-        if (!$this->menuHtml) {
+        $menuHtml = cache()->has($params['cacheName']) ? cache()->get($params['cacheName']) : null;
 
-            if (!$this->data) {
-                if ($this->sql) {
-                    $this->data = DB::select($this->sql);
-                    if (!empty($this->data)) {
-                        foreach ($this->data as $v) {
-                            $data[$v->id] = $v;
-                        }
-                        $this->data = $data;
+        if (!$menuHtml) {
+
+            if ($params['sql']) {
+                $data = DB::select($params['sql']);
+                if (!empty($data)) {
+
+                    foreach ($data as $v) {
+                        $dataSql[$v->id] = $v;
                     }
-
-                } else {
-
-                    if ($this->where) {
-                        $this->data = DB::table($this->table)->where($this->where[0], $this->where[1])->orderBy($this->orderBy, $this->sort)->get()->keyBy('id');
-
-                    } else {
-
-                        $this->data = DB::table($this->table)->orderBy($this->orderBy, $this->sort)->get()->keyBy('id');
-                    }
+                    $data = $dataSql;
                 }
+
+            } else {
+
+                $data = DB::table($params['table'])->where($params['where'])->orderBy($params['orderBy'], $params['sort'])->get()->keyBy('id');
             }
 
-            // Если в таблице БД нет ничего
-            if (!$this->data) {
+            // Если нет данных
+            if (!$data) {
                 return false;
             }
 
-            $this->tree = $this->getTree();
-            $this->menuHtml = $this->getMenuHtml($this->tree);
-            if ($this->cache) {
-                cache()->forever($this->cacheName, $this->menuHtml);
+            $tree = self::getTree($params, $data);
+            $menuHtml = self::getMenuHtml($params, $tree);
+            if ($params['cache']) {
+                cache()->forever($params['cacheName'], $menuHtml);
             }
         }
-        $this->output();
+        self::output($params, $menuHtml);
     }
 
 
-    protected function output()
+    // Редактируем Html
+    private static function output($params, $menuHtml)
     {
-        if ($this->js) {
-            $menu = rtrim($this->menuHtml, ',');
-            echo 'var menuJS = {' . $menu . "}\n";
-
-        } else {
-
-            $attrs = '';
-            if (!empty($this->attrs)) {
-                foreach ($this->attrs as $k => $v) {
-                    $attrs .= " $k='$v' ";
-                }
+        $attrs = '';
+        if (!empty($params['attrs'])) {
+            foreach ($params['attrs'] as $k => $v) {
+                $attrs .= " {$k}='{$v}' ";
             }
-            $this->class = $this->class ? " class='{$this->class}'" : null;
-            echo $this->container ? "<{$this->container}{$this->class}{$attrs}>\n" : null;
-            echo $this->prepend;
-            echo $this->menuHtml;
-            echo $this->container ? "</{$this->container}>\n" : null;
         }
+        $params['class'] = $params['class'] ? " class='{$params['class']}'" : null;
+        echo $params['container'] ? "<{$params['container']}{$params['class']}{$attrs}>\n" : null;
+        echo $params['prepend'];
+        echo $menuHtml;
+        echo $params['container'] ? "</{$params['container']}>\n" : null;
     }
 
 
-    protected function getTree()
+    // Строим дерево
+    private static function getTree($params, $data)
     {
         $tree = [];
-        if ($this->submenu) {
-            $tree = $tree[$this->submenu]->childs;
+        if ($params['submenu']) {
+            $tree = $tree[$params['submenu']]->childs;
 
         } else {
 
-            $data = $this->data;
             foreach ($data as $key => &$node) {
                 $parent_id = $node->parent_id ?? 0;
                 $id = $node->id;
@@ -145,23 +149,24 @@ class Menu
     }
 
 
-    protected function getMenuHtml($tree, $tab = '')
+    // В цикле вызываем передаём данные в шаблон Html
+    private static function getMenuHtml($params, $tree, $tab = '')
     {
         $str = '';
         $i = 0;
         foreach ($tree as $id => $item) {
             $i++;
-            $str .= $this->toTemplate($item, $tab, $id, $i);
+            $str .= self::toTemplate($params, $item, $tab, $id, $i);
         }
         return $str;
     }
 
 
     // В шаблон передаются массив с данными из БД ($item), $tab - показывает вложенность (к примеру можно использовать дефис -, $id - id, $i - счётчик)
-    protected function toTemplate($item, $tab, $id, $i)
+    private static function toTemplate($params, $item, $tab, $id, $i)
     {
         ob_start();
-        include $this->tpl;
+        include $params['tpl'];
         return ob_get_clean();
     }
 }

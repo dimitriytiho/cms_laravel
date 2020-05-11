@@ -227,6 +227,15 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+
+        // Добавляем алиасы
+        'Main' => App\Main::class,
+        'PanelDashboard' => App\Widgets\PanelDashboard\PanelDashboard::class,
+        'HelpersArr' => App\Helpers\Arr::class,
+        'HelpersLocale' => App\Helpers\Locale::class,
+        'HelpersStr' => App\Helpers\Str::class,
+        'Menu' => App\Widgets\Menu\Menu::class,
+
     ],
 
 ];

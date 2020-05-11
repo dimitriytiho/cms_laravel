@@ -1,10 +1,3 @@
-@php
-
-use App\App;
-use App\Widgets\PanelDashboard\PanelDashboard;
-use App\Helpers\Locale;
-
-@endphp
 {{--
 
 Основной шаблон по-умолчанию
@@ -36,8 +29,7 @@ use App\Helpers\Locale;
 {{--
 
     Панель администратора --}}
-{!! PanelDashboard::run() !!}
-
+{!! PanelDashboard::init() !!}
 <div id="app">
     @yield('header')
     @include("{$viewPath}.inc.message")
@@ -64,9 +56,9 @@ use App\Helpers\Locale;
         _token = document.querySelector('meta[name="csrf-token"]'),
         path = '{{ route('index') }}',
         slug = '{{ str_replace('-', '_', request()->path()) }}',
-        site_title = '{{ App::site('name') ?: ' ' }}',
-        site_tel = '{{ App::site('tel') ?: ' ' }}',
-        site_email = '{{ App::site('email') ?: ' ' }}',
+        site_title = '{{ Main::site('name') ?: ' ' }}',
+        site_tel = '{{ Main::site('tel') ?: ' ' }}',
+        site_email = '{{ Main::site('email') ?: ' ' }}',
         main_color = '{{ config('add.scss')['primary'] ?? '#ccc' }}',
         height = '{{ config('add.height') ?? 600 }}'
 
@@ -74,13 +66,13 @@ use App\Helpers\Locale;
         _token = _token.content
     }
 
-    {!! Locale::translationsJson() !!}
+    {!! HelpersLocale::translationsJson() !!}
 </script>
 {{--
 
-Если в контенте есть скрипты, то они выведятся здесь, через метод App::getDownScript() --}}
-@if (!empty(App::get('scripts')))
-    @foreach (App::get('scripts') as $script)
+Если в контенте есть скрипты, то они выведятся здесь, через метод Main::getDownScript() --}}
+@if (!empty(Main::get('scripts')))
+    @foreach (Main::get('scripts') as $script)
         {!! $script . PHP_EOL !!}
     @endforeach
 @endif

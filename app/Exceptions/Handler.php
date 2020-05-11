@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\App;
+use App\Main;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -61,25 +61,25 @@ class Handler extends ExceptionHandler
             if ($code == 401) {
                 $title = __("{$lang}::s.unauthorized_error");
                 $message = __("{$lang}::s.whoops_no_auth");
-                App::getError($title, __METHOD__, false, 'critical');
+                Main::getError($title, __METHOD__, false, 'critical');
                 $status = 401; // HTTP/1.0 401 Unauthorized
 
             // Ошибки 500
             } elseif ($code == 500 || $code == 419 || $code == 422) {
                 $title = __("{$lang}::s.unauthorized_error");
                 $message = __("{$lang}::s.whoops_no_server");
-                App::getError($title, __METHOD__, false, 'critical');
+                Main::getError($title, __METHOD__, false, 'critical');
                 $status = 500; // 500 Internal Server Error
 
             // Ошибки 404 и прочии
             } else {
                 $title = __("{$lang}::s.page_not_found");
                 $message = __("{$lang}::s.whoops_no_page");
-                App::getError($title, __METHOD__, false, 'critical');
+                Main::getError($title, __METHOD__, false, 'critical');
                 $status = 404; // HTTP/1.1 404 Not Found
             }
 
-            App::setMeta($title);
+            Main::setMeta($title);
             $modulesPath = config('modules.path');
             $viewPath = config('modules.views');
             $view = 'views.errors.404';

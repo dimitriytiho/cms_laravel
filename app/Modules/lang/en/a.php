@@ -132,4 +132,6 @@ return [
     'creating_model_to_import' => 'Creating a model to import from Excel',
     'creating_model_to_export' => 'Creating a model to export from Excel',
 
+    'first_create_menu' => 'First create a menu.',
+
 ];

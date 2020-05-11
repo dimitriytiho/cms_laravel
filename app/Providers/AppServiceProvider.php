@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\App;
+use App\Main;
 use App\Helpers\Services\Registry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         // Паттерн реестр
-        App::$registry = Registry::instance();
+        Main::$registry = Registry::instance();
 
         // Если индексирование сайта выключено
         if (config('add.not_index_website')) {
@@ -68,11 +68,11 @@ class AppServiceProvider extends ServiceProvider
     private function setting()
     {
         /*
-         * Использовать: echo App::site('name');
+         * Использовать: echo Main::site('name');
          *
          * Дополнительные варианты:
-         * echo App::get('settings')['site_name'];
-         * echo App::$registry->get('settings')['name'];
+         * echo Main::get('settings')['site_name'];
+         * echo Main::$registry->get('settings')['name'];
          */
         if (cache()->has('settings_for_site')) {
             $settings = cache()->get('settings_for_site');
@@ -90,7 +90,7 @@ class AppServiceProvider extends ServiceProvider
             foreach ($settings as $v) {
                 $part[$v->title] = $v->value;
             }
-            App::$registry->set('settings', $part);
+            Main::$registry->set('settings', $part);
         }
     }
 
@@ -98,7 +98,7 @@ class AppServiceProvider extends ServiceProvider
     // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ДЛЯ ВИДОВ
     private function views()
     {
-        $siteName = App::site('name') ?? env('APP_NAME');
+        $siteName = Main::site('name') ?? env('APP_NAME');
 
         // Если не вызван метод \App\Helpers\App\setMeta(), то по-умолчанию мета: title - название сайта, тег description - пустой
         View::share('getMeta', "<title>{$siteName}</title>\n\t<meta name='description' content=''>\n");

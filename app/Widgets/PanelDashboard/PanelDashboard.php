@@ -22,7 +22,7 @@ class PanelDashboard
     }
 
 
-    public static function run()
+    public static function init()
     {
         if (Auth::check() && Auth::user()->Admin()) {
             $self = new self();

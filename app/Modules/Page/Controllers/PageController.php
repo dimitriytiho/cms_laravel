@@ -2,7 +2,7 @@
 
 namespace App\Modules\Page\Controllers;
 
-use App\App;
+use App\Main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -17,7 +17,7 @@ class PageController extends AppController
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
         //$view = $this->view = Str::snake($this->class);
-        App::set('c', $c);
+        Main::set('c', $c);
         View::share(compact('class', 'c'));
     }
 
@@ -33,7 +33,7 @@ class PageController extends AppController
         dump($mobileDetect->isTablet());*/
 
 
-        App::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
+        Main::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
         $this->setMeta(__("{$this->lang}::c.home"), __("{$this->lang}::c.You_are_on_home"));
         return view("{$this->viewPathModule}.{$this->c}_index");
     }
@@ -43,11 +43,11 @@ class PageController extends AppController
     {
         // Если нет алиаса
         if (!$slug) {
-            App::getError("{$this->class} not found or outdated", __METHOD__);
+            Main::getError("{$this->class} not found or outdated", __METHOD__);
         }
 
         // Если нет вида
-        App::viewExists("{$this->viewPathModule}.{$this->c}_show", __METHOD__);
+        Main::viewExists("{$this->viewPathModule}.{$this->c}_show", __METHOD__);
 
         // Если пользователь админ, то будут показываться неактивные страницы
         if (auth()->check() && auth()->user()->Admin()) {
@@ -59,7 +59,7 @@ class PageController extends AppController
 
         // Если нет страницы
         if (!$values) {
-            App::getError("{$this->class} not found", __METHOD__);
+            Main::getError("{$this->class} not found", __METHOD__);
         }
 
         /*
@@ -67,14 +67,14 @@ class PageController extends AppController
          * Если нужны данные из БД, то в моделе сделать метод, в котором получить данные и вывести их, в подключаемом файле.
          * Дополнительно, в этот файл передаются данные страницы $values.
          */
-        $values->body = App::inc($values->body, $values);
+        $values->body = Main::inc($values->body, $values);
 
         // Использовать скрипты в контенте, они будут перенесены вниз страницы.
-        $values->body = App::getDownScript($values->body);
+        $values->body = Main::getDownScript($values->body);
 
 
         // Передаём в контейнер id элемента
-        App::set('id', $values->id);
+        Main::set('id', $values->id);
 
         $this->setMeta($values->title ?? null, $values->description ?? null);
         return view("{$this->viewPathModule}.{$this->c}_show", compact('values'));
@@ -83,7 +83,7 @@ class PageController extends AppController
 
     public function contactUs(Request $request)
     {
-        App::viewExists("{$this->viewPathModule}.{$this->c}_contact_us", __METHOD__);
+        Main::viewExists("{$this->viewPathModule}.{$this->c}_contact_us", __METHOD__);
         $this->setMeta(__("{$this->lang}::c.contact_us"));
         return view("{$this->viewPathModule}.{$this->c}_contact_us");
     }
@@ -91,12 +91,12 @@ class PageController extends AppController
 
     public function notFound()
     {
-        App::viewExists('views.errors.404', __METHOD__);
+        Main::viewExists('views.errors.404', __METHOD__);
 
         $title = __("{$this->lang}::s.page_not_found");
         $message = __("{$this->lang}::s.whoops_no_page");
 
-        App::getError($title, __METHOD__, null, 'info');
+        Main::getError($title, __METHOD__, null, 'info');
         $this->setMeta($title);
         return response()->view("{$this->viewPath}.errors.404", compact('title', 'message'), 404);
     }

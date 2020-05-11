@@ -3,7 +3,6 @@
 
 namespace App\Modules\Admin\Helpers;
 
-
 use Illuminate\Support\Facades\Crypt;
 
 class Locale

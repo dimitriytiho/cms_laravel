@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\App;
+use App\Main;
 use Closure;
 
 class AccessIpAdmin
@@ -22,7 +22,7 @@ class AccessIpAdmin
     public function handle($request, Closure $next)
     {
         // Разрешённый Ip для локальной машины 127.0.0.1
-        $allowedIps = App::get('settings')['access_ip'] ?? null;
+        $allowedIps = Main::site('access_ip');
 
         // Если не 0, то проверем Ip
         if ($allowedIps) {
@@ -51,7 +51,7 @@ class AccessIpAdmin
             }
 
             // Запишем в логи и показажем страницу 404
-            App::getError('Request no Access Ip', __METHOD__, false);
+            Main::getError('Request no Access Ip', __METHOD__, false);
             return redirect()->route('not_found');
         }
 

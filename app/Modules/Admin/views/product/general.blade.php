@@ -88,36 +88,37 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="category_id">@lang("{$lang}::f.category_id")</label>
-                                        @php
+                                        {{--
 
-                                            new App\Widgets\Menu\Menu([
-                                                'tpl' => MENU . '/select_admin_category',
-                                                'sql' => "SELECT id, parent_id, title FROM categories ORDER BY id DESC",
-                                                'container' => 'select',
-                                                'cache' => false,
-                                                'class' => 'form-control custom-select',
-                                                'attrs' => [
-                                                    'name' => 'category_id',
-                                                    'id' => 'select-product-category',
-                                                ],
-                                                'prepend' => '<option value="0"> ' . __("{$lang}::s.choose") . ' </option>',
-                                            ]);
-
-                                        @endphp
+                                        Виджет меню--}}
+                                        {!! Menu::init(
+                                            [
+                                                'tpl' => '/select_admin_category',
+                                            'sql' => "SELECT id, parent_id, title FROM categories ORDER BY id DESC",
+                                            'container' => 'select',
+                                            'cache' => false,
+                                            'class' => 'form-control custom-select',
+                                            'attrs' => [
+                                                'name' => 'category_id',
+                                                'id' => 'select-product-category',
+                                            ],
+                                            'prepend' => '<option value="0"> ' . __("{$lang}::s.choose") . ' </option>',
+                                            ]
+                                        ) !!}
                                     </div>
                                     <button data-url="{{ route('admin.product_add_category') }}" data-product-id="{{ $values->id }}" data-url-destroy="{{ route('admin.product_destroy_category') }}" data-category-id data-category-title class="btn btn-outline-primary btn-pulse js-none" id="product-add-category">@lang("{$lang}::s.choose")</button>
                                 </div>
                                 <div class="col-md-6 mt-1">
-                                    <div class="border mt-4 px-2 py-1" id="category-many-elements">
-                                        @if ($values->category)
+                                    @if ($values->category->count() !== 0)
+                                        <div class="border mt-4 px-2 py-1" id="category-many-elements">
                                             @foreach ($values->category as $v)
                                                 <div class="mr-4 many-elements">
                                                     <span class="many-elements__text">{{ $v->title }}</span>
                                                     <a data-url="{{ route('admin.product_destroy_category') }}" data-category-id="{{ $v->id }}" class="text-primary many-elements__close cur">&times;</a>
                                                 </div>
                                             @endforeach
-                                        @endif
-                                    </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endif

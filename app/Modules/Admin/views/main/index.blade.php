@@ -64,7 +64,7 @@
                     <p class="text-secondary"><sup>*</sup> @lang("{$lang}::a.key_description")</p>
                 </div>
             </div>
-            @if (\App\App::get('settings')['change_key'] ?? null)
+            @if (Main::site('change_key'))
                 <div class="row">
                     <div class="col-md-6">
                         {!! input('created_at', d($key->date_key, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => null]) !!}

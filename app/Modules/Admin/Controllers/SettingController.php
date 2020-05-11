@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\App;
+use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Models\Setting;
 use Illuminate\Http\Request;
@@ -35,7 +35,7 @@ class SettingController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        App::viewExists("{$this->view}.$f", __METHOD__);
+        Main::viewExists("{$this->view}.$f", __METHOD__);
         $perpage = config('admin.settings.pagination');
         //$values = DB::table($this->table)->paginate($perpage);
 
@@ -71,7 +71,7 @@ class SettingController extends AppController
     public function create()
     {
         $f = __FUNCTION__;
-        App::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
         $disabled = null;
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
@@ -108,7 +108,7 @@ class SettingController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -134,7 +134,7 @@ class SettingController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            App::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
             $values = DB::table($this->table)->find((int)$id);
             $title = $values->title;
@@ -145,7 +145,7 @@ class SettingController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -192,7 +192,7 @@ class SettingController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -220,7 +220,7 @@ class SettingController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }

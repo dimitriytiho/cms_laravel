@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Controllers;
 
-use App\App;
+use App\Main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -25,7 +25,7 @@ class AppController extends \App\Modules\AppController
         $namespace = config('modules.namespace');
         $modulesPath = config('modules.path');
         if (!$module || !$namespace || !$modulesPath) {
-            App::getError('Not data in Module', __METHOD__);
+            Main::getError('Not data in Module', __METHOD__);
         }
 
         $this->namespace = "{$namespace}\\{$module}";

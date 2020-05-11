@@ -39,11 +39,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="parent_id">@lang("{$lang}::f.parent_id")</label>
-                                @php
+                                {{--
 
-                                    if (!empty($table)) {
-                                        new App\Widgets\Menu\Menu([
-                                            'tpl' => MENU . '/select_admin',
+                                Виджет меню--}}
+                                @if (!empty($table) && !empty($menuName->id))
+                                    {!! Menu::init(
+                                        [
+                                            'tpl' => '/select_admin',
                                             'sql' => "SELECT id, parent_id, title FROM $table WHERE menu_name_id = {$menuName->id} ORDER BY id DESC",
                                             'container' => 'select',
                                             'cache' => false,
@@ -52,10 +54,9 @@
                                                 'name' => 'parent_id',
                                             ],
                                             'prepend' => '<option value="0"> ' . __("{$lang}::f.parent_id") . ' </option>',
-                                        ]);
-                                    }
-
-                                @endphp
+                                        ]
+                                    ) !!}
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -108,6 +109,8 @@
                 @endif
             </div>
         </div>
+    @else
+        <h5>@lang("{$lang}::a.first_create_menu")</h5>
     @endif
     {!! $constructor::stickyScript() !!}
 @endsection

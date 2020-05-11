@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Controllers;
 
-use App\App;
+use App\Main;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -54,7 +54,7 @@ class LoginController extends AppController
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
         $view = $this->view = Str::snake($this->class);
-        App::set('c', $c);
+        Main::set('c', $c);
         View::share(compact('class', 'c', 'view'));
     }
 
@@ -66,6 +66,7 @@ class LoginController extends AppController
      */
     public function showLoginForm(Request $request)
     {
+        Main::viewExists("{$this->viewPathModule}.{$this->view}", __METHOD__);
         return view("{$this->viewPathModule}.{$this->view}");
     }
 
@@ -122,7 +123,7 @@ class LoginController extends AppController
 
             return $this->sendFailedLoginResponse($request);
         }
-        App::getError('No post request', __METHOD__);
+        Main::getError('No post request', __METHOD__);
     }
 
 
@@ -161,7 +162,7 @@ class LoginController extends AppController
 
         // Если пользователь админ или редактор запишем в логи об авторизации
         if (isset($user->role_id) && in_array($user->role_id, User::roleIdAdmin())) {
-            Log::info('Authorization of user with access Admin. ' . App::dataUser());
+            Log::info('Authorization of user with access Admin. ' . Main::dataUser());
         }
 
         return redirect()->route('home');

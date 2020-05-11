@@ -1,8 +1,3 @@
-@php
-
-use Illuminate\Support\Facades\{Schema, DB};
-
-@endphp
 <aside class="h-auto py-3 aside a-secondary transition aside-width-change"{!! $asideWidth !!}>
     <ul class="list-unstyled sticky-top">
         @if (!empty($menuAside))

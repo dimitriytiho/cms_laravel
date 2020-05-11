@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\App;
+use App\Main;
 use App\Modules\Admin\Helpers\Img;
 use App\Modules\Admin\Helpers\Slug;
 use App\Helpers\File;
@@ -141,7 +141,7 @@ class ImgUploadController extends AppController
             }
             return response()->json(['answer' => __("{$this->lang}::s.whoops")]);
         }
-        App::getError('Request No Post', __METHOD__);
+        Main::getError('Request No Post', __METHOD__);
     }
 
 
@@ -194,6 +194,6 @@ class ImgUploadController extends AppController
                 return __("{$this->lang}::s.whoops");
             }
         }
-        App::getError('Request No Ajax', __METHOD__);
+        Main::getError('Request No Ajax', __METHOD__);
     }
 }

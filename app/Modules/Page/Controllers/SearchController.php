@@ -3,8 +3,7 @@
 
 namespace App\Modules\Page\Controllers;
 
-
-use App\App;
+use App\Main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -27,7 +26,7 @@ class SearchController extends AppController
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
         $view = $this->view = Str::snake($this->class);
-        App::set('c', $c);
+        Main::set('c', $c);
         View::share(compact('class', 'c', 'view'));
     }
 
@@ -38,7 +37,7 @@ class SearchController extends AppController
         $values = null;
 
         if ($query) {
-            App::set('search_query', $query);
+            Main::set('search_query', $query);
             $perPage = config('add.pagination');
 
 
@@ -65,7 +64,7 @@ class SearchController extends AppController
                 ->paginate($perPage);
         }
 
-        App::viewExists("{$this->viewPathModule}.{$this->view}_index", __METHOD__);
+        Main::viewExists("{$this->viewPathModule}.{$this->view}_index", __METHOD__);
         $title = __("{$this->lang}::a.search");
         $this->setMeta($title);
         return view("{$this->viewPathModule}.{$this->view}_index", compact('title', 'values'));
@@ -102,6 +101,6 @@ class SearchController extends AppController
             }
             die;
         }
-        App::getError("{$this->class} request", __METHOD__);
+        Main::getError("{$this->class} request", __METHOD__);
     }
 }

@@ -1,7 +1,7 @@
 <footer class="container-fluid font-weight-light text-secondary bg-white footer">
     <div class="row">
         <div class="col text-right py-2 px-1">
-            <small class="pr-4">&copy; {{ date('Y') }} {{ env('APP_DEV') }} | Laravel {{ App::VERSION() }}</small>
+            <small class="pr-4">&copy; {{ date('Y') }} {{ env('APP_DEV') }} | Laravel {{ App::version() }}</small>
         </div>
     </div>
 </footer>

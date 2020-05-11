@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Controllers;
 
-use App\App;
+use App\Main;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -28,7 +28,7 @@ class ForgotPasswordController extends AppController
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
         $view = $this->view = 'passwords.email';
-        App::set('c', $c);
+        Main::set('c', $c);
         View::share(compact('class', 'c', 'view'));
     }
 
@@ -40,6 +40,7 @@ class ForgotPasswordController extends AppController
      */
     public function showLinkRequestForm()
     {
+        Main::viewExists("{$this->viewPathModule}.{$this->view}", __METHOD__);
         return view("{$this->viewPathModule}.{$this->view}");
     }
 

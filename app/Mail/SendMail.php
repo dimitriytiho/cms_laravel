@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\App;
+use App\Main;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -60,7 +60,7 @@ class SendMail extends Mailable
         view()->getFinder()->setPaths($modulesPath);
 
         if (!view()->exists("{$this->viewPath}.{$this->layout}")) {
-            App::getError("View {$this->viewPath}.{$this->layout} not found", __METHOD__, false, 'critical');
+            Main::getError("View {$this->viewPath}.{$this->layout} not found", __METHOD__, false, 'critical');
         }
     }
 
@@ -78,7 +78,7 @@ class SendMail extends Mailable
         $body = $this->body;
         $view = null;
         $lang = $this->lang;
-        $site_name = App::get('settings')['name'] ?? ' ';
+        $site_name = Main::site('name') ?: ' ';
         $color = config('add.scss.primary', '#ccc');
 
 
@@ -86,8 +86,8 @@ class SendMail extends Mailable
             $view = view("{$this->viewPath}.mail.{$this->template}", compact('title', 'values', 'body', 'color', 'name'))->render();
         }
 
-        $email = App::site('email');
-        $tel = App::site('tel');
+        $email = Main::site('email');
+        $tel = Main::site('tel');
         $tel = $tel ? __("{$lang}::s.or_call") . $tel : null;
 
 

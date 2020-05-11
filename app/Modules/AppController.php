@@ -2,7 +2,7 @@
 
 namespace App\Modules;
 
-use App\App;
+use App\Main;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -26,7 +26,7 @@ class AppController extends Controller
 
         // Если нет данных, то выдадим ошибку
         if (!$modulesPath || !$modulesNamespace || !$viewPath || !$modulesLang) {
-            App::getError('Not data in Module', __METHOD__);
+            Main::getError('Not data in Module', __METHOD__);
         }
 
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
@@ -42,7 +42,7 @@ class AppController extends Controller
         @lang("{$lang}::a.Home")*/
 
         // Строка поиска
-        $searchQuery = s(request()->query('s')) ?: App::get('search_query');
+        $searchQuery = s(request()->query('s')) ?: Main::get('search_query');
 
         // Передаём в вид путь к видам
         View::share(compact('viewPath', 'lang', 'searchQuery'));

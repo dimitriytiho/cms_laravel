@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\App;
+use App\Main;
 use App\Modules\Admin\Helpers\Locale;
 use App\Modules\Admin\Helpers\Routes;
 use App\Modules\Admin\Models\Setting;
@@ -49,7 +49,7 @@ class AppController extends Controller
 
         // Если нет данных, то выдадим ошибку
         if (!$this->namespace || !$this->module || !$modulesPath || !$modulesLang) {
-            App::getError('Not data in Module', __METHOD__);
+            Main::getError('Not data in Module', __METHOD__);
         }
 
         $this->m = Str::lower($this->module);
@@ -78,7 +78,7 @@ class AppController extends Controller
 
             // Если Редактор откроет запрещённый раздел, выбросится исключение
             if (in_array($this->controller, config('admin.editor_section_banned')) && !$isAdmin) {
-                App::getError('Editor section Banned!', __METHOD__);
+                Main::getError('Editor section Banned!', __METHOD__);
             }
 
             View::share(compact('isAdmin'));

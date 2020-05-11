@@ -4,7 +4,7 @@
 namespace App\Mail;
 
 
-use App\App;
+use App\Main;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -55,7 +55,7 @@ class SendServiceMail extends Notification
         view()->getFinder()->setPaths($modulesPath);
 
         if (!view()->exists("{$this->viewPath}.{$this->layout}")) {
-            App::getError("View {$this->viewPath}.{$this->layout} not found", __METHOD__, false, 'critical');
+            Main::getError("View {$this->viewPath}.{$this->layout} not found", __METHOD__, false, 'critical');
         }
     }
 
@@ -84,7 +84,7 @@ class SendServiceMail extends Notification
         $body = $this->body;
         $view = null;
         $lang = $this->lang;
-        $site_name = App::get('settings')['name'] ?? ' ';
+        $site_name = Main::site('name') ?? ' ';
         $color = config('add.scss.primary', '#ccc');
 
         if ($this->template && view()->exists("{$this->viewPath}.mail.{$this->template}")) {
@@ -93,8 +93,8 @@ class SendServiceMail extends Notification
                 ->render();
         }
 
-        $email = App::site('email');
-        $tel = App::site('tel');
+        $email = Main::site('email');
+        $tel = Main::site('tel');
         $tel = $tel ? __("{$lang}::s.or_call") . $tel : null;
 
         return (new MailMessage)

@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\App;
+use App\Main;
 use App\Modules\Admin\Helpers\Commands;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -83,12 +83,12 @@ class AdditionallyController extends AppController
             }
 
             // Сообщение об ошибке
-            App::getError('Request', __METHOD__, null);
+            Main::getError('Request', __METHOD__, null);
             session()->put('error', __("{$this->lang}::s.something_went_wrong"));
             return redirect()->route("admin.{$t}");
         }
 
-        App::viewExists("{$t}.{$f}", __METHOD__);
+        Main::viewExists("{$t}.{$f}", __METHOD__);
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($t)));
         return view("{$t}.{$f}", compact('backupDisabled'));
     }
@@ -97,7 +97,7 @@ class AdditionallyController extends AppController
     public function files(Request $request) {
         $f = __FUNCTION__;
         $t = $request->segment(2);
-        App::viewExists("{$t}.{$f}", __METHOD__);
+        Main::viewExists("{$t}.{$f}", __METHOD__);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($t)));
         return view("{$t}.{$f}");

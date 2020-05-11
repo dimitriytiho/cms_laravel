@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\App;
+use App\Main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +21,7 @@ class CategoryProductController extends AppController
                 }
             }
         }
-        App::getError('Request No Ajax', __METHOD__);
+        Main::getError('Request No Ajax', __METHOD__);
     }
 
 
@@ -38,6 +38,6 @@ class CategoryProductController extends AppController
             }
             return 1;
         }
-        App::getError('Request No Ajax', __METHOD__);
+        Main::getError('Request No Ajax', __METHOD__);
     }
 }

@@ -1,8 +1,3 @@
-@php
-
-use App\App;
-
-@endphp
 <footer class="footer text-white-50">
     <div class="row">
         <div class="col w-100 bg-light pt-2"></div>
@@ -12,7 +7,7 @@ use App\App;
             <a href="{{ route('index') }}" class="d-block mt-2">
                 {!! svg('logo_white.png', config('app.name'), '160px') !!}
             </a>
-            <p class="mt-3">{{ App::site('name') }}</p>
+            <p class="mt-3">{{ Main::site('name') }}</p>
         </div>
         <div class="col-xl-2 col-lg-4 col-sm-6 font-weight-light">
             <ul class="list-unstyled">
@@ -79,13 +74,13 @@ use App\App;
             </ul>
         </div>
         <div class="col-xl-2 col-lg-4 col-sm-6">
-            <h5 class="mt-2 mb-4">{{ App::site('tel') }}</h5>
+            <h5 class="mt-2 mb-4">{{ Main::site('tel') }}</h5>
             <p>c 10:00 до 22:00</p>
         </div>
     </div>
     <div class="row">
         <div class="col font-weight-light bg-dark text-center py-2">
-            <small>&copy; {{ date('Y') . ' ' . App::site('name') }}</small>
+            <small>&copy; {{ date('Y') . ' ' . Main::site('name') }}</small>
         </div>
     </div>
 </footer>

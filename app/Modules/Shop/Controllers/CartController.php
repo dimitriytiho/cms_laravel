@@ -2,7 +2,7 @@
 
 namespace App\Modules\Shop\Controllers;
 
-use App\App;
+use App\Main;
 use App\Modules\Shop\Models\Cart;
 use App\Mail\SendMail;
 use App\Modules\Shop\Models\Order;
@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use App\Helpers\Str as HelpersStr;
 
 class CartController extends AppController
 {
@@ -28,7 +29,7 @@ class CartController extends AppController
         $model = $this->model = null;
         $route = $this->route = $request->segment(1);
         $view = $this->view = Str::snake($this->class);
-        App::set('c', $c);
+        Main::set('c', $c);
         View::share(compact('class', 'c','model', 'route', 'view', 'table'));
     }
 
@@ -38,7 +39,7 @@ class CartController extends AppController
     public function index(Request $request)
     {
         // Если нет вида
-        App::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
+        Main::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
 
         //session()->forget('cart');
         //$cartSession = session()->has('cart') ? session()->get('cart') : [];
@@ -60,7 +61,7 @@ class CartController extends AppController
             $cartSession = session()->has('cart') ? session()->get('cart') : [];
             return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('cartSession'))->render();
         }
-        App::getError("{$this->class} request", __METHOD__);
+        Main::getError("{$this->class} request", __METHOD__);
     }
 
 
@@ -86,7 +87,7 @@ class CartController extends AppController
             }
             return back(); // ->with('success', __("{$this->lang}::sh.success_plus"))
         }
-        App::getError("{$this->class} request", __METHOD__);
+        Main::getError("{$this->class} request", __METHOD__);
     }
 
 
@@ -112,7 +113,7 @@ class CartController extends AppController
             }
             return back(); // ->with('success', __("{$this->lang}::sh.success_minus"))
         }
-        App::getError("{$this->class} request", __METHOD__);
+        Main::getError("{$this->class} request", __METHOD__);
     }
 
 
@@ -137,7 +138,7 @@ class CartController extends AppController
             }
             return back(); // ->with('success', __("{$this->lang}::sh.success_destroy"))
         }
-        App::getError("{$this->class} request", __METHOD__);
+        Main::getError("{$this->class} request", __METHOD__);
     }
 
 
@@ -204,7 +205,7 @@ class CartController extends AppController
                 } else {
 
                     // Запишем ошибку в лог файл
-                    App::getError($this->class, __METHOD__, false);
+                    Main::getError($this->class, __METHOD__, false);
                 }
             }
 
@@ -241,7 +242,7 @@ class CartController extends AppController
             //$method = Str::kebab(__FUNCTION__); // Из contactUs будет contact-us
             if ($order->save()) {
                 $orderId = $order->id;
-                $data['date'] = App::get('settings')['date_format_admin'] ?? 'd.m.Y H:i';
+                $data['date'] = config('admin.date_format') ?: 'd.m.Y H:i';
 
                 // Данные для таблицы order_product
                 $cart = session()->has('cart') ? session()->get('cart') : [];
@@ -281,13 +282,13 @@ class CartController extends AppController
                         ->send(new SendMail($title, $body, $cart, $this->c));
 
                 } catch (\Exception $e) {
-                    App::getError("Error sending email admin: $e", __METHOD__, false);
+                    Main::getError("Error sending email admin: $e", __METHOD__, false);
                 }
 
                 // Письмо администратору
                 try {
                     $title = __("{$this->lang}::s.An_order_has_been_placed", ['order_id' => __("{$this->lang}::{$orderId}")]) . config('add.domain');
-                    $email_admin = \App\Helpers\Str::strToArr(App::get('settings')['admin_email'] ?? null);
+                    $email_admin = HelpersStr::strToArr(Main::site('admin_email') ?? null);
 
                     // Данные пользователя
                     $body = null;
@@ -302,7 +303,7 @@ class CartController extends AppController
                     send(new SendMail($title, $body, $cart, $this->c));
 
                 } catch (\Exception $e) {
-                    App::getError("Error sending email admin: $e", __METHOD__, false);
+                    Main::getError("Error sending email admin: $e", __METHOD__, false);
                 }
 
 
@@ -312,6 +313,6 @@ class CartController extends AppController
             }
         }
         // Сообщение что-то пошло не так
-        App::getError("{$this->class} request", __METHOD__);
+        Main::getError("{$this->class} request", __METHOD__);
     }
 }

@@ -4,7 +4,7 @@
 namespace App\Helpers;
 
 
-use App\App;
+use App\Main;
 use App\Modules\Admin\Models\BannedIp;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -20,7 +20,7 @@ class User
     {
         // Через n кол-во блокировой блокируется IP c помощью таблицы banned_ip
         $tableBanned = 'banned_ip';
-        $bannedIpCount = (int)(App::get('settings')['banned_ip_count'] ?? null);
+        $bannedIpCount = (int)(Main::site('banned_ip_count'));
         $ip = request()->ip() ?? null;
 
         if ($bannedIpCount && $ip) {

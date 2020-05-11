@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Controllers;
 
-use App\App;
+use App\Main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -22,7 +22,7 @@ class HomeController extends AppController
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
         $view = $this->view = Str::snake($this->class);
-        App::set('c', $c);
+        Main::set('c', $c);
         View::share(compact('class', 'c', 'view'));
     }
 
@@ -34,6 +34,7 @@ class HomeController extends AppController
      */
     public function index()
     {
+        Main::viewExists("{$this->viewPathModule}.{$this->view}", __METHOD__);
         return view("{$this->viewPathModule}.{$this->view}");
     }
 }

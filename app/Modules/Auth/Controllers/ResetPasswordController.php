@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Controllers;
 
-use App\App;
+use App\Main;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
@@ -29,7 +29,7 @@ class ResetPasswordController extends AppController
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
         $view = $this->view = 'passwords.reset';
-        App::set('c', $c);
+        Main::set('c', $c);
         View::share(compact('class', 'c', 'view'));
     }
 
@@ -45,6 +45,7 @@ class ResetPasswordController extends AppController
      */
     public function showResetForm(Request $request, $token = null)
     {
+        Main::viewExists("{$this->viewPathModule}.{$this->view}", __METHOD__);
         return view("{$this->viewPathModule}.{$this->view}")->with(
             ['token' => $token, 'email' => $request->email]
         );

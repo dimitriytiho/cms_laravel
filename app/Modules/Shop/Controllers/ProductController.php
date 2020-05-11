@@ -2,7 +2,7 @@
 
 namespace App\Modules\Shop\Controllers;
 
-use App\App;
+use App\Main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -19,7 +19,7 @@ class ProductController extends AppController
         $table = $this->table = with(new $model)->getTable();
         $route = $this->route = $request->segment(1);
         $view = $this->view = Str::snake($this->class);
-        App::set('c', $c);
+        Main::set('c', $c);
         View::share(compact('class', 'c','model', 'table', 'route', 'view'));
     }
 
@@ -28,11 +28,11 @@ class ProductController extends AppController
     {
         // Если нет алиаса
         if (!$slug) {
-            App::getError("{$this->class} not found or outdated", __METHOD__);
+            Main::getError("{$this->class} not found or outdated", __METHOD__);
         }
 
         // Если нет вида
-        App::viewExists("{$this->viewPathModule}.{$this->c}_show", __METHOD__);
+        Main::viewExists("{$this->viewPathModule}.{$this->c}_show", __METHOD__);
 
         // Если пользователь админ, то будут показываться неактивные страницы
         if (auth()->check() && auth()->user()->Admin()) {
@@ -45,7 +45,7 @@ class ProductController extends AppController
 
         // Если нет страницы
         if (!$values) {
-            App::getError("{$this->class} not found", __METHOD__);
+            Main::getError("{$this->class} not found", __METHOD__);
         }
 
         /*
@@ -53,14 +53,14 @@ class ProductController extends AppController
          * Если нужны данные из БД, то в моделе сделать метод, в котором получить данные и вывести их, в подключаемом файле.
          * Дополнительно, в этот файл передаются данные страницы $values.
          */
-        $values->body = App::inc($values->body, $values);
+        $values->body = Main::inc($values->body, $values);
 
         // Использовать скрипты в контенте, они будут перенесены вниз страницы.
-        $values->body = App::getDownScript($values->body);
+        $values->body = Main::getDownScript($values->body);
 
 
         // Передаём id элемента
-        App::set('id', $values->id);
+        Main::set('id', $values->id);
 
         $this->setMeta($values->title ?? null, $values->description ?? null);
         return view("{$this->viewPathModule}.{$this->c}_show", compact('values'));

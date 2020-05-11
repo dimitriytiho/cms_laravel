@@ -9,23 +9,23 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
 
-class App
+class Main
 {
-    // МОДЕЛЬ APP - ВСПОМОГАТЕЛЬНАЯ СТАТИЧНАЯ МОДЕЛЬ
+    // Main - ВСПОМОГАТЕЛЬНЫЙ СТАТИЧНЫЙ КЛАСС
 
     /*
      * Пример использования паттерна Реестр (использовать в видах с \App\):
-     * App::$registry->set('test', 'testing'); - положить
-     * dump(App::$registry->get('test')); - достать
-     * dump(App::$registry->getAll); - достать всё
+     * Main::$registry->set('test', 'testing'); - положить
+     * dump(Main::$registry->get('test')); - достать
+     * dump(Main::$registry->getAll); - достать всё
      */
     public static $registry;
 
 
     /*
      * Упрощение вызова паттерна Реестр (использовать в видах с \App\):
-     * App::set('test', 'testing'); - положить
-     * dump(App::get('test')); - достать
+     * Main::set('test', 'testing'); - положить
+     * dump(Main::get('test')); - достать
      */
     public static function set($name, $value)
     {
@@ -42,7 +42,7 @@ class App
 
     /*
      * Возвращает настройку сайта.
-     * App::site('name') - достать настройку.
+     * Main::site('name') - достать настройку.
      * $settingName - название настройки.
      */
     public static function site($settingName)
@@ -95,7 +95,7 @@ class App
     /*
      * Использовать скрипты в контенте, они будут перенесены вниз страницы.
      * $content - контент, в котором удалиться скрипты и перенести их вниз страницы.
-     * В шаблоне вида получить скрипты с помощью \App\App::$registry->get('scripts').
+     * В шаблоне вида получить скрипты с помощью \App\Main::$registry->get('scripts').
      */
     public static function getDownScript(string $content)
     {
@@ -121,7 +121,7 @@ class App
      */
     public static function setMeta($title, $description = '', $titleSeo = '', $keywords = null)
     {
-        $siteName = App::$registry->get('settings')['name'] ?? ' ';
+        $siteName = self::site('name') ?: ' ';
 
         // Если нет $title, то передадим название сайта
         if (!$title) $title = $siteName;

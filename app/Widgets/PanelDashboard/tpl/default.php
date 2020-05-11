@@ -1,12 +1,12 @@
 <?php
 
-use \Illuminate\Support\Facades\Route;
-use \App\App;
+use Illuminate\Support\Facades\Route;
+use App\Main;
 
 
 $lang = lang();
-$route = App::get('c');
-$id = (int)App::get('id');
+$route = Main::get('c');
+$id = (int)Main::get('id');
 $editLink = $id && Route::has("admin.$route.edit") ? route("admin.$route.edit", $id) : null;
 
 ?>

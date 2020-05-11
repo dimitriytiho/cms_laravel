@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\App;
+use App\Main;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -30,6 +30,6 @@ class Controller extends BaseController
     // Метод вывода мета тегов в head
     protected function setMeta($title, $description = '')
     {
-        App::setMeta($title, $description);
+        Main::setMeta($title, $description);
     }
 }

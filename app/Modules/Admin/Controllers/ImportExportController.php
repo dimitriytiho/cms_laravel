@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\App;
+use App\Main;
 use App\Exports\CategoriesExport;
 use App\Exports\UsersExport;
 use App\Helpers\ImportExport;
@@ -198,7 +198,7 @@ str_replace('', '', '');
             }
             return back()->with('success', __("{$this->lang}::a.upload_success") . $messageUpdate . $messageInsert);
         }
-        App::getError('Request No Post', __METHOD__);
+        Main::getError('Request No Post', __METHOD__);
     }
 
 
@@ -318,6 +318,6 @@ str_replace('', '', '');
             }
             return back()->with('success', __("{$this->lang}::a.upload_success") . $messageUpdate . $messageInsert);
         }
-        App::getError('Request No Post', __METHOD__);
+        Main::getError('Request No Post', __METHOD__);
     }
 }

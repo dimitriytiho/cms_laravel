@@ -159,54 +159,57 @@ S;
     public static function stickyScript($idBtn = 'btn-sticky')
     {
     /*if ($idBtn) {
-        ob_start();
+        ob_start(); */?>
+        <!--<script>
+            document.addEventListener('DOMContentLoaded', function() {
 
-        */?><!--
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
+                var sticky = document.getElementById('<?/*= $idBtn; */?>'),
+                    aside = document.querySelector('.aside'),
+                    content = document.querySelector('.main-content')
 
-                    var sticky = document.getElementById('<?/*= $idBtn; */?>'),
-                        aside = document.querySelector('.aside'),
-                        content = document.querySelector('.main-content')
+                // Если ширина экрана больше 991рх
+                if (sticky && aside && content && document.body.clientWidth > 991) {
 
-                    // Если ширина экрана больше 991рх
-                    if (sticky && aside && content && document.body.clientWidth > 991) {
+                    var heightWindow = window.innerHeight, // Высота окна браузера
+                        //heightSticky = sticky.getBoundingClientRect().top, // Высота до блока sticky
+                        heightSticky = sticky.offsetTop, // Высота от блока sticky до верха тега формы
+                        heightBlock = sticky.offsetHeight, // Высота блока
+                        add = 192, // Добавляемое значение от тега формы до самого верха
+                        heightNewSticky = 66
 
-                        var heightWindow = window.innerHeight, // Высота окна браузера
-                            //heightSticky = sticky.getBoundingClientRect().top, // Высота до блока sticky
-                            heightSticky = sticky.offsetTop, // Высота до блока sticky
-                            heightBlock = sticky.offsetHeight, // Высота блока
-                            add = 140 // Добавляемое значение
+                    heightSticky = heightSticky + heightBlock + add
 
-                        // Отлеживаем скролл
-                        window.addEventListener('scroll', function(e) {
 
-                            if (pageYOffset + heightWindow + add < heightSticky) {
-                                var asideWidth = aside.offsetWidth, // Ширина сайдбара слева
-                                    contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left') // У контента получить padding-left в px
+                    // Отлеживаем скролл
+                    window.addEventListener('scroll', function(e) {
 
-                                // Отрезать px в конце строки
-                                contentLeft = contentLeft.substring(0, contentLeft.length - 2)
+                        if (pageYOffset + heightWindow < heightSticky) {
+                            var asideWidth = aside.offsetWidth, // Ширина сайдбара слева
+                                contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left') // У контента получить padding-left в px
 
-                                sticky.classList.add('bg-white', 'w-100', 'position-fixed', 'z-7')
-                                sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
-                                sticky.style.padding = '.5rem 0 1.6rem 2.4rem'
-                                sticky.style.top = (heightWindow - (add / 2)) + 'px'
+                            // Отрезать px в конце строки
+                            contentLeft = contentLeft.substring(0, contentLeft.length - 2)
 
-                            } else {
-                                sticky.classList.remove('bg-white', 'w-100', 'position-fixed', 'z-7')
-                                sticky.style.padding = '0'
-                            }
+                            sticky.classList.add('bg-white', 'w-100', 'position-fixed', 'z-7')
+                            sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
+                            sticky.style.paddingLeft = '2.4rem'
+                            sticky.style.height = heightNewSticky + 'px'
+                            sticky.style.top = (heightWindow - heightNewSticky) + 'px'
 
-                        })
-                    }
+                        } else {
+                            sticky.classList.remove('bg-white', 'w-100', 'position-fixed', 'z-7')
+                            sticky.style.padding = '0'
+                        }
 
-                }, false)
-            </script>
-            --><?php
-    /*
+                    })
+                }
+
+            }, false)
+        </script>-->
+        <?php
+/*
             return ob_get_clean();
-        }*/
-    return false;
+        }
+    return false;*/
     }
 }

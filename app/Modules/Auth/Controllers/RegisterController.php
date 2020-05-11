@@ -2,7 +2,7 @@
 
 namespace App\Modules\Auth\Controllers;
 
-use App\App;
+use App\Main;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Http\Request;
@@ -46,7 +46,7 @@ class RegisterController extends AppController
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
         $view = $this->view = Str::snake($this->class);
-        App::set('c', $c);
+        Main::set('c', $c);
         View::share(compact('class', 'c', 'view'));
     }
 
@@ -58,6 +58,7 @@ class RegisterController extends AppController
      */
     protected function showRegistrationForm(Request $request)
     {
+        Main::viewExists("{$this->viewPathModule}.{$this->view}", __METHOD__);
         return view("{$this->viewPathModule}.{$this->view}");
     }
 
@@ -100,6 +101,6 @@ class RegisterController extends AppController
                 return redirect()->route('login');
             }
         }
-        App::getError('No post request', __METHOD__);
+        Main::getError('No post request', __METHOD__);
     }
 }

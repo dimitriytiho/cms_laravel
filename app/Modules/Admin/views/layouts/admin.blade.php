@@ -1,6 +1,6 @@
 @php
 
-    $cookie_locale = \Illuminate\Support\Facades\Cookie::get('locale');
+    $cookie_locale = Cookie::get('locale');
     if ($cookie_locale) {
         app()->setLocale($cookie_locale);
     }
@@ -154,7 +154,7 @@
         imgUploadID = '{{ $imgUploadID ?? "" }}',
         curID = '{{ auth()->user()->id ?? "" }}'
 
-    {!! \App\Helpers\Locale::translationsJson() !!}
+    {!! HelpersLocale::translationsJson() !!}
         {{--asideWidth = {!! json_encode(config('admin.settings.aside_width')) !!}--}}
 </script>
 <script src="{{ asset('js/append.js') }}" defer></script>

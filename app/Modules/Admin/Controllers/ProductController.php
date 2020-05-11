@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\App;
+use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Helpers\Img;
 use App\Modules\Admin\Helpers\Slug;
@@ -34,7 +34,7 @@ class ProductController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        App::viewExists("{$this->view}.$f", __METHOD__);
+        Main::viewExists("{$this->view}.$f", __METHOD__);
         $perpage = config('admin.settings.pagination');
 
         // Поиск. Массив гет ключей для поиска
@@ -69,7 +69,7 @@ class ProductController extends AppController
     public function create()
     {
         $f = __FUNCTION__;
-        App::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
         return view("{$this->view}.{$this->template}");
@@ -124,7 +124,7 @@ class ProductController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -150,7 +150,7 @@ class ProductController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            App::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
             $values = $this->model::with('category')->find((int)$id);
 
@@ -158,13 +158,13 @@ class ProductController extends AppController
 
             // Собираем в массиве категориии, в которых этот товар и передаём их в меню select
             $disabledIDs = [];
-            //$disabledID = \App\Helpers\Admin\App::getIdParents($values->id ?? null, $this->table);
+            //$disabledID = appHelpers::getIdParents($values->id ?? null, $this->table);
             if ($values->category) {
                 foreach ($values->category as $cat) {
                     $disabledIDs[] = $cat->id;
                 }
             }
-            App::set('disabledIDs', $disabledIDs);
+            Main::set('disabledIDs', $disabledIDs);
 
 
             // DROPZONE DATA
@@ -179,7 +179,7 @@ class ProductController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -245,7 +245,7 @@ class ProductController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -305,7 +305,7 @@ class ProductController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }

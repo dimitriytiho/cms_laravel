@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\SendMail;
-use App\App;
+use App\Main;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -42,7 +42,7 @@ class EnterController extends AppController
         $namespace = config('modules.namespace');
         $modulesPath = config('modules.path');
         if (!$module || !$namespace || !$modulesPath) {
-            App::getError('Not data in Module', __METHOD__);
+            Main::getError('Not data in Module', __METHOD__);
         }
 
         $this->namespace = "{$namespace}\\{$module}";
@@ -73,9 +73,9 @@ class EnterController extends AppController
         }*/
 
         // Сообщение об открытой странице входа
-        App::getError('Open the Admin login page', __METHOD__, false, 'warning');
+        Main::getError('Open the Admin login page', __METHOD__, false, 'warning');
 
-        App::viewExists("{$this->view}.index", __METHOD__);
+        Main::viewExists("{$this->view}.index", __METHOD__);
         $this->setMeta(__("{$this->lang}::s.login"));
         return view("{$this->view}.index");
     }
@@ -85,7 +85,7 @@ class EnterController extends AppController
         if ($request->isMethod('post')) {
 
             // Сообщение о запросе
-            Log::warning('Request Enter login. ' . App::dataUser());
+            Log::warning('Request Enter login. ' . Main::dataUser());
 
             $rules = [
                 'email' => 'required|string|email',
@@ -127,7 +127,7 @@ class EnterController extends AppController
                 return redirect()->route('admin.main');
             }*/
         }
-        App::getError('No post request', __METHOD__);
+        Main::getError('No post request', __METHOD__);
         /*$credentials = $request->only('email', 'password');
         $remember = $request->remember ?? null;
 
@@ -193,7 +193,7 @@ class EnterController extends AppController
         User::saveIpStatic($email, $ip);
 
         // Сохранить сообщение об совершённом входе в админку
-        Log::info('Authorization of user with access Admin. ' . App::dataUser());
+        Log::info('Authorization of user with access Admin. ' . Main::dataUser());
 
         return redirect()->route('admin.main');
     }
@@ -268,7 +268,7 @@ class EnterController extends AppController
                 try {
                     Mail::to($request->email)->send(new SendMail(__("{$this->lang}::a.Code"), $code));
                 } catch (\Exception $e) {
-                    Log::error("Error sending mail. Email: $request->email. " . App::dataUser() . "Error: $e. In " . __METHOD__);
+                    Log::error("Error sending mail. Email: $request->email. " . Main::dataUser() . "Error: $e. In " . __METHOD__);
                 }
                 return redirect()->route('enter');
 
@@ -350,8 +350,8 @@ class EnterController extends AppController
         }
 
         // Сообщение об открытой странице входа
-        Log::warning('Open the Admin login page. ' . App::dataUser());
-        App::viewExists('admin.enter', __METHOD__);
+        Log::warning('Open the Admin login page. ' . Main::dataUser());
+        Main::viewExists('admin.enter', __METHOD__);
         $this->setMeta(__("{$this->lang}::s.login"));
         return view('admin.enter', compact('auth_view', 'form_name'));
     }*/
@@ -367,6 +367,6 @@ class EnterController extends AppController
         User::saveIpStatic($email, $ip);
 
         // Сохранить сообщение об совершённом входе в админку
-        Log::info("Login Admin completed to the dashboard. " . App::dataUser());
+        Log::info("Login Admin completed to the dashboard. " . Main::dataUser());
     }*/
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\App;
+use App\Helpers\Upload;
 
 
 $admin = env('APP_ADMIN', 'admin');
@@ -12,7 +12,7 @@ $namespace = '\App\\Modules\\admin\\Controllers';
 if (!config('add.auth')) {
     Route::namespace($namespace)->name('enter')->middleware('access-ip-admin')->group(function () {
 
-        $key = \App\Helpers\Upload::getKeyAdmin();
+        $key = Upload::getKeyAdmin();
         $keyRoute = "enter/{$key}";
         Route::post($keyRoute, 'EnterController@enterPost')->name('_post')->middleware('banned-ip');
         Route::get($keyRoute, 'EnterController@index');

@@ -4,7 +4,7 @@
 namespace App\Helpers;
 
 
-use App\App;
+use App\Main;
 use App\Mail\SendMail;
 use App\User;
 use Illuminate\Support\Facades\Crypt;
@@ -27,7 +27,7 @@ class Upload
         //self::htaccess();
 
         // Обновление ключа, если в настройках change_key отмечено 1
-        $changeKey = App::site('change_key');
+        $changeKey = Main::site('change_key');
         if ($changeKey) {
             self::getNewKey();
         }

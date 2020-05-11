@@ -1,5 +1,8 @@
 <?php
 
+use App\Helpers\Str;
+
+
 /*
  * Возвращает картинку svg вместе с заменяющей её картинкой.
  * $img - путь с названием картинки.
@@ -15,7 +18,7 @@ function svg($img, $alt = null, $width = null, $img_svg = null, $class = null, $
     $path_dir = $path['dirname'] === '.' ? null : $path['dirname'] . '/';
     $img_svg = $img_svg ?: "$path_dir{$path['filename']}.svg";
     $id = $id ? "id='$id'" : null;
-    $alt = $alt ? \App\Helpers\Str::removeTag($alt) : ' ';
+    $alt = $alt ? Str::removeTag($alt) : ' ';
 
     if (is_file(config('add.imgPath') . "/$img") && is_file(config('add.imgPath') . "/$img_svg")) {
         $img = asset(config('add.img') . "/$img");

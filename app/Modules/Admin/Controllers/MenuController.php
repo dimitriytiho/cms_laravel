@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\App;
+use App\Main;
 use App\Modules\Admin\Models\Menu;
 use App\Modules\Admin\Helpers\App as appHelpers;
 use Illuminate\Http\Request;
@@ -42,7 +42,7 @@ class MenuController extends AppController
         }
 
         $f = __FUNCTION__;
-        App::viewExists("{$this->view}.$f", __METHOD__);
+        Main::viewExists("{$this->view}.$f", __METHOD__);
 
         $menu = null;
         $values = null;
@@ -69,7 +69,7 @@ class MenuController extends AppController
     public function create(Request $request)
     {
         $f = __FUNCTION__;
-        App::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
         $current_menu_id = $request->cookie('current_menu_id');
         if (!$current_menu_id) {
@@ -116,7 +116,7 @@ class MenuController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -142,7 +142,7 @@ class MenuController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            App::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
             $current_menu_id = null;
             $values = null;
@@ -160,18 +160,18 @@ class MenuController extends AppController
 
             // Записать в реестр parent_id
             if (!empty($values->parent_id)) {
-                App::$registry->set('parent_id', $values->parent_id);
+                Main::set('parent_id', $values->parent_id);
             }
 
             // Потомки в массиве
-            $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents($values->id ?? null, $this->table);
+            $getIdParents = appHelpers::getIdParents($values->id ?? null, $this->table);
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
             return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'current_menu_id', 'menuName'));
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -225,7 +225,7 @@ class MenuController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -244,7 +244,7 @@ class MenuController extends AppController
             if ($values) {
 
                 // Если есть потомки, то ошибка
-                $getIdParents = \App\Modules\Admin\Helpers\App::getIdParents((int)$id, $this->table);
+                $getIdParents = appHelpers::getIdParents((int)$id, $this->table);
                 if ($getIdParents) {
                     session()->put('error', __("{$this->lang}::s.remove_not_possible") . ', ' . __("{$this->lang}::s.there_are_nested") . ' #');
                     return redirect()->route("admin.{$this->route}.index");
@@ -263,7 +263,7 @@ class MenuController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }

@@ -36,7 +36,7 @@
                 <div class="text-right mt--3">
                     <div class="small text-secondary">@lang("{$lang}::s.remove_not_possible"),<br>@lang("{$lang}::s.there_are_nested") ID:</div>
                     @foreach ($getIdParents as $v)
-                        <a href="{{ route("admin.$belongsToTable.edit", $v->id) }}">{{ $v->id }}</a>
+                        <a href="{{ route("admin.{$belongsToTable}.edit", $v->id) }}">{{ $v->id }}</a>
                     @endforeach
                 </div>
             @else

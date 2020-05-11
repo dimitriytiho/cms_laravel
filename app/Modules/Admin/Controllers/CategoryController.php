@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\App;
+use App\Main;
 use App\Modules\Admin\Models\Category;
 use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Models\CategoryProduct;
@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use App\Modules\Admin\Helpers\App as HelpersApp;
 
 class CategoryController extends AppController
 {
@@ -36,7 +35,7 @@ class CategoryController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        App::viewExists("{$this->view}.{$f}", __METHOD__);
+        Main::viewExists("{$this->view}.{$f}", __METHOD__);
         $perpage = config('admin.settings.pagination');
 
         // Поиск. Массив гет ключей для поиска
@@ -71,7 +70,7 @@ class CategoryController extends AppController
     public function create()
     {
         $f = __FUNCTION__;
-        App::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
         return view("{$this->view}.{$this->template}");
@@ -109,7 +108,7 @@ class CategoryController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -135,17 +134,17 @@ class CategoryController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            App::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
             $values = DB::table($this->table)->find((int)$id);
 
             // Записать в реестр parent_id
             if (!empty($values->parent_id)) {
-                App::$registry->set('parent_id', $values->parent_id);
+                Main::set('parent_id', $values->parent_id);
             }
 
             // Потомки категорий в массиве
-            $getIdParents = HelpersApp::getIdParents($values->id ?? null, $this->table);
+            $getIdParents = appHelpers::getIdParents($values->id ?? null, $this->table);
 
             // Потомки товаров в массиве
             $getIdProducts = Category::with('products')->where('id', (int)$id)->get();
@@ -156,7 +155,7 @@ class CategoryController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -210,7 +209,7 @@ class CategoryController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
@@ -231,7 +230,7 @@ class CategoryController extends AppController
 
                 // Если есть потомки или товары, то ошибка
                 // Потомки категорий
-                $getIdParents = HelpersApp::getIdParents((int)$id, $this->table);
+                $getIdParents = appHelpers::getIdParents((int)$id, $this->table);
 
                 // Товаров
                 $getIdProducts = DB::table('category_product')->where('category_id', (int)$id)->count();
@@ -254,7 +253,7 @@ class CategoryController extends AppController
         }
 
         // Сообщение об ошибке
-        App::getError('Request', __METHOD__, null);
+        Main::getError('Request', __METHOD__, null);
         session()->put('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }

@@ -25,8 +25,8 @@
                 </div>
                 <div class="col-md-6 text-md-center">
                     <picture>
-                        <source srcset="{{ asset(config('add.img') . '/error/404.svg') }}" type="image/svg+xml">
-                        <img src="{{ asset(config('add.img') . '/error/404.jpg') }}" class="img-fluid w-50" alt="{{ $title }}">
+                        <source srcset="{{ asset("{$img}/error/404.svg") }}" type="image/svg+xml">
+                        <img src="{{ asset("{$img}/error/404.jpg") }}" class="img-fluid w-50" alt="{{ $title }}">
                     </picture>
                 </div>
             </div>

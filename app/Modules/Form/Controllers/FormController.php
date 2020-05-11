@@ -2,13 +2,14 @@
 
 namespace App\Modules\Form\Controllers;
 
-use App\App;
+use App\Main;
 use App\Modules\Form\Models\Form;
 use App\Mail\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use App\Helpers\Str as HelpersStr;
 
 class FormController extends AppController
 {
@@ -18,7 +19,7 @@ class FormController extends AppController
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $c = $this->c = Str::lower($this->class);
         //$view = $this->view = Str::snake($this->class);
-        App::set('c', $c);
+        Main::set('c', $c);
         View::share(compact('class', 'c'));
     }
 
@@ -50,8 +51,10 @@ class FormController extends AppController
             $data['ip'] = $request->ip();
 
             // Сохраним пользователя отправителя формы. Если есть пользователь, то обновим его данные, если нет, то создадим. Также если пользователь Админ или Редактор, то не будем обновлять его данные.
-            $userId = Form::userFormSave($data) ?: App::getError($this->class, __METHOD__);
-
+            $userId = Form::userFormSave($data);
+            if (!$userId) {
+                Main::getError($this->class, __METHOD__);
+            }
 
             // Данные form
             $dataForm['user_id'] = $userId;
@@ -75,7 +78,7 @@ class FormController extends AppController
                         ->send(new SendMail($title, $body));
 
                 } catch (\Exception $e) {
-                    App::getError("Error sending email admin: $e", __METHOD__, false);
+                    Main::getError("Error sending email admin: $e", __METHOD__, false);
                 }
 
                 // Письмо администратору
@@ -83,13 +86,13 @@ class FormController extends AppController
                     //$template = Str::snake(__FUNCTION__); // Из contactUs будет contact_us
                     $template = 'table_form'; // Все данные в таблице
                     $title = __("{$this->lang}::s.Completed_form", ['name' => __("{$this->lang}::c.{$template}")]) . config('add.domain');
-                    $email_admin = \App\Helpers\Str::strToArr(App::$registry->get('settings')['admin_email'] ?? null);
+                    $email_admin = HelpersStr::strToArr(Main::site('admin_email'));
 
                     Mail::to($email_admin)
                         ->send(new SendMail($title, null, $data, $template));
 
                 } catch (\Exception $e) {
-                    App::getError("Error sending email admin: $e", __METHOD__, false);
+                    Main::getError("Error sending email admin: $e", __METHOD__, false);
                 }
 
                 // Сообщение об успехе
@@ -98,6 +101,6 @@ class FormController extends AppController
             }
         }
         // Сообщение что-то пошло не так
-        App::getError("{$this->class} request", __METHOD__);
+        Main::getError("{$this->class} request", __METHOD__);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\App;
+use App\Main;
 use App\Modules\Admin\Helpers\Slug;
 use App\Helpers\Upload;
 use App\User;
@@ -27,7 +27,7 @@ class MainController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        App::viewExists("{$this->c}.$f", __METHOD__);
+        Main::viewExists("{$this->c}.$f", __METHOD__);
         $count_forms = DB::table('forms')->count();
         $count_pages = DB::table('pages')->count();
         $count_users = DB::table('users')->count();
@@ -67,7 +67,7 @@ class MainController extends AppController
             return redirect()->back();
             //return redirect()->back()->withCookie('locale', $locale, config('admin.cookie'));
         }
-        App::getError("Invalid locale $locale", __METHOD__);
+        Main::getError("Invalid locale $locale", __METHOD__);
     }
 
 
@@ -76,7 +76,7 @@ class MainController extends AppController
         if ($request->isMethod('post') && $request->wantsJson()) {
             return $request->title ? Slug::cyrillicToLatin($request->title ?? null) : '';
         }
-        App::getError('Request No Ajax', __METHOD__);
+        Main::getError('Request No Ajax', __METHOD__);
     }
 
 
@@ -89,7 +89,7 @@ class MainController extends AppController
                 return __("{$this->lang}::a.key_success");
             }
         }
-        App::getError('Request No Ajax', __METHOD__);
+        Main::getError('Request No Ajax', __METHOD__);
     }
 
 
@@ -111,6 +111,6 @@ class MainController extends AppController
                 }
             }
         }
-        App::getError('Request No Ajax', __METHOD__);
+        Main::getError('Request No Ajax', __METHOD__);
     }
 }

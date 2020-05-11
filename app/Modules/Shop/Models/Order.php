@@ -2,6 +2,7 @@
 
 namespace App\Modules\Shop\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -11,7 +12,7 @@ class Order extends Model
 
     // Обратная связь один ко многим
     public function user() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
 
