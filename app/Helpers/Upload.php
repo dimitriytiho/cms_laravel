@@ -27,8 +27,7 @@ class Upload
         //self::htaccess();
 
         // Обновление ключа, если в настройках change_key отмечено 1
-        $changeKey = Main::site('change_key');
-        if ($changeKey) {
+        if (Main::site('change_key')) {
             self::getNewKey();
         }
     }

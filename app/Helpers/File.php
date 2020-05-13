@@ -3,9 +3,41 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\File as SupportFile;
+use Illuminate\Support\Facades\Storage;
 
 class File
 {
+    /*
+     * Соединяет файлы в один.
+     * Метод кэшируется, чтобы обновить сбросьте общий кэш cache()->flush();.
+     *
+     * $filesPathArr - массив с путём и названием файлов, относительно диска $diskName, который указан в /config/filesystems.php 'disks'.
+     * $newFilePath - Путь с названием, относительно диска $diskName, который указан в /config/filesystems.php 'disks'.
+     * $diskName - название диска, который указан в /config/filesystems.php 'disks', необязательный параметр, по-умолчанию папка public.
+     */
+    public static function merge($filesPathArr, $newFilePath, $diskName = 'public_folder')
+    {
+        // Если есть кэш, то не будем соединять файлы
+        if (cache()->has($newFilePath)) {
+            return '';
+        }
+
+        if ($filesPathArr && is_array($filesPathArr)) {
+
+            $part = '';
+            $disk = Storage::disk($diskName);
+            foreach ($filesPathArr as $key => $file) {
+                if ($disk->exists(($file))) {
+                    $part .= $disk->get($file) . PHP_EOL;
+                }
+            }
+            $disk->put($newFilePath, $part);
+        }
+        return '';
+    }
+
+
     /*
      * Возвращает массив со всеми файлами из папки.
      * $dir - путь к папке, которая сканируется.

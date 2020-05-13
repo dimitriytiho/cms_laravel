@@ -18,11 +18,22 @@
     {!! $getMeta !!}
     <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     @include("{$viewPath}.inc.warning")
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     {{--
 
     Здесь можно добавить файлы css --}}
     @yield('css')
+    {{--
+
+    Объединяем css в один файл --}}
+    {{--{{ HelpersFile::merge(
+        [
+            'css/app.css',
+            'css/add.css',
+        ],
+        'css/main.css'
+    ) }}
+     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/add.css') }}">
 </head>
 <body>
@@ -76,15 +87,26 @@
         {!! $script . PHP_EOL !!}
     @endforeach
 @endif
-<script src="{{ asset('js/app.js') }}" defer></script>
 {{--
 
 Здесь можно добавить файлы js --}}
 @yield('js')
-<script src="{{ asset('js/add.js') }}" defer></script>
 {{--
 
 Вывод js кода из вида pages.contact_us --}}
 @stack('novalidate')
+{{--
+
+Объединяем скрипты в один файл --}}
+{{--{{ HelpersFile::merge(
+    [
+        'js/app.js',
+        'js/add.js',
+    ],
+    'js/main.js'
+) }}
+<script src="{{ asset('js/main.js') }}" defer></script>--}}
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/add.js') }}" defer></script>
 </body>
 </html>
