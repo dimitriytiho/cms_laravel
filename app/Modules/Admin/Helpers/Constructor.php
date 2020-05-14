@@ -158,14 +158,35 @@ S;
     */
     public static function stickyScript($idBtn = 'btn-sticky')
     {
-    /*if ($idBtn) {
-        ob_start(); */?>
-        <!--<script>
+    if ($idBtn) {
+        ob_start(); ?>
+        <script>
             document.addEventListener('DOMContentLoaded', function() {
 
-                var sticky = document.getElementById('<?/*= $idBtn; */?>'),
+                var sticky = document.getElementById('<?= $idBtn; ?>'),
                     aside = document.querySelector('.aside'),
-                    content = document.querySelector('.main-content')
+                    content = document.querySelector('.main-content'),
+                    tabs = document.getElementById('tabs-edit-content'),
+                    tabActive = null,
+                    tabHeight = null,
+                    topBlock = null,
+                    bottomBlocks = null,
+                    heightMain = null
+
+                if (tabs) {
+                    tabActive = tabs.querySelector('.active')
+
+                    if (tabActive) {
+                        /*var rect = tabActive.getBoundingClientRect()
+                        tabHeight = rect.height*/
+                        tabHeight = tabActive.offsetHeight
+                        topBlock = 38
+                        bottomBlocks = 157
+
+                        heightMain = tabHeight + topBlock + bottomBlocks
+                    }
+                }
+
 
                 // Если ширина экрана больше 991рх
                 if (sticky && aside && content && document.body.clientWidth > 991) {
@@ -178,38 +199,96 @@ S;
                         heightNewSticky = 66
 
                     heightSticky = heightSticky + heightBlock + add
+                    heightMain = heightMain + heightBlock + add
+
+
+                    function addButton() {
+                        var asideWidth = aside.offsetWidth, // Ширина сайдбара слева
+                            contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left') // У контента получить padding-left в px
+
+                        // Отрезать px в конце строки
+                        contentLeft = contentLeft.substring(0, contentLeft.length - 2)
+
+                        sticky.classList.add('bg-white', 'w-100', 'position-fixed', 'z-7')
+                        sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
+                        sticky.style.paddingLeft = '2.4rem'
+                        sticky.style.height = heightNewSticky + 'px'
+                        sticky.style.top = (heightWindow - heightNewSticky) + 'px'
+                    }
+
+                    function remove() {
+                        sticky.classList.remove('bg-white', 'w-100', 'position-fixed', 'z-7')
+                        sticky.style.padding = '0'
+                    }
+
+                    // Без скролла
+                    if (tabs) { // Если есть табы
+
+                        if (heightWindow < heightMain) {
+
+                            addButton()
+
+                        } else {
+
+                            remove()
+
+                        }
+
+                    } else { // Для всех прочих
+
+                        if (heightWindow < heightSticky) {
+
+                            addButton()
+
+                        } else {
+
+                            remove()
+
+                        }
+
+                    }
 
 
                     // Отлеживаем скролл
                     window.addEventListener('scroll', function(e) {
 
-                        if (pageYOffset + heightWindow < heightSticky) {
-                            var asideWidth = aside.offsetWidth, // Ширина сайдбара слева
-                                contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left') // У контента получить padding-left в px
+                        // Если есть табы
+                        if (tabs) {
 
-                            // Отрезать px в конце строки
-                            contentLeft = contentLeft.substring(0, contentLeft.length - 2)
+                            if (pageYOffset + heightWindow < heightMain) {
 
-                            sticky.classList.add('bg-white', 'w-100', 'position-fixed', 'z-7')
-                            sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
-                            sticky.style.paddingLeft = '2.4rem'
-                            sticky.style.height = heightNewSticky + 'px'
-                            sticky.style.top = (heightWindow - heightNewSticky) + 'px'
+                                addButton()
 
+                            } else {
+
+                                remove()
+
+                            }
+
+                        // Для всех прочих
                         } else {
-                            sticky.classList.remove('bg-white', 'w-100', 'position-fixed', 'z-7')
-                            sticky.style.padding = '0'
+
+                            if (pageYOffset + heightWindow < heightSticky) {
+
+                                addButton()
+
+                            } else {
+
+                                remove()
+
+                            }
+
                         }
 
                     })
                 }
 
             }, false)
-        </script>-->
+        </script>
         <?php
-/*
+
             return ob_get_clean();
         }
-    return false;*/
+    return false;
     }
 }

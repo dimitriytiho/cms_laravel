@@ -123,7 +123,7 @@
                         matchBrackets: true,
                         indentUnit: 4
                     })
-                    editor.setSize('auto', 'auto')
+                    //editor.setSize('auto', 'auto')
                 }
             }, false)
 

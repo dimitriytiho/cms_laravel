@@ -47,7 +47,7 @@
                     {{--
 
                     Контент табов --}}
-                    <div class="tab-content">
+                    <div class="tab-content" id="tabs-edit-content">
                         <div class="tab-pane fade show active pt-4" id="tab-content-link" role="tabpanel" aria-labelledby="tab-content">
                             {{--
 
