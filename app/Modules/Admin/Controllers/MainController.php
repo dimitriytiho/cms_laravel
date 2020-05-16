@@ -27,7 +27,7 @@ class MainController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->c}.$f", __METHOD__);
+        Main::viewExists("{$this->c}.{$f}", __METHOD__);
         $count_forms = DB::table('forms')->count();
         $count_pages = DB::table('pages')->count();
         $count_users = DB::table('users')->count();

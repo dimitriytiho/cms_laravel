@@ -12,6 +12,7 @@ class AppController extends Controller
     protected $viewPath;
     protected $lang;
     protected $statusActive;
+    protected $perPage;
 
 
     public function __construct()
@@ -29,6 +30,8 @@ class AppController extends Controller
             Main::getError('Not data in Module', __METHOD__);
         }
 
+        $this->perPage = config('add.pagination');
+
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
         View::getFinder()->setPaths($modulesPath);
 
@@ -40,6 +43,8 @@ class AppController extends Controller
         /*dump(__("{$this->lang}::a.Home"));
         dump(__("{$lang}::a.Home"));
         @lang("{$lang}::a.Home")*/
+
+        //cache()->flush(); // Удалить все кэши
 
         // Строка поиска
         $searchQuery = s(request()->query('s')) ?: Main::get('search_query');

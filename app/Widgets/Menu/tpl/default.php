@@ -1,5 +1,6 @@
 <?php
 
+$params = $params ?? null;
 $parent = isset($item->childs);
 
 if (!empty($item)):
@@ -11,7 +12,7 @@ if (!empty($item)):
         <a href="/<?= $slug; ?>"><?= $title; ?></a>
         <?php if ($parent): ?>
             <ul>
-                <?= $this->getMenuHtml($item->childs); ?>
+                <?= self::getMenuHtml($item->childs); ?>
             </ul>
         <?php endif; ?>
     </li>

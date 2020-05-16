@@ -65,7 +65,7 @@
                                 @if (!empty($table))
                                     {!! Menu::init(
                                         [
-                                            'tpl' => '/select_admin',
+                                            'tpl' => 'select_admin',
                                             'sql' => "SELECT id, parent_id, title FROM $table ORDER BY id DESC",
                                             'container' => 'select',
                                             'cache' => false,
@@ -146,5 +146,5 @@
             @endif
         </div>
     </div>
-    {!! $constructor::stickyScript() !!}
+    {!! config('admin.sticky_submit') ? $constructor::stickyScript() : null !!}
 @endsection

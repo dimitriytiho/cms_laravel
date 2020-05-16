@@ -47,6 +47,7 @@ return [
     'Status' => 'Статус',
     'Note' => 'Заметки',
     'Create_item' => 'Создать элемент',
+    'Create_group' => 'Создать группу',
     'Create_new_menu' => 'Создать новое меню',
 
     'Server_space' => 'Место на сервере',
@@ -134,5 +135,7 @@ return [
     'creating_model_to_export' => 'Создадим модель для экспорта из эксель',
 
     'first_create_menu' => 'Сначала создайте меню.',
+    'Filter_group' => 'Группы фильтров',
+    'Filter_value' => 'Фильтры',
 
 ];

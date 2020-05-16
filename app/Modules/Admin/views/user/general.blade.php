@@ -132,5 +132,5 @@
             @endif
         </div>
     </div>
-    {!! $constructor::stickyScript() !!}
+    {!! config('admin.sticky_submit') ? $constructor::stickyScript() : null !!}
 @endsection

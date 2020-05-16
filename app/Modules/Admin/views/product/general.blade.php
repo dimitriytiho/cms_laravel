@@ -93,16 +93,16 @@
                                         Виджет меню--}}
                                         {!! Menu::init(
                                             [
-                                                'tpl' => '/select_admin_category',
-                                            'sql' => "SELECT id, parent_id, title FROM categories ORDER BY id DESC",
-                                            'container' => 'select',
-                                            'cache' => false,
-                                            'class' => 'form-control custom-select',
-                                            'attrs' => [
-                                                'name' => 'category_id',
-                                                'id' => 'select-product-category',
-                                            ],
-                                            'prepend' => '<option value="0"> ' . __("{$lang}::s.choose") . ' </option>',
+                                                'tpl' => 'select_admin_category',
+                                                'sql' => "SELECT id, parent_id, title FROM categories ORDER BY id DESC",
+                                                'container' => 'select',
+                                                'cache' => false,
+                                                'class' => 'form-control custom-select',
+                                                'attrs' => [
+                                                    'name' => 'category_id',
+                                                    'id' => 'select-product-category',
+                                                ],
+                                                'prepend' => '<option value="0"> ' . __("{$lang}::s.choose") . ' </option>',
                                             ]
                                         ) !!}
                                     </div>
@@ -230,5 +230,5 @@
             @endif
         </div>
     </div>
-    {!! $constructor::stickyScript() !!}
+    {!! config('admin.sticky_submit') ? $constructor::stickyScript() : null !!}
 @endsection

@@ -38,9 +38,6 @@ class SearchController extends AppController
 
         if ($query) {
             Main::set('search_query', $query);
-            $perPage = config('add.pagination');
-
-
 
 
             // Если используется несколько таблиц, то добавить SQL запрос
@@ -61,7 +58,7 @@ class SearchController extends AppController
                 ->select([DB::raw("'{$this->routeSearch}' as route"), 'id', 'title', 'slug'])
                 ->where('status', $this->statusActive)
                 ->where('title', 'LIKE', "%{$query}%")
-                ->paginate($perPage);
+                ->paginate($this->perPage);
         }
 
         Main::viewExists("{$this->viewPathModule}.{$this->view}_index", __METHOD__);

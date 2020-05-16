@@ -15,11 +15,12 @@ class CreateMenuTable extends Migration
     {
         Schema::create('menu', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('menu_name_id')->unsigned();
-            $table->foreign('menu_name_id')->references('id')->on('menu_name');
+            $table->integer('belong_id')->unsigned();
+            $table->foreign('belong_id')->references('id')->on('menu_name')->onDelete('cascade');
+            $table->integer('parent_id')->default('0')->unsigned();
+            $table->foreign('parent_id')->references('id')->on('menu_name');
             $table->string('title', 64)->nullable();
             $table->index('title');
-            $table->integer('parent_id')->unsigned()->default('0');
             $table->string('slug', 255)->nullable();
             $table->string('target', 64)->nullable();
             $table->string('item', 64)->nullable();

@@ -12,15 +12,20 @@ use Illuminate\Support\Str;
 
 class MenuController extends AppController
 {
+    private $parentTable = 'menu_name';
+
+
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $parentTable = $this->parentTable;
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $model = $this->model = '\App\\Modules\\Admin\\Models\\' . $this->class;
         $table = $this->table = with(new $model)->getTable();
         $route = $this->route = $request->segment(2);
         $view = $this->view = Str::snake($this->class);
-        View::share(compact('class','model', 'table', 'route', 'view'));
+        View::share(compact('class','model', 'table', 'route', 'view', 'parentTable'));
     }
 
     /**
@@ -30,35 +35,38 @@ class MenuController extends AppController
      */
     public function index(Request $request)
     {
-        // Записывается в куку текущее меню
-        if ($request->query('value')) {
-            return redirect()->route("admin.{$this->route}.index")->withCookie('current_menu_id', $request->query('value'), config('admin.cookie'));
+        // Если через Get передаётся значение, то записывается в куку текущее меню
+        $queryValue = $request->query('value');
+        if ($queryValue) {
+            return redirect()->back()->withCookie("{$this->view}_id", $request->query('value'), config('admin.cookie'));
         }
 
-        $current_menu_id = $request->cookie('current_menu_id');
-        if (!$current_menu_id) {
-            $current_menu = DB::table('menu_name')->first();
-            $current_menu_id = $current_menu ? $current_menu->id : null;
+        $currentParentId = $request->cookie("{$this->view}_id");
+        $countParent = DB::table($this->parentTable)->count();
+
+        if (!$currentParentId && $countParent) {
+            $currentParent = DB::table($this->parentTable)->first();
+            $currentParentId = $currentParent->id;
+
+            return redirect()->back()->withCookie("{$this->view}_id", $currentParentId, config('admin.cookie'));
         }
 
         $f = __FUNCTION__;
         Main::viewExists("{$this->view}.$f", __METHOD__);
 
-        $menu = null;
+        $parentValues = null;
         $values = null;
 
-        // Если в таблице menu_name нет элементов, то ничего нельзя добавить в таблицу menu
-        $menuNameCount = DB::table('menu_name')->count();
-        $menuNameCount = $menuNameCount >= 1;
+        // Если в родительской таблице нет элементов, то ничего нельзя добавить
+        $parentCount = DB::table($this->parentTable)->count();
 
-        if ($menuNameCount) {
-            $menu = DB::table('menu_name')->select('id', 'title')->get();
-            $perpage = config('admin.settings.pagination');
-            $values = DB::table($this->table)->where('menu_name_id', $current_menu_id)->paginate($perpage);
+        if ($parentCount > 0) {
+            $parentValues = DB::table($this->parentTable)->select('id', 'title')->get();
+            $values = DB::table($this->table)->where('belong_id', $currentParentId)->paginate($this->perPage);
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.$f", compact('menu', 'values', 'current_menu_id', 'menuNameCount'));
+        return view("{$this->view}.{$f}", compact('parentValues', 'values', 'currentParentId', 'parentCount'));
     }
 
     /**
@@ -71,18 +79,26 @@ class MenuController extends AppController
         $f = __FUNCTION__;
         Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
-        $current_menu_id = $request->cookie('current_menu_id');
-        if (!$current_menu_id) {
-            $current_menu = DB::table('menu_name')->first();
-            $current_menu_id = $current_menu ? $current_menu->id : null;
-        }
-        $menuName = DB::table('menu_name')->find($current_menu_id);
+        $countParent = DB::table($this->parentTable)->count();
+        $queryCookie = $request->cookie("{$this->view}_id");
 
-        // Если в таблице menu_name нет элементов, то ничего нельзя добавить в таблицу menu и поэтому не показываем в виде форму добавления
-        $values = DB::table('menu_name')->count();
+        // Записывается в куку текущее меню
+        if ($countParent && !$queryCookie) {
+            return redirect()->back()->withCookie("{$this->view}_id", $request->query('value'), config('admin.cookie'));
+        }
+
+        $currentParentId = $request->cookie("{$this->view}_id");
+        if (!$currentParentId) {
+            $current_menu = DB::table($this->parentTable)->first();
+            $currentParentId = $current_menu->count() > 0 ? $current_menu->id : null;
+        }
+        $parentValues = DB::table($this->parentTable)->find($currentParentId);
+
+        // Если в родительской таблице нет элементов, то ничего нельзя добавить и поэтому не показываем в виде форму добавления
+        $values = DB::table($this->parentTable)->count();
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}", compact('current_menu_id', 'values', 'menuName'));
+        return view("{$this->view}.{$this->template}", compact('currentParentId', 'values', 'parentValues'));
     }
 
     /**
@@ -144,17 +160,16 @@ class MenuController extends AppController
             $f = __FUNCTION__;
             Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
-            $current_menu_id = null;
+            $currentParentId = null;
             $values = null;
-            $menuName = null;
+            $parentValues = null;
 
-            // Если в таблице menu_name нет элементов, то ничего нельзя добавить в таблицу menu
-            $menuNameCount = DB::table('menu_name')->count();
-            $menuNameCount = $menuNameCount >= 1;
+            // Если в родительской таблице нет элементов, то ничего нельзя добавить
+            $parentCount = DB::table($this->parentTable)->count();
 
-            if ($menuNameCount) {
-                $current_menu_id = \Illuminate\Support\Facades\Request::cookie('current_menu_id') ?: 1;
-                $menuName = DB::table('menu_name')->find($current_menu_id);
+            if ($parentCount > 0) {
+                $currentParentId = request()->cookie("{$this->view}_id") ?: 1;
+                $parentValues = DB::table($this->parentTable)->find($currentParentId);
                 $values = DB::table($this->table)->find((int)$id);
             }
 
@@ -167,7 +182,7 @@ class MenuController extends AppController
             $getIdParents = appHelpers::getIdParents($values->id ?? null, $this->table);
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'current_menu_id', 'menuName'));
+            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'currentParentId', 'parentValues'));
         }
 
         // Сообщение об ошибке
@@ -193,10 +208,6 @@ class MenuController extends AppController
             $data = $request->all();
 
             $values = $this->model::find((int)$id);
-
-            // Уникальный slug
-            /*$data['menu_name_id'] = $data['menu_name_id'] ?? 1;
-            $data['slug'] = Slug::checkRecursion($this->table, $data['slug'], null, $values->id, 'menu_name_id', $data['menu_name_id']);*/
 
             // Если нет сортировки, то по-умолчанию 500
             $data['sort'] = empty($data['sort']) ? 500 : $data['sort'];

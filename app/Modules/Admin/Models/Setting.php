@@ -96,6 +96,38 @@ class Setting extends Model
                     'slug' => '/product/create',
                     'item' => 'add',
                 ],
+
+                // Filters
+                20 => [
+                    'title' => 'Filter_group',
+                    'controller' => 'FilterGroup',
+                    'parent_id' => null,
+                    'slug' => '/filter-group',
+                    'item' => 'tune',
+                    'add' => 22, // Добавляется Filter_value
+                ],
+                21 => [
+                    'title' => 'Create_group',
+                    'controller' => 'FilterGroup',
+                    'parent_id' => 20,
+                    'slug' => '/filter-value/create',
+                    'item' => 'add',
+                ],
+                22 => [
+                    'title' => 'Filter_value',
+                    'controller' => 'FilterValue',
+                    'parent_id' => 20,
+                    'slug' => '/filter-value',
+                    'item' => 'tune',
+                    'add' => 20, // Добавляется Filter_groups
+                ],
+                23 => [
+                    'title' => 'Create_item',
+                    'controller' => 'FilterValue',
+                    'parent_id' => 22,
+                    'slug' => '/filter-value/create',
+                    'item' => 'add',
+                ],
             ];
         }
 

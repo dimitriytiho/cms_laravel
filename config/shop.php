@@ -21,6 +21,14 @@ return [
         'price',
     ],
 
+    // Виды фильтра
+    'filter_type' => [
+        'checkbox', // Первое значение по-умолчанию
+        'radio',
+        'select',
+        'range',
+    ],
+
     // Виды доставки
     'delivery' => [
         'courier', // Курьером

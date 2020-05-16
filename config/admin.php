@@ -57,6 +57,9 @@ return [
     // Выбор редактора для контента
     'editor' => 'codemirror', // Есть варианты: codemirror, ckeditor,
 
+    // Прилипающая кнопка отправить
+    'sticky_submit' => true,
+
     // Статусы заказов
     'order_statuses' => [
         'new', // Должен быть первый new статус, т.е. новый

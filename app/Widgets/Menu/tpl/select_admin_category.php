@@ -4,6 +4,7 @@ use App\Main;
 use Illuminate\Support\Facades\Lang;
 
 
+$params = $params ?? null;
 $lang = lang();
 $id = $id ?? null;
 $tab = $tab ?? null;
@@ -18,6 +19,6 @@ if (!empty($item)):
     <?php
 
     if (isset($item->childs)):
-        echo $this->getMenuHtml($item->childs, "{$tab}-");
+        echo self::getMenuHtml($item->childs, "{$tab}-");
     endif;
 endif;

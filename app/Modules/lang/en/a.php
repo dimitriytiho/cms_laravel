@@ -47,6 +47,7 @@ return [
     'Status' => 'Status',
     'Note' => 'Note',
     'Create_item' => 'Create item',
+    'Create_group' => 'Create group',
     'Create_new_menu' => 'Create new menu',
 
     'Server_space' => 'Server space',
@@ -133,5 +134,7 @@ return [
     'creating_model_to_export' => 'Creating a model to export from Excel',
 
     'first_create_menu' => 'First create a menu.',
+    'Filter_group' => 'Filter group',
+    'Filter_value' => 'Filters',
 
 ];

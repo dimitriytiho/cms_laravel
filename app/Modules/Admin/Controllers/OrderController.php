@@ -32,9 +32,8 @@ class OrderController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.$f", __METHOD__);
-        $perpage = config('admin.settings.pagination');
-        //$values = $this->model::paginate($perpage); // Такой запрос, если используется связь к таблице пользователей
+        Main::viewExists("{$this->view}.{$f}", __METHOD__);
+        //$values = $this->model::paginate($this->perPage); // Такой запрос, если используется связь к таблице пользователей
 
 
         // Поиск. Массив гет ключей для поиска
@@ -49,15 +48,15 @@ class OrderController extends AppController
 
         // Если есть строка поиска
         if ($col && $cell) {
-            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($perpage);
+            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($this->perPage);
 
         // Иначе выборка всех элементов из БД
         } else {
-            $values = $this->model::paginate($perpage);
+            $values = $this->model::paginate($this->perPage);
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.$f", compact('values', 'queryArr', 'col', 'cell'));
+        return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
     }
 
     /**

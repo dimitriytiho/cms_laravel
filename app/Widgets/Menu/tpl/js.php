@@ -8,7 +8,7 @@ if (!empty($item)) {
         $part .= "{$k}: '{$v}',";
 
         if ($k === 'childs') {
-            $part .= "{$k}: {" . $this->getMenuHtml($item->childs) . '},';
+            $part .= "{$k}: {" . self::getMenuHtml($item->childs) . '},';
         }
     }
     $part = rtrim($part, ',');

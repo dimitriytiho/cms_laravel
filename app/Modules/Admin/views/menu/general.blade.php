@@ -5,13 +5,13 @@
 
 --}}
 @section('content')
-    @if ($values && !empty($menuName))
-        @if (isset($menuName->title))
+    @if ($values && $parentValues)
+        @if (isset($parentValues->title))
             <div class="row">
                 <div class="col">
                     <p>
                         <span class="text-secondary">@lang("{$lang}::a.selected"):&nbsp;</span>
-                        <span>{{ $menuName->title }}</span>
+                        <span>{{ $parentValues->title }}</span>
                     </p>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                         @method('put')
                     @endif
                     @csrf
-                    {!! hidden('menu_name_id', $values->menu_name_id ?? $current_menu_id) !!}
+                    {!! hidden('belong_id', $values->belong_id ?? $currentParentId) !!}
                     {!! input('title', $values->title ?? null, null) !!}
 
                     <div class="d-flex justify-content-between w-100">
@@ -42,11 +42,11 @@
                                 {{--
 
                                 Виджет меню--}}
-                                @if (!empty($table) && !empty($menuName->id))
+                                @if (!empty($table))
                                     {!! Menu::init(
                                         [
-                                            'tpl' => '/select_admin',
-                                            'sql' => "SELECT id, parent_id, title FROM $table WHERE menu_name_id = {$menuName->id} ORDER BY id DESC",
+                                            'tpl' => 'select_admin',
+                                            'sql' => "SELECT id, parent_id, title FROM $table ORDER BY id DESC",
                                             'container' => 'select',
                                             'cache' => false,
                                             'class' => 'form-control custom-select',
@@ -112,5 +112,5 @@
     @else
         <h5>@lang("{$lang}::a.first_create_menu")</h5>
     @endif
-    {!! $constructor::stickyScript() !!}
+    {!! config('admin.sticky_submit') ? $constructor::stickyScript() : null !!}
 @endsection

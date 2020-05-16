@@ -48,6 +48,10 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
         Route::resource('order', 'OrderController')->only(['index', 'show', 'update', 'destroy']);
         Route::resource('category', 'CategoryController')->except(['show']);
         Route::resource('product', 'ProductController')->except(['show']);
+
+        // Filters
+        Route::resource('filter-group', 'FilterGroupController')->except(['show']);
+        Route::resource('filter-value', 'FilterValueController')->except(['show']);
     }
 
 

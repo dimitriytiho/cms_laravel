@@ -4,16 +4,16 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
-use App\Modules\Admin\Models\MenuName;
+use App\Modules\Admin\Models\FilterGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
-class MenuNameController extends AppController
+class FilterGroupController extends AppController
 {
-    private $belongsTable = 'menu';
-    private $belongsController = 'Menu';
+    private $belongsTable = 'filter_values';
+    private $belongsController = 'FilterValues';
     private $belongsView;
 
 
@@ -77,7 +77,7 @@ class MenuNameController extends AppController
             $this->validate($request, $rules);
             $data = $request->all();
 
-            $values = new MenuName();
+            $values = new FilterGroup();
             $values->fill($data);
 
             if ($values->save()) {

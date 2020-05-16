@@ -34,8 +34,7 @@ class ProductController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.$f", __METHOD__);
-        $perpage = config('admin.settings.pagination');
+        Main::viewExists("{$this->view}.{$f}", __METHOD__);
 
         // Поиск. Массив гет ключей для поиска
         $queryArr = [
@@ -50,15 +49,15 @@ class ProductController extends AppController
 
         // Если есть строка поиска
         if ($col && $cell) {
-            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($perpage);
+            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($this->perPage);
 
         // Иначе выборка всех элементов из БД
         } else {
-            $values = $this->model::paginate($perpage);
+            $values = $this->model::paginate($this->perPage);
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.$f", compact('values', 'queryArr', 'col', 'cell'));
+        return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
     }
 
     /**
@@ -85,8 +84,8 @@ class ProductController extends AppController
     {
         if ($request->isMethod('post')) {
             $rules = [
-                'title' => 'required',
-                'slug' => 'required',
+                'title' => 'required|string|max:190',
+                'slug' => "required|string|unique:{$this->table}|max:190",
                 'price' => 'required',
             ];
             $this->validate($request, $rules);
@@ -195,8 +194,8 @@ class ProductController extends AppController
     {
         if ((int)$id && $request->isMethod('put')) {
             $rules = [
-                'title' => 'required',
-                'slug' => 'required',
+                'title' => 'required|string|max:190',
+                'slug' => "required|string|unique:{$this->table},slug,{$id}|max:190",
             ];
             $this->validate($request, $rules);
             $data = $request->all();

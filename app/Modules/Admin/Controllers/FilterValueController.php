@@ -4,32 +4,28 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
-use App\Modules\Admin\Models\MenuName;
+use App\Modules\Admin\Models\FilterValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
-class MenuNameController extends AppController
+class FilterValueController extends AppController
 {
-    private $belongsTable = 'menu';
-    private $belongsController = 'Menu';
-    private $belongsView;
+    private $parentTable = 'menu_name';
 
 
     public function __construct(Request $request)
     {
         parent::__construct($request);
 
-        $belongsTable = $this->belongsTable;
-        $this->belongsView = Str::snake($this->belongsController);
-
+        $parentTable = $this->parentTable;
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $model = $this->model = '\App\\Modules\\Admin\\Models\\' . $this->class;
         $table = $this->table = with(new $model)->getTable();
         $route = $this->route = $request->segment(2);
         $view = $this->view = Str::snake($this->class);
-        View::share(compact('class','model', 'table', 'route', 'view', 'belongsTable'));
+        View::share(compact('class','model', 'table', 'route', 'view', 'parentTable'));
     }
 
     /**
@@ -37,15 +33,40 @@ class MenuNameController extends AppController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Если через Get передаётся значение, то записывается в куку текущее меню
+        $queryValue = $request->query('value');
+        if ($queryValue) {
+            return redirect()->back()->withCookie("{$this->view}_id", $request->query('value'), config('admin.cookie'));
+        }
+
+        $currentParentId = $request->cookie("{$this->view}_id");
+        $countParent = DB::table($this->parentTable)->count();
+
+        if (!$currentParentId && $countParent) {
+            $currentParent = DB::table($this->parentTable)->first();
+            $currentParentId = $currentParent->id;
+
+            return redirect()->back()->withCookie("{$this->view}_id", $currentParentId, config('admin.cookie'));
+        }
+
         $f = __FUNCTION__;
         Main::viewExists("{$this->view}.{$f}", __METHOD__);
 
-        $values = DB::table($this->table)->paginate($this->perPage);
+        $parentValues = null;
+        $values = null;
+
+        // Если в родительской таблице нет элементов, то ничего нельзя добавить
+        $parentCount = DB::table($this->parentTable)->count();
+
+        if ($parentCount > 0) {
+            $parentValues = DB::table($this->parentTable)->select('id', 'title')->get();
+            $values = DB::table($this->table)->where('belong_id', $currentParentId)->paginate($this->perPage);
+        }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.{$f}", compact('values'));
+        return view("{$this->view}.{$f}", compact('parentValues', 'values', 'currentParentId', 'parentCount'));
     }
 
     /**
@@ -53,13 +74,31 @@ class MenuNameController extends AppController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $f = __FUNCTION__;
         Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
+        $countParent = DB::table($this->parentTable)->count();
+        $queryCookie = $request->cookie("{$this->view}_id");
+
+        // Записывается в куку текущее меню
+        if ($countParent && !$queryCookie) {
+            return redirect()->back()->withCookie("{$this->view}_id", $request->query('value'), config('admin.cookie'));
+        }
+
+        $currentParentId = $request->cookie("{$this->view}_id");
+        if (!$currentParentId) {
+            $current_menu = DB::table($this->parentTable)->first();
+            $currentParentId = $current_menu->count() > 0 ? $current_menu->id : null;
+        }
+        $parentValues = DB::table($this->parentTable)->find($currentParentId);
+
+        // Если в родительской таблице нет элементов, то ничего нельзя добавить и поэтому не показываем в виде форму добавления
+        $values = DB::table($this->parentTable)->count();
+
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}");
+        return view("{$this->view}.{$this->template}", compact('currentParentId', 'values', 'parentValues'));
     }
 
     /**
@@ -72,12 +111,13 @@ class MenuNameController extends AppController
     {
         if ($request->isMethod('post')) {
             $rules = [
-                'title' => "required|string|unique:{$this->table},title|max:64",
+                'slug' => "required|string|max:190",
             ];
             $this->validate($request, $rules);
             $data = $request->all();
+            //$data['slug'] = Slug::checkRecursion($this->table, $data['slug']);
 
-            $values = new MenuName();
+            $values = new FilterValue();
             $values->fill($data);
 
             if ($values->save()) {
@@ -120,13 +160,29 @@ class MenuNameController extends AppController
             $f = __FUNCTION__;
             Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
-            $values = DB::table($this->table)->find((int)$id);
+            $currentParentId = null;
+            $values = null;
+            $parentValues = null;
+
+            // Если в родительской таблице нет элементов, то ничего нельзя добавить
+            $parentCount = DB::table($this->parentTable)->count();
+
+            if ($parentCount > 0) {
+                $currentParentId = request()->cookie("{$this->view}_id") ?: 1;
+                $parentValues = DB::table($this->parentTable)->find($currentParentId);
+                $values = DB::table($this->table)->find((int)$id);
+            }
+
+            // Записать в реестр parent_id
+            if (!empty($values->parent_id)) {
+                Main::set('parent_id', $values->parent_id);
+            }
 
             // Потомки в массиве
-            $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable, "{$this->table}_id");
+            $getIdParents = appHelpers::getIdParents($values->id ?? null, $this->table);
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents'));
+            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'currentParentId', 'parentValues'));
         }
 
         // Сообщение об ошибке
@@ -146,18 +202,21 @@ class MenuNameController extends AppController
     {
         if ((int)$id && $request->isMethod('put')) {
             $rules = [
-                'title' => "required|string|unique:{$this->table},title,{$id}|max:64",
+                'slug' => "required|string|max:190",
             ];
             $this->validate($request, $rules);
             $data = $request->all();
 
             $values = $this->model::find((int)$id);
-            $values->fill($data);
 
+            // Если нет сортировки, то по-умолчанию 500
+            $data['sort'] = empty($data['sort']) ? 500 : $data['sort'];
+            $values->fill($data);
 
             // Если данные не изменины
             $lastData = $this->model::find((int)$id)->toArray();
             $current = $values->toArray();
+
             if (!appHelpers::arrayDiff($lastData, $current)) {
 
                 // Сообщение об ошибке
@@ -191,13 +250,12 @@ class MenuNameController extends AppController
     public function destroy($id)
     {
         if ((int)$id) {
-
             $values = $this->model::find((int)$id);
 
             if ($values) {
 
                 // Если есть потомки, то ошибка
-                $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable, "{$this->table}_id");
+                $getIdParents = appHelpers::getIdParents((int)$id, $this->table);
                 if ($getIdParents) {
                     session()->put('error', __("{$this->lang}::s.remove_not_possible") . ', ' . __("{$this->lang}::s.there_are_nested") . ' #');
                     return redirect()->route("admin.{$this->route}.index");
@@ -210,15 +268,6 @@ class MenuNameController extends AppController
 
                     // Сообщение об успехе
                     session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
-
-                    // Если удаляется id, который записан в куку, то перезапишем в куку id другого меню
-                    $cookie = request()->cookie("{$this->belongsView}_id");
-                    if ($cookie && $cookie == $id) {
-                        $newCookie = DB::table($this->table)->first()->id;
-
-                        return redirect()->route("admin.{$this->route}.index")->withCookie("{$this->belongsView}_id", $newCookie, config('admin.cookie'));
-                    }
-
                     return redirect()->route("admin.{$this->route}.index");
                 }
             }

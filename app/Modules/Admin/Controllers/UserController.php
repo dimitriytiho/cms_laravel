@@ -39,9 +39,8 @@ class UserController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.$f", __METHOD__);
-        $perpage = config('admin.settings.pagination');
-        //$values = $this->model::with('role')->paginate($perpage);
+        Main::viewExists("{$this->view}.{$f}", __METHOD__);
+        //$values = $this->model::with('role')->paginate($this->perPage);
 
         // Поиск. Массив гет ключей для поиска
         $queryArr = [
@@ -64,15 +63,15 @@ class UserController extends AppController
 
         // Если есть строка поиска
         if ($col && $cell) {
-            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($perpage);
+            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($this->perPage);
 
             // Иначе выборка всех элементов из БД
         } else {
-            $values = $this->model::paginate($perpage);
+            $values = $this->model::paginate($this->perPage);
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.$f", compact('values', 'queryArr', 'col', 'cell'));
+        return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
     }
 
     /**
@@ -115,10 +114,10 @@ class UserController extends AppController
         if ($request->isMethod('post')) {
             $rules = [
                 'name' => 'required|string|max:190',
-                'email' => "required|string|email|unique:users,email|max:190",
-                //'tel' => 'required|string|max:190',
+                'email' => "required|string|email|unique:{$this->table},email|max:190",
                 'password' => 'required|string|min:6|same:password_confirmation',
                 'role_id' => 'required|integer',
+                //'tel' => 'required|string|max:190',
             ];
             $this->validate($request, $rules);
             $data = $request->all();
@@ -231,10 +230,10 @@ class UserController extends AppController
         if ((int)$id && $request->isMethod('put')) {
             $rules = [
                 'name' => 'required|string|max:190',
-                'email' => "required|string|email|unique:users,email,{$id}|max:190",
-                //'tel' => 'required|string|max:190',
+                'email' => "required|string|email|unique:{$this->table},email,{$id}|max:190",
                 'role_id' => 'required|integer',
                 //'password' => 'same:password_confirmation',
+                //'tel' => 'required|string|max:190',
             ];
             $this->validate($request, $rules);
             $data = $request->all();

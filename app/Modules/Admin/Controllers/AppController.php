@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
 
 class AppController extends Controller
 {
-    //protected $area = 'AREA_ADMIN'; // Название области видимости из env файла
     protected $module = 'Admin'; // Название модуля
     protected $m;
     protected $viewPath;
@@ -38,6 +37,8 @@ class AppController extends Controller
     protected $imgRequestName;
     protected $imgUploadID;
 
+    protected $perPage;
+
 
     public function __construct(Request $request)
     {
@@ -56,6 +57,8 @@ class AppController extends Controller
         $namespaceHelpers = $this->namespaceHelpers = "{$this->namespace}\\{$this->module}\\Helpers";
         $constructor = $this->constructor = "{$namespaceHelpers}\\Constructor";
         $modulesPath = $this->modulePath = "{$modulesPath}/{$this->module}";
+
+        $this->perPage = config('admin.settings.pagination');
 
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
         $viewPath = $this->viewPath  = 'views';

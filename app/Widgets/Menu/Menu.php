@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 class Menu
 {
     // Настройки виджета
-    private $options = [
+    private static $options = [
 
         // Общие
         'tpl' => 'default', // Передать название шаблона из папки tpl
@@ -34,11 +34,12 @@ class Menu
 
 
 
+
     // Входной основной метод
     public static function init($params = [])
     {
-        $params = self::getParams($params);
-        self::run($params);
+        self::getParams($params);
+        self::run();
     }
 
 
@@ -47,27 +48,29 @@ class Menu
     // Заполняем настройки
     private static function getParams($params = [])
     {
-        $self = new self();
         $data = [];
         $name = class_basename(__CLASS__);
 
-        foreach ($self->options as $propName => $value) {
+        foreach (self::$options as $propName => $value) {
             isset($params[$propName]) ? $data[$propName] = $params[$propName] : $data[$propName] = $value;
         }
 
         // Назначим шаблон html
-        $data['tpl'] = is_file(__DIR__ . "{$data['tpl']}.php") ? __DIR__ . "{$data['tpl']}.php" : __DIR__ . '/tpl/default.php';
+        $data['tpl'] = is_file(__DIR__ . "/tpl/{$data['tpl']}.php") ? __DIR__ . "/tpl/{$data['tpl']}.php" : __DIR__ . '/tpl/default.php';
 
         // Если не передаётся cacheName, то будет имя шаблона меню tpl
         $data['cacheName'] = $data['cacheName'] ?: "{$name}_{$data['tpl']}";
 
-        return $data;
+        self::$options = $data;
+        return;
     }
 
 
     // Получаем данные
-    private static function run($params)
+    private static function run()
     {
+        $params = self::$options;
+
         // Если не существует таблица
         if (!Schema::hasTable($params['table'])) {
             return false;
@@ -79,8 +82,9 @@ class Menu
 
             if ($params['sql']) {
                 $data = DB::select($params['sql']);
-                if (!empty($data)) {
 
+                // Ключи массива заменяем на id
+                if (!empty($data)) {
                     foreach ($data as $v) {
                         $dataSql[$v->id] = $v;
                     }
@@ -97,20 +101,22 @@ class Menu
                 return false;
             }
 
-            $tree = self::getTree($params, $data);
-            $menuHtml = self::getMenuHtml($params, $tree);
+            $tree = self::getTree($data);
+            $menuHtml = self::getMenuHtml($tree);
             if ($params['cache']) {
                 cache()->forever($params['cacheName'], $menuHtml);
             }
         }
-        self::output($params, $menuHtml);
+        self::output($menuHtml);
     }
 
 
     // Редактируем Html
-    private static function output($params, $menuHtml)
+    private static function output($menuHtml)
     {
+        $params = self::$options;
         $attrs = '';
+
         if (!empty($params['attrs'])) {
             foreach ($params['attrs'] as $k => $v) {
                 $attrs .= " {$k}='{$v}' ";
@@ -125,9 +131,11 @@ class Menu
 
 
     // Строим дерево
-    private static function getTree($params, $data)
+    private static function getTree($data)
     {
+        $params = self::$options;
         $tree = [];
+
         if ($params['submenu']) {
             $tree = $tree[$params['submenu']]->childs;
 
@@ -150,21 +158,24 @@ class Menu
 
 
     // В цикле вызываем передаём данные в шаблон Html
-    private static function getMenuHtml($params, $tree, $tab = '')
+    private static function getMenuHtml($tree, $tab = '')
     {
         $str = '';
         $i = 0;
+
         foreach ($tree as $id => $item) {
             $i++;
-            $str .= self::toTemplate($params, $item, $tab, $id, $i);
+            $str .= self::toTemplate($item, $tab, $id, $i);
         }
         return $str;
     }
 
 
     // В шаблон передаются массив с данными из БД ($item), $tab - показывает вложенность (к примеру можно использовать дефис -, $id - id, $i - счётчик)
-    private static function toTemplate($params, $item, $tab, $id, $i)
+    private static function toTemplate($item, $tab, $id, $i)
     {
+        $params = self::$options;
+
         ob_start();
         include $params['tpl'];
         return ob_get_clean();
