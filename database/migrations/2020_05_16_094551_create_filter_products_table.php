@@ -15,9 +15,9 @@ class CreateFilterProductsTable extends Migration
     {
         Schema::create('filter_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('value_id')->unsigned();
+            $table->integer('filter_value_id')->unsigned();
+            $table->foreign('filter_value_id')->references('id')->on('filter_values');
             $table->integer('product_id')->unsigned();
-            $table->foreign('value_id')->references('id')->on('filter_values');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }

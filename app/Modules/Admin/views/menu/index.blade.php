@@ -35,7 +35,7 @@
                                     </a>
                                 </th>
                                 <td class="font-weight-light">{{ $v->id }}</td>
-                                <td>{{ $v->title }}</td>
+                                <td>{{ Lang::has("{$lang}::t.{$v->title}") ? __("{$lang}::t.{$v->title}") : $v->title }}</td>
                                 <td class="font-weight-light">{{ $v->slug }}</td>
                             </tr>
                         @endforeach

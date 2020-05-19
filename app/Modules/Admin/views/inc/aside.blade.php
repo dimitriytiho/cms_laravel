@@ -4,7 +4,7 @@
             @foreach ($menuAside as $v)
                 @if (!$v['parent_id'] && !(in_array($v['controller'], config('admin.editor_section_banned')) && !$isAdmin))
                     <li class="position-relative py-2 transition">
-                        <a href="{{ route('admin.main') . $v['slug'] }}" class="d-flex align-items-center py-1 px-2 aside__a" data-title="{{ $v['controller'] ?: $v['title'] }}">
+                        <a href="{{ route('admin.main') . $v['slug'] }}" class="d-flex align-items-center py-1 px-2 aside__a @if ($v['request'] === 'main' && request()->url() === route('admin.main') || HelpersAdd::inRequestStr($v['request']))active @endif" data-title="{{ $v['controller'] ?: $v['title'] }}">
                             <i aria-hidden="true" class="material-icons pr-3" title="@lang("{$lang}::a.{$v['title']}")">{{ $v['item'] }}</i>
                             <span class="aside-text fadein"{!! $asideText !!}>@lang("{$lang}::a.{$v['title']}")</span>
                         </a>

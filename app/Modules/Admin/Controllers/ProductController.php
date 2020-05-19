@@ -6,6 +6,7 @@ use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Helpers\Img;
 use App\Modules\Admin\Helpers\Slug;
+use App\Modules\Admin\Models\FilterProduct;
 use App\Modules\Admin\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -153,6 +154,9 @@ class ProductController extends AppController
 
             $values = $this->model::with('category')->find((int)$id);
 
+            $filters = DB::table('filter_values')->get();
+            $filtersActive = $this->model::with('filter_values')->find((int)$id);
+
             $gallery = DB::table("{$this->c}_gallery")->where("{$this->c}_id", $values->id)->get();
 
             // Собираем в массиве категориии, в которых этот товар и передаём их в меню select
@@ -174,7 +178,7 @@ class ProductController extends AppController
             $imgUploadID = $this->imgUploadID = $values->id;
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'imgRequestName', 'imgUploadID', 'gallery'));
+            return view("{$this->view}.{$this->template}", compact('values', 'filters', 'filtersActive', 'imgRequestName', 'imgUploadID', 'gallery'));
         }
 
         // Сообщение об ошибке

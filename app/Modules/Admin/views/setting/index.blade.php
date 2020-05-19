@@ -55,7 +55,7 @@
             <div class="col">
                 <div class="border text-secondary rounded my-4 p-4">
                     <span class="font-weight-light">@lang("{$lang}::a.example_use_in_views")</span>
-                    <span>@{{ \App\Main::site('name') }}</span>
+                    <span>@{{ Main::site('name') }}</span>
                 </div>
             </div>
         </div>

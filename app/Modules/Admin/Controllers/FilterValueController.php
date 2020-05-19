@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
+use App\Helpers\Add;
 use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Models\FilterValue;
@@ -12,7 +13,10 @@ use Illuminate\Support\Str;
 
 class FilterValueController extends AppController
 {
-    private $parentTable = 'menu_name';
+    private $parentTable = 'filter_groups';
+    private $parentRoute = 'filter-group';
+    private $belongsTable = 'filter_products';
+    private $belongsRoute = 'product';
 
 
     public function __construct(Request $request)
@@ -20,12 +24,15 @@ class FilterValueController extends AppController
         parent::__construct($request);
 
         $parentTable = $this->parentTable;
+        $parentRoute = $this->parentRoute;
+        $belongsTable = $this->belongsTable;
+        $belongsRoute = $this->belongsRoute;
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $model = $this->model = '\App\\Modules\\Admin\\Models\\' . $this->class;
-        $table = $this->table = with(new $model)->getTable();
-        $route = $this->route = $request->segment(2);
-        $view = $this->view = Str::snake($this->class);
-        View::share(compact('class','model', 'table', 'route', 'view', 'parentTable'));
+        $table = $this->table = with(new $model)->getTable(); // Получаем название таблицы
+        $route = $this->route = $request->segment(2); // Получаем сегмент из url
+        $view = $this->view = Str::snake($this->class); // Преобразуем в foo_bar
+        View::share(compact('class','model', 'table', 'route', 'view', 'parentTable', 'parentRoute', 'belongsTable', 'belongsRoute'));
     }
 
     /**
@@ -62,10 +69,10 @@ class FilterValueController extends AppController
 
         if ($parentCount > 0) {
             $parentValues = DB::table($this->parentTable)->select('id', 'title')->get();
-            $values = DB::table($this->table)->where('belong_id', $currentParentId)->paginate($this->perPage);
+            $values = DB::table($this->table)->where('parent_id', $currentParentId)->paginate($this->perPage);
         }
 
-        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->view)));
         return view("{$this->view}.{$f}", compact('parentValues', 'values', 'currentParentId', 'parentCount'));
     }
 
@@ -111,11 +118,10 @@ class FilterValueController extends AppController
     {
         if ($request->isMethod('post')) {
             $rules = [
-                'slug' => "required|string|max:190",
+                'value' => "required|string|max:190",
             ];
             $this->validate($request, $rules);
             $data = $request->all();
-            //$data['slug'] = Slug::checkRecursion($this->table, $data['slug']);
 
             $values = new FilterValue();
             $values->fill($data);
@@ -179,7 +185,7 @@ class FilterValueController extends AppController
             }
 
             // Потомки в массиве
-            $getIdParents = appHelpers::getIdParents($values->id ?? null, $this->table);
+            $getIdParents = appHelpers::getIdParents($values->id ?? null, $this->belongsTable, 'value_id');
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
             return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'currentParentId', 'parentValues'));
@@ -202,15 +208,15 @@ class FilterValueController extends AppController
     {
         if ((int)$id && $request->isMethod('put')) {
             $rules = [
-                'slug' => "required|string|max:190",
+                'value' => "required|string|max:190",
             ];
             $this->validate($request, $rules);
             $data = $request->all();
 
-            $values = $this->model::find((int)$id);
-
             // Если нет сортировки, то по-умолчанию 500
             $data['sort'] = empty($data['sort']) ? 500 : $data['sort'];
+
+            $values = $this->model::find((int)$id);
             $values->fill($data);
 
             // Если данные не изменины
@@ -254,11 +260,11 @@ class FilterValueController extends AppController
 
             if ($values) {
 
-                // Если есть потомки, то ошибка
-                $getIdParents = appHelpers::getIdParents((int)$id, $this->table);
+                // Если есть родители, то ошибка
+                $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable, 'value_id');
                 if ($getIdParents) {
                     session()->put('error', __("{$this->lang}::s.remove_not_possible") . ', ' . __("{$this->lang}::s.there_are_nested") . ' #');
-                    return redirect()->route("admin.{$this->route}.index");
+                    return redirect()->route("admin.{$this->route}.edit", $id);
                 }
 
                 if ($values->delete()) {

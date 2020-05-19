@@ -6,6 +6,7 @@ namespace App\Widgets\Menu;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class Menu
 {
@@ -19,7 +20,7 @@ class Menu
         'cacheName' => '', // При кэшировании передать название кэша или оно возьмётся из название tpl
 
         // Запрос Sql
-        'table' => 'menu', // Необходимо, чтобы была модель, передаваемой таблицы
+        'table' => 'menu', // Название таблицы
         'where' => [], // 'id', '7' К примеру где id = 7 или множественно [['id', '7'], ['accept', '1'],]
         'orderBy' => 'id',
         'sort' => 'desc',
@@ -50,6 +51,7 @@ class Menu
     {
         $data = [];
         $name = class_basename(__CLASS__);
+        $random = Str::random(8);
 
         foreach (self::$options as $propName => $value) {
             isset($params[$propName]) ? $data[$propName] = $params[$propName] : $data[$propName] = $value;
@@ -59,7 +61,7 @@ class Menu
         $data['tpl'] = is_file(__DIR__ . "/tpl/{$data['tpl']}.php") ? __DIR__ . "/tpl/{$data['tpl']}.php" : __DIR__ . '/tpl/default.php';
 
         // Если не передаётся cacheName, то будет имя шаблона меню tpl
-        $data['cacheName'] = $data['cacheName'] ?: "{$name}_{$data['tpl']}";
+        $data['cacheName'] = $data['cacheName'] ?: "{$name}_{$data['tpl']}_{$random}";
 
         self::$options = $data;
         return;
@@ -76,9 +78,9 @@ class Menu
             return false;
         }
 
-        $menuHtml = cache()->has($params['cacheName']) ? cache()->get($params['cacheName']) : null;
+        $html = cache()->has($params['cacheName']) ? cache()->get($params['cacheName']) : null;
 
-        if (!$menuHtml) {
+        if (!$html) {
 
             if ($params['sql']) {
                 $data = DB::select($params['sql']);
@@ -102,17 +104,19 @@ class Menu
             }
 
             $tree = self::getTree($data);
-            $menuHtml = self::getMenuHtml($tree);
+            $html = self::getMenuHtml($tree);
             if ($params['cache']) {
-                cache()->forever($params['cacheName'], $menuHtml);
+                cache()->forever($params['cacheName'], $html);
             }
         }
-        self::output($menuHtml);
+
+        self::output($html);
+        return true;
     }
 
 
     // Редактируем Html
-    private static function output($menuHtml)
+    private static function output($html)
     {
         $params = self::$options;
         $attrs = '';
@@ -125,7 +129,7 @@ class Menu
         $params['class'] = $params['class'] ? " class='{$params['class']}'" : null;
         echo $params['container'] ? "<{$params['container']}{$params['class']}{$attrs}>\n" : null;
         echo $params['prepend'];
-        echo $menuHtml;
+        echo $html;
         echo $params['container'] ? "</{$params['container']}>\n" : null;
     }
 
@@ -149,6 +153,7 @@ class Menu
                     $tree[$id] = &$node;
 
                 } else {
+
                     $data[$parent_id]->childs->$id = &$node;
                 }
             }

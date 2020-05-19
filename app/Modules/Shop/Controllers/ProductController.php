@@ -39,8 +39,7 @@ class ProductController extends AppController
             $values = $this->model::where('slug', $slug)->first();
 
         } else {
-            $status = config('add.page_statuses')[1] ?: 'active';
-            $values = $this->model::where('slug', $slug)->where('status', $status)->first();
+            $values = $this->model::where('slug', $slug)->where('status', $this->statusActive)->first();
         }
 
         // Если нет страницы

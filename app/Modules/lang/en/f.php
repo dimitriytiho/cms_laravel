@@ -54,6 +54,7 @@ return [
     'class' => 'Class',
     'attr' => 'Attribute',
     'current_menu' => 'Current menu',
+    'current_group' => 'Current group',
 
     'cyrillic' => 'Cyrillic',
     'latin' => 'Latin',

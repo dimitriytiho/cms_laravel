@@ -134,6 +134,7 @@ return [
     'creating_model_to_import' => 'Создадим модель для импорта из эксель',
     'creating_model_to_export' => 'Создадим модель для экспорта из эксель',
 
+    'Translate' => 'Переводы',
     'first_create_menu' => 'Сначала создайте меню.',
     'Filter_group' => 'Группы фильтров',
     'Filter_value' => 'Фильтры',

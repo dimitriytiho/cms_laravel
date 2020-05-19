@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Добавление активного элемента для главной
         //if (main.url === url) url += '/'
-        const dashboardLink = aside.querySelector('a[data-title=Main]')
+        /*const dashboardLink = aside.querySelector('a[data-title=Main]')
         if (url === main.url + '/' && dashboardLink) {
             dashboardLink.classList.add('active')
         }
@@ -121,11 +121,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             }
 
-            /*if (url === el.href) {
-                el.classList.add('active')
-                return false;
-            }*/
-        })
+            //if (url === el.href) {
+                //el.classList.add('active')
+                //return false;
+            //}
+        })*/
 
     }
 

@@ -15,7 +15,7 @@ class CreateFilterGroupsTable extends Migration
     {
         Schema::create('filter_groups', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 64);
+            $table->string('title', 64)->unique();
             $table->index('title');
             $table->string('type', 64)->default(config('shop.filter_type')[0]);
             $table->smallInteger('sort')->unsigned()->default('500');

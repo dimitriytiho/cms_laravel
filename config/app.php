@@ -231,10 +231,12 @@ return [
         // Добавляем алиасы
         'Main' => App\Main::class,
         'PanelDashboard' => App\Widgets\PanelDashboard\PanelDashboard::class,
+        'HelpersAdd' => App\Helpers\Add::class,
         'HelpersArr' => App\Helpers\Arr::class,
         'HelpersFile' => App\Helpers\File::class,
         'HelpersLocale' => App\Helpers\Locale::class,
         'HelpersStr' => App\Helpers\Str::class,
+        'Filter' => App\Widgets\Filter\Filter::class,
         'Menu' => App\Widgets\Menu\Menu::class,
 
     ],

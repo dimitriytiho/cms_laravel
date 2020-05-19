@@ -39,25 +39,44 @@
                 </div>
             </div>
             @if ($products)
-                <div class="row my-4">
-                    @foreach ($products as $product)
-                        <div class="col-3 mb-4">
-                            <div class="card">
-                                <a href="{{ route('product', $product->slug) }}">
-                                    <img src="{{ asset($product->img) }}" class="card-img-top" alt="{{ $product->title }}">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">
+                <div class="row my-3">
+                    <div class="col-md-3">
+                        {!! Filter::init([
+                            'cache' => false,
+                        ]) !!}
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            @foreach ($products as $product)
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
                                         <a href="{{ route('product', $product->slug) }}">
-                                            {{ $product->title }}
+                                            <img src="{{ asset($product->img) }}" class="card-img-top" alt="{{ $product->title }}">
                                         </a>
-                                    </h5>
-                                    <p class="card-text">Some quick example text to build on the card title.</p>
-                                    <a href="{{ route('cart_plus', $product->id) }}" class="btn btn-outline-dark btn-sm cart_plus" data-id="{{ $product->id }}">@lang("{$lang}::sh.add_to_cart")</a>
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <a href="{{ route('product', $product->slug) }}">
+                                                    {{ $product->title }}
+                                                </a>
+                                            </h5>
+                                            <p class="card-text">Some quick example text to build on the card title.</p>
+                                            <a href="{{ route('cart_plus', $product->id) }}" class="btn btn-outline-dark btn-sm cart_plus" data-id="{{ $product->id }}">@lang("{$lang}::sh.add_to_cart")</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
-                    @endforeach
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col d-flex justify-content-center">
+                        <div>{{ $products->links() }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="font-weight-light text-center text-secondary mt-3">{{ __("{$lang}::a.shown") . $products->count() . __("{$lang}::a.of") .  $products->total()}}</p>
+                    </div>
                 </div>
             @endif
         </div>

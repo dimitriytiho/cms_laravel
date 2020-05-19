@@ -54,6 +54,7 @@ return [
     'remove' => 'Удалить',
     'remove_not_possible' => 'Удаление невозможно',
     'there_are_nested' => 'есть вложенные',
+    'there_are_parents' => 'есть родители',
     'user_has' => 'У пользователя есть ',
     'product_is_present_in_order' => 'Товар присутствует в заказе ',
     'cancel' => 'Отмена',
@@ -89,5 +90,11 @@ return [
     'maximum_file_size' => 'Максимальный размер файла :size мб.',
     'allowed_to_upload_files' => 'Разрешены к загрузке файлы: ',
     'admin_choose_admin' => 'Роль Администратора может выбрать только Администратор.',
+    'translation_already' => 'Такой перевод уже есть.',
+
+    'checkbox' => 'Чекбокс',
+    'radio' => 'Радиокнопка',
+    'select' => 'Выпадающий список',
+    'range' => 'Ползунок',
 
 ];

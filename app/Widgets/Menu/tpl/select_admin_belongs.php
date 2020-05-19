@@ -15,7 +15,7 @@ if (!empty($item)):
     $title = $title && Lang::has($title) ? __("{$lang}::c.{$item->title}") : $title;
 
     ?>
-    <option data-title="<?= $title; ?>" value="<?= $id; ?>"<?php if (in_array($id, $disabledIDs)) echo ' disabled'; ?>><?= $tab ? "{$tab} " : null; ?><?= $title; ?></option>
+    <option data-title="<?= $title; ?>" data-title-lang="<?= Lang::has("{$lang}::t.{$title}") ? __("{$lang}::t.{$title}") : $title; ?>" value="<?= $id; ?>"<?php if (in_array($id, $disabledIDs)) echo ' disabled'; ?>><?= $tab ? "{$tab} " : null; ?><?= $title; ?></option>
     <?php
 
     if (isset($item->childs)):

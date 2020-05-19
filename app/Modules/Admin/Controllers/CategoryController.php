@@ -236,7 +236,7 @@ class CategoryController extends AppController
 
                 if ($getIdParents || $getIdProducts) {
                     session()->put('error', __('s.remove_not_possible') . ', ' . __('s.there_are_nested') . ' #');
-                    return redirect()->route("admin.{$this->route}.index");
+                    return redirect()->route("admin.{$this->route}.edit", $id);
                 }
 
                 if ($values->delete()) {

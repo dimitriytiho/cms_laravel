@@ -52,7 +52,8 @@ return [
     'removed_successfully_name' => ':name removed successfully.',
     'remove' => 'Remove',
     'remove_not_possible' => 'Remove not possible',
-    'there_are_nested' => 'есть вложенные',
+    'there_are_nested' => 'there are nested',
+    'there_are_parents' => 'there are parents',
     'user_has' => 'The user has ',
     'product_is_present_in_order' => 'The product is present in the order ',
     'cancel' => 'Cancel',
@@ -88,5 +89,11 @@ return [
     'maximum_file_size' => 'Maximum file size :size mb.',
     'allowed_to_upload_files' => 'Allowed to upload files: ',
     'admin_choose_admin' => 'Only the Administrator can choose the Administrator role.',
+    'translation_already' => 'This translation already exists.',
+
+    'checkbox' => 'Checkbox',
+    'radio' => 'Radio',
+    'select' => 'Select',
+    'range' => 'Range',
 
 ];

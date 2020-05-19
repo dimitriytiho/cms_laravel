@@ -12,6 +12,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
+    'folder' => $modules,
     'path' => app_path($modules),
     'path_file' => "app/{$modules}",
     'namespace' => "App\\{$modules}",

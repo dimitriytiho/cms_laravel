@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // При отправки формы с .confirm-form будет подтвержение отправки
     document.addEventListener('submit', function(e) {
+        const spinner = document.getElementById('spinner')
 
         if (e.target.classList.contains('confirm-form')) {
             e.preventDefault()
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             btnOk.addEventListener('click', function() {
                 e.target.submit()
+                spinner.style.display = 'block'
                 modalInstance.hide()
             }.bind(e))
         }

@@ -123,7 +123,7 @@ class MenuNameController extends AppController
             $values = DB::table($this->table)->find((int)$id);
 
             // Потомки в массиве
-            $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable, "{$this->table}_id");
+            $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable, 'belong_id');
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
             return view("{$this->view}.{$this->template}", compact('values', 'getIdParents'));
@@ -197,10 +197,10 @@ class MenuNameController extends AppController
             if ($values) {
 
                 // Если есть потомки, то ошибка
-                $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable, "{$this->table}_id");
+                $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable, 'belong_id');
                 if ($getIdParents) {
                     session()->put('error', __("{$this->lang}::s.remove_not_possible") . ', ' . __("{$this->lang}::s.there_are_nested") . ' #');
-                    return redirect()->route("admin.{$this->route}.index");
+                    return redirect()->route("admin.{$this->route}.edit", $id);
                 }
 
                 if ($values->delete()) {

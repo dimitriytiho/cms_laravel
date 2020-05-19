@@ -13,8 +13,9 @@ use Illuminate\Support\Str;
 class FilterGroupController extends AppController
 {
     private $belongsTable = 'filter_values';
-    private $belongsController = 'FilterValues';
+    private $belongsController = 'FilterValue';
     private $belongsView;
+    private $belongsRoute;
 
 
     public function __construct(Request $request)
@@ -22,14 +23,15 @@ class FilterGroupController extends AppController
         parent::__construct($request);
 
         $belongsTable = $this->belongsTable;
-        $this->belongsView = Str::snake($this->belongsController);
+        $belongsView = $this->belongsView = Str::snake($this->belongsController); // Преобразуем в foo_bar
+        $belongsRoute = $this->belongsRoute = Str::kebab($this->belongsController); // Преобразуем в foo-bar
 
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
         $model = $this->model = '\App\\Modules\\Admin\\Models\\' . $this->class;
-        $table = $this->table = with(new $model)->getTable();
-        $route = $this->route = $request->segment(2);
-        $view = $this->view = Str::snake($this->class);
-        View::share(compact('class','model', 'table', 'route', 'view', 'belongsTable'));
+        $table = $this->table = with(new $model)->getTable(); // Получаем название таблицы
+        $route = $this->route = $request->segment(2); // Получаем сегмент из url
+        $view = $this->view = Str::snake($this->class); // Преобразуем в foo_bar
+        View::share(compact('class','model', 'table', 'route', 'view', 'belongsTable', 'belongsView', 'belongsRoute'));
     }
 
     /**
@@ -44,7 +46,7 @@ class FilterGroupController extends AppController
 
         $values = DB::table($this->table)->paginate($this->perPage);
 
-        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->view)));
         return view("{$this->view}.{$f}", compact('values'));
     }
 
@@ -58,8 +60,11 @@ class FilterGroupController extends AppController
         $f = __FUNCTION__;
         Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
+        // Типы фильтров
+        $filterType = config('shop.filter_type');
+
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}");
+        return view("{$this->view}.{$this->template}", compact('filterType'));
     }
 
     /**
@@ -123,10 +128,13 @@ class FilterGroupController extends AppController
             $values = DB::table($this->table)->find((int)$id);
 
             // Потомки в массиве
-            $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable, "{$this->table}_id");
+            $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable);
+
+            // Типы фильтров
+            $filterType = config('shop.filter_type');
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents'));
+            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'filterType'));
         }
 
         // Сообщение об ошибке
@@ -150,6 +158,9 @@ class FilterGroupController extends AppController
             ];
             $this->validate($request, $rules);
             $data = $request->all();
+
+            // Если нет сортировки, то по-умолчанию 500
+            $data['sort'] = empty($data['sort']) ? 500 : $data['sort'];
 
             $values = $this->model::find((int)$id);
             $values->fill($data);
@@ -197,10 +208,10 @@ class FilterGroupController extends AppController
             if ($values) {
 
                 // Если есть потомки, то ошибка
-                $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable, "{$this->table}_id");
+                $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable);
                 if ($getIdParents) {
                     session()->put('error', __("{$this->lang}::s.remove_not_possible") . ', ' . __("{$this->lang}::s.there_are_nested") . ' #');
-                    return redirect()->route("admin.{$this->route}.index");
+                    return redirect()->route("admin.{$this->route}.edit", $id);
                 }
 
                 if ($values->delete()) {

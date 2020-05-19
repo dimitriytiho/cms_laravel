@@ -42,8 +42,8 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
 
 
         // Shop controllers
-        Route::post('product-add-category', 'CategoryProductController@productAddCategory')->name('product_add_category');
-        Route::post('product-destroy-category', 'CategoryProductController@productDestroyCategory')->name('product_destroy_category');
+        Route::post('product-add-category', 'CategoryProductController@productAdd')->name('product_add_category');
+        Route::post('product-destroy-category', 'CategoryProductController@productDestroy')->name('product_destroy_category');
 
         Route::resource('order', 'OrderController')->only(['index', 'show', 'update', 'destroy']);
         Route::resource('category', 'CategoryController')->except(['show']);
@@ -52,6 +52,8 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
         // Filters
         Route::resource('filter-group', 'FilterGroupController')->except(['show']);
         Route::resource('filter-value', 'FilterValueController')->except(['show']);
+        Route::post('product-add-filter', 'FilterProductController@productAdd')->name('product_add_filter');
+        Route::post('product-destroy-filter', 'FilterProductController@productDestroy')->name('product_destroy_filter');
     }
 
 
@@ -63,6 +65,7 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
     Route::resource('menu-name', 'MenuNameController')->except(['show']);
     Route::resource('menu', 'MenuController')->except(['show']);
     Route::resource('setting', 'SettingController')->except(['show']);
+    Route::resource('translate', 'TranslateController')->except(['show']);
 
 
     // Website add controllers

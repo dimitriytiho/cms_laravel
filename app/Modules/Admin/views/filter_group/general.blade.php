@@ -12,7 +12,12 @@
                     @method('put')
                 @endif
                 @csrf
+
                 {!! input('title', $values->title ?? null) !!}
+
+                @if (!empty($filterType))
+                    {!! select('type', $filterType, $values->type ?? null) !!}
+                @endif
 
                 @if (isset($values->id) && isset($values->updated_at) && isset($values->created_at))
                     <div class="row">
@@ -36,7 +41,7 @@
                 <div class="text-right mt--3">
                     <div class="small text-secondary">@lang("{$lang}::s.remove_not_possible"),<br>@lang("{$lang}::s.there_are_nested") ID:</div>
                     @foreach ($getIdParents as $v)
-                        <a href="{{ route("admin.{$belongsTable}.edit", $v->id) }}">{{ $v->id }}</a>
+                        <a href="{{ route("admin.{$belongsRoute}.edit", $v->id) }}">{{ $v->id }}</a>
                     @endforeach
                 </div>
             @else

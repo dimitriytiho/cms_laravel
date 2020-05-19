@@ -54,6 +54,7 @@ return [
     'class' => 'Класс',
     'attr' => 'Атрибут',
     'current_menu' => 'Текущее меню',
+    'current_group' => 'Текущая группа',
 
     'cyrillic' => 'Кирилица',
     'latin' => 'Латиница',

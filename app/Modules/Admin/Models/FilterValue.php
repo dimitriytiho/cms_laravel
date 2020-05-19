@@ -13,4 +13,11 @@ class FilterValue extends Model
     {
         return $this->belongsTo(FilterGroup::class);
     }
+
+
+    // Связь многие ко многим
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'filter_products');
+    }
 }

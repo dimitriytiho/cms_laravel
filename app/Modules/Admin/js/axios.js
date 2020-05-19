@@ -132,153 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // При клике на #select-product-category добавляется категория к товару
-    const selectProductCategory = document.getElementById('select-product-category'),
-        productAddCategoryBtn = document.getElementById('product-add-category')
-
-    if (selectProductCategory && productAddCategoryBtn) {
-
-        selectProductCategory.addEventListener('change', function (e) {
-            const categoryID = this.value,
-                categoryTitle = e.target.options[this.selectedIndex].dataset.title
-                //categoryTitle = e.target.options[this.selectedIndex].textContent // Чтобы получить текст option у select при событии change
-
-            // Появление кнопки, задать data-category-id и data-category-title
-            if (categoryID != 0) {
-                productAddCategoryBtn.classList.remove('js-none')
-                productAddCategoryBtn.dataset.categoryId = categoryID
-                productAddCategoryBtn.dataset.categoryTitle = categoryTitle
-            } else {
-                productAddCategoryBtn.classList.add('js-none')
-                productAddCategoryBtn.dataset.categoryId = ''
-                productAddCategoryBtn.dataset.categoryTitle = ''
-            }
-        })
-
-        productAddCategoryBtn.addEventListener('click', function (e) {
-            e.preventDefault()
-            const url = e.target.dataset.url,
-                urlDestroy = e.target.dataset.urlDestroy,
-                productID = e.target.dataset.productId,
-                categoryID = e.target.dataset.categoryId,
-                categoryTitle = e.target.dataset.categoryTitle,
-                divParent = document.getElementById('category-many-elements'),
-                html = `<div class="mr-4 many-elements">
-                            <span class="many-elements__text">${categoryTitle}</span>
-                            <a data-url="${urlDestroy}" data-category-id="${categoryID}" class="text-primary many-elements__close cur">&times;</a>
-                        </div>`
-
-            if (url && categoryID != 0) {
-
-                if (spinner) {
-                    spinner.style.display = 'block'
-                }
-
-                // Отправить post запрос
-                axios.post(url, {
-                    productID: productID,
-                    categoryID: categoryID
-                })
-                    .then(function (res) {
-                        if (selectProductCategory && divParent) {
-
-                            // Удалить кнопку
-                            if (productAddCategoryBtn) {
-                                productAddCategoryBtn.classList.add('js-none')
-                            }
-
-                            // Добавить атрибут disabled к отправляемуму option
-                            selectProductCategory.options[selectProductCategory.selectedIndex].setAttribute('disabled', true)
-
-                            // Вставить html категории
-                            divParent.innerHTML += html
-
-                            if (spinner) {
-                                spinner.style.display = 'none'
-                            }
-                        }
-                        message.success(res.data)
-                    })
-                    .catch(function (e) {
-                        message.error(e)
-                    })
-            }
-        })
-    }
-
-
-    // При клике на .many-elements__close удаляется категория у товара
-    const productCategoryDestroy = document.getElementById('category-many-elements')
-    if (productCategoryDestroy) {
-
-        productCategoryDestroy.addEventListener('click', function (e) {
-
-            if (e.target.classList.contains('many-elements__close')) {
-                const el = e.target.parentNode,
-                    url = e.target.dataset.url,
-                    categoryID = e.target.dataset.categoryId
-
-                // Вызов модального окна
-                if (modal && btnOk) {
-                    const modalInstance = new Bootstrap.Modal(modal)
-
-                    // Открыть модальное окно
-                    modalInstance.show()
-                    btnOk.addEventListener('click', function() {
-
-                        // Закрыть модальное окно
-                        modalInstance.hide()
-
-                        //if (!categoryID) message.error(e)
-                        if (spinner) {
-                            spinner.style.display = 'block'
-                        }
-
-                        // Отправить post запрос
-                        axios.post(url, {
-                            categoryID: categoryID
-                        })
-                            .then(function (res) {
-
-                                // Если что-то пойдёт не так, то перезагрузим страницу
-                                if (res.data == 1) {
-                                    document.location.href = document.location.href
-                                }
-
-                                // Удалить элемент
-                                el.remove()
-
-                                // Сообщение об успехе
-                                message.success(res.data)
-
-                                // Удалить атрибут disabled у option с отправляемой категорией
-                                if (selectProductCategory) {
-
-                                    const options = selectProductCategory.childNodes
-                                    if (options) {
-                                        options.forEach(function (el) {
-                                            if (el.value == categoryID) {
-                                                el.removeAttribute('disabled')
-                                                return
-                                            }
-                                        })
-                                    }
-                                }
-                                if (spinner) {
-                                    spinner.style.display = 'none'
-                                }
-
-                            })
-                            .catch(function (e) {
-                                message.error(e)
-                            })
-                    })
-                }
-            }
-        })
-    }
-
-
     // При клике на #change-password-btn меняем пароль у пользователя
     const changePassword = document.getElementById('change-password-btn')
     if (changePassword) {
@@ -406,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     }
 
 
-                                // Если множественная загрузка картинок, то удалим картинку
+                                    // Если множественная загрузка картинок, то удалим картинку
                                 } else {
                                     e.target.parentElement.remove()
                                 }
@@ -428,6 +281,175 @@ document.addEventListener('DOMContentLoaded', function() {
 
         }
     })
+
+
+
+    // Запускаем функцию добавления и удаления
+    addBelongs('select-product-category', 'product-add-category', 'category-many-elements')
+    addBelongs('select-product-filter', 'product-add-filter', 'filter-many-elements')
+
+
+    /*
+     * Функция для добавления и удаления (к примеру категория для товара).
+     * idSelect - передать id select c категориями (задать data-belongs-id и data-belongs-title).
+     * idBtn - передать id кнопки, которая появляется после измения select (задать с параметрами data-id, data-url-destroy, без параметров: data-belongs-id, data-belongs-title).
+     * idAppend - передать id блока, в который вставить html новых категорий (в вставляемом блоке должен быть класс .many-elements__close).
+     */
+    function addBelongs(idSelect, idBtn, idAppend) {
+        const modal = document.getElementById('modal-confirm'),
+            spinner = document.getElementById('spinner'),
+            select = document.getElementById(idSelect),
+            btn = document.getElementById(idBtn),
+            appendBlock = document.getElementById(idAppend)
+
+        let btnOk = null
+
+        if (modal) {
+            btnOk = modal.querySelector('.btn-outline-primary')
+        }
+
+        if (select && btn && appendBlock) {
+
+            // Для select
+            select.addEventListener('change', function (e) {
+                const id = this.value,
+                    title = e.target.options[this.selectedIndex].dataset.title,
+                    titleLang = e.target.options[this.selectedIndex].dataset.titleLang
+                //title = e.target.options[this.selectedIndex].textContent // Чтобы получить текст option у select при событии change
+
+                // Появление кнопки, задать data-belongs-id и data-belongs-title
+                if (id != 0) {
+                    btn.classList.remove('js-none')
+                    btn.dataset.belongsId = id
+                    btn.dataset.belongsTitle = title
+                    btn.dataset.belongsTitleLang = titleLang
+                } else {
+                    btn.classList.add('js-none')
+                    btn.dataset.belongsId = ''
+                    btn.dataset.belongsTitle = ''
+                    btn.dataset.belongsTitleLang = ''
+                }
+            })
+
+
+            // Для btn
+            btn.addEventListener('click', function (e) {
+                e.preventDefault()
+                const url = e.target.dataset.url,
+                    urlDestroy = e.target.dataset.urlDestroy,
+                    id = e.target.dataset.id,
+                    belongsId = e.target.dataset.belongsId,
+                    belongsTitle = e.target.dataset.belongsTitle,
+                    belongsTitleLang = e.target.dataset.belongsTitleLang,
+                    html = `<div class="mr-4 many-elements">
+                            <span class="many-elements__text">${belongsTitleLang}</span>
+                            <a data-url="${urlDestroy}" data-category-id="${belongsId}" class="text-primary many-elements__close cur">&times;</a>
+                        </div>`
+
+                if (url && belongsId != 0) {
+
+                    if (spinner) {
+                        spinner.style.display = 'block'
+                    }
+
+                    // Отправить post запрос
+                    axios.post(url, {
+                        productId: id,
+                        belongsId: belongsId
+                    })
+                        .then(function (res) {
+
+                            // Удалить кнопку
+                            btn.classList.add('js-none')
+
+                            // Добавить атрибут disabled к отправляемуму option
+                            select.options[select.selectedIndex].setAttribute('disabled', true)
+
+                            // Вставить html категории
+                            appendBlock.innerHTML += html
+
+                            if (spinner) {
+                                spinner.style.display = 'none'
+                            }
+
+                            message.success(res.data)
+                        })
+                        .catch(function (e) {
+                            message.error(e)
+                        })
+                }
+            })
+
+
+            // Для appendBlock, должен быть класс .many-elements__close
+            appendBlock.addEventListener('click', function (e) {
+
+                if (e.target.classList.contains('many-elements__close')) {
+                    const el = e.target.parentNode,
+                        url = e.target.dataset.url,
+                        belongsId = e.target.dataset.belongsId
+
+
+                    // Вызов модального окна
+                    if (modal && btnOk) {
+                        const modalInstance = new Bootstrap.Modal(modal)
+
+                        // Открыть модальное окно
+                        modalInstance.show()
+                        btnOk.addEventListener('click', function() {
+
+                            // Закрыть модальное окно
+                            modalInstance.hide()
+
+                            //if (!belongsId) message.error(e)
+                            if (spinner) {
+                                spinner.style.display = 'block'
+                            }
+
+                            // Отправить post запрос
+                            axios.post(url, {
+                                belongsId: belongsId
+                            })
+                                .then(function (res) {
+                                    // Если что-то пойдёт не так, то перезагрузим страницу
+                                    if (res.data == 1) {
+                                        document.location.href = document.location.href
+                                    }
+
+                                    // Удалить элемент
+                                    el.remove()
+
+                                    // Сообщение об успехе
+                                    message.success(res.data)
+
+                                    if (spinner) {
+                                        spinner.style.display = 'none'
+                                    }
+
+                                    // Удалить атрибут disabled у option с отправляемой категорией
+                                    if (select) {
+
+                                        const options = select.childNodes
+                                        if (options) {
+                                            options.forEach(function (el) {
+                                                if (el.value == belongsId) {
+                                                    el.removeAttribute('disabled')
+                                                    return
+                                                }
+                                            })
+                                        }
+                                    }
+
+                                })
+                                .catch(function (e) {
+                                    message.error(e)
+                                })
+                        })
+                    }
+                }
+            })
+        }
+    }
 
 
 }, false)

@@ -5,6 +5,7 @@ namespace App\Modules\Shop\Controllers;
 use App\Main;
 use App\Modules\Shop\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
@@ -38,13 +39,17 @@ class CategoryController extends AppController
         // Если пользователь админ, то будут показываться неактивные страницы
         if (auth()->check() && auth()->user()->Admin()) {
             $cat = $this->model::all();
-            $products = Product::latest()->take($this->limit)->get();
+            //$productsAll = Product::latest()->take($this->perPage)->get(); // Для фильтра
+            $products = Product::latest()->take($this->perPage)->paginate($this->perPage);
 
         } else {
-            $status = config('add.page_statuses')[1] ?: 'active';
-            $cat = $this->model::where('status', $status)->get();
-            $products = Product::where('status', $status)->orderBy('id', 'desc')->take($this->limit)->get();
+            $cat = $this->model::where('status', $this->statusActive)->get();
+            //$productsAll = Product::where('status', $this->statusActive)->orderBy('id', 'desc')->take($this->limit)->get(); // Для фильтра
+            $products = Product::where('status', $this->statusActive)->orderBy('id', 'desc')->take($this->limit)->paginate($this->perPage);
         }
+
+        // Передаём в контейнер текущии товары
+        //Main::set('products_now', $productsAll->toArray());
 
         $this->setMeta(__("{$this->lang}::sh.catalog"));
         return view("{$this->viewPathModule}.{$this->c}_index", compact('cat', 'products'));
@@ -63,12 +68,16 @@ class CategoryController extends AppController
 
         // Если пользователь админ, то будут показываться неактивные страницы
         if (auth()->check() && auth()->user()->Admin()) {
-            $values = $this->model::where('slug', $slug)->first();
+            $values = $this->model::with('products')->where('slug', $slug)->first();
+            $products = Product::with($this->c)->paginate($this->perPage);
 
         } else {
-            $status = config('add.page_statuses')[1] ?: 'active';
-            $values = $this->model::where('slug', $slug)->where('status', $status)->first();
+            $values = $this->model::with('products')->where('slug', $slug)->where('status', $this->statusActive)->first();
+            $products = Product::with($this->c)->where('status', $this->statusActive)->paginate($this->perPage);
         }
+
+        // Передаём в контейнер текущии товары
+        //Main::set('products_now', $values->products->toArray());
 
         // Если нет страницы
         if (!$values) {
@@ -90,6 +99,6 @@ class CategoryController extends AppController
         Main::set('id', $values->id);
 
         $this->setMeta($values->title ?? null, $values->description ?? null);
-        return view("{$this->viewPathModule}.{$this->c}_show", compact('values'));
+        return view("{$this->viewPathModule}.{$this->c}_show", compact('values', 'products'));
     }
 }

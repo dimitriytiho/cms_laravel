@@ -34,7 +34,7 @@
                                     <img src="{{ asset($v->img) }}" class="w-3" alt="{{ $v->title }}">
                                 </td>
                                 <th scope="row" class="font-weight-light">{{ $v->id }}</th>
-                                <td>{{ $v->title }}</td>
+                                <td>{{ Lang::has("{$lang}::t.{$v->title}") ? __("{$lang}::t.{$v->title}") : $v->title }}</td>
                                 <th class="font-weight-light">{{ $v->slug }}</th>
                                 <th class="font-weight-light">@lang("{$lang}::s.{$v->status}")</th>
                                 <th class="font-weight-light">{{ $v->price }}</th>

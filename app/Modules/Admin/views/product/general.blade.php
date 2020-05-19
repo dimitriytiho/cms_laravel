@@ -93,7 +93,7 @@
                                         Виджет меню--}}
                                         {!! Menu::init(
                                             [
-                                                'tpl' => 'select_admin_category',
+                                                'tpl' => 'select_admin_belongs',
                                                 'sql' => "SELECT id, parent_id, title FROM categories ORDER BY id DESC",
                                                 'container' => 'select',
                                                 'cache' => false,
@@ -106,21 +106,46 @@
                                             ]
                                         ) !!}
                                     </div>
-                                    <button data-url="{{ route('admin.product_add_category') }}" data-product-id="{{ $values->id }}" data-url-destroy="{{ route('admin.product_destroy_category') }}" data-category-id data-category-title class="btn btn-outline-primary btn-pulse js-none" id="product-add-category">@lang("{$lang}::s.choose")</button>
+                                    <button data-url="{{ route('admin.product_add_category') }}" data-id="{{ $values->id }}" data-url-destroy="{{ route('admin.product_destroy_category') }}" data-belongs-id data-belongs-title data-belongs-title-lang class="btn btn-outline-primary btn-pulse js-none" id="product-add-category">@lang("{$lang}::s.choose")</button>
                                 </div>
                                 <div class="col-md-6 mt-1">
-                                    @if ($values->category->count() !== 0)
-                                        <div class="border mt-4 px-2 py-1" id="category-many-elements">
-                                            @foreach ($values->category as $v)
+                                    <div class="border mt-4 px-2 py-1" id="category-many-elements">
+                                        @foreach ($values->category as $v)
+                                            <div class="mr-4 many-elements">
+                                                <span class="many-elements__text">{{ $v->title }}</span>
+                                                <a data-url="{{ route('admin.product_destroy_category') }}" data-belongs-id="{{ $v->id }}" class="text-primary many-elements__close cur">&times;</a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if ($filters)
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="filter_value">@lang("{$lang}::a.Filter_value")</label>
+                                            <select class="form-control custom-select" name="filter_value" id="select-product-filter">
+                                                <option value="0"> Выбрать </option>
+                                                @foreach ($filters as $v)
+                                                    <option data-title="{{ $v->value }}" data-title-lang="{{ Lang::has("{$lang}::t.{$v->value}") ? __("{$lang}::t.{$v->value}") : $v->value }}" value="{{ $v->id }}" @if ($filtersActive->filter_values->contains('value', $v->value))disabled @endif>{{ Lang::has("{$lang}::t.{$v->value}") ? __("{$lang}::t.{$v->value}") : $v->value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <button data-url="{{ route('admin.product_add_filter') }}" data-id="{{ $values->id }}" data-url-destroy="{{ route('admin.product_destroy_filter') }}" data-belongs-id data-belongs-title data-belongs-title-lang class="btn btn-outline-primary btn-pulse js-none" id="product-add-filter">@lang("{$lang}::s.choose")</button>
+                                    </div>
+                                    <div class="col-md-6 mt-1">
+                                        <div class="border mt-4 px-2 py-1" id="filter-many-elements">
+                                            @foreach ($filtersActive->filter_values as $v)
                                                 <div class="mr-4 many-elements">
-                                                    <span class="many-elements__text">{{ $v->title }}</span>
-                                                    <a data-url="{{ route('admin.product_destroy_category') }}" data-category-id="{{ $v->id }}" class="text-primary many-elements__close cur">&times;</a>
+                                                    <span class="many-elements__text">{{ Lang::has("{$lang}::t.{$v->value}") ? __("{$lang}::t.{$v->value}") : $v->value }}</span>
+                                                    <a data-url="{{ route('admin.product_destroy_filter') }}" data-belongs-id="{{ $v->id }}" class="text-primary many-elements__close cur">&times;</a>
                                                 </div>
                                             @endforeach
                                         </div>
-                                    @endif
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         @endif
                         {{-- На странице создания элемента табы не показываем  --}}
                 @if (isset($values->id))

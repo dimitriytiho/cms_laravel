@@ -258,7 +258,7 @@ class MenuController extends AppController
                 $getIdParents = appHelpers::getIdParents((int)$id, $this->table);
                 if ($getIdParents) {
                     session()->put('error', __("{$this->lang}::s.remove_not_possible") . ', ' . __("{$this->lang}::s.there_are_nested") . ' #');
-                    return redirect()->route("admin.{$this->route}.index");
+                    return redirect()->route("admin.{$this->route}.edit", $id);
                 }
 
                 if ($values->delete()) {

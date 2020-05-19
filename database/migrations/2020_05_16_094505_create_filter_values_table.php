@@ -19,6 +19,7 @@ class CreateFilterValuesTable extends Migration
             $table->foreign('parent_id')->references('id')->on('filter_groups');
             $table->string('value', 64);
             $table->index('value');
+            $table->smallInteger('sort')->unsigned()->default('500');
             $table->timestamps();
         });
     }

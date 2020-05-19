@@ -34,6 +34,7 @@ class Setting extends Model
                     'controller' => 'Main',
                     'parent_id' => null,
                     'slug' => '/',
+                    'request' => 'main',
                     'item' => 'dashboard',
                 ],
             ];
@@ -46,6 +47,7 @@ class Setting extends Model
                     'controller' => 'Order',
                     'parent_id' => null,
                     'slug' => '/order',
+                    'request' => 'order',
                     'item' => 'shopping_cart',
                     'count' => 'orders',
                 ],
@@ -58,6 +60,7 @@ class Setting extends Model
                     'controller' => 'Form',
                     'parent_id' => null,
                     'slug' => '/form',
+                    'request' => 'form',
                     'item' => 'insert_comment',
                     'count' => 'forms',
                 ],
@@ -71,6 +74,7 @@ class Setting extends Model
                     'controller' => 'Category',
                     'parent_id' => null,
                     'slug' => '/category',
+                    'request' => 'category',
                     'item' => 'account_tree',
                     'count' => 'categories', // Название таблицы
                 ],
@@ -79,6 +83,7 @@ class Setting extends Model
                     'controller' => 'Category',
                     'parent_id' => 4,
                     'slug' => '/category/create',
+                    'request' => 'category',
                     'item' => 'add',
                 ],
                 5 => [
@@ -86,6 +91,7 @@ class Setting extends Model
                     'controller' => 'Product',
                     'parent_id' => null,
                     'slug' => '/product',
+                    'request' => 'product',
                     'item' => 'all_inbox',
                     'count' => 'products', // Название таблицы
                 ],
@@ -94,38 +100,43 @@ class Setting extends Model
                     'controller' => 'Product',
                     'parent_id' => 5,
                     'slug' => '/product/create',
+                    'request' => 'product',
                     'item' => 'add',
                 ],
 
                 // Filters
                 20 => [
-                    'title' => 'Filter_group',
-                    'controller' => 'FilterGroup',
+                    'title' => 'Filter_value',
+                    'controller' => 'FilterValue',
                     'parent_id' => null,
-                    'slug' => '/filter-group',
+                    'slug' => '/filter-value',
+                    'request' => 'filter',
                     'item' => 'tune',
-                    'add' => 22, // Добавляется Filter_value
+                    'add' => 22, // Добавляется Filter_groups
                 ],
                 21 => [
-                    'title' => 'Create_group',
-                    'controller' => 'FilterGroup',
+                    'title' => 'Create_item',
+                    'controller' => 'FilterValue',
                     'parent_id' => 20,
                     'slug' => '/filter-value/create',
+                    'request' => 'filter',
                     'item' => 'add',
                 ],
                 22 => [
-                    'title' => 'Filter_value',
-                    'controller' => 'FilterValue',
+                    'title' => 'Filter_group',
+                    'controller' => 'FilterGroup',
                     'parent_id' => 20,
-                    'slug' => '/filter-value',
+                    'slug' => '/filter-group',
+                    'request' => 'filter',
                     'item' => 'tune',
-                    'add' => 20, // Добавляется Filter_groups
+                    'add' => 20, // Добавляется Filter_value
                 ],
                 23 => [
-                    'title' => 'Create_item',
-                    'controller' => 'FilterValue',
+                    'title' => 'Create_group',
+                    'controller' => 'FilterGroup',
                     'parent_id' => 22,
-                    'slug' => '/filter-value/create',
+                    'slug' => '/filter-group/create',
+                    'request' => 'filter',
                     'item' => 'add',
                 ],
             ];
@@ -137,6 +148,7 @@ class Setting extends Model
                 'controller' => 'Page',
                 'parent_id' => null,
                 'slug' => '/page',
+                'request' => 'page',
                 'item' => 'web',
                 'count' => 'pages', // Название таблицы
             ],
@@ -145,6 +157,7 @@ class Setting extends Model
                 'controller' => 'Page',
                 'parent_id' => 6,
                 'slug' => '/page/create',
+                'request' => 'page',
                 'item' => 'add',
             ],
             8 => [
@@ -152,6 +165,7 @@ class Setting extends Model
                 'controller' => 'User',
                 'parent_id' => null,
                 'slug' => '/user',
+                'request' => 'user',
                 'item' => 'supervisor_account',
                 'count' => 'users', // Название таблицы
             ],
@@ -160,6 +174,7 @@ class Setting extends Model
                 'controller' => 'User',
                 'parent_id' => 8,
                 'slug' => '/user/create',
+                'request' => 'user',
                 'item' => 'add',
             ],
             82 => [
@@ -167,6 +182,7 @@ class Setting extends Model
                 'controller' => 'User',
                 'parent_id' => 8,
                 'slug' => '/user-banned-ip',
+                'request' => 'user',
                 'item' => 'remove_circle_outline',
             ],
             10 => [
@@ -174,6 +190,7 @@ class Setting extends Model
                 'controller' => 'Menu',
                 'parent_id' => null,
                 'slug' => '/menu',
+                'request' => 'menu',
                 'item' => 'menu',
                 'add' => 12, // Добавляется Menu_name
             ],
@@ -182,6 +199,7 @@ class Setting extends Model
                 'controller' => 'Menu',
                 'parent_id' => 10,
                 'slug' => '/menu/create',
+                'request' => 'menu',
                 'item' => 'add',
             ],
             12 => [
@@ -189,6 +207,7 @@ class Setting extends Model
                 'controller' => 'MenuName',
                 'parent_id' => 10,
                 'slug' => '/menu-name',
+                'request' => 'menu',
                 'item' => 'subject',
                 'add' => 10, // Добавляется Menu
             ],
@@ -197,13 +216,7 @@ class Setting extends Model
                 'controller' => 'MenuName',
                 'parent_id' => 12,
                 'slug' => '/menu-name/create',
-                'item' => 'add',
-            ],
-            15 => [
-                'title' => 'Create',
-                'controller' => 'Setting',
-                'parent_id' => 14,
-                'slug' => '/setting/create',
+                'request' => 'menu',
                 'item' => 'add',
             ],
             16 => [
@@ -211,6 +224,7 @@ class Setting extends Model
                 'controller' => 'Additionally',
                 'parent_id' => null,
                 'slug' => '/additionally',
+                'request' => 'additionally',
                 'item' => 'settings_ethernet',
             ],
             17 => [
@@ -218,6 +232,7 @@ class Setting extends Model
                 'controller' => 'Additionally',
                 'parent_id' => 16,
                 'slug' => '/additionally/files',
+                'request' => 'additionally',
                 'item' => 'tab',
             ],
             18 => [
@@ -225,6 +240,7 @@ class Setting extends Model
                 'controller' => null,
                 'parent_id' => null,
                 'slug' => '/logs',
+                'request' => 'logs',
                 'item' => 'event_note',
             ],
             19 => [
@@ -232,6 +248,7 @@ class Setting extends Model
                 'controller' => 'ImportExport',
                 'parent_id' => null,
                 'slug' => '/import-export',
+                'request' => 'import-export',
                 'item' => 'import_export',
             ],
             14 => [
@@ -239,7 +256,32 @@ class Setting extends Model
                 'controller' => 'Setting',
                 'parent_id' => null,
                 'slug' => '/setting',
+                'request' => 'setting',
                 'item' => 'settings',
+            ],
+            15 => [
+                'title' => 'Create',
+                'controller' => 'Setting',
+                'parent_id' => 14,
+                'slug' => '/setting/create',
+                'request' => 'setting',
+                'item' => 'add',
+            ],
+            24 => [
+                'title' => 'Translate',
+                'controller' => 'Translate',
+                'parent_id' => null,
+                'slug' => '/translate',
+                'request' => 'translate',
+                'item' => 'translate',
+            ],
+            25 => [
+                'title' => 'Create',
+                'controller' => 'Translate',
+                'parent_id' => 24,
+                'slug' => '/translate/create',
+                'request' => 'translate',
+                'item' => 'add',
             ],
         ];
 

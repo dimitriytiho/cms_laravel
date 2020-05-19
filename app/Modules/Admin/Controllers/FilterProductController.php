@@ -6,9 +6,9 @@ use App\Main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CategoryProductController extends AppController
+class FilterProductController extends AppController
 {
-    private $belongsId = 'category_id';
+    private $belongsId = 'filter_value_id';
 
 
     public function __construct(Request $request)
@@ -19,6 +19,7 @@ class CategoryProductController extends AppController
         $model = $this->model = '\App\\Modules\\Admin\\Models\\' . $this->class;
         $this->table = with(new $model)->getTable(); // Получаем название таблицы
     }
+
 
     // Добавить категорию к товару
     public function productAdd(Request $request)

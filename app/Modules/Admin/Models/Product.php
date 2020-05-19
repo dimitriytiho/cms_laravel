@@ -20,4 +20,10 @@ class Product extends Model
     {
         return $this->hasMany(OrderProduct::class, 'product_id');
     }
+
+    // Связь многие ко многим
+    public function filter_values()
+    {
+        return $this->belongsToMany(FilterValue::class, 'filter_products');
+    }
 }

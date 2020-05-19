@@ -52,7 +52,7 @@ S;
 function input($name, $value = null, $required = true, $type = null, $label = true, $placeholder = null, $class = null, $attrs = [], $classInput = null)
 {
     $lang = lang();
-    $title = __("{$lang}::f.{$name}");
+    $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
     $required = $required ? 'required' : null;
     $type = $type ? $type : 'text';
     $star = $required ? '<sup>*</sup>' : null;
@@ -99,7 +99,7 @@ S;
 function textarea($name, $value = null, $required = true, $label = true, $placeholder = null, $class = null, $attrs = [], $rows = 3)
 {
     $lang = lang();
-    $title = __("{$lang}::f.{$name}");
+    $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
     $required = $required ? 'required' : null;
     $star = $required ? '<sup>*</sup>' : null;
     $label = $label ? null : 'class="sr-only"';
@@ -149,7 +149,7 @@ S;
 function select($name, $options, $value = null, $label = true, $class = null, $attrs = [], $option_id_value = null, $translation = null, $disabledValue = null)
 {
     $lang = lang();
-    $title = __("{$lang}::f.{$name}");
+    $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
     $value = $value ?: old($name) ?: null;
     $label = $label ? null : 'class="sr-only"';
 
@@ -214,7 +214,8 @@ S;
 function checkbox($name, $required = true, $checked = null, $class = null, $id = null, $title = null)
 {
     $lang = lang();
-    $title = $title ?: __("{$lang}::f.{$name}");
+    $titleLang = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $title = $title ?: $titleLang;
     $id = $id ?: $name;
     $checked = $checked || old($name) ? 'checked' : null;
     $required = $required ? 'required' : null;
