@@ -7,7 +7,7 @@ namespace App\Widgets\Filter;
 use App\Main;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
+use App\Modules\Shop\Helpers\Filter as helpersFilter;
 
 class Filter
 {
@@ -60,21 +60,49 @@ class Filter
             return false;
         }
 
+        // Получаем все группы
+        self::$groups = self::getGroups();
+
+        // Получаем все фильтры
+        $values = self::getFilters();
+
+
+        // Формируем нужный массив с фильтрами
+        if ($values) {
+            foreach ($values as $key => $filter) {
+                self::$values[$filter->parent_id][$filter->id] = $filter->value;
+            }
+        }
+
+        return true;
+    }
+
+
+    public static function getGroups()
+    {
+        $params = self::$options;
 
         // Получаем из кэша для групп
         if ($params['cache'] && cache()->has($params['cacheNameGroups'])) {
-            self::$groups = cache()->get($params['cacheNameGroups']);
+            $groups = cache()->get($params['cacheNameGroups']);
 
         } else {
 
             // Запрос в БД
-            self::$groups = DB::table($params['table_groups'])->get()->toArray();
+            $groups = DB::table($params['table_groups'])->get()->toArray();
 
             // Кэшируется запрос
             if ($params['cache']) {
                 cache()->forever($params['cacheNameGroups'], self::$groups);
             }
         }
+        return $groups;
+    }
+
+
+    public static function getFilters()
+    {
+        $params = self::$options;
 
         // Получаем из кэша для фильтров
         if ($params['cache'] && cache()->has($params['cacheNameValues'])) {
@@ -91,20 +119,17 @@ class Filter
             }
         }
 
-        // Формируем нужный массив с фильтрами
-        if ($values) {
-            foreach ($values as $key => $filter) {
-                self::$values[$filter->parent_id][$filter->id] = $filter->value;
-            }
-        }
-
-        return true;
+        return $values;
     }
 
 
     private static function toTemplate()
     {
         $params = self::$options;
+
+        // Получаем выбранные фильтры
+        $filterActive = helpersFilter::getFilter();
+        $filterActive = $filterActive ? explode(',', $filterActive) : null;
 
         ob_start();
         include $params['tpl'];

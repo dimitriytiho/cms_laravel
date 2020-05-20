@@ -6,6 +6,7 @@ use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Helpers\Img;
 use App\Modules\Admin\Helpers\Slug;
+use App\Modules\Admin\Models\FilterGroup;
 use App\Modules\Admin\Models\FilterProduct;
 use App\Modules\Admin\Models\Product;
 use Illuminate\Http\Request;
@@ -154,6 +155,7 @@ class ProductController extends AppController
 
             $values = $this->model::with('category')->find((int)$id);
 
+            $filterGroups = FilterGroup::all()->keyBy('id');
             $filters = DB::table('filter_values')->get();
             $filtersActive = $this->model::with('filter_values')->find((int)$id);
 
@@ -178,7 +180,7 @@ class ProductController extends AppController
             $imgUploadID = $this->imgUploadID = $values->id;
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'filters', 'filtersActive', 'imgRequestName', 'imgUploadID', 'gallery'));
+            return view("{$this->view}.{$this->template}", compact('values', 'filterGroups', 'filters', 'filtersActive', 'imgRequestName', 'imgUploadID', 'gallery'));
         }
 
         // Сообщение об ошибке
@@ -223,6 +225,9 @@ class ProductController extends AppController
 
             // Удаляем category_id, т.к. он нужен, чтобы на JS сохранить категории для товара
             if (isset($data['category_id'])) unset($data['category_id']);
+
+            // Удаляем filter_value, т.к. он нужен, чтобы на JS сохранить filter для товара
+            if (isset($data['filter_value'])) unset($data['filter_value']);
 
             $values->fill($data);
 

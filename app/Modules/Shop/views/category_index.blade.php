@@ -46,7 +46,7 @@
                         ]) !!}
                     </div>
                     <div class="col-md-9">
-                        <div class="row">
+                        <div class="row products">
                             @foreach ($products as $product)
                                 <div class="col-md-4 mb-4">
                                     <div class="card">
@@ -65,17 +65,16 @@
                                     </div>
                                 </div>
                             @endforeach
+                            {{--
+
+                            Пагинация--}}
+                            <div class="col-12 d-flex justify-content-center mt-4">
+                                <div>{{ $products->links() }}</div>
+                            </div>
+                            <div class="col-12">
+                                <p class="font-weight-light text-center text-secondary mt-3">{{ __("{$lang}::a.shown") . $products->count() . __("{$lang}::a.of") .  $products->total()}}</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col d-flex justify-content-center">
-                        <div>{{ $products->links() }}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p class="font-weight-light text-center text-secondary mt-3">{{ __("{$lang}::a.shown") . $products->count() . __("{$lang}::a.of") .  $products->total()}}</p>
                     </div>
                 </div>
             @endif

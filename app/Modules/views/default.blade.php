@@ -39,7 +39,7 @@
 <body>
 {{--
 
-    Панель администратора --}}
+Панель администратора --}}
 {!! PanelDashboard::init() !!}
 <div id="app">
     @yield('header')
@@ -52,7 +52,16 @@
 
     @yield('footer')
 </div>
+{{--
 
+Прелодер спинер --}}
+<div id="spinner">
+    <div class="spinner-block">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 {{--
 
@@ -71,7 +80,8 @@
         site_tel = '{{ Main::site('tel') ?: ' ' }}',
         site_email = '{{ Main::site('email') ?: ' ' }}',
         main_color = '{{ config('add.scss')['primary'] ?? '#ccc' }}',
-        height = '{{ config('add.height') ?? 600 }}'
+        height = '{{ config('add.height') ?? 600 }}',
+        spinner = $('#spinner')
 
     if (_token) {
         _token = _token.content

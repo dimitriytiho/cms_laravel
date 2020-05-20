@@ -552,6 +552,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.target.classList.contains('many-elements__close')) {
           var el = e.target.parentNode,
               url = e.target.dataset.url,
+              id = e.target.dataset.id,
               belongsId = e.target.dataset.belongsId; // Вызов модального окна
 
           if (modal && btnOk) {
@@ -568,6 +569,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
               axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
+                productId: id,
                 belongsId: belongsId
               }).then(function (res) {
                 // Если что-то пойдёт не так, то перезагрузим страницу

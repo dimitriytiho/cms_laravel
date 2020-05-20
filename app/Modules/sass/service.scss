@@ -1,0 +1,21 @@
+@import "config/params";
+@import "config/mixins";
+@import "config/blocks";
+
+#spinner {
+    display: none;
+    .spinner-block {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba($white, .85);
+        z-index: $z-index-normal;
+        @include flex-c();
+        & > div {
+            width: 14rem;
+            height: 14rem;
+        }
+    }
+}

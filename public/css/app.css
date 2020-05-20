@@ -12,6 +12,40 @@ $transition - скорость анимации, по-умолчанию $transi
 $value - какое свойство анимировать, по-умолчанию all.
 */
 
+#spinner {
+  display: none;
+}
+
+#spinner .spinner-block {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner .spinner-block > div {
+  width: 14rem;
+  height: 14rem;
+}
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
 .search_js {
   position: relative;
 }

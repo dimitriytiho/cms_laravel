@@ -387,6 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (e.target.classList.contains('many-elements__close')) {
                     const el = e.target.parentNode,
                         url = e.target.dataset.url,
+                        id = e.target.dataset.id,
                         belongsId = e.target.dataset.belongsId
 
 
@@ -408,9 +409,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                             // Отправить post запрос
                             axios.post(url, {
+                                productId: id,
                                 belongsId: belongsId
                             })
                                 .then(function (res) {
+
                                     // Если что-то пойдёт не так, то перезагрузим страницу
                                     if (res.data == 1) {
                                         document.location.href = document.location.href

@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\View;
 
 class AppController extends Controller
 {
-    protected $viewPath;
-    protected $lang;
-    protected $statusActive;
-    protected $perPage;
+    public $viewPath;
+    public $lang;
+    public $statusActive;
+    public $perPage;
 
 
     public function __construct()

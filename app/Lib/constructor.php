@@ -175,7 +175,7 @@ function select($name, $options, $value = null, $label = true, $class = null, $a
         $opts = '';
         foreach ($options as $k => $v) {
             $selected = $value === $v ? ' selected' : null;
-            $disabled = $k == $disabledValue ? ' disabled' : null;
+            $disabled = $disabledValue && $k == $disabledValue ? ' disabled' : null;
             $t = $translation ? $v : __("{$lang}::s.{$v}");
             $v = $option_id_value ? $k : $v;
             $opts .= "<option value='{$v}' {$selected}{$disabled}>{$t}</option>\n";

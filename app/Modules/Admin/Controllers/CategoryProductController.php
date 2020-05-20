@@ -41,11 +41,12 @@ class CategoryProductController extends AppController
     public function productDestroy(Request $request)
     {
         if ($request->isMethod('post') && $request->wantsJson()) {
+            $productId = $request->productId ?? null;
             $belongsId = $request->belongsId ?? null;
 
-            if ((int)$belongsId) {
-                if (DB::table($this->table)->where($this->belongsId, (int)$belongsId)->delete()) {
-                    return __("{$this->lang}::s.removed_successfully", ['id' => (int)$belongsId]);
+            if ((int)$productId && (int)$belongsId) {
+                if (DB::table($this->table)->where($this->belongsId, (int)$belongsId)->where('product_id', (int)$productId)->delete()) {
+                    return __("{$this->lang}::s.removed_successfully", ['id' => (int)$productId]);
                 }
             }
             return 1;
