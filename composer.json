@@ -18,6 +18,7 @@
         "laravel/ui": "^2.0",
         "maatwebsite/excel": "^3.1",
         "mobiledetect/mobiledetectlib": "^2.8",
+        "php-curl-class/php-curl-class": "^8.8",
         "rap2hpoutre/laravel-log-viewer": "^1.6",
         "spatie/laravel-backup": "^6.9"
     },

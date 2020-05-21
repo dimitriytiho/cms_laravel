@@ -3,6 +3,8 @@
 
 namespace App\Helpers;
 
+use App\Lib\Parser;
+use Curl\Curl;
 use Illuminate\Support\Facades\File as SupportFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,28 +15,41 @@ class File
      * Метод кэшируется, чтобы обновить сбросьте общий кэш cache()->flush();.
      *
      * $filesPathArr - массив с путём и названием файлов, относительно диска $diskName, который указан в /config/filesystems.php 'disks'.
+     * Также можно передать url библиотеки, к примеру jQuery.
+     *
      * $newFilePath - Путь с названием, относительно диска $diskName, который указан в /config/filesystems.php 'disks'.
      * $diskName - название диска, который указан в /config/filesystems.php 'disks', необязательный параметр, по-умолчанию папка public.
      */
     public static function merge($filesPathArr, $newFilePath, $diskName = 'public_folder')
     {
+        $part = '';
+
         // Если есть кэш, то не будем соединять файлы
         if (cache()->has($newFilePath)) {
-            return '';
+            return cache()->get($newFilePath);
         }
 
         if ($filesPathArr && is_array($filesPathArr)) {
 
-            $part = '';
             $disk = Storage::disk($diskName);
             foreach ($filesPathArr as $key => $file) {
+
+                // Если передаётся url, то получим содержимое
+                if (strpos($file, 'http') !== false) {
+
+                    // Библиотека php-curl-class
+                    $curl = new Curl();
+                    $curl->get($file);
+                    $part .= $curl->response . PHP_EOL;
+                }
+
                 if ($disk->exists(($file))) {
                     $part .= $disk->get($file) . PHP_EOL;
                 }
             }
             $disk->put($newFilePath, $part);
         }
-        return '';
+        return $part;
     }
 
 

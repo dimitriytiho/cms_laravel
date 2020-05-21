@@ -45,14 +45,14 @@ class CategoryController extends AppController
         $havingCount = $countFilterGroup > 1 ? "GROUP BY product_id HAVING COUNT(product_id) = {$countFilterGroup}" : null;
 
         // Или (т.е. будут показывать все товары, которые выбрали)
-        //$part = $filter ? "id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}))" : null;
+        $part = $filter ? "id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}))" : null;
 
 
         // И (т.е. покажем пересечённые товары)
-        //$part = $filter ? "id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}) GROUP BY product_id HAVING COUNT(product_id) = {$havingCount})" : null;
+        //$part = $filter ? "id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}) GROUP BY product_id HAVING COUNT(product_id) = {$countFilterGroup})" : null;
 
         // И, группируем по группам (т.е. внутри группы или - все на которые кликнули, а если кликнут на другую группу, то покажем пересечённые товары)
-        $part = $filter ? "id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}) {$havingCount})" : null;
+        //$part = $filter ? "id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}) {$havingCount})" : null;
 
 
         // Если пользователь админ, то будут показываться неактивные страницы
@@ -111,13 +111,13 @@ class CategoryController extends AppController
         $havingCount = $countFilterGroup > 1 ? "GROUP BY product_id HAVING COUNT(product_id) = {$countFilterGroup}" : null;
 
         // Или (т.е. будут показывать все товары, которые выбрали)
-        $part = $filter ? "AND id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}) GROUP BY product_id HAVING COUNT(product_id) = {$countFilterGroup})" : null;
+        $part = $filter ? "AND id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}))" : null;
 
         // И (т.е. покажем пересечённые товары)
         //$part = $filter ? "AND id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}) GROUP BY product_id HAVING COUNT(product_id) = {$countFilterGroup})" : null;
 
         // И, группируем по группам (т.е. внутри группы или - все на которые кликнули, а если кликнут на другую группу, то покажем пересечённые товары)
-        $part = $filter ? "AND id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}) {$havingCount})" : null;
+        //$part = $filter ? "AND id IN (SELECT product_id FROM filter_products WHERE filter_value_id IN ({$filter}) {$havingCount})" : null;
 
         // Если пользователь админ, то будут показываться неактивные страницы
         if (auth()->check() && auth()->user()->Admin()) {
