@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Костанты
         define('MENU', app_path('Widgets/Menu/tpl'));
+        define('IMG', env('IMG', 'img'));
     }
 
     /**
