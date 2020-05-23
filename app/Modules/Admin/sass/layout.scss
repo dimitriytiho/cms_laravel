@@ -36,7 +36,7 @@ main.main > div.row {
 
 .aside {
     .active {
-        color: lighten($primary-admin, 10%);
+        color: darken($primary-admin, 20%);
     }
     .material-icons {
         font-size: 1.5rem;

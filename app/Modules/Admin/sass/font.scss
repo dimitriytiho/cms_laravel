@@ -60,6 +60,15 @@ h3 {
         }
     }
 }
+.a-primary-light {
+    a {
+        color: $primary-admin;
+        @include transition;
+        &:hover {
+            color: lighten($primary-admin, 10%);
+        }
+    }
+}
 .a-secondary {
     a {
         color: $secondary;

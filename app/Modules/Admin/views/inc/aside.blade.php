@@ -1,4 +1,4 @@
-<aside class="h-auto py-3 aside a-secondary transition aside-width-change"{!! $asideWidth !!}>
+<aside class="h-auto py-3 aside a-primary-light transition aside-width-change"{!! $asideWidth !!}>
     <ul class="list-unstyled sticky-top">
         @if (!empty($menuAside))
             @foreach ($menuAside as $v)

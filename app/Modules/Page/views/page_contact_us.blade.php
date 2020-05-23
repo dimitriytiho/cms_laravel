@@ -1,7 +1,7 @@
 {{--
 
 Подключаем css файл --}}
-@if (is_file(public_path("css/{$m}.css")))
+@if (File::exists(public_path("css/{$m}.css")))
     @section('css')
         <link rel="stylesheet" type="text/css" href="{{ asset("css/{$m}.css") }}">
     @endsection
@@ -134,7 +134,7 @@
 {{--
 
 Подключаем js файл --}}
-@if (is_file(public_path("js/{$m}.js")))
+@if (File::exists(public_path("js/{$m}.js")))
     @section('js')
         <script src="{{ asset("js/{$m}.js") }}" defer></script>
     @endsection

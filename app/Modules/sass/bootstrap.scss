@@ -2,6 +2,9 @@
 @import "config/mixins";
 @import "config/blocks";
 
+// Стили bootstrap, которые переопределяются
+
+
 input,
 textarea,
 .custom-control-label:after {
@@ -18,6 +21,32 @@ textarea,
       color: transparent;
     }
   }
+}
+
+label {
+    color: $secondary;
+    font-weight: lighter;
+}
+
+.btn {
+    // Убирается тень при фокусе
+    &:focus {
+        box-shadow: none;
+    }
+    .btn-spinner {
+        display: none;
+    }
+}
+
+.breadcrumb {
+    i {
+        font-size: 1.2rem;
+        color: $primary;
+    }
+}
+
+.pagination li.active span {
+    cursor: text !important;
 }
 
 .navbar-toggler {

@@ -12,44 +12,46 @@ class File
 {
     /*
      * Соединяет файлы в один.
-     * Метод кэшируется, чтобы обновить сбросьте общий кэш cache()->flush();.
      *
      * $filesPathArr - массив с путём и названием файлов, относительно диска $diskName, который указан в /config/filesystems.php 'disks'.
      * Также можно передать url библиотеки, к примеру jQuery.
      *
      * $newFilePath - Путь с названием, относительно диска $diskName, который указан в /config/filesystems.php 'disks'.
-     * $diskName - название диска, который указан в /config/filesystems.php 'disks', необязательный параметр, по-умолчанию папка public.
+     * $diskName - название диска, который указан в /config/filesystems.php 'disks', необязательный параметр, по-умолчанию папка public, можно передать null.
+     * $writeFile - передайте true, если не нужно каждый раз записывать новый файл, необязательный параметр (если в файле .env APP_ENV=local, то будет каждый раз записывать новый файл).
      */
-    public static function merge($filesPathArr, $newFilePath, $diskName = 'public_folder')
+    public static function merge($filesPathArr, $newFilePath, $diskName = 'public_folder', $writeFile = false)
     {
         $part = '';
+        $diskName = $diskName ?: 'public_folder';
+        $writeFile = $writeFile || env('APP_ENV') === 'local';
+        $disk = Storage::disk($diskName);
 
-        // Если есть кэш, то не будем соединять файлы
-        if (cache()->has($newFilePath)) {
-            return cache()->get($newFilePath);
-        }
 
-        if ($filesPathArr && is_array($filesPathArr)) {
+        if (!$disk->exists(($newFilePath)) || $writeFile) {
 
-            $disk = Storage::disk($diskName);
-            foreach ($filesPathArr as $key => $file) {
+            if ($filesPathArr && is_array($filesPathArr)) {
 
-                // Если передаётся url, то получим содержимое
-                if (strpos($file, 'http') !== false) {
+                foreach ($filesPathArr as $key => $file) {
 
-                    // Библиотека php-curl-class
-                    $curl = new Curl();
-                    $curl->get($file);
-                    $part .= $curl->response . PHP_EOL;
+                    // Если передаётся url, то получим содержимое
+                    if (strpos($file, 'http') !== false) {
+
+                        // Библиотека php-curl-class
+                        $curl = new Curl();
+                        $curl->get($file);
+                        $part .= $curl->response . PHP_EOL;
+                    }
+
+                    if ($disk->exists($file)) {
+                        $part .= $disk->get($file) . PHP_EOL;
+                    }
                 }
 
-                if ($disk->exists(($file))) {
-                    $part .= $disk->get($file) . PHP_EOL;
-                }
+                // Запишем новый файл
+                $disk->put($newFilePath, $part);
             }
-            $disk->put($newFilePath, $part);
         }
-        return $part;
     }
 
 

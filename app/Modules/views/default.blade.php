@@ -16,7 +16,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {!! $getMeta !!}
-    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> --}}
     @include("{$viewPath}.inc.warning")
     {{--
 
@@ -25,32 +25,36 @@
     {{--
 
     Объединяем css в один файл --}}
-    {{--{{ HelpersFile::merge(
+    {{ HelpersFile::merge(
         [
             'css/app.css',
             'css/add.css',
         ],
         'css/main.css'
     ) }}
-     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">--}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/add.css') }}">
+     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+    {{--<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/add.css') }}">--}}
 </head>
 <body>
 {{--
 
 Панель администратора --}}
 {!! PanelDashboard::init() !!}
-<div id="app">
-    @yield('header')
-    @include("{$viewPath}.inc.message")
+<div class="app" id="app">
+    <div class="content-block">
+        @yield('header')
+        @include("{$viewPath}.inc.message")
 
-    <div class="content" id="content">
-        @yield('content')
+        <div class="content" id="content">
+            @yield('content')
+        </div>
+        <div id="bottom-block"></div>
     </div>
-    <div id="bottom-block"></div>
 
-    @yield('footer')
+    <div class="footer-block">
+        @yield('footer')
+    </div>
 </div>
 {{--
 
@@ -62,7 +66,7 @@
         </div>
     </div>
 </div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{--
 
 @if (!request()->is('/'))
@@ -92,7 +96,7 @@
 {{--
 
 Если в контенте есть скрипты, то они выведятся здесь, через метод Main::getDownScript() --}}
-@if (!empty(Main::get('scripts')))
+@if (Main::get('scripts'))
     @foreach (Main::get('scripts') as $script)
         {!! $script . PHP_EOL !!}
     @endforeach
@@ -108,15 +112,15 @@
 {{--
 
 Объединяем скрипты в один файл --}}
-{{--{{ HelpersFile::merge(
+{{ HelpersFile::merge(
     [
         'js/app.js',
         'js/add.js',
     ],
     'js/main.js'
 ) }}
-<script src="{{ asset('js/main.js') }}" defer></script>--}}
-<script src="{{ asset('js/app.js') }}" defer></script>
-<script src="{{ asset('js/add.js') }}" defer></script>
+<script src="{{ asset('js/main.js') }}" defer></script>
+{{--<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/add.js') }}" defer></script>--}}
 </body>
 </html>

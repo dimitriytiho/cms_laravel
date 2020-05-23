@@ -95,9 +95,9 @@ class Main
     /*
      * Использовать скрипты в контенте, они будут перенесены вниз страницы.
      * $content - контент, в котором удалиться скрипты и перенести их вниз страницы.
-     * В шаблоне вида получить скрипты с помощью \App\Main::$registry->get('scripts').
+     * В шаблоне вида получить скрипты с помощью Main::get('scripts').
      */
-    public static function getDownScript(string $content)
+    public static function getDownScript($content)
     {
         if ($content) {
             $scripts = [];
