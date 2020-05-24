@@ -22,9 +22,17 @@
                        <i aria-hidden="true" class="material-icons">notifications</i>
                    </a>
                 </li>--}}
+                @if ($onlineUsers)
+                    <li class="nav-item d-flex align-items-center">
+                        <a href="{{ route('admin.online_users') }}" class="nav-link d-flex align-items-center position-relative" title="@lang("{$lang}::s.online_users")">
+                            <span class="material-icons">people_alt</span>
+                            <span class="counter-small text-white">{{ count($onlineUsers) }}</span>
+                        </a>
+                    </li>
+                @endif
                 @if ($excludeCurrentLocale)
                     <li class="nav-item d-flex align-items-center">
-                        <a href="{{ route('admin.locale', $excludeCurrentLocale[0] ?? null) }}" class="nav-link d-flex align-items-center">{{ !empty($excludeCurrentLocale[0]) ? \Illuminate\Support\Str::ucfirst($excludeCurrentLocale[0]) : null }}</a>
+                        <a href="{{ route('admin.locale', $excludeCurrentLocale[0] ?? null) }}" class="nav-link d-flex align-items-center" title="@lang("{$lang}::s.language")">{{ !empty($excludeCurrentLocale[0]) ? \Illuminate\Support\Str::ucfirst($excludeCurrentLocale[0]) : null }}</a>
                     </li>
                 @endif
                 <li class="nav-item dropdown">

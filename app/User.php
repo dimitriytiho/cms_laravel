@@ -155,23 +155,33 @@ class User extends Authenticatable
     }
 
 
-    // Возвращает в массиве id ролей пользователей с доступом в админку
-    public static function roleIdAdmin()
+    /*
+     * Возвращает в массиве id ролей пользователей с доступом в админку.
+     *
+     * Если нужно получить id ролей пользователей без доступа в админку (с другой area), то:
+     * $idArea - id area, для которой нужны id ролей, необязательный параметр.
+     */
+    public static function roleIdAdmin($idArea = 2)
     {
-        // Взязь из кэша
-        if (cache()->has('roles_admin_ids')) {
-            return cache()->get('roles_admin_ids');
+        $area = config('admin.user_areas')[$idArea];
+        if ($area) {
+            $cacheName = "roles_{$area}_ids";
 
-        } else {
+            // Взязь из кэша
+            if (cache()->has($cacheName)) {
+                return cache()->get($cacheName);
 
-            // Запрос в БД
-            $ids = DB::table('roles')->where('area', config('admin.user_areas')[2])->pluck('id')->toArray();
-            if ($ids) {
+            } else {
 
-                // Кэшируется запрос
-                cache()->forever('roles_admin_ids', $ids);
+                // Запрос в БД
+                $ids = DB::table('roles')->where('area', config('admin.user_areas')[$idArea])->pluck('id')->toArray();
+                if ($ids) {
 
-                return $ids;
+                    // Кэшируется запрос
+                    cache()->forever($cacheName, $ids);
+
+                    return $ids;
+                }
             }
         }
         return false;

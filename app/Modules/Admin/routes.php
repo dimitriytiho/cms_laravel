@@ -75,6 +75,7 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
 
 
     // Add routes get
+    Route::get('online-users', 'MainController@OnlineUsers')->name('online_users');
     Route::get('locale/{locale}', 'MainController@locale')->name('locale');
     Route::get('logout', 'UserController@logout')->name('logout');
     Route::get('/', 'MainController@index')->name('main');

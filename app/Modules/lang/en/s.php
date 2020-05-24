@@ -96,4 +96,9 @@ return [
     'select' => 'Select',
     'range' => 'Range',
 
+    'language' => 'Language',
+    'online_users' => 'Online users',
+    'no_users_now' => 'There are no users on the site right now.',
+    'now_on_the_site' => 'now on the site',
+
 ];

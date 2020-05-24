@@ -4,6 +4,7 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Main;
 use App\Modules\Admin\Helpers\Locale;
+use App\Modules\Admin\Helpers\OnlineUsers;
 use App\Modules\Admin\Helpers\Routes;
 use App\Modules\Admin\Models\Setting;
 use Illuminate\Http\Request;
@@ -121,6 +122,12 @@ class AppController extends Controller
         $imgRequestName = $this->imgRequestName = null;
         $imgUploadID = $this->imgUploadID = null;
 
-        View::share(compact('viewPath', 'lang', 'currentRoute', 'controller', 'c', 'table', 'currentRoutesExclude', 'asideWidth', 'asideText', 'menuAsideChunk', 'menuAside', 'imgRequestName', 'imgUploadID', 'namespaceHelpers', 'modulesPath', 'constructor'));
+        // Пользователи онлайн
+        $onlineUsers = null;
+        if (config('add.online_users')) {
+            $onlineUsers = OnlineUsers::getUsers();
+        }
+
+        View::share(compact('viewPath', 'lang', 'currentRoute', 'controller', 'c', 'table', 'currentRoutesExclude', 'asideWidth', 'asideText', 'menuAsideChunk', 'menuAside', 'imgRequestName', 'imgUploadID', 'namespaceHelpers', 'modulesPath', 'constructor', 'onlineUsers'));
     }
 }

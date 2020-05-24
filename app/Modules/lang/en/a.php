@@ -137,5 +137,6 @@ return [
     'first_create_menu' => 'First create a menu.',
     'Filter_group' => 'Filter group',
     'Filter_value' => 'Filters',
+    'online_users' => 'Online users',
 
 ];

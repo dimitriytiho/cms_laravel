@@ -2,6 +2,9 @@
     <div class="col d-flex justify-content-between align-items-center flex-wrap">
         <div class="btn-group" role="group" aria-label="nav">
             <a href="{{ route('admin.main') }}" class="btn btn-outline-primary d-flex align-items-center @if (Request::path() === env('APP_ADMIN')) disabled @endif btn-pulse">@lang("{$lang}::a.Dashboard")</a>
+            @if (!empty($currentRoute['single']))
+                <a href="{{ $currentRoute['slug'] }}" class="btn btn-outline-primary btn-pulse disabled">@lang("{$lang}::a.{$currentRoute['title']}")</a>
+            @endif
             @if (!empty($currentRoutesExclude))
                 @foreach ($currentRoutesExclude as $v)
                     <a href="{{ route('admin.main') . $v['slug'] }}" class="btn btn-outline-primary btn-pulse @if (!empty($currentRoute['slug']) && $currentRoute['slug'] === $v['slug']) disabled @endif">@lang("{$lang}::a.{$v['title']}")</a>

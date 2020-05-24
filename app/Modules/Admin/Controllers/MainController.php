@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\Main;
+use App\Modules\Admin\Helpers\OnlineUsers;
 use App\Modules\Admin\Helpers\Slug;
 use App\Helpers\Upload;
 use App\User;
@@ -19,6 +20,7 @@ class MainController extends AppController
     {
         parent::__construct($request);
         $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
+        $this->c = strtolower($this->class);
         $view = $this->view = Str::snake($this->class);
         View::share(compact('class','view'));
     }
@@ -30,7 +32,18 @@ class MainController extends AppController
         Main::viewExists("{$this->c}.{$f}", __METHOD__);
         $count_forms = DB::table('forms')->count();
         $count_pages = DB::table('pages')->count();
-        $count_users = DB::table('users')->count();
+
+        // Если включена авторизация на сайте, то покажем кол-во новых пользователей, а если нет, то покажем кол-во всех пользователей.
+        if (config('add.auth')) {
+            $idRolesPublic = User::roleIdAdmin(1);
+
+            $count_users = DB::table('users')->whereIn('role_id',$idRolesPublic)->count();
+
+        } else {
+            $count_users = DB::table('users')->count();
+        }
+
+
         $count_orders = DB::table('orders')->where('status', config('admin.order_statuses')[0])->count();
         $key = null;
 
@@ -112,5 +125,21 @@ class MainController extends AppController
             }
         }
         Main::getError('Request No Ajax', __METHOD__);
+    }
+
+
+    public function OnlineUsers()
+    {
+        $f = Str::snake(__FUNCTION__);
+        Main::viewExists("{$this->c}.{$f}", __METHOD__);
+
+        $currentRoute = [
+            'single' => true,
+            'title' => $f,
+            'slug' => route("admin.{$f}"),
+        ];
+
+        $this->setMeta(__("{$this->lang}::s.{$f}"));
+        return view("{$this->view}.{$f}", compact('currentRoute'));
     }
 }

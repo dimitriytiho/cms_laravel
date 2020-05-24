@@ -31,10 +31,10 @@ class FormController extends AppController
 
             // Валидация
             $rules = [
-                'name' => ['required', 'string', 'max:190'],
-                'tel' => ['required', 'max:190'],
-                'email' => ['required|email', 'string', 'max:190'],
-                'message' => ['required', 'string'],
+                'name' => 'required|string|max:190',
+                'tel' => 'required|string|max:190',
+                'email' => 'required|string|email|max:190',
+                'message' => 'required', 'string',
                 'accept' => 'accepted',
                 //'g-recaptcha-response' => 'required',
             ];
