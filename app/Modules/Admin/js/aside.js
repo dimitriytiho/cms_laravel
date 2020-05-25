@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let asideWidth = true,
             asideWidthChange = document.querySelectorAll('.aside-width-change'),
+            asideMarginChange = document.querySelectorAll('.aside-margin-change'),
             asideWidthSave = cookie.getCookie('asideWidth'),
             //asideWidthSave = localStorage.getItem('asideWidth'),
             asideText = document.querySelectorAll('.aside-text'),
@@ -44,6 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     el.style.display = 'inline'
                 })
                 asideWidth = false
+            }
+            if (asideMarginChange) {
+                asideMarginChange.forEach(function (el) {
+                    el.style.marginLeft = asideWidthSave
+                })
             }
 
         } else {
@@ -66,15 +72,27 @@ document.addEventListener('DOMContentLoaded', function() {
                         asideWidthChange.forEach(function (el) {
                             el.style.width = main.asideWidthIcon
                         })
+                        if (asideMarginChange) {
+                            asideMarginChange.forEach(function (el) {
+                                el.style.marginLeft = asideWidthSave
+                            })
+                        }
                         asideText.forEach(function (el) {
                             el.style.display = 'none'
                         })
                         cookie.setCookie('asideWidth', main.asideWidthIcon)
                         //localStorage.setItem('asideWidth', main.asideWidthIcon)
+
                     } else {
+
                         asideWidthChange.forEach(function (el) {
                             el.style.width = main.asideWidthText
                         })
+                        if (asideMarginChange) {
+                            asideMarginChange.forEach(function (el) {
+                                el.style.marginLeft = main.asideWidthText
+                            })
+                        }
                         cookie.setCookie('asideWidth', main.asideWidthText)
                         //localStorage.setItem('asideWidth', main.asideWidthText)
                         setTimeout(function () {

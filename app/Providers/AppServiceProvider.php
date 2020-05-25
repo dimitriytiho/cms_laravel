@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 use App\Main;
 use App\Helpers\Services\Registry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {

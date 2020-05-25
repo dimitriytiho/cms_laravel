@@ -64,24 +64,30 @@
 </head>
 <body>
 <div class="app" id="app">
-    @include('inc.header')
-    <main class="container-fluid main">
-        <div class="row">
-            @include('inc.aside')
-
-            <div class="col bg-light p-4 main-content">
+    @include('inc.aside')
+    <div class="px-0 w-100 main-content">
+        @include('inc.header')
+        <div class="row body-block mr-2 ml-3">
+            <div class="col transition {{--aside-margin-change--}}" {{--style="margin-left: {{ $asideWidth }};"--}}>
                 @include('inc.message')
                 @include('inc.top_panel')
-                <div class="col bg-white p-4 content">
-                    <div class="py-4 px-1">
-                        @yield('content')
+                <div class="row content-block" id="content">
+                    <div class="col mt-1 content">
+                        <div class="py-4 px-1">
+                            @yield('content')
+                        </div>
                     </div>
                 </div>
+                <footer class="row footer-block">
+                    <div class="col font-weight-light text-secondary text-right mt-4 py-2 px-1 footer">
+                        <small class="pr-4">&copy; {{ date('Y') }} {{ env('APP_DEV') }} | Laravel {{ App::version() }}</small>
+                    </div>
+                </footer>
             </div>
         </div>
-    </main>
-    @include('inc.footer')
+    </div>
 </div>
+@include('inc.footer')
 {{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script> --}}
 {{--
@@ -123,6 +129,7 @@
                         matchBrackets: true,
                         indentUnit: 4
                     })
+                    editor.setSize('auto', '704')
                     //editor.setSize('auto', 'auto')
                 }
             }, false)

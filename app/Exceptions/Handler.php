@@ -2,9 +2,9 @@
 
 namespace App\Exceptions;
 
-use App\Main;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Main;
 
 class Handler extends ExceptionHandler
 {
@@ -51,7 +51,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-
         // Добавляем код
         $lang = lang();
         if ($this->isHttpException($exception)) {
@@ -64,14 +63,14 @@ class Handler extends ExceptionHandler
                 Main::getError($title, __METHOD__, false, 'critical');
                 $status = 401; // HTTP/1.0 401 Unauthorized
 
-            // Ошибки 500
+                // Ошибки 500
             } elseif ($code == 500 || $code == 419 || $code == 422) {
                 $title = __("{$lang}::s.unauthorized_error");
                 $message = __("{$lang}::s.whoops_no_server");
                 Main::getError($title, __METHOD__, false, 'critical');
                 $status = 500; // 500 Internal Server Error
 
-            // Ошибки 404 и прочии
+                // Ошибки 404 и прочии
             } else {
                 $title = __("{$lang}::s.page_not_found");
                 $message = __("{$lang}::s.whoops_no_page");
@@ -94,7 +93,6 @@ class Handler extends ExceptionHandler
                 return redirect('/error.php');
             }
         }
-
 
         return parent::render($request, $exception);
     }

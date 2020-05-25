@@ -6,13 +6,13 @@
         "watch": "npm run development -- --watch",
         "watch-prod": "npm run production -- --watch",
         "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
         "axios": "^0.19",
-        "bootstrap": "^4.4.1",
+        "bootstrap": "^4.5.0",
         "cross-env": "^7.0",
         "jquery": "^3.5.1",
         "laravel-mix": "^5.0.1",
@@ -26,7 +26,7 @@
     "dependencies": {
         "bootstrap.native": "^2.0.27",
         "dropzone": "^5.7.0",
-        "imask": "^6.0.3",
+        "imask": "^6.0.5",
         "validate.js": "^0.13.1"
     }
 }

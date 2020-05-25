@@ -2,6 +2,18 @@
 @import "config/mixins";
 @import "config/blocks";
 
+/*.body-block {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.content-block {
+    flex: 1 0 auto;
+}
+.footer-block {
+    flex: 0 0 auto;
+}*/
+
 .enter {
     margin-top: 10%;
     animation: $transition-md animate-enter forwards;
@@ -17,8 +29,14 @@
     }
 }
 
+.app {
+    display: flex;
+}
+
 .header {
+    height: 48px;
     &__left {
+        position: relative;
         z-index: 1;
     }
     img {
@@ -28,18 +46,42 @@
     .dropdown-item:focus {
         background-color: transparent;
     }
+    .dropdown-menu {
+        border: none;
+        box-shadow: $box-shadow;
+    }
 }
 
-main.main > div.row {
+/*main.main > div.row {
     flex-wrap: nowrap;
-}
+}*/
 
 .aside {
+    z-index: 1;
+    &__header {
+        position: relative;
+        z-index: 1;
+        height: 48px;
+        img {
+            height: 1.5rem;
+        }
+    }
     .active {
         color: darken($primary-admin, 20%);
     }
     .material-icons {
         font-size: 1.5rem;
+    }
+
+    // Тень
+    &:after {
+        content: '';
+        position: fixed;
+        top: 0;
+        width: inherit;
+        bottom: 0;
+        box-shadow: $box-shadow;
+        z-index: 0;
     }
 }
 
@@ -50,8 +92,15 @@ main.main > div.row {
 }
 
 .content {
-    padding-left: 2.1rem !important;
     &__h1 .btn-group {
         height: 1.7rem;
     }
+}
+
+.codemirror {
+    height: 704px;
+    font-size: 13px;
+}
+.ckeditor {
+    height: 704px;
 }

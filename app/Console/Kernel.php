@@ -2,9 +2,9 @@
 
 namespace App\Console;
 
-use App\Helpers\Upload;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Helpers\Upload;
 
 class Kernel extends ConsoleKernel
 {

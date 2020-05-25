@@ -5,7 +5,10 @@
         <section>
             <div class="row">
                 <div class="col-12">
-                    <h5>{{ count($onlineUsers) }} - @lang("{$lang}::s.now_on_the_site"):</h5>
+                    <h5>
+                        <span class="online-users">{{ count($onlineUsers) }}</span>
+                        <span> - @lang("{$lang}::s.now_on_the_site"):</span>
+                    </h5>
                 </div>
                 <div class="col-12">
                     @foreach($onlineUsers as $ip => $user)

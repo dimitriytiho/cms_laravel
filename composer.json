@@ -13,7 +13,6 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
-        "highideas/laravel-users-online": "^3.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
@@ -21,7 +20,7 @@
         "mobiledetect/mobiledetectlib": "^2.8",
         "php-curl-class/php-curl-class": "^8.8",
         "rap2hpoutre/laravel-log-viewer": "^1.6",
-        "spatie/laravel-backup": "^6.9"
+        "spatie/laravel-backup": "^6.10"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",

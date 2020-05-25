@@ -95,9 +95,8 @@ class AppController extends Controller
         $table = $this->table = null;
         $this->template = 'general';
 
-        $asideWidth = $_COOKIE['asideWidth'] ?? null;
+        $asideWidth = $request->cookie('asideWidth');
         $asideText = $asideWidth === config('add.scss-admin.aside-width-icon') ? ' style="display: none;"' : null;
-        $asideWidth = $asideWidth ? " style='width: $asideWidth;'" : null;
 
         // Левое меню для мобильных
         $menuAsideChunk = null;

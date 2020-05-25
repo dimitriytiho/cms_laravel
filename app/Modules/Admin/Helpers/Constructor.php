@@ -165,7 +165,7 @@ S;
 
                 var sticky = document.getElementById('<?= $idBtn; ?>'),
                     aside = document.querySelector('.aside'),
-                    content = document.querySelector('.main-content'),
+                    //content = document.querySelector('.main-content'),
                     tabs = document.getElementById('tabs-edit-content'),
                     tabActive = null,
                     tabHeight = null,
@@ -203,15 +203,16 @@ S;
 
 
                     function addButton() {
-                        var asideWidth = aside.offsetWidth, // Ширина сайдбара слева
-                            contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left') // У контента получить padding-left в px
+                        /*var asideWidth = aside.offsetWidth, // Ширина сайдбара слева
+                            contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left')*/ // У контента получить padding-left в px
 
                         // Отрезать px в конце строки
-                        contentLeft = contentLeft.substring(0, contentLeft.length - 2)
+                        //contentLeft = contentLeft.substring(0, contentLeft.length - 2)
 
+                        //sticky.style.paddingLeft = '34px'
                         sticky.classList.add('bg-white', 'w-100', 'position-fixed', 'z-7')
-                        sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
-                        sticky.style.paddingLeft = '2.4rem'
+                        sticky.style.left = '82px'
+                        //sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
                         sticky.style.height = heightNewSticky + 'px'
                         sticky.style.top = (heightWindow - heightNewSticky) + 'px'
                     }

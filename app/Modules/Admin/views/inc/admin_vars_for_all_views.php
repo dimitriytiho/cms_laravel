@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Admin\Helpers\OnlineUsers;
 use Illuminate\Support\Facades\View;
 use App\Modules\Admin\Models\Setting;
 use Illuminate\Support\Facades\Request;
@@ -37,3 +38,9 @@ if ($menuAside && is_array($menuAside) && count($menuAside) > 2) {
 $lang = lang();
 $currentRoute = Routes::currentRoute(Request::path()) ?? null;
 $currentRoutesExclude = Routes::currentRoutes($currentRoute) ?? null;
+
+// Пользователи онлайн
+$onlineUsers = null;
+if (config('add.online_users')) {
+    $onlineUsers = OnlineUsers::getUsers();
+}
