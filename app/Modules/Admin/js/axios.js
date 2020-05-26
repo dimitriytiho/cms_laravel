@@ -455,4 +455,57 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
+    // Каждые 30 секунд обновляем счётчик онлайн пользователей на сайте
+    const onlineUsersCount = document.querySelectorAll('.online-users-count')
+    if (onlineUsersCount[0]) {
+
+        setInterval(function () {
+
+            axios.post(main.url + '/online-users')
+                .then(function (res) {
+                    const onlineUsers = res.data,
+                        listUsers = document.querySelector('.online-users-list')
+                    let list = ''
+
+                    if (onlineUsers) {
+
+                        // Вставляем кол-во в счётчик
+                        onlineUsersCount.forEach(function (el) {
+                            el.innerHTML = Object.keys(onlineUsers).length
+                        })
+
+                        // Обновим список
+                        if (listUsers) {
+                            Object.keys(onlineUsers).forEach(function (key) {
+
+                                if (onlineUsers[key]['id']) {
+                                    list += `<div>${key} - <a href="${main.url}/user/${onlineUsers[key]['id']}/edit">${onlineUsers[key]['name']}</a></div>`
+                                } else {
+                                    list += `<div>${key}</div>`
+                                }
+
+                            })
+                            listUsers.innerHTML = list
+                        }
+
+                    } else {
+
+                        // Вставляем кол-во в счётчик
+                        onlineUsersCount.forEach(function (el) {
+                            el.innerHTML = '0'
+                        })
+
+                        // Обновим список
+                        if (listUsers) {
+                            listUsers.innerHTML = list
+                        }
+                    }
+
+                })
+                .catch()
+
+        }, 30000)
+    }
+
+
 }, false)

@@ -3,13 +3,12 @@
 
 namespace App\Modules\Admin\Helpers;
 
-
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class OnlineUsers
 {
-    public static $file = 'storage/users/online.log';
+    public static $file = 'storage/users_online.log'; // По пути данного файла должны быть папки, файла может не быть, иначе будет ошибка!
     public static $formatData = 'Y_m_d_H_i';
     public static $delimiter = '==';
     public static $delimiterRow = '||';
@@ -46,11 +45,18 @@ class OnlineUsers
                         // Сохраняем по уникальным ip
                         if (isset($userData['ip'])) {
                             $users[$userData['ip']] = $userData;
+                            //$users[] = $userData;
                         }
                     }
                 }
             }
+        } else {
+
+            // Если нет файла, то создадим его. Внимание все папки до него должны быть!
+            File::put($file, '');
         }
+
+
         return $users;
     }
 

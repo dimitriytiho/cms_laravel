@@ -73,9 +73,13 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
     Route::match(['get','post'],'additionally', 'AdditionallyController@index')->name('additionally');
     Route::get('/additionally/files', 'AdditionallyController@files')->name('files');
 
+    // Online users
+    if (config('add.online_users')) {
+        Route::post('online-users', 'MainController@OnlineUsers');
+        Route::get('online-users', 'MainController@OnlineUsers')->name('online_users');
+    }
 
     // Add routes get
-    Route::get('online-users', 'MainController@OnlineUsers')->name('online_users');
     Route::get('locale/{locale}', 'MainController@locale')->name('locale');
     Route::get('logout', 'UserController@logout')->name('logout');
     Route::get('/', 'MainController@index')->name('main');

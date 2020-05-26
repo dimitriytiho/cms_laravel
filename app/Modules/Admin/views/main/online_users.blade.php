@@ -1,31 +1,23 @@
 @extends('layouts.admin')
 
 @section('content')
-    @if ($onlineUsers)
-        <section>
-            <div class="row">
-                <div class="col-12">
-                    <h5>
-                        <span class="online-users">{{ count($onlineUsers) }}</span>
-                        <span> - @lang("{$lang}::s.now_on_the_site"):</span>
-                    </h5>
-                </div>
-                <div class="col-12">
-                    @foreach($onlineUsers as $ip => $user)
-                        @if (isset($user['id']))
-                            <a href="{{ route("admin.user.edit", $user['id']) }}" class="d-block">{{ $user['name'] }}</a>
-                        @else
-                            <div>{{ $ip }}</div>
-                        @endif
-                    @endforeach
-                </div>
-            </div>
-        </section>
-    @else
+    <section>
         <div class="row">
-            <div class="col my-4">
-                <h5>@lang("{$lang}::s.no_users_now")</h5>
+            <div class="col-12">
+                <h5>
+                    <span class="online-users-count">{{ $onlineUsers ? count($onlineUsers) : '0' }}</span>
+                    <span> - @lang("{$lang}::s.now_on_the_site")</span>
+                </h5>
+            </div>
+            <div class="col-12 online-users-list">
+                @foreach($onlineUsers as $ip => $user)
+                    @if (isset($user['id']))
+                        <div>{{ $ip }} - <a href="{{ route("admin.user.edit", $user['id']) }}">{{ $user['name'] }}</a></div>
+                    @else
+                        <div>{{ $ip }}</div>
+                    @endif
+                @endforeach
             </div>
         </div>
-    @endif
+    </section>
 @endsection

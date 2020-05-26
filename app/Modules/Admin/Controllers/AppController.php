@@ -122,7 +122,7 @@ class AppController extends Controller
         $imgUploadID = $this->imgUploadID = null;
 
         // Пользователи онлайн
-        $onlineUsers = null;
+        $onlineUsers = [];
         if (config('add.online_users')) {
             $onlineUsers = OnlineUsers::getUsers();
         }

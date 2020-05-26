@@ -1,12 +1,5 @@
 <header class="container-fluid text-white header">
     <div class="row">
-        {{--<div class="d-flex align-items-center py-1 transition a-secondary z2 aside-width-change" id="header__icon" style="width: {{ $asideWidth }};">
-            <a href="{{ route('index') }}" class="d-flex align-items-center">
-                <img src="{{ asset(config('add.img') . '/omegakontur/admin/touch-icon-iphone-retina.png') }}" class="pr-3 pl-2" alt="{{ env('APP_NAME') }}">
-                <span class="aside-text fadein"{!! $asideText !!}>@lang("{$lang}::a.Website")</span>
-            </a>
-        </div>--}}
-
         <div class="col bg-primary d-flex justify-content-between shadow py-1 a-white header__left transition {{--aside-margin-change--}}" {{--style="margin-left: {{ $asideWidth }};"--}}>
             <ul class="nav">
                 <li class="nav-item d-flex align-items-center">
@@ -22,14 +15,16 @@
                        <i aria-hidden="true" class="material-icons">notifications</i>
                    </a>
                 </li>--}}
-                @if ($onlineUsers)
-                    <li class="nav-item d-flex align-items-center">
+
+                @if (config('add.online_users'))
+                    <li class="nav-item d-flex align-items-center online-users">
                         <a href="{{ route('admin.online_users') }}" class="nav-link d-flex align-items-center position-relative" title="@lang("{$lang}::s.online_users")">
                             <span class="material-icons">people_alt</span>
-                            <span class="counter-small text-white online-users">{{ count($onlineUsers) }}</span>
+                            <span class="counter-small text-white online-users-count">{{ $onlineUsers ? count($onlineUsers) : '0' }}</span>
                         </a>
                     </li>
                 @endif
+
                 @if ($excludeCurrentLocale)
                     <li class="nav-item d-flex align-items-center">
                         <a href="{{ route('admin.locale', $excludeCurrentLocale[0] ?? null) }}" class="nav-link d-flex align-items-center" title="@lang("{$lang}::s.language")">{{ !empty($excludeCurrentLocale[0]) ? \Illuminate\Support\Str::ucfirst($excludeCurrentLocale[0]) : null }}</a>

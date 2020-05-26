@@ -63,17 +63,17 @@
     @endif
 </head>
 <body>
-<div class="app" id="app">
+<div class="app h-100" id="app">
     @include('inc.aside')
-    <div class="px-0 w-100 main-content">
+    <div class="px-0 w-100 h-100 main-content">
         @include('inc.header')
-        <div class="row body-block mr-2 ml-3">
+        <div class="row body-block h-100 mr-2 ml-3">
             <div class="col transition {{--aside-margin-change--}}" {{--style="margin-left: {{ $asideWidth }};"--}}>
                 @include('inc.message')
                 @include('inc.top_panel')
-                <div class="row content-block" id="content">
-                    <div class="col mt-1 content">
-                        <div class="py-4 px-1">
+                <div class="row content-block h-100" id="content">
+                    <div class="col mt-1 content h-100">
+                        <div class="py-4 px-1 h-100">
                             @yield('content')
                         </div>
                     </div>

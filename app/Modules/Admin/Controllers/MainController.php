@@ -128,8 +128,15 @@ class MainController extends AppController
     }
 
 
-    public function OnlineUsers()
+    public function OnlineUsers(Request $request)
     {
+        // Для пост запроса
+        if ($request->isMethod('post') && $request->wantsJson()) {
+            $onlineUsers = OnlineUsers::getUsers();
+            return $onlineUsers ? response()->json($onlineUsers) : null;
+        }
+
+
         $f = Str::snake(__FUNCTION__);
         Main::viewExists("{$this->c}.{$f}", __METHOD__);
 
