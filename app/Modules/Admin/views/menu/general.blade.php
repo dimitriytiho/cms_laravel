@@ -72,10 +72,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             {!! input('attr', $values->attr ?? null, null) !!}
                         </div>
                         @if (isset($values->id))
+                            <div class="col-md-6">
+                                {!! input('class', $values->class ?? null, null) !!}
+                            </div>
                             <div class="col-md-6">
                                 {!! input('sort', $values->sort ?? null, null) !!}
                             </div>

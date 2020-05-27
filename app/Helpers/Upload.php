@@ -50,7 +50,7 @@ class Upload
             foreach ($sassParams as $k => $v) {
                 $partSassInit .= "\${$k}: {$v};\n";
             }
-            $partSassInit .= "\$path-img: '../" . env('IMG', 'img') . "';\n";
+            $partSassInit .= "\$path-img: '/" . env('IMG', 'img') . "';\n";
 
             $fileSassInit = "{$modulesPath}/sass/config/_init.scss";
             if (File::exists(($fileSassInit))) {

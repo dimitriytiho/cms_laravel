@@ -8,6 +8,7 @@ namespace App\Helpers;
 class Locale
 {
     private $currentLocale;
+    private $locales;
     private $modulesPath;
     private $modulesLang;
     private $langPath;

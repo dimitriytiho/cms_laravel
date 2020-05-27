@@ -3,7 +3,6 @@
 
 namespace App\Helpers;
 
-use App\Lib\Parser;
 use Curl\Curl;
 use Illuminate\Support\Facades\File as SupportFile;
 use Illuminate\Support\Facades\Storage;
