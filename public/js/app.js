@@ -1,2 +1,4151 @@
-/*! For license information please see app.js.LICENSE.txt */
-!function(t){var e={};function n(i){if(e[i])return e[i].exports;var o=e[i]={i:i,l:!1,exports:{}};return t[i].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=t,n.c=e,n.d=function(t,e,i){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:i})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var i=Object.create(null);if(n.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var o in t)n.d(i,o,function(e){return t[e]}.bind(null,o));return i},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/",n(n.s=15)}({15:function(t,e,n){n(52),n(54),n(59),n(62),t.exports=n(64)},16:function(t,e){},17:function(t,e){document.addEventListener("DOMContentLoaded",(function(){body.on("keyup",".search_js__input",(function(){var t=$(this),e=t.val(),n=e.length,i=t.closest(".search_js").find(".search_js__child");n>0&&$.ajax({type:"POST",url:"/search-js",data:{_token:_token,query:e},success:function(t){if(t){t=JSON.parse(t);var e="";t.forEach((function(t){e+='<a href="'.concat(t.slug,'" class="search_js__child--link">').concat(t.title,"</a>")})),i.html(e)}}})}))}),!1)},18:function(t,e){document.addEventListener("click",(function(t){t.target.classList.contains("one-click")&&t.target.classList.add("disabled")})),document.addEventListener("click",(function(t){if(t.target.classList.contains("spinner-click")){var e=document.createElement("span");e.classList.add("spinner-grow","spinner-grow-sm","ml-1"),t.target.appendChild(e)}}))},19:function(t,e){document.addEventListener("click",(function(t){if(t.target.classList.contains("btn-pulse")){var e=document.createElement("div"),n=e.style,i=Math.max(t.target.offsetWidth,t.target.offsetHeight),o=t.target.getBoundingClientRect(),r=window.getComputedStyle(t.target).backgroundColor,a=t.target.textContent,s=t.target.querySelector("span");timeDeleteDiv=300,e.classList.add("pulseJS"),n.width=n.height=i+"px",n.left=t.clientX-o.left-i/2+"px",n.top=t.clientY-o.top-i/2+"px",n.backgroundColor=r,n.opacity=.4,t.target.appendChild(e),s||setTimeout((function(){t.target.textContent=a}),timeDeleteDiv)}else if(t.target.classList.contains("btn-pulse-child")){var l=t.target.closest(".btn-pulse"),c=document.createElement("div"),u=c.style,f=Math.max(l.offsetWidth,l.offsetHeight),d=l.getBoundingClientRect(),h=window.getComputedStyle(t.target).backgroundColor,p=t.target.textContent;c.classList.add("pulseJS"),u.width=u.height=f+"px",u.left=t.clientX-d.left-f/2+"px",u.top=t.clientY-d.top-f/2+"px",u.backgroundColor=h,u.opacity=.4,l.appendChild(c),setTimeout((function(){l.textContent=p}),300)}}))},2:function(t,e,n){(function(t){(function(t,e,i){"use strict";var o=function(t,e,n){n=r.extend({},r.options,n);var i=r.runValidations(t,e,n);if(i.some((function(t){return r.isPromise(t.error)})))throw new Error("Use validate.async if you want support for promises");return o.processValidationResults(i,n)},r=o;r.extend=function(t){return[].slice.call(arguments,1).forEach((function(e){for(var n in e)t[n]=e[n]})),t},r.extend(o,{version:{major:0,minor:13,patch:1,metadata:null,toString:function(){var t=r.format("%{major}.%{minor}.%{patch}",r.version);return r.isEmpty(r.version.metadata)||(t+="+"+r.version.metadata),t}},Promise:"undefined"!=typeof Promise?Promise:null,EMPTY_STRING_REGEXP:/^\s*$/,runValidations:function(t,e,n){var i,o,a,s,l,c,u,f=[];for(i in(r.isDomElement(t)||r.isJqueryElement(t))&&(t=r.collectFormValues(t)),e)for(o in a=r.getDeepObjectValue(t,i),s=r.result(e[i],a,t,i,n,e)){if(!(l=r.validators[o]))throw u=r.format("Unknown validator %{name}",{name:o}),new Error(u);c=s[o],(c=r.result(c,a,t,i,n,e))&&f.push({attribute:i,value:a,validator:o,globalOptions:n,attributes:t,options:c,error:l.call(l,a,c,i,t,n)})}return f},processValidationResults:function(t,e){t=r.pruneEmptyErrors(t,e),t=r.expandMultipleErrors(t,e),t=r.convertErrorMessages(t,e);var n=e.format||"grouped";if("function"!=typeof r.formatters[n])throw new Error(r.format("Unknown format %{format}",e));return t=r.formatters[n](t),r.isEmpty(t)?void 0:t},async:function(t,e,n){var i=(n=r.extend({},r.async.options,n)).wrapErrors||function(t){return t};!1!==n.cleanAttributes&&(t=r.cleanAttributes(t,e));var o=r.runValidations(t,e,n);return new r.Promise((function(a,s){r.waitForResults(o).then((function(){var l=r.processValidationResults(o,n);l?s(new i(l,n,t,e)):a(t)}),(function(t){s(t)}))}))},single:function(t,e,n){return n=r.extend({},r.single.options,n,{format:"flat",fullMessages:!1}),r({single:t},{single:e},n)},waitForResults:function(t){return t.reduce((function(t,e){return r.isPromise(e.error)?t.then((function(){return e.error.then((function(t){e.error=t||null}))})):t}),new r.Promise((function(t){t()})))},result:function(t){var e=[].slice.call(arguments,1);return"function"==typeof t&&(t=t.apply(null,e)),t},isNumber:function(t){return"number"==typeof t&&!isNaN(t)},isFunction:function(t){return"function"==typeof t},isInteger:function(t){return r.isNumber(t)&&t%1==0},isBoolean:function(t){return"boolean"==typeof t},isObject:function(t){return t===Object(t)},isDate:function(t){return t instanceof Date},isDefined:function(t){return null!=t},isPromise:function(t){return!!t&&r.isFunction(t.then)},isJqueryElement:function(t){return t&&r.isString(t.jquery)},isDomElement:function(t){return!!t&&(!(!t.querySelectorAll||!t.querySelector)&&(!(!r.isObject(document)||t!==document)||("object"==typeof HTMLElement?t instanceof HTMLElement:t&&"object"==typeof t&&null!==t&&1===t.nodeType&&"string"==typeof t.nodeName)))},isEmpty:function(t){var e;if(!r.isDefined(t))return!0;if(r.isFunction(t))return!1;if(r.isString(t))return r.EMPTY_STRING_REGEXP.test(t);if(r.isArray(t))return 0===t.length;if(r.isDate(t))return!1;if(r.isObject(t)){for(e in t)return!1;return!0}return!1},format:r.extend((function(t,e){return r.isString(t)?t.replace(r.format.FORMAT_REGEXP,(function(t,n,i){return"%"===n?"%{"+i+"}":String(e[i])})):t}),{FORMAT_REGEXP:/(%?)%\{([^\}]+)\}/g}),prettify:function(t){return r.isNumber(t)?100*t%1==0?""+t:parseFloat(Math.round(100*t)/100).toFixed(2):r.isArray(t)?t.map((function(t){return r.prettify(t)})).join(", "):r.isObject(t)?r.isDefined(t.toString)?t.toString():JSON.stringify(t):(t=""+t).replace(/([^\s])\.([^\s])/g,"$1 $2").replace(/\\+/g,"").replace(/[_-]/g," ").replace(/([a-z])([A-Z])/g,(function(t,e,n){return e+" "+n.toLowerCase()})).toLowerCase()},stringifyValue:function(t,e){return(e&&e.prettify||r.prettify)(t)},isString:function(t){return"string"==typeof t},isArray:function(t){return"[object Array]"==={}.toString.call(t)},isHash:function(t){return r.isObject(t)&&!r.isArray(t)&&!r.isFunction(t)},contains:function(t,e){return!!r.isDefined(t)&&(r.isArray(t)?-1!==t.indexOf(e):e in t)},unique:function(t){return r.isArray(t)?t.filter((function(t,e,n){return n.indexOf(t)==e})):t},forEachKeyInKeypath:function(t,e,n){if(r.isString(e)){var i,o="",a=!1;for(i=0;i<e.length;++i)switch(e[i]){case".":a?(a=!1,o+="."):(t=n(t,o,!1),o="");break;case"\\":a?(a=!1,o+="\\"):a=!0;break;default:a=!1,o+=e[i]}return n(t,o,!0)}},getDeepObjectValue:function(t,e){if(r.isObject(t))return r.forEachKeyInKeypath(t,e,(function(t,e){if(r.isObject(t))return t[e]}))},collectFormValues:function(t,e){var n,i,o,a,s,l,c={};if(r.isJqueryElement(t)&&(t=t[0]),!t)return c;for(e=e||{},a=t.querySelectorAll("input[name], textarea[name]"),n=0;n<a.length;++n)if(o=a.item(n),!r.isDefined(o.getAttribute("data-ignored"))){var u=o.name.replace(/\./g,"\\\\.");l=r.sanitizeFormValue(o.value,e),"number"===o.type?l=l?+l:null:"checkbox"===o.type?o.attributes.value?o.checked||(l=c[u]||null):l=o.checked:"radio"===o.type&&(o.checked||(l=c[u]||null)),c[u]=l}for(a=t.querySelectorAll("select[name]"),n=0;n<a.length;++n)if(o=a.item(n),!r.isDefined(o.getAttribute("data-ignored"))){if(o.multiple)for(i in l=[],o.options)(s=o.options[i])&&s.selected&&l.push(r.sanitizeFormValue(s.value,e));else{var f=void 0!==o.options[o.selectedIndex]?o.options[o.selectedIndex].value:"";l=r.sanitizeFormValue(f,e)}c[o.name]=l}return c},sanitizeFormValue:function(t,e){return e.trim&&r.isString(t)&&(t=t.trim()),!1!==e.nullify&&""===t?null:t},capitalize:function(t){return r.isString(t)?t[0].toUpperCase()+t.slice(1):t},pruneEmptyErrors:function(t){return t.filter((function(t){return!r.isEmpty(t.error)}))},expandMultipleErrors:function(t){var e=[];return t.forEach((function(t){r.isArray(t.error)?t.error.forEach((function(n){e.push(r.extend({},t,{error:n}))})):e.push(t)})),e},convertErrorMessages:function(t,e){var n=[],i=(e=e||{}).prettify||r.prettify;return t.forEach((function(t){var o=r.result(t.error,t.value,t.attribute,t.options,t.attributes,t.globalOptions);r.isString(o)?("^"===o[0]?o=o.slice(1):!1!==e.fullMessages&&(o=r.capitalize(i(t.attribute))+" "+o),o=o.replace(/\\\^/g,"^"),o=r.format(o,{value:r.stringifyValue(t.value,e)}),n.push(r.extend({},t,{error:o}))):n.push(t)})),n},groupErrorsByAttribute:function(t){var e={};return t.forEach((function(t){var n=e[t.attribute];n?n.push(t):e[t.attribute]=[t]})),e},flattenErrorsToArray:function(t){return t.map((function(t){return t.error})).filter((function(t,e,n){return n.indexOf(t)===e}))},cleanAttributes:function(t,e){function n(t,e,n){return r.isObject(t[e])?t[e]:t[e]=!!n||{}}return r.isObject(e)&&r.isObject(t)?function t(e,n){if(!r.isObject(e))return e;var i,o,a=r.extend({},e);for(o in e)i=n[o],r.isObject(i)?a[o]=t(a[o],i):i||delete a[o];return a}(t,e=function(t){var e,i={};for(e in t)t[e]&&r.forEachKeyInKeypath(i,e,n);return i}(e)):{}},exposeModule:function(t,e,n,i,o){n?(i&&i.exports&&(n=i.exports=t),n.validate=t):(e.validate=t,t.isFunction(o)&&o.amd&&o([],(function(){return t})))},warn:function(t){"undefined"!=typeof console&&console.warn&&console.warn("[validate.js] "+t)},error:function(t){"undefined"!=typeof console&&console.error&&console.error("[validate.js] "+t)}}),o.validators={presence:function(t,e){if(!1!==(e=r.extend({},this.options,e)).allowEmpty?!r.isDefined(t):r.isEmpty(t))return e.message||this.message||"can't be blank"},length:function(t,e,n){if(r.isDefined(t)){var i,o=(e=r.extend({},this.options,e)).is,a=e.maximum,s=e.minimum,l=[],c=(t=(e.tokenizer||function(t){return t})(t)).length;return r.isNumber(c)?(r.isNumber(o)&&c!==o&&(i=e.wrongLength||this.wrongLength||"is the wrong length (should be %{count} characters)",l.push(r.format(i,{count:o}))),r.isNumber(s)&&c<s&&(i=e.tooShort||this.tooShort||"is too short (minimum is %{count} characters)",l.push(r.format(i,{count:s}))),r.isNumber(a)&&c>a&&(i=e.tooLong||this.tooLong||"is too long (maximum is %{count} characters)",l.push(r.format(i,{count:a}))),l.length>0?e.message||l:void 0):e.message||this.notValid||"has an incorrect length"}},numericality:function(t,e,n,i,o){if(r.isDefined(t)){var a,s,l=[],c={greaterThan:function(t,e){return t>e},greaterThanOrEqualTo:function(t,e){return t>=e},equalTo:function(t,e){return t===e},lessThan:function(t,e){return t<e},lessThanOrEqualTo:function(t,e){return t<=e},divisibleBy:function(t,e){return t%e==0}},u=(e=r.extend({},this.options,e)).prettify||o&&o.prettify||r.prettify;if(r.isString(t)&&e.strict){var f="^-?(0|[1-9]\\d*)";if(e.onlyInteger||(f+="(\\.\\d+)?"),f+="$",!new RegExp(f).test(t))return e.message||e.notValid||this.notValid||this.message||"must be a valid number"}if(!0!==e.noStrings&&r.isString(t)&&!r.isEmpty(t)&&(t=+t),!r.isNumber(t))return e.message||e.notValid||this.notValid||this.message||"is not a number";if(e.onlyInteger&&!r.isInteger(t))return e.message||e.notInteger||this.notInteger||this.message||"must be an integer";for(a in c)if(s=e[a],r.isNumber(s)&&!c[a](t,s)){var d="not"+r.capitalize(a),h=e[d]||this[d]||this.message||"must be %{type} %{count}";l.push(r.format(h,{count:s,type:u(a)}))}return e.odd&&t%2!=1&&l.push(e.notOdd||this.notOdd||this.message||"must be odd"),e.even&&t%2!=0&&l.push(e.notEven||this.notEven||this.message||"must be even"),l.length?e.message||l:void 0}},datetime:r.extend((function(t,e){if(!r.isFunction(this.parse)||!r.isFunction(this.format))throw new Error("Both the parse and format functions needs to be set to use the datetime/date validator");if(r.isDefined(t)){var n,i=[],o=(e=r.extend({},this.options,e)).earliest?this.parse(e.earliest,e):NaN,a=e.latest?this.parse(e.latest,e):NaN;return t=this.parse(t,e),isNaN(t)||e.dateOnly&&t%864e5!=0?(n=e.notValid||e.message||this.notValid||"must be a valid date",r.format(n,{value:arguments[0]})):(!isNaN(o)&&t<o&&(n=e.tooEarly||e.message||this.tooEarly||"must be no earlier than %{date}",n=r.format(n,{value:this.format(t,e),date:this.format(o,e)}),i.push(n)),!isNaN(a)&&t>a&&(n=e.tooLate||e.message||this.tooLate||"must be no later than %{date}",n=r.format(n,{date:this.format(a,e),value:this.format(t,e)}),i.push(n)),i.length?r.unique(i):void 0)}}),{parse:null,format:null}),date:function(t,e){return e=r.extend({},e,{dateOnly:!0}),r.validators.datetime.call(r.validators.datetime,t,e)},format:function(t,e){(r.isString(e)||e instanceof RegExp)&&(e={pattern:e});var n,i=(e=r.extend({},this.options,e)).message||this.message||"is invalid",o=e.pattern;if(r.isDefined(t))return r.isString(t)?(r.isString(o)&&(o=new RegExp(e.pattern,e.flags)),(n=o.exec(t))&&n[0].length==t.length?void 0:i):i},inclusion:function(t,e){if(r.isDefined(t)&&(r.isArray(e)&&(e={within:e}),e=r.extend({},this.options,e),!r.contains(e.within,t))){var n=e.message||this.message||"^%{value} is not included in the list";return r.format(n,{value:t})}},exclusion:function(t,e){if(r.isDefined(t)&&(r.isArray(e)&&(e={within:e}),e=r.extend({},this.options,e),r.contains(e.within,t))){var n=e.message||this.message||"^%{value} is restricted";return r.isString(e.within[t])&&(t=e.within[t]),r.format(n,{value:t})}},email:r.extend((function(t,e){var n=(e=r.extend({},this.options,e)).message||this.message||"is not a valid email";if(r.isDefined(t))return r.isString(t)&&this.PATTERN.exec(t)?void 0:n}),{PATTERN:/^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/i}),equality:function(t,e,n,i,o){if(r.isDefined(t)){r.isString(e)&&(e={attribute:e});var a=(e=r.extend({},this.options,e)).message||this.message||"is not equal to %{attribute}";if(r.isEmpty(e.attribute)||!r.isString(e.attribute))throw new Error("The attribute must be a non empty string");var s=r.getDeepObjectValue(i,e.attribute),l=e.comparator||function(t,e){return t===e},c=e.prettify||o&&o.prettify||r.prettify;return l(t,s,e,n,i)?void 0:r.format(a,{attribute:c(e.attribute)})}},url:function(t,e){if(r.isDefined(t)){var n=(e=r.extend({},this.options,e)).message||this.message||"is not a valid url",i=e.schemes||this.schemes||["http","https"],o=e.allowLocal||this.allowLocal||!1,a=e.allowDataUrl||this.allowDataUrl||!1;if(!r.isString(t))return n;var s="^(?:(?:"+i.join("|")+")://)(?:\\S+(?::\\S*)?@)?(?:",l="(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))";if(o?l+="?":s+="(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})",s+="(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*"+l+")(?::\\d{2,5})?(?:[/?#]\\S*)?$",a){s="(?:"+s+")|(?:^data:(?:\\w+\\/[-+.\\w]+(?:;[\\w=]+)*)?(?:;base64)?,[A-Za-z0-9-_.!~\\*'();\\/?:@&=+$,%]*$)"}return new RegExp(s,"i").exec(t)?void 0:n}},type:r.extend((function(t,e,n,i,o){if(r.isString(e)&&(e={type:e}),r.isDefined(t)){var a,s=r.extend({},this.options,e),l=s.type;if(!r.isDefined(l))throw new Error("No type was specified");if(a=r.isFunction(l)?l:this.types[l],!r.isFunction(a))throw new Error("validate.validators.type.types."+l+" must be a function.");if(!a(t,s,n,i,o)){var c=e.message||this.messages[l]||this.message||s.message||(r.isFunction(l)?"must be of the correct type":"must be of type %{type}");return r.isFunction(c)&&(c=c(t,e,n,i,o)),r.format(c,{attribute:r.prettify(n),type:l})}}}),{types:{object:function(t){return r.isObject(t)&&!r.isArray(t)},array:r.isArray,integer:r.isInteger,number:r.isNumber,string:r.isString,date:r.isDate,boolean:r.isBoolean},messages:{}})},o.formatters={detailed:function(t){return t},flat:r.flattenErrorsToArray,grouped:function(t){var e;for(e in t=r.groupErrorsByAttribute(t))t[e]=r.flattenErrorsToArray(t[e]);return t},constraint:function(t){var e;for(e in t=r.groupErrorsByAttribute(t))t[e]=t[e].map((function(t){return t.validator})).sort();return t}},o.exposeModule(o,this,t,e,n(6))}).call(this,e,t,n(6))}).call(this,n(5)(t))},3:function(t,e,n){(function(n){var i,o,r;o=[],void 0===(r="function"==typeof(i=function(){"use strict";var t=void 0!==n?n:this||window,e=document,i=e.documentElement,o="body",r=t.BSN={},a=r.supports=[],s="data-toggle",l="delay",c="target",u="animation",f="onmouseleave"in e?["mouseenter","mouseleave"]:["mouseover","mouseout"],d="touchstart",h="touchend",p="touchmove",m="getAttribute",g="setAttribute",v="parentNode",b="length",y="style",w="push",x="active",E="left",T="top",k=/\b(top|bottom|left|right)+/,A=0,S="WebkitTransition"in i[y]||"Transition".toLowerCase()in i[y],C="WebkitTransition"in i[y]?"Webkit".toLowerCase()+"TransitionEnd":"Transition".toLowerCase()+"end",L="WebkitDuration"in i[y]?"Webkit".toLowerCase()+"TransitionDuration":"Transition".toLowerCase()+"Duration",N=function(t){t.focus?t.focus():t.setActive()},D=function(t,e){t.classList.add(e)},O=function(t,e){t.classList.remove(e)},j=function(t,e){return t.classList.contains(e)},M=function(t,e){return[].slice.call(t.getElementsByClassName(e))},I=function(t,n){return"object"==typeof t?t:(n||e).querySelector(t)},P=function(t,n){var i=n.charAt(0),o=n.substr(1);if("."===i){for(;t&&t!==e;t=t[v])if(null!==I(n,t[v])&&j(t,o))return t}else if("#"===i)for(;t&&t!==e;t=t[v])if(t.id===o)return t;return!1},R=function(t,e,n,i){i=i||!1,t.addEventListener(e,n,i)},z=function(t,e,n,i){i=i||!1,t.removeEventListener(e,n,i)},B=function(t,e,n,i){R(t,e,(function o(r){n(r),z(t,e,o,i)}),i)},q=!!function(){var e=!1;try{var n=Object.defineProperty({},"passive",{get:function(){e=!0}});B(t,"testPassive",null,n)}catch(t){}return e}()&&{passive:!0},_=function(e){var n=S?t.getComputedStyle(e)[L]:0;return n="number"!=typeof(n=parseFloat(n))||isNaN(n)?0:1e3*n},F=function(t,e){var n=0;_(t)?B(t,C,(function(t){!n&&e(t),n=1})):setTimeout((function(){!n&&e(),n=1}),17)},H=function(t,e,n){var i=new CustomEvent(t+".bs."+e);i.relatedTarget=n,this.dispatchEvent(i)},V=function(){return{y:t.pageYOffset||i.scrollTop,x:t.pageXOffset||i.scrollLeft}},W=function(t,n,r,a){var s,l,c,u,f,d,h=n.offsetWidth,p=n.offsetHeight,m=i.clientWidth||e[o].clientWidth,g=i.clientHeight||e[o].clientHeight,v=t.getBoundingClientRect(),b=a===e[o]?V():{x:a.offsetLeft+a.scrollLeft,y:a.offsetTop+a.scrollTop},w=v.right-v[E],x=v.bottom-v.top,A=j(n,"popover"),S=I(".arrow",n),C=v.top+x/2-p/2<0,L=v[E]+w/2-h/2<0,N=v[E]+h/2+w/2>=m,D=v.top+p/2+x/2>=g,O=v.top-p<0,M=v[E]-h<0,P=v.top+p+x>=g,R=v[E]+h+w>=m;r="right"===(r=(r="bottom"===(r=(r=(r===E||"right"===r)&&M&&R?T:r)===T&&O?"bottom":r)&&P?T:r)===E&&M?"right":r)&&R?E:r,-1===n.className.indexOf(r)&&(n.className=n.className.replace(k,r)),f=S.offsetWidth,d=S.offsetHeight,r===E||"right"===r?(l=r===E?v[E]+b.x-h-(A?f:0):v[E]+b.x+w,C?(s=v.top+b.y,c=x/2-f):D?(s=v.top+b.y-p+x,c=p-x/2-f):(s=v.top+b.y-p/2+x/2,c=p/2-(A?.9*d:d/2))):r!==T&&"bottom"!==r||(s=r===T?v.top+b.y-p-(A?d:0):v.top+b.y+x,L?(l=0,u=v[E]+w/2-f):N?(l=m-1.01*h,u=h-(m-v[E])+w/2-f/2):(l=v[E]+b.x-h/2+w/2,u=h/2-(A?f:f/2))),n[y].top=s+"px",n[y][E]=l+"px",c&&(S[y].top=c+"px"),u&&(S[y][E]=u+"px")};r.version="2.0.27";var $=function(t){t=I(t);var e=this,n=P(t,".alert"),i=function(i){n=P(i[c],".alert"),(t=I('[data-dismiss="alert"]',n))&&n&&(t===i[c]||t.contains(i[c]))&&e.close()},o=function(){H.call(n,"closed","alert"),z(t,"click",i),n[v].removeChild(n)};this.close=function(){n&&t&&j(n,"show")&&(H.call(n,"close","alert"),O(n,"show"),n&&(j(n,"fade")?F(n,o):o()))},"Alert"in t||R(t,"click",i),t.Alert=e};a[w](["Alert",$,'[data-dismiss="alert"]']);var X=function(t){t=I(t);var n=!1,i="checked",o=function(e){var o="LABEL"===e[c].tagName?e[c]:"LABEL"===e[c][v].tagName?e[c][v]:null;if(o){var r=M(o[v],"btn"),a=o.getElementsByTagName("INPUT")[0];if(a){if("checkbox"===a.type&&(a[i]?(O(o,x),a[m](i),a.removeAttribute(i),a[i]=!1):(D(o,x),a[m](i),a[g](i,i),a[i]=!0),n||(n=!0,H.call(a,"change","button"),H.call(t,"change","button"))),"radio"===a.type&&!n&&(!a[i]||0===e.screenX&&0==e.screenY)){D(o,x),D(o,"focus"),a[g](i,i),a[i]=!0,H.call(a,"change","button"),H.call(t,"change","button"),n=!0;for(var s=0,l=r[b];s<l;s++){var u=r[s],f=u.getElementsByTagName("INPUT")[0];u!==o&&j(u,x)&&(O(u,x),f.removeAttribute(i),f[i]=!1,H.call(f,"change","button"))}}setTimeout((function(){n=!1}),50)}}},r=function(t){D(t[c][v],"focus")},a=function(t){O(t[c][v],"focus")};if(!("Button"in t)){R(t,"click",o),R(t,"keyup",(function(t){32===(t.which||t.keyCode)&&t[c]===e.activeElement&&o(t)})),R(t,"keydown",(function(t){32===(t.which||t.keyCode)&&t.preventDefault()}));for(var s=M(t,"btn"),l=0;l<s.length;l++){var u=s[l].getElementsByTagName("INPUT")[0];R(u,"focus",r),R(u,"blur",a)}}var f=M(t,"btn"),d=f[b];for(l=0;l<d;l++)!j(f[l],x)&&I("input:checked",f[l])&&D(f[l],x);t.Button=this};a[w](["Button",X,"["+s+'="buttons"]']);var U=function(n,o){o=o||{};var r=(n=I(n))[m]("data-interval"),a=o.interval,s="false"===r?0:parseInt(r),l="hover"===n[m]("data-pause")||!1,u="true"===n[m]("data-keyboard")||!1;this.keyboard=!0===o.keyboard||u,this.pause=!("hover"!==o.pause&&!l)&&"hover",this.interval="number"==typeof a?a:!1===a||0===s||!1===s?0:isNaN(s)?5e3:s;var g=this,v=n.index=0,y=n.timer=0,w=!1,T=!1,k=null,A=null,C=null,L=M(n,"carousel-item"),N=L[b],P=this.direction=E,B=M(n,"carousel-control-prev")[0],_=M(n,"carousel-control-next")[0],V=I(".carousel-indicators",n),W=V&&V.getElementsByTagName("LI")||[];if(!(N<2)){var $=function(){!1===g.interval||j(n,"paused")||(D(n,"paused"),!w&&(clearInterval(y),y=null))},X=function(){!1!==g.interval&&j(n,"paused")&&(O(n,"paused"),!w&&(clearInterval(y),y=null),!w&&g.cycle())},U=function(t){if(t.preventDefault(),!w){var e=t.currentTarget||t.srcElement;e===_?v++:e===B&&v--,g.slideTo(v)}},J=function(t){t(n,p,G,q),t(n,h,K,q)},G=function(t){if(T)return A=parseInt(t.touches[0].pageX),"touchmove"===t.type&&t.touches[b]>1?(t.preventDefault(),!1):void 0;t.preventDefault()},K=function(t){if(T&&!w&&(C=A||parseInt(t.touches[0].pageX),T)){if((!n.contains(t[c])||!n.contains(t.relatedTarget))&&Math.abs(k-C)<75)return!1;A<k?v++:A>k&&v--,T=!1,g.slideTo(v),J(z)}},Y=function(t){for(var e=0,n=W[b];e<n;e++)O(W[e],x);W[t]&&D(W[t],x)};this.cycle=function(){y&&(clearInterval(y),y=null),y=setInterval((function(){var e,o;e=n.getBoundingClientRect(),o=t.innerHeight||i.clientHeight,e.top<=o&&e.bottom>=0&&(v++,g.slideTo(v))}),this.interval)},this.slideTo=function(t){if(!w){var i,o=this.getActiveIndex();o!==t&&(o<t||0===o&&t===N-1?P=g.direction=E:(o>t||o===N-1&&0===t)&&(P=g.direction="right"),t<0?t=N-1:t>=N&&(t=0),v=t,i=P===E?"next":"prev",H.call(n,"slide","carousel",L[t]),w=!0,clearInterval(y),y=null,Y(t),S&&j(n,"slide")?(D(L[t],"carousel-item-"+i),L[t].offsetWidth,D(L[t],"carousel-item-"+P),D(L[o],"carousel-item-"+P),F(L[t],(function(r){var a=r&&r[c]!==L[t]?1e3*r.elapsedTime+100:20;w&&setTimeout((function(){w=!1,D(L[t],x),O(L[o],x),O(L[t],"carousel-item-"+i),O(L[t],"carousel-item-"+P),O(L[o],"carousel-item-"+P),H.call(n,"slid","carousel",L[t]),e.hidden||!g.interval||j(n,"paused")||g.cycle()}),a)}))):(D(L[t],x),L[t].offsetWidth,O(L[o],x),setTimeout((function(){w=!1,g.interval&&!j(n,"paused")&&g.cycle(),H.call(n,"slid","carousel",L[t])}),100)))}},this.getActiveIndex=function(){return L.indexOf(M(n,"carousel-item active")[0])||0},"Carousel"in n||(g.pause&&g.interval&&(R(n,f[0],$),R(n,f[1],X),R(n,d,$,q),R(n,h,X,q)),L[b]>1&&R(n,d,(function(t){T||(k=parseInt(t.touches[0].pageX),n.contains(t[c])&&(T=!0,J(R)))}),q),_&&R(_,"click",U),B&&R(B,"click",U),V&&R(V,"click",(function(t){if(t.preventDefault(),!w){var e=t[c];if(!e||j(e,x)||!e[m]("data-slide-to"))return!1;v=parseInt(e[m]("data-slide-to"),10),g.slideTo(v)}})),g.keyboard&&R(t,"keydown",(function(t){if(!w){switch(t.which){case 39:v++;break;case 37:v--;break;default:return}g.slideTo(v)}}))),g.getActiveIndex()<0&&(L[b]&&D(L[0],x),W[b]&&Y(0)),g.interval&&g.cycle(),n.Carousel=g}};a[w](["Carousel",U,'[data-ride="carousel"]']);var J=function(t,e){t=I(t),e=e||{};var n,i,o,r,a,s=null,l=null,c=this,u=t[m]("data-parent"),f=function(t,e){H.call(t,"hide","collapse"),t.isAnimating=!0,t[y].height=t.scrollHeight+"px",O(t,"collapse"),O(t,"show"),D(t,"collapsing"),t.offsetWidth,t[y].height="0px",F(t,(function(){t.isAnimating=!1,t[g]("aria-expanded","false"),e[g]("aria-expanded","false"),O(t,"collapsing"),D(t,"collapse"),t[y].height="",H.call(t,"hidden","collapse")}))};this.toggle=function(t){t.preventDefault(),j(l,"show")?c.hide():c.show()},this.hide=function(){l.isAnimating||(f(l,t),D(t,"collapsed"))},this.show=function(){var e,o;s&&(n=I(".collapse.show",s),i=n&&(I('[data-target="#'+n.id+'"]',s)||I('[href="#'+n.id+'"]',s))),(!l.isAnimating||n&&!n.isAnimating)&&(i&&n!==l&&(f(n,i),D(i,"collapsed")),o=t,H.call(e=l,"show","collapse"),e.isAnimating=!0,D(e,"collapsing"),O(e,"collapse"),e[y].height=e.scrollHeight+"px",F(e,(function(){e.isAnimating=!1,e[g]("aria-expanded","true"),o[g]("aria-expanded","true"),O(e,"collapsing"),D(e,"collapse"),D(e,"show"),e[y].height="",H.call(e,"shown","collapse")})),O(t,"collapsed"))},"Collapse"in t||R(t,"click",c.toggle),o=t.href&&t[m]("href"),r=t[m]("data-target"),a=o||r&&"#"===r.charAt(0)&&r,(l=a&&I(a)).isAnimating=!1,s=I(e.parent)||u&&P(t,u),t.Collapse=c};a[w](["Collapse",J,"["+s+'="collapse"]']);var G=function(t,n){t=I(t),this.persist=!0===n||"true"===t[m]("data-persist")||!1;var i=this,o=t[v],r=null,a=I(".dropdown-menu",o),l=function(){for(var t=a.children,e=[],n=0;n<t[b];n++)t[n].children[b]&&"A"===t[n].children[0].tagName&&e[w](t[n].children[0]),"A"===t[n].tagName&&e[w](t[n]);return e}(),u=function(t){(t.href&&"#"===t.href.slice(-1)||t[v]&&t[v].href&&"#"===t[v].href.slice(-1))&&this.preventDefault()},f=function(){var n=t.open?R:z;n(e,"click",d),n(e,"keydown",p),n(e,"keyup",y),n(e,"focus",d,!0)},d=function(e){var n=e[c],o=n&&(n[m](s)||n[v]&&m in n[v]&&n[v][m](s));("focus"!==e.type||n!==t&&n!==a&&!a.contains(n))&&(n!==a&&!a.contains(n)||!i.persist&&!o)&&(r=n===t||t.contains(n)?t:null,E(),u.call(e,n))},h=function(e){r=t,x(),u.call(e,e[c])},p=function(t){var e=t.which||t.keyCode;38!==e&&40!==e||t.preventDefault()},y=function(n){var o=n.which||n.keyCode,s=e.activeElement,c=l.indexOf(s),u=s===t,f=a.contains(s),d=s[v]===a||s[v][v]===a;d&&(c=u?0:38===o?c>1?c-1:0:40===o&&c<l[b]-1?c+1:c,l[c]&&N(l[c])),(l[b]&&d||!l[b]&&(f||u)||!f)&&t.open&&27===o&&(i.toggle(),r=null)},x=function(){H.call(o,"show","dropdown",r),D(a,"show"),D(o,"show"),t[g]("aria-expanded",!0),H.call(o,"shown","dropdown",r),t.open=!0,z(t,"click",h),setTimeout((function(){N(a.getElementsByTagName("INPUT")[0]||t),f()}),1)},E=function(){H.call(o,"hide","dropdown",r),O(a,"show"),O(o,"show"),t[g]("aria-expanded",!1),H.call(o,"hidden","dropdown",r),t.open=!1,f(),N(t),setTimeout((function(){R(t,"click",h)}),1)};t.open=!1,this.toggle=function(){j(o,"show")&&t.open?E():x()},"Dropdown"in t||(!1 in a&&a[g]("tabindex","0"),R(t,"click",h)),t.Dropdown=i};a[w](["Dropdown",G,"["+s+'="dropdown"]']);var K=function(n,r){var a=(n=I(n))[m]("data-target")||n[m]("href"),s=I(a),l=j(n,"modal")?n:s;if(j(n,"modal")&&(n=null),l){r=r||{},this.keyboard=!1!==r.keyboard&&"false"!==l[m]("data-keyboard"),this.backdrop="static"!==r.backdrop&&"static"!==l[m]("data-backdrop")||"static",this.backdrop=!1!==r.backdrop&&"false"!==l[m]("data-backdrop")&&this.backdrop,this[u]=!!j(l,"fade"),this.content=r.content,l.isAnimating=!1;var f,d,h,p,w,x=this,T=null,k=M(i,"fixed-top").concat(M(i,"fixed-bottom")),C=function(){var n,i=t.getComputedStyle(e[o]),r=parseInt(i.paddingRight,10);if(f&&(e[o][y].paddingRight=r+d+"px",l[y].paddingRight=d+"px",k[b]))for(var a=0;a<k[b];a++)n=t.getComputedStyle(k[a]).paddingRight,k[a][y].paddingRight=parseInt(n)+d+"px"},L=function(){var n,r,a;f=e[o].clientWidth<(n=i.getBoundingClientRect(),t.innerWidth||n.right-Math.abs(n[E])),(a=e.createElement("div")).className="modal-scrollbar-measure",e[o].appendChild(a),r=a.offsetWidth-a.clientWidth,e[o].removeChild(a),d=r},P=function(){(h=I(".modal-backdrop"))&&null!==h&&"object"==typeof h&&(A=0,e[o].removeChild(h),h=null)},B=function(){N(l),l.isAnimating=!1,H.call(l,"shown","modal",T),R(t,"resize",x.update,q),R(l,"click",$),R(e,"keydown",W)},V=function(){l[y].display="",n&&N(n),H.call(l,"hidden","modal"),M(e,"modal show")[0]||(function(){if(e[o][y].paddingRight="",l[y].paddingRight="",k[b])for(var t=0;t<k[b];t++)k[t][y].paddingRight=""}(),O(e[o],"modal-open"),h&&j(h,"fade")?(O(h,"show"),F(h,P)):P(),z(t,"resize",x.update,q),z(l,"click",$),z(e,"keydown",W)),l.isAnimating=!1},W=function(t){l.isAnimating||x.keyboard&&27==t.which&&j(l,"show")&&x.hide()},$=function(t){if(!l.isAnimating){var e=t[c];j(l,"show")&&("modal"===e[v][m]("data-dismiss")||"modal"===e[m]("data-dismiss")||e===l&&"static"!==x.backdrop)&&(x.hide(),T=null,t.preventDefault())}};this.toggle=function(){j(l,"show")?this.hide():this.show()},this.show=function(){j(l,"show")||l.isAnimating||(clearTimeout(w),w=setTimeout((function(){l.isAnimating=!0,H.call(l,"show","modal",T);var t,n=M(e,"modal show")[0];n&&n!==l&&("modalTrigger"in n&&n.modalTrigger.Modal.hide(),"Modal"in n&&n.Modal.hide()),x.backdrop&&!A&&!h&&(t=e.createElement("div"),null===(h=I(".modal-backdrop"))&&(t[g]("class","modal-backdrop"+(x[u]?" fade":"")),h=t,e[o].appendChild(h)),A=1),h&&!j(h,"show")&&(h.offsetWidth,p=_(h),D(h,"show")),setTimeout((function(){l[y].display="block",L(),C(),D(e[o],"modal-open"),D(l,"show"),l[g]("aria-hidden",!1),j(l,"fade")?F(l,B):B()}),S&&h&&p?p:1)}),1))},this.hide=function(){!l.isAnimating&&j(l,"show")&&(clearTimeout(w),w=setTimeout((function(){l.isAnimating=!0,H.call(l,"hide","modal"),h=I(".modal-backdrop"),p=h&&_(h),O(l,"show"),l[g]("aria-hidden",!0),setTimeout((function(){j(l,"fade")?F(l,V):V()}),S&&h&&p?p:2)}),2))},this.setContent=function(t){I(".modal-content",l).innerHTML=t},this.update=function(){j(l,"show")&&(L(),C())},n&&!("Modal"in n)&&R(n,"click",(function(t){if(!l.isAnimating){var e=t[c];(e=e.hasAttribute("data-target")||e.hasAttribute("href")?e:e[v])!==n||j(l,"show")||(l.modalTrigger=n,T=n,x.show(),t.preventDefault())}})),x.content&&x.setContent(x.content),n?(n.Modal=x,l.modalTrigger=n):l.Modal=x}};a[w](["Modal",K,"["+s+'="modal"]']);var Y=function(n,i){n=I(n),i=i||{};var r=n[m]("data-trigger"),a=n[m]("data-animation"),s=n[m]("data-placement"),d=n[m]("data-dismissible"),h=n[m]("data-delay"),p=n[m]("data-container"),v='<button type="button" class="close">×</button>',b=I(i.container),w=I(p),x=P(n,".modal"),E=P(n,".fixed-top"),k=P(n,".fixed-bottom");this.template=i.template?i.template:null,this.trigger=i.trigger?i.trigger:r||"hover",this[u]=i[u]&&"fade"!==i[u]?i[u]:a||"fade",this.placement=i.placement?i.placement:s||T,this[l]=parseInt(i[l]||h)||200,this.dismissible=!(!i.dismissible&&"true"!==d),this.container=b||w||E||k||x||e[o];var A=this,S=i.title||n[m]("data-title")||null,C=i.content||n[m]("data-content")||null;if(C||this.template){var L=null,N=0,M=this.placement,B=function(t){null!==L&&t[c]===I(".close",L)&&A.hide()},_=function(i){"click"!=A.trigger&&"focus"!=A.trigger||!A.dismissible&&i(n,"blur",A.hide),A.dismissible&&i(e,"click",B),i(t,"resize",A.hide,q)},V=function(){_(R),H.call(n,"shown","popover")},$=function(){_(z),A.container.removeChild(L),N=null,L=null,H.call(n,"hidden","popover")};this.toggle=function(){null===L?A.show():A.hide()},this.show=function(){clearTimeout(N),N=setTimeout((function(){null===L&&(M=A.placement,function(){S=i.title||n[m]("data-title"),C=(C=i.content||n[m]("data-content"))?C.trim():null,L=e.createElement("div");var t=e.createElement("div");if(t[g]("class","arrow"),L.appendChild(t),null!==C&&null===A.template){if(L[g]("role","tooltip"),null!==S){var o=e.createElement("h3");o[g]("class","popover-header"),o.innerHTML=A.dismissible?S+v:S,L.appendChild(o)}var r=e.createElement("div");r[g]("class","popover-body"),r.innerHTML=A.dismissible&&null===S?C+v:C,L.appendChild(r)}else{var a=e.createElement("div");A.template=A.template.trim(),a.innerHTML=A.template,L.innerHTML=a.firstChild.innerHTML}A.container.appendChild(L),L[y].display="block",L[g]("class","popover bs-popover-"+M+" "+A[u])}(),W(n,L,M,A.container),!j(L,"show")&&D(L,"show"),H.call(n,"show","popover"),A[u]?F(L,V):V())}),20)},this.hide=function(){clearTimeout(N),N=setTimeout((function(){L&&null!==L&&j(L,"show")&&(H.call(n,"hide","popover"),O(L,"show"),A[u]?F(L,$):$())}),A[l])},"Popover"in n||("hover"===A.trigger?(R(n,f[0],A.show),A.dismissible||R(n,f[1],A.hide)):"click"!=A.trigger&&"focus"!=A.trigger||R(n,A.trigger,A.toggle)),n.Popover=A}};a[w](["Popover",Y,"["+s+'="popover"]']);var Z=function(e,n){e=I(e);var i=I(e[m]("data-target")),o=e[m]("data-offset");if((n=n||{})[c]||i){for(var r,a=n[c]&&I(n[c])||i,s=a&&a.getElementsByTagName("A"),l=parseInt(n.offset||o)||10,u=[],f=[],d=e.offsetHeight<e.scrollHeight?e:t,h=d===t,p=0,g=s[b];p<g;p++){var y=s[p][m]("href"),E=y&&"#"===y.charAt(0)&&"#"!==y.slice(-1)&&I(y);E&&(u[w](s[p]),f[w](E))}var T=function(t){var n=u[t],i=f[t],o=n[v][v],a=j(o,"dropdown")&&o.getElementsByTagName("A")[0],s=h&&i.getBoundingClientRect(),c=j(n,x)||!1,d=(h?s.top+r:i.offsetTop)-l,p=h?s.bottom+r-l:f[t+1]?f[t+1].offsetTop-l:e.scrollHeight,m=r>=d&&p>r;if(!c&&m)j(n,x)||(D(n,x),a&&!j(a,x)&&D(a,x),H.call(e,"activate","scrollspy",u[t]));else if(m){if(!m&&!c||c&&m)return}else j(n,x)&&(O(n,x),a&&j(a,x)&&!M(n[v],x).length&&O(a,x))};this.refresh=function(){!function(){r=h?V().y:e.scrollTop;for(var t=0,n=u[b];t<n;t++)T(t)}()},"ScrollSpy"in e||(R(d,"scroll",this.refresh,q),R(t,"resize",this.refresh,q)),this.refresh(),e.ScrollSpy=this}};a[w](["ScrollSpy",Z,'[data-spy="scroll"]']);var Q=function(t,e){var n=(t=I(t))[m]("data-height");e=e||{},this.height=!!S&&(e.height||"true"===n);var i,o,r,a,s,l,c,u=this,f=P(t,".nav"),d=!1,h=f&&I(".dropdown-toggle",f),p=function(){d[y].height="",O(d,"collapsing"),f.isAnimating=!1},w=function(){d?l?p():setTimeout((function(){d[y].height=c+"px",d.offsetWidth,F(d,p)}),50):f.isAnimating=!1,H.call(i,"shown","tab",o)},T=function(){d&&(r[y].float=E,a[y].float=E,s=r.scrollHeight),D(a,x),H.call(i,"show","tab",o),O(r,x),H.call(o,"hidden","tab",i),d&&(c=a.scrollHeight,l=c===s,D(d,"collapsing"),d[y].height=s+"px",d.offsetHeight,r[y].float="",a[y].float=""),j(a,"fade")?setTimeout((function(){D(a,"show"),F(a,w)}),20):w()};if(f){f.isAnimating=!1;var k=function(){var t,e=M(f,x);return 1!==e[b]||j(e[0][v],"dropdown")?e[b]>1&&(t=e[e[b]-1]):t=e[0],t},A=function(){return I(k()[m]("href"))};this.show=function(){a=I((i=i||t)[m]("href")),o=k(),r=A(),f.isAnimating=!0,O(o,x),o[g]("aria-selected","false"),D(i,x),i[g]("aria-selected","true"),h&&(j(t[v],"dropdown-menu")?j(h,x)||D(h,x):j(h,x)&&O(h,x)),H.call(o,"hide","tab",i),j(r,"fade")?(O(r,"show"),F(r,T)):T()},"Tab"in t||R(t,"click",(function(t){t.preventDefault(),i=t.currentTarget,!f.isAnimating&&!j(i,x)&&u.show()})),u.height&&(d=A()[v]),t.Tab=u}};a[w](["Tab",Q,"["+s+'="tab"]']);var tt=function(t,e){e=e||{};var n=(t=I(t))[m]("data-animation"),i=t[m]("data-autohide"),o=t[m]("data-delay");this.animation=!1===e.animation||"false"===n?0:1,this.autohide=!1===e.autohide||"false"===i?0:1,this[l]=parseInt(e[l]||o)||500;var r=this,a=0,s=P(t,".toast"),c=function(){O(s,"showing"),D(s,"show"),H.call(s,"shown","toast"),r.autohide&&r.hide()},u=function(){D(s,"hide"),H.call(s,"hidden","toast")},f=function(){O(s,"show"),r.animation?F(s,u):u()},d=function(){clearTimeout(a),a=null,D(s,"hide"),z(t,"click",r.hide),t.Toast=null,t=null,s=null};this.show=function(){s&&(H.call(s,"show","toast"),r.animation&&D(s,"fade"),O(s,"hide"),D(s,"showing"),r.animation?F(s,c):c())},this.hide=function(t){s&&j(s,"show")&&(H.call(s,"hide","toast"),t?f():a=setTimeout(f,r[l]))},this.dispose=function(){s&&j(s,"show")&&(O(s,"show"),r.animation?F(s,d):d())},"Toast"in t||R(t,"click",r.hide),t.Toast=r};a[w](["Toast",tt,'[data-dismiss="toast"]']);var et=function(n,i){i=i||{};var r=(n=I(n))[m]("data-animation"),a=n[m]("data-placement"),s=n[m]("data-delay"),c=n[m]("data-container"),d=I(i.container),h=I(c),p=P(n,".modal"),v=P(n,".fixed-top"),b=P(n,".fixed-bottom");this[u]=i[u]&&"fade"!==i[u]?i[u]:r||"fade",this.placement=i.placement?i.placement:a||T,this[l]=parseInt(i[l]||s)||200,this.container=d||h||v||b||p||e[o];var w=this,x=0,k=this.placement,A=null,S=n[m]("title")||n[m]("data-title")||n[m]("data-original-title");if(S&&""!=S){var C=function(){R(t,"resize",w.hide,q),H.call(n,"shown","tooltip")},L=function(){z(t,"resize",w.hide,q),w.container.removeChild(A),A=null,x=null,H.call(n,"hidden","tooltip")};this.show=function(){clearTimeout(x),x=setTimeout((function(){null===A&&(k=w.placement,!1!==function(){if((S=n[m]("title")||n[m]("data-title")||n[m]("data-original-title"))&&""!==S){(A=e.createElement("div"))[g]("role","tooltip"),A[y][E]="0",A[y].top="0";var t=e.createElement("div");t[g]("class","arrow"),A.appendChild(t);var i=e.createElement("div");i[g]("class","tooltip-inner"),A.appendChild(i),i.innerHTML=S,w.container.appendChild(A),A[g]("class","tooltip bs-tooltip-"+k+" "+w[u])}}()&&(W(n,A,k,w.container),!j(A,"show")&&D(A,"show"),H.call(n,"show","tooltip"),w[u]?F(A,C):C()))}),20)},this.hide=function(){clearTimeout(x),x=setTimeout((function(){A&&j(A,"show")&&(H.call(n,"hide","tooltip"),O(A,"show"),w[u]?F(A,L):L())}),w[l])},this.toggle=function(){A?w.hide():w.show()},"Tooltip"in n||(n[g]("data-original-title",S),n.removeAttribute("title"),R(n,f[0],w.show),R(n,f[1],w.hide)),n.Tooltip=w}};a[w](["Tooltip",et,"["+s+'="tooltip"]']);var nt=function(t,e){for(var n=0,i=e[b];n<i;n++)new t(e[n])},it=r.initCallback=function(t){t=t||e;for(var n=0,i=a[b];n<i;n++)nt(a[n][1],t.querySelectorAll(a[n][2]))};return e[o]?it():R(e,"DOMContentLoaded",(function(){it()})),{Alert:$,Button:X,Carousel:U,Collapse:J,Dropdown:G,Modal:K,Popover:Y,ScrollSpy:Z,Tab:Q,Toast:tt,Tooltip:et}})?i.apply(e,o):i)||(t.exports=r)}).call(this,n(4))},4:function(t,e){var n;n=function(){return this}();try{n=n||new Function("return this")()}catch(t){"object"==typeof window&&(n=window)}t.exports=n},5:function(t,e){t.exports=function(t){return t.webpackPolyfill||(t.deprecate=function(){},t.paths=[],t.children||(t.children=[]),Object.defineProperty(t,"loaded",{enumerable:!0,get:function(){return t.l}}),Object.defineProperty(t,"id",{enumerable:!0,get:function(){return t.i}}),t.webpackPolyfill=1),t}},52:function(t,e,n){"use strict";n.r(e);n(16),n(17),n(18),n(19);var i={enter:{email:{presence:{message:translations.required},email:{message:translations.email}},password:{presence:{message:translations.required}}}},o=n(2),r=n.n(o);function a(t,e){var n=t.querySelector("button[type=submit]"),i=t.querySelectorAll("input[type=text], input[type=email], input[type=password], textarea");i[0]&&i.forEach((function(t){t.addEventListener("blur",(function(){a(this)}))}));var o=t.querySelectorAll("input[type=checkbox], input[type=radio]");function a(n){var i=r.a.collectFormValues(t),o=r()(i,e);if(o){var a=o[n.getAttribute("name")];s(n,a)}else s(n)}function s(t,e){var n=t.closest(".form-group");n&&(n.querySelector(".invalid-feedback").textContent=e);e?t.classList.add("is-invalid"):t.classList.remove("is-invalid")}o[0]&&o.forEach((function(t){t.addEventListener("click",(function(){a(this)}))})),t.addEventListener("submit",(function(t){t.preventDefault(),function(t){var i=r.a.collectFormValues(t),o=r()(i,e);o||(n.disabled=!0,n.querySelector(".btn-spinner").style.display="inline",t.submit());!function(t,e){t.querySelectorAll("input, textarea").forEach((function(t){s(t,e&&e[t.name])}))}(t,o||{})}(this)}))}document.addEventListener("DOMContentLoaded",(function(){var t=document.querySelectorAll("form.form-post");t[0]&&t.forEach((function(t){var e=t.getAttribute("name");a(t,i[e])}))}),!1),window.Bootstrap=n(3)},54:function(t,e){},59:function(t,e){},6:function(t,e){t.exports=function(){throw new Error("define cannot be used indirect")}},62:function(t,e){},64:function(t,e){}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./app/Modules/Admin/sass/index.scss":
+/*!*******************************************!*\
+  !*** ./app/Modules/Admin/sass/index.scss ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./app/Modules/Auth/sass/index.scss":
+/*!******************************************!*\
+  !*** ./app/Modules/Auth/sass/index.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./app/Modules/Shop/sass/index.scss":
+/*!******************************************!*\
+  !*** ./app/Modules/Shop/sass/index.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./app/Modules/js/components/index.js":
+/*!********************************************!*\
+  !*** ./app/Modules/js/components/index.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+//import './test'
+
+/***/ }),
+
+/***/ "./app/Modules/js/forms.js":
+/*!*********************************!*\
+  !*** ./app/Modules/js/forms.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Скрипты для Форм
+// При клике на ссылку или кнопку добавиться disabled
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('one-click')) {
+    e.target.classList.add('disabled'); //e.target.setAttribute('disabled', 'true')
+  }
+}); // При клике на ссылку или кнопку добавиться disabled
+
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('spinner-click')) {
+    var span = document.createElement('span');
+    span.classList.add('spinner-grow', 'spinner-grow-sm', 'ml-1');
+    e.target.appendChild(span);
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/js/functions.js":
+/*!*************************************!*\
+  !*** ./app/Modules/js/functions.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  // Функция задаёт одинаковую высоту блоков html, передать название класса
+  getHeight: function getHeight($class) {
+    var els = document.querySelectorAll('.' + $class);
+    var arr = [];
+    els.forEach(function (el) {
+      arr.push(el.offsetHeight);
+    });
+
+    if (arr) {
+      var maxHeight = Math.max.apply(Math, arr) + 'px';
+      els.forEach(function (el) {
+        el.style.height = maxHeight;
+      });
+    }
+  },
+  // Функция показывает селектор, у которого в css прописано display: none
+  showJS: function showJS($selector) {
+    var el = document.querySelector($selector);
+    if (el) el.style.display = 'block';
+  },
+  // Прокрутить к верху страницы
+  scrollUp: function scrollUp() {
+    if (typeof window === 'undefined') return;
+    window.scrollTo(0, 0); // $('html, body').animate({scrollTop: 0}, '400')
+  },
+  // Сравнить 2 массива
+  diffArr: function diffArr(arr1, arr2) {
+    return JSON.stringify(arr1) === JSON.stringify(arr2);
+  },
+  // Строку к snake-case
+  snake: function snake(string) {
+    return string.replace(/([a-z])([A-Z])/g, "$1-$2").replace(/\s+/g, '-').toLowerCase();
+  },
+  // Получить значение формы в объект (передать уникальный идефикатор формы)
+  serialize: function serialize(form) {
+    var obj = {};
+    form = document.querySelector(form);
+
+    if (form) {
+      var inputs = form.querySelectorAll('input, textarea');
+
+      if (inputs) {
+        inputs.forEach(function (el) {
+          var name = el.name,
+              value = el.value;
+
+          if (name && value) {
+            obj[name] = value;
+          }
+        });
+      }
+    }
+
+    return obj;
+  },
+  strReplace: function strReplace(search, replace, str) {
+    if (str) {
+      return str.replace(search, replace);
+    }
+
+    return false;
+  },
+  // Первая буква заглавная
+  ucFirst: function ucFirst(str) {
+    return str.substr(0, 1).toUpperCase() + str.substr(1);
+  },
+  // Заменяет в строке все _ на -
+  snake_case: function snake_case(str) {
+    return str.replace(/-/g, '_');
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/js/index.js":
+/*!*********************************!*\
+  !*** ./app/Modules/js/index.js ***!
+  \*********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components */ "./app/Modules/js/components/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./search */ "./app/Modules/js/search.js");
+/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_search__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./forms */ "./app/Modules/js/forms.js");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_forms__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pulse */ "./app/Modules/js/pulse.js");
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_pulse__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _scroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scroll */ "./app/Modules/js/scroll.js");
+/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./validate */ "./app/Modules/js/validate/index.js");
+// require('./bootstrap');
+// window.Vue = require('vue');
+window.Bootstrap = __webpack_require__(/*! bootstrap.native/dist/bootstrap-native-v4 */ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js");
+window.AOS = __webpack_require__(/*! aos */ "./node_modules/aos/dist/aos.js"); //  data-aos="fade-up" fade-down-right flip-left zoom-in
+
+AOS.init({
+  duration: 500
+});
+
+
+
+
+
+ // import Vue from 'vue'
+
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
+// const files = require.context('./', true, /\.vue$/i);
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default)
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+/*new Vue({
+    el: '#app'
+})*/
+
+/***/ }),
+
+/***/ "./app/Modules/js/message.js":
+/*!***********************************!*\
+  !*** ./app/Modules/js/message.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var timeout = 4000;
+
+function alert(text) {
+  var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : timeout;
+  var alertClass = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'danger';
+  var getAlert = document.querySelector('#get-alert'),
+      html = "\n        <div class=\"row alert-js\">\n            <div class=\"col-md-10 offset-md-1 anime-from-center\">\n                <div class=\"alert alert-".concat(alertClass, " py-4 px-5\" role=\"alert\">\n                    <span>").concat(text, "</span>\n                </div>\n            </div>\n        </div>");
+  getAlert.innerHTML = html;
+  setTimeout(function () {
+    getAlert.innerHTML = '';
+  }, ms);
+}
+
+function hideAlert() {
+  var ms = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : timeout - 500;
+  var alert = document.querySelector('.alert-js > div');
+
+  if (alert) {
+    setTimeout(function () {
+      alert.classList.remove('anime-from-center');
+      alert.classList.add('anime-to-center');
+    }, ms);
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  error: function error(text) {
+    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    ms = !ms ? timeout : ms;
+    alert(text, ms);
+    hideAlert();
+
+    if (reload) {
+      setTimeout(function () {
+        location.reload();
+      }, ms);
+    }
+  },
+  success: function success(text) {
+    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    ms = !ms ? timeout : ms;
+    alert(text, ms, 'success');
+    hideAlert();
+
+    if (reload) {
+      setTimeout(function () {
+        location.reload();
+      }, ms);
+    }
+  },
+  warning: function warning(text) {
+    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    ms = !ms ? timeout : ms;
+    alert(text, ms, 'warning');
+    hideAlert();
+
+    if (reload) {
+      setTimeout(function () {
+        location.reload();
+      }, ms);
+    }
+  },
+  info: function info(text) {
+    var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    ms = !ms ? timeout : ms;
+    alert(text, ms, 'info');
+    hideAlert();
+
+    if (reload) {
+      setTimeout(function () {
+        location.reload();
+      }, ms);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/js/pulse.js":
+/*!*********************************!*\
+  !*** ./app/Modules/js/pulse.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+* При кликена на .btn-pulse эффект пульса.
+* Если есть вложенный тег, то установить .btn-pulse-child.
+*/
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('btn-pulse')) {
+    var div = document.createElement('div'),
+        style = div.style,
+        max = Math.max(e.target.offsetWidth, e.target.offsetHeight),
+        rect = e.target.getBoundingClientRect(),
+        px = 'px',
+        color = window.getComputedStyle(e.target).backgroundColor,
+        textBtn = e.target.textContent,
+        spanBtn = e.target.querySelector('span');
+    timeDeleteDiv = 300;
+    div.classList.add('pulse_js');
+    style.width = style.height = max + px;
+    style.left = e.clientX - rect.left - max / 2 + px;
+    style.top = e.clientY - rect.top - max / 2 + px;
+    style.backgroundColor = color;
+    style.opacity = .4;
+    e.target.appendChild(div);
+
+    if (!spanBtn) {
+      setTimeout(function () {
+        e.target.textContent = textBtn;
+      }, timeDeleteDiv);
+    }
+  } else if (e.target.classList.contains('btn-pulse-child')) {
+    var parent = e.target.closest('.btn-pulse'),
+        _div = document.createElement('div'),
+        _style = _div.style,
+        _max = Math.max(parent.offsetWidth, parent.offsetHeight),
+        _rect = parent.getBoundingClientRect(),
+        _px = 'px',
+        _color = window.getComputedStyle(e.target).backgroundColor,
+        _textBtn = e.target.textContent,
+        _timeDeleteDiv = 300;
+
+    _div.classList.add('pulse_js');
+
+    _style.width = _style.height = _max + _px;
+    _style.left = e.clientX - _rect.left - _max / 2 + _px;
+    _style.top = e.clientY - _rect.top - _max / 2 + _px;
+    _style.backgroundColor = _color;
+    _style.opacity = .4;
+    parent.appendChild(_div);
+    setTimeout(function () {
+      parent.textContent = _textBtn;
+    }, _timeDeleteDiv);
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/js/scroll.js":
+/*!**********************************!*\
+  !*** ./app/Modules/js/scroll.js ***!
+  \**********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./app/Modules/js/functions.js");
+/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./message */ "./app/Modules/js/message.js");
+
+ // Необходимые данные
+
+var offset = 20,
+    heightScreen = window.innerHeight,
+    widthScreen = window.innerWidth || document.body.clientWidth; // Селекторы в коде
+
+var btnUp = document.getElementById('btn-up'); // Код со скролом
+
+$(window).on('scroll', function () {
+  var scrollTop = $(window).scrollTop() || document.documentElement.scrollTop || window.pageYOffset,
+      // Верхняя позиция скрола
+  heightWindow = window.innerHeight; // Высота окна браузера
+  // pageYOffset Динамическая позиция скрола у верхней кромки
+  // Кнопка вверх
+
+  if (btnUp) {
+    if (scrollTop > 300 && !btnUp.classList.contains('scale-in')) {
+      btnUp.classList.remove('scale-out');
+      btnUp.classList.add('scale-in');
+    } else if (scrollTop < 300 && !btnUp.classList.contains('scale-out')) {
+      btnUp.classList.remove('scale-in');
+      btnUp.classList.add('scale-out');
+    }
+  } // Прилипающее меню
+
+  /*const stickyMenu = document.getElementById('sticky_menu')
+  if (stickyMenu) {
+       const stickyMenuHeight = stickyMenu.offsetHeight
+      if (stickyMenuHeight && document.body.clientWidth > 992 && pageYOffset > stickyMenuHeight) {
+          stickyMenu.classList.add('sticky_menu')
+      } else {
+          stickyMenu.classList.remove('sticky_menu')
+      }
+  }*/
+  // Добавление класса анимации для lg дисплеев (или других, можно выбрать)
+
+  /*const animateBottom = document.querySelectorAll('.animate-bottom-js'),
+      animateRight = document.querySelectorAll('.animate-right-js'),
+      animateLeft = document.querySelectorAll('.animate-left-js')
+   addAnimate(animateBottom)
+  addAnimate(animateRight, 'animate-right')
+  addAnimate(animateLeft, 'animate-left')*/
+  // Вызовите функцию и передайте нужный селектор, который получите выше чем window.onscroll
+
+
+  function addAnimate(selectorAll) {
+    var addClassName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'animate-bottom';
+    var widthScreenAfter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 992;
+
+    if (selectorAll[0] && widthScreen > widthScreenAfter) {
+      selectorAll.forEach(function (el) {
+        var elTop = el.offsetTop;
+        var elHeight = el.offsetHeight,
+            container = el.closest('.container.animate-add-parent') && el.closest('.container.animate-add-parent').closest('.container'); // Если есть вложенность, то надо прибавить расстояние от родителя до верха экрана браузера
+
+        if (container) {//elTop = elTop + container.offsetTop
+        }
+
+        if (heightScreen + scrollTop - offset > elTop && scrollTop + offset < elTop + elHeight) {
+          el.classList.add(addClassName);
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./app/Modules/js/search.js":
+/*!**********************************!*\
+  !*** ./app/Modules/js/search.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+document.addEventListener('DOMContentLoaded', function () {
+  var url = '/search-js',
+      searchClass = '.search_js',
+      searchInput = searchClass + '__input',
+      searchChild = searchClass + '__child';
+  body.on('keyup', searchInput, function () {
+    var self = $(this),
+        query = self.val(),
+        length = query.length,
+        child = self.closest(searchClass).find(searchChild);
+
+    if (length > 0) {
+      $.ajax({
+        type: 'POST',
+        url: url,
+        data: {
+          _token: _token,
+          query: query
+        },
+        success: function success(res) {
+          if (res) {
+            res = JSON.parse(res);
+            var html = '';
+            res.forEach(function (el) {
+              html += "<a href=\"".concat(el.slug, "\" class=\"search_js__child--link\">").concat(el.title, "</a>");
+            });
+            child.html(html);
+          }
+        }
+        /*,
+        error: function () {
+           console.log('error')
+        }*/
+
+      });
+    }
+  });
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/js/validate/index.js":
+/*!******************************************!*\
+  !*** ./app/Modules/js/validate/index.js ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings */ "./app/Modules/js/validate/settings.js");
+/* harmony import */ var _validator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validator */ "./app/Modules/js/validate/validator.js");
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  var forms = document.querySelectorAll('form.form-post');
+
+  if (forms[0]) {
+    forms.forEach(function (form) {
+      var name = form.getAttribute('name'),
+          // Имя в теге form
+      settings = _settings__WEBPACK_IMPORTED_MODULE_0__["default"][name];
+      Object(_validator__WEBPACK_IMPORTED_MODULE_1__["default"])(form, settings);
+    });
+  }
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/js/validate/settings.js":
+/*!*********************************************!*\
+  !*** ./app/Modules/js/validate/settings.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// Настройки составлять для каждой разной формы отдельно, при это в теге form в name="enter_email" - написать имя формы, если много одинаковых форм на странице (Если форма другая, то написать другой name
+//var translations = {'accepted': '^Вы должны принять','email': '^Должно быть действительным электронным адресом','required': '^Обязательно для заполнения','min': '^Количество символов должно быть не менее '}
+var validateSettings = {
+  enter: {
+    email: {
+      presence: {
+        message: translations['required'] // '^characters' ^ без названия поля
+
+      },
+      email: {
+        message: translations['email']
+      }
+    },
+    password: {
+      presence: {
+        message: translations['required']
+      }
+    }
+  }
+  /*,
+  enter_email: {
+     email: {
+         presence: {
+             message: translations['required'] // '^characters' ^ без названия поля
+         },
+         email: {
+             message: translations['email']
+         }
+     }
+  },
+  enter_code: {
+     confirm: {
+         presence: {
+             message: translations['required']
+         }
+     }
+  },
+  enter_pass: {
+     password: {
+         presence: {
+             message: translations['required']
+         }
+     }
+  }*/
+
+};
+/* harmony default export */ __webpack_exports__["default"] = (validateSettings);
+
+/***/ }),
+
+/***/ "./app/Modules/js/validate/validator.js":
+/*!**********************************************!*\
+  !*** ./app/Modules/js/validate/validator.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return validator; });
+/* harmony import */ var validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! validate.js */ "./node_modules/validate.js/validate.js");
+/* harmony import */ var validate_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(validate_js__WEBPACK_IMPORTED_MODULE_0__);
+
+function validator(form, settings) {
+  var btn = form.querySelector('button[type=submit]'); // btn.disabled = true
+  // При убирании фокуса с input
+
+  var inputs = form.querySelectorAll('input[type=text], input[type=email], input[type=password], textarea');
+
+  if (inputs[0]) {
+    inputs.forEach(function (el) {
+      el.addEventListener('blur', function () {
+        handleForm(this);
+      });
+    });
+  } // При клике на checkbox
+
+
+  var inputsClick = form.querySelectorAll('input[type=checkbox], input[type=radio]');
+
+  if (inputsClick[0]) {
+    inputsClick.forEach(function (el) {
+      el.addEventListener('click', function () {
+        handleForm(this);
+      });
+    });
+  }
+
+  function handleForm(input) {
+    var values = validate_js__WEBPACK_IMPORTED_MODULE_0___default.a.collectFormValues(form),
+        errors = validate_js__WEBPACK_IMPORTED_MODULE_0___default()(values, settings);
+
+    if (errors) {
+      var error = errors[input.getAttribute('name')];
+      showErrorsForInput(input, error);
+    } else {
+      // btn.disabled = false
+      showErrorsForInput(input);
+    }
+  } // При клике на отправить
+
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    handleFormSubmit(this, ev);
+  });
+
+  function handleFormSubmit(form) {
+    var values = validate_js__WEBPACK_IMPORTED_MODULE_0___default.a.collectFormValues(form),
+        errors = validate_js__WEBPACK_IMPORTED_MODULE_0___default()(values, settings); // Если нет ошибок, блокируется кнопка и отправка формы
+
+    if (!errors) {
+      btn.disabled = true;
+      btn.querySelector('.btn-spinner').style.display = 'inline';
+      form.submit();
+    }
+
+    showErrors(form, errors || {});
+  }
+
+  function showErrors(form, errors) {
+    var inputs = form.querySelectorAll('input, textarea');
+    inputs.forEach(function (el) {
+      showErrorsForInput(el, errors && errors[el.name]);
+    });
+  }
+
+  function showErrorsForInput(input, error) {
+    var formGroup = input.closest('.form-group');
+
+    if (formGroup) {
+      var errorTag = formGroup.querySelector('.invalid-feedback');
+      errorTag.textContent = error;
+    }
+
+    if (error) {
+      //input.classList.remove('is-valid')
+      input.classList.add('is-invalid');
+    } else {
+      input.classList.remove('is-invalid'); //input.classList.add('is-valid')
+    }
+  }
+}
+
+/***/ }),
+
+/***/ "./app/Modules/sass/index.scss":
+/*!*************************************!*\
+  !*** ./app/Modules/sass/index.scss ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./node_modules/aos/dist/aos.js":
+/*!**************************************!*\
+  !*** ./node_modules/aos/dist/aos.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?module.exports=t():undefined}(this,function(){return function(e){function t(o){if(n[o])return n[o].exports;var i=n[o]={exports:{},id:o,loaded:!1};return e[o].call(i.exports,i,i.exports,t),i.loaded=!0,i.exports}var n={};return t.m=e,t.c=n,t.p="dist/",t(0)}([function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}var i=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},r=n(1),a=(o(r),n(6)),u=o(a),c=n(7),s=o(c),f=n(8),d=o(f),l=n(9),p=o(l),m=n(10),b=o(m),v=n(11),y=o(v),g=n(14),h=o(g),w=[],k=!1,x={offset:120,delay:0,easing:"ease",duration:400,disable:!1,once:!1,startEvent:"DOMContentLoaded",throttleDelay:99,debounceDelay:50,disableMutationObserver:!1},j=function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0];if(e&&(k=!0),k)return w=(0,y.default)(w,x),(0,b.default)(w,x.once),w},O=function(){w=(0,h.default)(),j()},M=function(){w.forEach(function(e,t){e.node.removeAttribute("data-aos"),e.node.removeAttribute("data-aos-easing"),e.node.removeAttribute("data-aos-duration"),e.node.removeAttribute("data-aos-delay")})},S=function(e){return e===!0||"mobile"===e&&p.default.mobile()||"phone"===e&&p.default.phone()||"tablet"===e&&p.default.tablet()||"function"==typeof e&&e()===!0},_=function(e){x=i(x,e),w=(0,h.default)();var t=document.all&&!window.atob;return S(x.disable)||t?M():(x.disableMutationObserver||d.default.isSupported()||(console.info('\n      aos: MutationObserver is not supported on this browser,\n      code mutations observing has been disabled.\n      You may have to call "refreshHard()" by yourself.\n    '),x.disableMutationObserver=!0),document.querySelector("body").setAttribute("data-aos-easing",x.easing),document.querySelector("body").setAttribute("data-aos-duration",x.duration),document.querySelector("body").setAttribute("data-aos-delay",x.delay),"DOMContentLoaded"===x.startEvent&&["complete","interactive"].indexOf(document.readyState)>-1?j(!0):"load"===x.startEvent?window.addEventListener(x.startEvent,function(){j(!0)}):document.addEventListener(x.startEvent,function(){j(!0)}),window.addEventListener("resize",(0,s.default)(j,x.debounceDelay,!0)),window.addEventListener("orientationchange",(0,s.default)(j,x.debounceDelay,!0)),window.addEventListener("scroll",(0,u.default)(function(){(0,b.default)(w,x.once)},x.throttleDelay)),x.disableMutationObserver||d.default.ready("[data-aos]",O),w)};e.exports={init:_,refresh:j,refreshHard:O}},function(e,t){},,,,,function(e,t){(function(t){"use strict";function n(e,t,n){function o(t){var n=b,o=v;return b=v=void 0,k=t,g=e.apply(o,n)}function r(e){return k=e,h=setTimeout(f,t),M?o(e):g}function a(e){var n=e-w,o=e-k,i=t-n;return S?j(i,y-o):i}function c(e){var n=e-w,o=e-k;return void 0===w||n>=t||n<0||S&&o>=y}function f(){var e=O();return c(e)?d(e):void(h=setTimeout(f,a(e)))}function d(e){return h=void 0,_&&b?o(e):(b=v=void 0,g)}function l(){void 0!==h&&clearTimeout(h),k=0,b=w=v=h=void 0}function p(){return void 0===h?g:d(O())}function m(){var e=O(),n=c(e);if(b=arguments,v=this,w=e,n){if(void 0===h)return r(w);if(S)return h=setTimeout(f,t),o(w)}return void 0===h&&(h=setTimeout(f,t)),g}var b,v,y,g,h,w,k=0,M=!1,S=!1,_=!0;if("function"!=typeof e)throw new TypeError(s);return t=u(t)||0,i(n)&&(M=!!n.leading,S="maxWait"in n,y=S?x(u(n.maxWait)||0,t):y,_="trailing"in n?!!n.trailing:_),m.cancel=l,m.flush=p,m}function o(e,t,o){var r=!0,a=!0;if("function"!=typeof e)throw new TypeError(s);return i(o)&&(r="leading"in o?!!o.leading:r,a="trailing"in o?!!o.trailing:a),n(e,t,{leading:r,maxWait:t,trailing:a})}function i(e){var t="undefined"==typeof e?"undefined":c(e);return!!e&&("object"==t||"function"==t)}function r(e){return!!e&&"object"==("undefined"==typeof e?"undefined":c(e))}function a(e){return"symbol"==("undefined"==typeof e?"undefined":c(e))||r(e)&&k.call(e)==d}function u(e){if("number"==typeof e)return e;if(a(e))return f;if(i(e)){var t="function"==typeof e.valueOf?e.valueOf():e;e=i(t)?t+"":t}if("string"!=typeof e)return 0===e?e:+e;e=e.replace(l,"");var n=m.test(e);return n||b.test(e)?v(e.slice(2),n?2:8):p.test(e)?f:+e}var c="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},s="Expected a function",f=NaN,d="[object Symbol]",l=/^\s+|\s+$/g,p=/^[-+]0x[0-9a-f]+$/i,m=/^0b[01]+$/i,b=/^0o[0-7]+$/i,v=parseInt,y="object"==("undefined"==typeof t?"undefined":c(t))&&t&&t.Object===Object&&t,g="object"==("undefined"==typeof self?"undefined":c(self))&&self&&self.Object===Object&&self,h=y||g||Function("return this")(),w=Object.prototype,k=w.toString,x=Math.max,j=Math.min,O=function(){return h.Date.now()};e.exports=o}).call(t,function(){return this}())},function(e,t){(function(t){"use strict";function n(e,t,n){function i(t){var n=b,o=v;return b=v=void 0,O=t,g=e.apply(o,n)}function r(e){return O=e,h=setTimeout(f,t),M?i(e):g}function u(e){var n=e-w,o=e-O,i=t-n;return S?x(i,y-o):i}function s(e){var n=e-w,o=e-O;return void 0===w||n>=t||n<0||S&&o>=y}function f(){var e=j();return s(e)?d(e):void(h=setTimeout(f,u(e)))}function d(e){return h=void 0,_&&b?i(e):(b=v=void 0,g)}function l(){void 0!==h&&clearTimeout(h),O=0,b=w=v=h=void 0}function p(){return void 0===h?g:d(j())}function m(){var e=j(),n=s(e);if(b=arguments,v=this,w=e,n){if(void 0===h)return r(w);if(S)return h=setTimeout(f,t),i(w)}return void 0===h&&(h=setTimeout(f,t)),g}var b,v,y,g,h,w,O=0,M=!1,S=!1,_=!0;if("function"!=typeof e)throw new TypeError(c);return t=a(t)||0,o(n)&&(M=!!n.leading,S="maxWait"in n,y=S?k(a(n.maxWait)||0,t):y,_="trailing"in n?!!n.trailing:_),m.cancel=l,m.flush=p,m}function o(e){var t="undefined"==typeof e?"undefined":u(e);return!!e&&("object"==t||"function"==t)}function i(e){return!!e&&"object"==("undefined"==typeof e?"undefined":u(e))}function r(e){return"symbol"==("undefined"==typeof e?"undefined":u(e))||i(e)&&w.call(e)==f}function a(e){if("number"==typeof e)return e;if(r(e))return s;if(o(e)){var t="function"==typeof e.valueOf?e.valueOf():e;e=o(t)?t+"":t}if("string"!=typeof e)return 0===e?e:+e;e=e.replace(d,"");var n=p.test(e);return n||m.test(e)?b(e.slice(2),n?2:8):l.test(e)?s:+e}var u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},c="Expected a function",s=NaN,f="[object Symbol]",d=/^\s+|\s+$/g,l=/^[-+]0x[0-9a-f]+$/i,p=/^0b[01]+$/i,m=/^0o[0-7]+$/i,b=parseInt,v="object"==("undefined"==typeof t?"undefined":u(t))&&t&&t.Object===Object&&t,y="object"==("undefined"==typeof self?"undefined":u(self))&&self&&self.Object===Object&&self,g=v||y||Function("return this")(),h=Object.prototype,w=h.toString,k=Math.max,x=Math.min,j=function(){return g.Date.now()};e.exports=n}).call(t,function(){return this}())},function(e,t){"use strict";function n(e){var t=void 0,o=void 0,i=void 0;for(t=0;t<e.length;t+=1){if(o=e[t],o.dataset&&o.dataset.aos)return!0;if(i=o.children&&n(o.children))return!0}return!1}function o(){return window.MutationObserver||window.WebKitMutationObserver||window.MozMutationObserver}function i(){return!!o()}function r(e,t){var n=window.document,i=o(),r=new i(a);u=t,r.observe(n.documentElement,{childList:!0,subtree:!0,removedNodes:!0})}function a(e){e&&e.forEach(function(e){var t=Array.prototype.slice.call(e.addedNodes),o=Array.prototype.slice.call(e.removedNodes),i=t.concat(o);if(n(i))return u()})}Object.defineProperty(t,"__esModule",{value:!0});var u=function(){};t.default={isSupported:i,ready:r}},function(e,t){"use strict";function n(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(){return navigator.userAgent||navigator.vendor||window.opera||""}Object.defineProperty(t,"__esModule",{value:!0});var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,n,o){return n&&e(t.prototype,n),o&&e(t,o),t}}(),r=/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i,a=/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i,u=/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i,c=/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i,s=function(){function e(){n(this,e)}return i(e,[{key:"phone",value:function(){var e=o();return!(!r.test(e)&&!a.test(e.substr(0,4)))}},{key:"mobile",value:function(){var e=o();return!(!u.test(e)&&!c.test(e.substr(0,4)))}},{key:"tablet",value:function(){return this.mobile()&&!this.phone()}}]),e}();t.default=new s},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=function(e,t,n){var o=e.node.getAttribute("data-aos-once");t>e.position?e.node.classList.add("aos-animate"):"undefined"!=typeof o&&("false"===o||!n&&"true"!==o)&&e.node.classList.remove("aos-animate")},o=function(e,t){var o=window.pageYOffset,i=window.innerHeight;e.forEach(function(e,r){n(e,i+o,t)})};t.default=o},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var i=n(12),r=o(i),a=function(e,t){return e.forEach(function(e,n){e.node.classList.add("aos-init"),e.position=(0,r.default)(e.node,t.offset)}),e};t.default=a},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var i=n(13),r=o(i),a=function(e,t){var n=0,o=0,i=window.innerHeight,a={offset:e.getAttribute("data-aos-offset"),anchor:e.getAttribute("data-aos-anchor"),anchorPlacement:e.getAttribute("data-aos-anchor-placement")};switch(a.offset&&!isNaN(a.offset)&&(o=parseInt(a.offset)),a.anchor&&document.querySelectorAll(a.anchor)&&(e=document.querySelectorAll(a.anchor)[0]),n=(0,r.default)(e).top,a.anchorPlacement){case"top-bottom":break;case"center-bottom":n+=e.offsetHeight/2;break;case"bottom-bottom":n+=e.offsetHeight;break;case"top-center":n+=i/2;break;case"bottom-center":n+=i/2+e.offsetHeight;break;case"center-center":n+=i/2+e.offsetHeight/2;break;case"top-top":n+=i;break;case"bottom-top":n+=e.offsetHeight+i;break;case"center-top":n+=e.offsetHeight/2+i}return a.anchorPlacement||a.offset||isNaN(t)||(o=t),n+o};t.default=a},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=function(e){for(var t=0,n=0;e&&!isNaN(e.offsetLeft)&&!isNaN(e.offsetTop);)t+=e.offsetLeft-("BODY"!=e.tagName?e.scrollLeft:0),n+=e.offsetTop-("BODY"!=e.tagName?e.scrollTop:0),e=e.offsetParent;return{top:n,left:t}};t.default=n},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=function(e){return e=e||document.querySelectorAll("[data-aos]"),Array.prototype.map.call(e,function(e){return{node:e}})};t.default=n}])});
+
+/***/ }),
+
+/***/ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/bootstrap.native/dist/bootstrap-native-v4.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Native Javascript for Bootstrap 4 v2.0.27 | © dnp_theme | MIT-License
+(function (root, factory) {
+  if (true) {
+    // AMD support:
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var bsn; }
+}(this, function () {
+  
+  /* Native Javascript for Bootstrap 4 | Internal Utility Functions
+  ----------------------------------------------------------------*/
+  "use strict";
+  
+  // globals
+  var globalObject = typeof global !== 'undefined' ? global : this||window,
+    DOC = document, HTML = DOC.documentElement, body = 'body', // allow the library to be used in <head>
+  
+    // Native Javascript for Bootstrap Global Object
+    BSN = globalObject.BSN = {},
+    supports = BSN.supports = [],
+  
+    // function toggle attributes
+    dataToggle    = 'data-toggle',
+    dataDismiss   = 'data-dismiss',
+    dataSpy       = 'data-spy',
+    dataRide      = 'data-ride',
+  
+    // components
+    stringAlert     = 'Alert',
+    stringButton    = 'Button',
+    stringCarousel  = 'Carousel',
+    stringCollapse  = 'Collapse',
+    stringDropdown  = 'Dropdown',
+    stringModal     = 'Modal',
+    stringPopover   = 'Popover',
+    stringScrollSpy = 'ScrollSpy',
+    stringTab       = 'Tab',
+    stringTooltip   = 'Tooltip',
+    stringToast     = 'Toast',
+  
+    // options DATA API
+    dataAutohide      = 'data-autohide',
+    databackdrop      = 'data-backdrop',
+    dataKeyboard      = 'data-keyboard',
+    dataTarget        = 'data-target',
+    dataInterval      = 'data-interval',
+    dataHeight        = 'data-height',
+    dataPause         = 'data-pause',
+    dataTitle         = 'data-title',
+    dataOriginalTitle = 'data-original-title',
+    dataDismissible   = 'data-dismissible',
+    dataTrigger       = 'data-trigger',
+    dataAnimation     = 'data-animation',
+    dataContainer     = 'data-container',
+    dataPlacement     = 'data-placement',
+    dataDelay         = 'data-delay',
+  
+    // option keys
+    backdrop = 'backdrop', keyboard = 'keyboard', delay = 'delay',
+    content = 'content', target = 'target', currentTarget = 'currentTarget',
+    interval = 'interval', pause = 'pause', animation = 'animation',
+    placement = 'placement', container = 'container',
+  
+    // box model
+    offsetTop    = 'offsetTop',      offsetBottom   = 'offsetBottom',
+    offsetLeft   = 'offsetLeft',
+    scrollTop    = 'scrollTop',      scrollLeft     = 'scrollLeft',
+    clientWidth  = 'clientWidth',    clientHeight   = 'clientHeight',
+    offsetWidth  = 'offsetWidth',    offsetHeight   = 'offsetHeight',
+    innerWidth   = 'innerWidth',     innerHeight    = 'innerHeight',
+    scrollHeight = 'scrollHeight',   scrollWidth    = 'scrollWidth',
+    height         = 'height',
+  
+    // aria
+    ariaExpanded = 'aria-expanded',
+    ariaHidden   = 'aria-hidden',
+    ariaSelected = 'aria-selected',
+  
+    // event names
+    clickEvent    = 'click',
+    focusEvent    = 'focus',
+    hoverEvent    = 'hover',
+    keydownEvent  = 'keydown',
+    keyupEvent    = 'keyup',
+    resizeEvent   = 'resize', // passive
+    scrollEvent   = 'scroll', // passive
+    mouseHover = ('onmouseleave' in DOC) ? [ 'mouseenter', 'mouseleave'] : [ 'mouseover', 'mouseout' ],
+    // touch since 2.0.26
+    touchEvents = { start: 'touchstart', end: 'touchend', move:'touchmove' }, // passive
+    // originalEvents
+    showEvent     = 'show',
+    shownEvent    = 'shown',
+    hideEvent     = 'hide',
+    hiddenEvent   = 'hidden',
+    closeEvent    = 'close',
+    closedEvent   = 'closed',
+    slidEvent     = 'slid',
+    slideEvent    = 'slide',
+    changeEvent   = 'change',
+  
+    // other
+    getAttribute           = 'getAttribute',
+    setAttribute           = 'setAttribute',
+    hasAttribute           = 'hasAttribute',
+    createElement          = 'createElement',
+    appendChild            = 'appendChild',
+    innerHTML              = 'innerHTML',
+    getElementsByTagName   = 'getElementsByTagName',
+    preventDefault         = 'preventDefault',
+    getBoundingClientRect  = 'getBoundingClientRect',
+    querySelectorAll       = 'querySelectorAll',
+    getElementsByCLASSNAME = 'getElementsByClassName',
+    getComputedStyle       = 'getComputedStyle',  
+  
+    indexOf      = 'indexOf',
+    parentNode   = 'parentNode',
+    length       = 'length',
+    toLowerCase  = 'toLowerCase',
+    Transition   = 'Transition',
+    Duration     = 'Duration',
+    Webkit       = 'Webkit',
+    style        = 'style',
+    push         = 'push',
+    tabindex     = 'tabindex',
+    contains     = 'contains',
+  
+    active     = 'active',
+    showClass  = 'show',
+    collapsing = 'collapsing',
+    disabled   = 'disabled',
+    loading    = 'loading',
+    left       = 'left',
+    right      = 'right',
+    top        = 'top',
+    bottom     = 'bottom',
+  
+    // tooltip / popover
+    tipPositions = /\b(top|bottom|left|right)+/,
+  
+    // modal
+    modalOverlay = 0,
+    fixedTop = 'fixed-top',
+    fixedBottom = 'fixed-bottom',
+  
+    // transitionEnd since 2.0.4
+    supportTransitions = Webkit+Transition in HTML[style] || Transition[toLowerCase]() in HTML[style],
+    transitionEndEvent = Webkit+Transition in HTML[style] ? Webkit[toLowerCase]()+Transition+'End' : Transition[toLowerCase]()+'end',
+    transitionDuration = Webkit+Duration in HTML[style] ? Webkit[toLowerCase]()+Transition+Duration : Transition[toLowerCase]()+Duration,
+  
+    // set new focus element since 2.0.3
+    setFocus = function(element){
+      element.focus ? element.focus() : element.setActive();
+    },
+  
+    // class manipulation, since 2.0.0 requires polyfill.js
+    addClass = function(element,classNAME) {
+      element.classList.add(classNAME);
+    },
+    removeClass = function(element,classNAME) {
+      element.classList.remove(classNAME);
+    },
+    hasClass = function(element,classNAME){ // since 2.0.0
+      return element.classList[contains](classNAME);
+    },
+  
+    // selection methods
+    getElementsByClassName = function(element,classNAME) { // returns Array
+      return [].slice.call(element[getElementsByCLASSNAME]( classNAME ));
+    },
+    queryElement = function (selector, parent) {
+      var lookUp = parent ? parent : DOC;
+      return typeof selector === 'object' ? selector : lookUp.querySelector(selector);
+    },
+    getClosest = function (element, selector) { //element is the element and selector is for the closest parent element to find
+      // source http://gomakethings.com/climbing-up-and-down-the-dom-tree-with-vanilla-javascript/
+      var firstChar = selector.charAt(0), selectorSubstring = selector.substr(1);
+      if ( firstChar === '.' ) {// If selector is a class
+        for ( ; element && element !== DOC; element = element[parentNode] ) { // Get closest match
+          if ( queryElement(selector,element[parentNode]) !== null && hasClass(element,selectorSubstring) ) { return element; }
+        }
+      } else if ( firstChar === '#' ) { // If selector is an ID
+        for ( ; element && element !== DOC; element = element[parentNode] ) { // Get closest match
+          if ( element.id === selectorSubstring ) { return element; }
+        }
+      }
+      return false;
+    },
+  
+    // event attach jQuery style / trigger  since 1.2.0
+    on = function (element, event, handler, options) {
+      options = options || false;
+      element.addEventListener(event, handler, options);
+    },
+    off = function(element, event, handler, options) {
+      options = options || false;
+      element.removeEventListener(event, handler, options);
+    },
+    one = function (element, event, handler, options) { // one since 2.0.4
+      on(element, event, function handlerWrapper(e){
+        handler(e);
+        off(element, event, handlerWrapper, options);
+      }, options);
+    },
+    // determine support for passive events
+    supportPassive = (function(){
+      // Test via a getter in the options object to see if the passive property is accessed
+      var result = false;
+      try {
+        var opts = Object.defineProperty({}, 'passive', {
+          get: function() {
+            result = true;
+          }
+        });
+        one(globalObject, 'testPassive', null, opts);
+      } catch (e) {}
+  
+      return result;
+    }()),
+    // event options
+    // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+    passiveHandler = supportPassive ? { passive: true } : false,
+    // transitions
+    getTransitionDurationFromElement = function(element) {
+      var duration = supportTransitions ? globalObject[getComputedStyle](element)[transitionDuration] : 0;
+      duration = parseFloat(duration);
+      duration = typeof duration === 'number' && !isNaN(duration) ? duration * 1000 : 0;
+      return duration; // we take a short offset to make sure we fire on the next frame after animation
+    },
+    emulateTransitionEnd = function(element,handler){ // emulateTransitionEnd since 2.0.4
+      var called = 0, duration = getTransitionDurationFromElement(element);
+      duration ? one(element, transitionEndEvent, function(e){ !called && handler(e), called = 1; })
+               : setTimeout(function() { !called && handler(), called = 1; }, 17);
+    },
+    bootstrapCustomEvent = function (eventName, componentName, related) {
+      var OriginalCustomEvent = new CustomEvent( eventName + '.bs.' + componentName);
+      OriginalCustomEvent.relatedTarget = related;
+      this.dispatchEvent(OriginalCustomEvent);
+    },
+  
+    // tooltip / popover stuff
+    getScroll = function() { // also Affix and ScrollSpy uses it
+      return {
+        y : globalObject.pageYOffset || HTML[scrollTop],
+        x : globalObject.pageXOffset || HTML[scrollLeft]
+      }
+    },
+    styleTip = function(link,element,position,parent) { // both popovers and tooltips (target,tooltip,placement,elementToAppendTo)
+      var elementDimensions = { w : element[offsetWidth], h: element[offsetHeight] },
+          windowWidth = (HTML[clientWidth] || DOC[body][clientWidth]),
+          windowHeight = (HTML[clientHeight] || DOC[body][clientHeight]),
+          rect = link[getBoundingClientRect](),
+          scroll = parent === DOC[body] ? getScroll() : { x: parent[offsetLeft] + parent[scrollLeft], y: parent[offsetTop] + parent[scrollTop] },
+          linkDimensions = { w: rect[right] - rect[left], h: rect[bottom] - rect[top] },
+          isPopover = hasClass(element,'popover'),
+          topPosition, leftPosition,
+  
+          arrow = queryElement('.arrow',element),
+          arrowTop, arrowLeft, arrowWidth, arrowHeight,
+  
+          halfTopExceed = rect[top] + linkDimensions.h/2 - elementDimensions.h/2 < 0,
+          halfLeftExceed = rect[left] + linkDimensions.w/2 - elementDimensions.w/2 < 0,
+          halfRightExceed = rect[left] + elementDimensions.w/2 + linkDimensions.w/2 >= windowWidth,
+          halfBottomExceed = rect[top] + elementDimensions.h/2 + linkDimensions.h/2 >= windowHeight,
+          topExceed = rect[top] - elementDimensions.h < 0,
+          leftExceed = rect[left] - elementDimensions.w < 0,
+          bottomExceed = rect[top] + elementDimensions.h + linkDimensions.h >= windowHeight,
+          rightExceed = rect[left] + elementDimensions.w + linkDimensions.w >= windowWidth;
+  
+      // recompute position
+      position = (position === left || position === right) && leftExceed && rightExceed ? top : position; // first, when both left and right limits are exceeded, we fall back to top|bottom
+      position = position === top && topExceed ? bottom : position;
+      position = position === bottom && bottomExceed ? top : position;
+      position = position === left && leftExceed ? right : position;
+      position = position === right && rightExceed ? left : position;
+  
+      // update tooltip/popover class
+      element.className[indexOf](position) === -1 && (element.className = element.className.replace(tipPositions,position));
+  
+      // we check the computed width & height and update here
+      arrowWidth = arrow[offsetWidth]; arrowHeight = arrow[offsetHeight];
+  
+      // apply styling to tooltip or popover
+      if ( position === left || position === right ) { // secondary|side positions
+        if ( position === left ) { // LEFT
+          leftPosition = rect[left] + scroll.x - elementDimensions.w - ( isPopover ? arrowWidth : 0 );
+        } else { // RIGHT
+          leftPosition = rect[left] + scroll.x + linkDimensions.w;
+        }
+  
+        // adjust top and arrow
+        if (halfTopExceed) {
+          topPosition = rect[top] + scroll.y;
+          arrowTop = linkDimensions.h/2 - arrowWidth;
+        } else if (halfBottomExceed) {
+          topPosition = rect[top] + scroll.y - elementDimensions.h + linkDimensions.h;
+          arrowTop = elementDimensions.h - linkDimensions.h/2 - arrowWidth;
+        } else {
+          topPosition = rect[top] + scroll.y - elementDimensions.h/2 + linkDimensions.h/2;
+          arrowTop = elementDimensions.h/2 - (isPopover ? arrowHeight*0.9 : arrowHeight/2);
+        }
+      } else if ( position === top || position === bottom ) { // primary|vertical positions
+        if ( position === top) { // TOP
+          topPosition =  rect[top] + scroll.y - elementDimensions.h - ( isPopover ? arrowHeight : 0 );
+        } else { // BOTTOM
+          topPosition = rect[top] + scroll.y + linkDimensions.h;
+        }
+        // adjust left | right and also the arrow
+        if (halfLeftExceed) {
+          leftPosition = 0;
+          arrowLeft = rect[left] + linkDimensions.w/2 - arrowWidth;
+        } else if (halfRightExceed) {
+          leftPosition = windowWidth - elementDimensions.w*1.01;
+          arrowLeft = elementDimensions.w - ( windowWidth - rect[left] ) + linkDimensions.w/2 - arrowWidth/2;
+        } else {
+          leftPosition = rect[left] + scroll.x - elementDimensions.w/2 + linkDimensions.w/2;
+          arrowLeft = elementDimensions.w/2 - ( isPopover ? arrowWidth : arrowWidth/2 );
+        }
+      }
+  
+      // apply style to tooltip/popover and its arrow
+      element[style][top] = topPosition + 'px';
+      element[style][left] = leftPosition + 'px';
+  
+      arrowTop && (arrow[style][top] = arrowTop + 'px');
+      arrowLeft && (arrow[style][left] = arrowLeft + 'px');
+    };
+  
+  BSN.version = '2.0.27';
+  
+  /* Native Javascript for Bootstrap 4 | Alert
+  -------------------------------------------*/
+  
+  // ALERT DEFINITION
+  // ================
+  var Alert = function( element ) {
+    
+    // initialization element
+    element = queryElement(element);
+  
+    // bind, target alert, duration and stuff
+    var self = this, component = 'alert',
+      alert = getClosest(element,'.'+component),
+      triggerHandler = function(){ hasClass(alert,'fade') ? emulateTransitionEnd(alert,transitionEndHandler) : transitionEndHandler(); },
+      // handlers
+      clickHandler = function(e){
+        alert = getClosest(e[target],'.'+component);
+        element = queryElement('['+dataDismiss+'="'+component+'"]',alert);
+        element && alert && (element === e[target] || element[contains](e[target])) && self.close();
+      },
+      transitionEndHandler = function(){
+        bootstrapCustomEvent.call(alert, closedEvent, component);
+        off(element, clickEvent, clickHandler); // detach it's listener
+        alert[parentNode].removeChild(alert);
+      };
+    
+    // public method
+    this.close = function() {
+      if ( alert && element && hasClass(alert,showClass) ) {
+        bootstrapCustomEvent.call(alert, closeEvent, component);
+        removeClass(alert,showClass);
+        alert && triggerHandler();
+      }
+    };
+  
+    // init
+    if ( !(stringAlert in element ) ) { // prevent adding event handlers twice
+      on(element, clickEvent, clickHandler);
+    }
+    element[stringAlert] = self;
+  };
+  
+  // ALERT DATA API
+  // ==============
+  supports[push]([stringAlert, Alert, '['+dataDismiss+'="alert"]']);
+  
+  
+  /* Native Javascript for Bootstrap 4 | Button
+  ---------------------------------------------*/
+  
+  // BUTTON DEFINITION
+  // ===================
+  var Button = function( element ) {
+  
+    // initialization element
+    element = queryElement(element);
+  
+    // constant
+    var toggled = false, // toggled makes sure to prevent triggering twice the change.bs.button events
+  
+        // strings
+        component = 'button',
+        checked = 'checked',
+        LABEL = 'LABEL',
+        INPUT = 'INPUT',
+  
+      // private methods
+      keyHandler = function(e){ 
+        var key = e.which || e.keyCode;
+        key === 32 && e[target] === DOC.activeElement && toggle(e);
+      },
+      preventScroll = function(e){ 
+        var key = e.which || e.keyCode;
+        key === 32 && e[preventDefault]();
+      },
+      toggle = function(e) {
+        var label = e[target].tagName === LABEL ? e[target] : e[target][parentNode].tagName === LABEL ? e[target][parentNode] : null; // the .btn label
+        
+        if ( !label ) return; //react if a label or its immediate child is clicked
+  
+        var labels = getElementsByClassName(label[parentNode],'btn'), // all the button group buttons
+          input = label[getElementsByTagName](INPUT)[0];
+  
+        if ( !input ) return; // return if no input found
+  
+        // manage the dom manipulation
+        if ( input.type === 'checkbox' ) { //checkboxes
+          if ( !input[checked] ) {
+            addClass(label,active);
+            input[getAttribute](checked);
+            input[setAttribute](checked,checked);
+            input[checked] = true;
+          } else {
+            removeClass(label,active);
+            input[getAttribute](checked);
+            input.removeAttribute(checked);
+            input[checked] = false;
+          }
+  
+          if (!toggled) { // prevent triggering the event twice
+            toggled = true;
+            bootstrapCustomEvent.call(input, changeEvent, component); //trigger the change for the input
+            bootstrapCustomEvent.call(element, changeEvent, component); //trigger the change for the btn-group
+          }
+        }
+  
+        if ( input.type === 'radio' && !toggled ) { // radio buttons
+          // don't trigger if already active (the OR condition is a hack to check if the buttons were selected with key press and NOT mouse click)
+          if ( !input[checked] || (e.screenX === 0 && e.screenY == 0) ) {
+            addClass(label,active);
+            addClass(label,focusEvent);
+            input[setAttribute](checked,checked);
+            input[checked] = true;
+            bootstrapCustomEvent.call(input, changeEvent, component); //trigger the change for the input
+            bootstrapCustomEvent.call(element, changeEvent, component); //trigger the change for the btn-group
+  
+            toggled = true;
+            for (var i = 0, ll = labels[length]; i<ll; i++) {
+              var otherLabel = labels[i], otherInput = otherLabel[getElementsByTagName](INPUT)[0];
+              if ( otherLabel !== label && hasClass(otherLabel,active) )  {
+                removeClass(otherLabel,active);
+                otherInput.removeAttribute(checked);
+                otherInput[checked] = false;
+                bootstrapCustomEvent.call(otherInput, changeEvent, component); // trigger the change
+              }
+            }
+          }
+        }
+        setTimeout( function() { toggled = false; }, 50 );
+      },
+      focusHandler = function(e) {
+        addClass(e[target][parentNode],focusEvent);
+      },
+      blurHandler = function(e) {
+        removeClass(e[target][parentNode],focusEvent);
+      };
+  
+    // init
+    if ( !( stringButton in element ) ) { // prevent adding event handlers twice
+      on( element, clickEvent, toggle );
+      on( element, keyupEvent, keyHandler ), on( element, keydownEvent, preventScroll );
+  
+      var allBtns = getElementsByClassName(element, 'btn');
+      for (var i=0; i<allBtns.length; i++) {
+        var input = allBtns[i][getElementsByTagName](INPUT)[0];
+        on( input, focusEvent, focusHandler), on( input, 'blur', blurHandler);
+      }    
+    }
+  
+    // activate items on load
+    var labelsToACtivate = getElementsByClassName(element, 'btn'), lbll = labelsToACtivate[length];
+    for (var i=0; i<lbll; i++) {
+      !hasClass(labelsToACtivate[i],active) && queryElement('input:checked',labelsToACtivate[i]) 
+                                            && addClass(labelsToACtivate[i],active);
+    }
+    element[stringButton] = this;
+  };
+  
+  // BUTTON DATA API
+  // =================
+  supports[push]( [ stringButton, Button, '['+dataToggle+'="buttons"]' ] );
+  
+  
+  /* Native Javascript for Bootstrap 4 | Carousel
+  ----------------------------------------------*/
+  
+  // CAROUSEL DEFINITION
+  // ===================
+  var Carousel = function( element, options ) {
+  
+    // initialization element
+    element = queryElement( element );
+  
+    // set options
+    options = options || {};
+  
+    // DATA API
+    var intervalAttribute = element[getAttribute](dataInterval),
+        intervalOption = options[interval],
+        intervalData = intervalAttribute === 'false' ? 0 : parseInt(intervalAttribute),  
+        pauseData = element[getAttribute](dataPause) === hoverEvent || false,
+        keyboardData = element[getAttribute](dataKeyboard) === 'true' || false,
+      
+        // strings
+        component = 'carousel',
+        paused = 'paused',
+        direction = 'direction',
+        carouselItem = 'carousel-item',
+        dataSlideTo = 'data-slide-to'; 
+  
+    this[keyboard] = options[keyboard] === true || keyboardData;
+    this[pause] = (options[pause] === hoverEvent || pauseData) ? hoverEvent : false; // false / hover
+  
+    this[interval] = typeof intervalOption === 'number' ? intervalOption
+                   : intervalOption === false || intervalData === 0 || intervalData === false ? 0
+                   : isNaN(intervalData) ? 5000 // bootstrap carousel default interval
+                   : intervalData;
+  
+    // bind, event targets
+    var self = this, index = element.index = 0, timer = element.timer = 0, 
+      isSliding = false, // isSliding prevents click event handlers when animation is running
+      isTouch = false, startXPosition = null, currentXPosition = null, endXPosition = null, // touch and event coordinates
+      slides = getElementsByClassName(element,carouselItem), total = slides[length],
+      slideDirection = this[direction] = left,
+      leftArrow = getElementsByClassName(element,component+'-control-prev')[0], 
+      rightArrow = getElementsByClassName(element,component+'-control-next')[0],
+      indicator = queryElement( '.'+component+'-indicators', element ),
+      indicators = indicator && indicator[getElementsByTagName]( "LI" ) || [];
+  
+    // invalidate when not enough items
+    if (total < 2) { return; }
+  
+    // handlers
+    var pauseHandler = function () {
+        if ( self[interval] !==false && !hasClass(element,paused) ) {
+          addClass(element,paused);
+          !isSliding && ( clearInterval(timer), timer = null );
+        }
+      },
+      resumeHandler = function() {
+        if ( self[interval] !== false && hasClass(element,paused) ) {
+          removeClass(element,paused);
+          !isSliding && ( clearInterval(timer), timer = null );
+          !isSliding && self.cycle();
+        }
+      },
+      indicatorHandler = function(e) {
+        e[preventDefault]();
+        if (isSliding) return;
+  
+        var eventTarget = e[target]; // event target | the current active item
+  
+        if ( eventTarget && !hasClass(eventTarget,active) && eventTarget[getAttribute](dataSlideTo) ) {
+          index = parseInt( eventTarget[getAttribute](dataSlideTo), 10 );
+        } else { return false; }
+  
+        self.slideTo( index ); //Do the slide
+      },
+      controlsHandler = function (e) {
+        e[preventDefault]();
+        if (isSliding) return;
+  
+        var eventTarget = e.currentTarget || e.srcElement;
+  
+        if ( eventTarget === rightArrow ) {
+          index++;
+        } else if ( eventTarget === leftArrow ) {
+          index--;
+        }
+  
+        self.slideTo( index ); //Do the slide
+      },
+      keyHandler = function (e) {
+        if (isSliding) return;
+        switch (e.which) {
+          case 39:
+            index++;
+            break;
+          case 37:
+            index--;
+            break;
+          default: return;
+        }
+        self.slideTo( index ); //Do the slide
+      },
+      // touch events
+      toggleTouchEvents = function(toggle){
+        toggle( element, touchEvents.move, touchMoveHandler, passiveHandler );
+        toggle( element, touchEvents.end, touchEndHandler, passiveHandler );
+    },  
+      touchDownHandler = function(e) {
+        if ( isTouch ) { return; } 
+          
+        startXPosition = parseInt(e.touches[0].pageX);
+  
+        if ( element.contains(e[target]) ) {
+          isTouch = true;
+          toggleTouchEvents(on);
+        }
+      },
+      touchMoveHandler = function(e) {
+        if ( !isTouch ) { e.preventDefault(); return; }
+  
+        currentXPosition = parseInt(e.touches[0].pageX);
+        
+        //cancel touch if more than one touches detected
+        if ( e.type === 'touchmove' && e.touches[length] > 1 ) {
+          e.preventDefault();
+          return false;
+        }
+      },
+      touchEndHandler = function(e) {
+        if ( !isTouch || isSliding ) { return }
+        
+        endXPosition = currentXPosition || parseInt( e.touches[0].pageX );
+  
+        if ( isTouch ) {
+          if ( (!element.contains(e[target]) || !element.contains(e.relatedTarget) ) && Math.abs(startXPosition - endXPosition) < 75 ) {
+            return false;
+          } else {
+            if ( currentXPosition < startXPosition ) {
+              index++;
+            } else if ( currentXPosition > startXPosition ) {
+              index--;        
+            }
+            isTouch = false;
+            self.slideTo(index);
+          }
+          toggleTouchEvents(off);            
+        }
+      },
+  
+      // private methods
+      isElementInScrollRange = function () {
+        var rect = element[getBoundingClientRect](),
+          viewportHeight = globalObject[innerHeight] || HTML[clientHeight]
+        return rect[top] <= viewportHeight && rect[bottom] >= 0; // bottom && top
+      },    
+      setActivePage = function( pageIndex ) { //indicators
+        for ( var i = 0, icl = indicators[length]; i < icl; i++ ) {
+          removeClass(indicators[i],active);
+        }
+        if (indicators[pageIndex]) addClass(indicators[pageIndex], active);
+      };
+  
+  
+    // public methods
+    this.cycle = function() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+  
+      timer = setInterval(function() {
+        isElementInScrollRange() && (index++, self.slideTo( index ) );
+      }, this[interval]);
+    };
+    this.slideTo = function( next ) {
+      if (isSliding) return; // when controled via methods, make sure to check again      
+      
+      var activeItem = this.getActiveIndex(), // the current active
+          orientation;
+      
+      // first return if we're on the same item #227
+      if ( activeItem === next ) {
+        return;
+      // or determine slideDirection
+      } else if  ( (activeItem < next ) || (activeItem === 0 && next === total -1 ) ) {
+        slideDirection = self[direction] = left; // next
+      } else if  ( (activeItem > next) || (activeItem === total - 1 && next === 0 ) ) {
+        slideDirection = self[direction] = right; // prev
+      }
+  
+      // find the right next index 
+      if ( next < 0 ) { next = total - 1; } 
+      else if ( next >= total ){ next = 0; }
+  
+      // update index
+      index = next;
+  
+      orientation = slideDirection === left ? 'next' : 'prev'; //determine type
+      bootstrapCustomEvent.call(element, slideEvent, component, slides[next]); // here we go with the slide
+  
+      isSliding = true;
+      clearInterval(timer);
+      timer = null;
+      setActivePage( next );
+  
+      if ( supportTransitions && hasClass(element,'slide') ) {
+  
+        addClass(slides[next],carouselItem +'-'+ orientation);
+        slides[next][offsetWidth];
+        addClass(slides[next],carouselItem +'-'+ slideDirection);
+        addClass(slides[activeItem],carouselItem +'-'+ slideDirection);
+  
+        emulateTransitionEnd(slides[next], function(e) {
+          var timeout = e && e[target] !== slides[next] ? e.elapsedTime*1000+100 : 20;
+          
+          isSliding && setTimeout(function(){
+            isSliding = false;
+  
+            addClass(slides[next],active);
+            removeClass(slides[activeItem],active);
+  
+            removeClass(slides[next],carouselItem +'-'+ orientation);
+            removeClass(slides[next],carouselItem +'-'+ slideDirection);
+            removeClass(slides[activeItem],carouselItem +'-'+ slideDirection);
+  
+            bootstrapCustomEvent.call(element, slidEvent, component, slides[next]);
+  
+            if ( !DOC.hidden && self[interval] && !hasClass(element,paused) ) {
+              self.cycle();
+            }
+          }, timeout);
+        });
+  
+      } else {
+        addClass(slides[next],active);
+        slides[next][offsetWidth];
+        removeClass(slides[activeItem],active);
+        setTimeout(function() {
+          isSliding = false;
+          if ( self[interval] && !hasClass(element,paused) ) {
+            self.cycle();
+          }
+          bootstrapCustomEvent.call(element, slidEvent, component, slides[next]);
+        }, 100 );
+      }
+    };
+    this.getActiveIndex = function () {
+      return slides[indexOf](getElementsByClassName(element,carouselItem+' active')[0]) || 0;
+    };
+  
+    // init
+    if ( !(stringCarousel in element ) ) { // prevent adding event handlers twice
+  
+      if ( self[pause] && self[interval] ) {
+        on( element, mouseHover[0], pauseHandler );
+        on( element, mouseHover[1], resumeHandler );
+        on( element, touchEvents.start, pauseHandler, passiveHandler );
+        on( element, touchEvents.end, resumeHandler, passiveHandler );
+      }
+    
+      slides[length] > 1 && on( element, touchEvents.start, touchDownHandler, passiveHandler );
+  
+      rightArrow && on( rightArrow, clickEvent, controlsHandler );
+      leftArrow && on( leftArrow, clickEvent, controlsHandler );
+    
+      indicator && on( indicator, clickEvent, indicatorHandler );
+      self[keyboard] && on( globalObject, keydownEvent, keyHandler );
+  
+    }
+    if (self.getActiveIndex()<0) {
+      slides[length] && addClass(slides[0],active);
+      indicators[length] && setActivePage(0);
+    }
+  
+    if ( self[interval] ){ self.cycle(); }
+    element[stringCarousel] = self;
+  };
+  
+  // CAROUSEL DATA API
+  // =================
+  supports[push]( [ stringCarousel, Carousel, '['+dataRide+'="carousel"]' ] );
+  
+  
+  /* Native Javascript for Bootstrap 4 | Collapse
+  -----------------------------------------------*/
+  
+  // COLLAPSE DEFINITION
+  // ===================
+  var Collapse = function( element, options ) {
+  
+    // initialization element
+    element = queryElement(element);
+  
+    // set options
+    options = options || {};
+  
+    // event targets and constants
+    var accordion = null, collapse = null, self = this, 
+      accordionData = element[getAttribute]('data-parent'),
+      activeCollapse, activeElement,
+  
+      // component strings
+      component = 'collapse',
+      collapsed = 'collapsed',
+      isAnimating = 'isAnimating',
+  
+      // private methods
+      openAction = function(collapseElement,toggle) {
+        bootstrapCustomEvent.call(collapseElement, showEvent, component);
+        collapseElement[isAnimating] = true;
+        addClass(collapseElement,collapsing);
+        removeClass(collapseElement,component);
+        collapseElement[style][height] = collapseElement[scrollHeight] + 'px';
+        
+        emulateTransitionEnd(collapseElement, function() {
+          collapseElement[isAnimating] = false;
+          collapseElement[setAttribute](ariaExpanded,'true');
+          toggle[setAttribute](ariaExpanded,'true');
+          removeClass(collapseElement,collapsing);
+          addClass(collapseElement, component);
+          addClass(collapseElement,showClass);
+          collapseElement[style][height] = '';
+          bootstrapCustomEvent.call(collapseElement, shownEvent, component);
+        });
+      },
+      closeAction = function(collapseElement,toggle) {
+        bootstrapCustomEvent.call(collapseElement, hideEvent, component);
+        collapseElement[isAnimating] = true;
+        collapseElement[style][height] = collapseElement[scrollHeight] + 'px'; // set height first
+        removeClass(collapseElement,component);
+        removeClass(collapseElement,showClass);
+        addClass(collapseElement,collapsing);
+        collapseElement[offsetWidth]; // force reflow to enable transition
+        collapseElement[style][height] = '0px';
+        
+        emulateTransitionEnd(collapseElement, function() {
+          collapseElement[isAnimating] = false;
+          collapseElement[setAttribute](ariaExpanded,'false');
+          toggle[setAttribute](ariaExpanded,'false');
+          removeClass(collapseElement,collapsing);
+          addClass(collapseElement,component);
+          collapseElement[style][height] = '';
+          bootstrapCustomEvent.call(collapseElement, hiddenEvent, component);
+        });
+      },
+      getTarget = function() {
+        var href = element.href && element[getAttribute]('href'),
+          parent = element[getAttribute](dataTarget),
+          id = href || ( parent && parent.charAt(0) === '#' ) && parent;
+        return id && queryElement(id);
+      };
+    
+    // public methods
+    this.toggle = function(e) {
+      e[preventDefault]();
+      if (!hasClass(collapse,showClass)) { self.show(); } 
+      else { self.hide(); }
+    };
+    this.hide = function() {
+      if ( collapse[isAnimating] ) return;    
+      closeAction(collapse,element);
+      addClass(element,collapsed);
+    };
+    this.show = function() {
+      if ( accordion ) {
+        activeCollapse = queryElement('.'+component+'.'+showClass,accordion);
+        activeElement = activeCollapse && (queryElement('['+dataTarget+'="#'+activeCollapse.id+'"]',accordion)
+                      || queryElement('[href="#'+activeCollapse.id+'"]',accordion) );
+      }
+  
+      if ( !collapse[isAnimating] || activeCollapse && !activeCollapse[isAnimating] ) {
+        if ( activeElement && activeCollapse !== collapse ) {
+          closeAction(activeCollapse,activeElement); 
+          addClass(activeElement,collapsed);
+        }
+        openAction(collapse,element);
+        removeClass(element,collapsed);
+      }
+    };
+  
+    // init
+    if ( !(stringCollapse in element ) ) { // prevent adding event handlers twice
+      on(element, clickEvent, self.toggle);
+    }
+    collapse = getTarget();
+    collapse[isAnimating] = false;  // when true it will prevent click handlers  
+    accordion = queryElement(options.parent) || accordionData && getClosest(element, accordionData);
+    element[stringCollapse] = self;
+  };
+  
+  // COLLAPSE DATA API
+  // =================
+  supports[push]( [ stringCollapse, Collapse, '['+dataToggle+'="collapse"]' ] );
+  
+  
+  /* Native Javascript for Bootstrap 4 | Dropdown
+  ----------------------------------------------*/
+  
+  // DROPDOWN DEFINITION
+  // ===================
+  var Dropdown = function( element, option ) {
+      
+    // initialization element
+    element = queryElement(element);
+  
+    // set option
+    this.persist = option === true || element[getAttribute]('data-persist') === 'true' || false;
+  
+    // constants, event targets, strings
+    var self = this, children = 'children',
+      parent = element[parentNode],
+      component = 'dropdown', open = 'open',
+      relatedTarget = null,
+      menu = queryElement('.dropdown-menu', parent),
+      menuItems = (function(){
+        var set = menu[children], newSet = [];
+        for ( var i=0; i<set[length]; i++ ){
+          set[i][children][length] && (set[i][children][0].tagName === 'A' && newSet[push](set[i][children][0]));
+          set[i].tagName === 'A' && newSet[push](set[i]);
+        }
+        return newSet;
+      })(),
+  
+      // preventDefault on empty anchor links
+      preventEmptyAnchor = function(anchor){
+        (anchor.href && anchor.href.slice(-1) === '#' || anchor[parentNode] && anchor[parentNode].href 
+          && anchor[parentNode].href.slice(-1) === '#') && this[preventDefault]();    
+      },
+  
+      // toggle dismissible events
+      toggleDismiss = function(){
+        var type = element[open] ? on : off;
+        type(DOC, clickEvent, dismissHandler); 
+        type(DOC, keydownEvent, preventScroll);
+        type(DOC, keyupEvent, keyHandler);
+        type(DOC, focusEvent, dismissHandler, true);
+      },
+  
+      // handlers
+      dismissHandler = function(e) {
+        var eventTarget = e[target], hasData = eventTarget && (eventTarget[getAttribute](dataToggle) 
+                              || eventTarget[parentNode] && getAttribute in eventTarget[parentNode] 
+                              && eventTarget[parentNode][getAttribute](dataToggle));
+        if ( e.type === focusEvent && (eventTarget === element || eventTarget === menu || menu[contains](eventTarget) ) ) {
+          return;
+        }
+        if ( (eventTarget === menu || menu[contains](eventTarget)) && (self.persist || hasData) ) { return; }
+        else {
+          relatedTarget = eventTarget === element || element[contains](eventTarget) ? element : null;
+          hide();
+        }
+        preventEmptyAnchor.call(e,eventTarget);
+      },
+      clickHandler = function(e) {
+        relatedTarget = element;
+        show();
+        preventEmptyAnchor.call(e,e[target]);
+      },
+      preventScroll = function(e){
+        var key = e.which || e.keyCode;
+        if( key === 38 || key === 40 ) { e[preventDefault](); }
+      },
+      keyHandler = function(e){
+        var key = e.which || e.keyCode,
+          activeItem = DOC.activeElement,
+          idx = menuItems[indexOf](activeItem),
+          isSameElement = activeItem === element,
+          isInsideMenu = menu[contains](activeItem),
+          isMenuItem = activeItem[parentNode] === menu || activeItem[parentNode][parentNode] === menu;          
+  
+        if ( isMenuItem ) { // navigate up | down
+          idx = isSameElement ? 0 
+                              : key === 38 ? (idx>1?idx-1:0)
+                              : key === 40 ? (idx<menuItems[length]-1?idx+1:idx) : idx;
+          menuItems[idx] && setFocus(menuItems[idx]);
+        }
+        if ( (menuItems[length] && isMenuItem // menu has items
+              || !menuItems[length] && (isInsideMenu || isSameElement)  // menu might be a form
+              || !isInsideMenu ) // or the focused element is not in the menu at all
+              && element[open] && key === 27  // menu must be open
+        ) {
+          self.toggle();
+          relatedTarget = null;
+        }
+      },
+  
+      // private methods
+      show = function() {
+        bootstrapCustomEvent.call(parent, showEvent, component, relatedTarget);
+        addClass(menu,showClass);
+        addClass(parent,showClass);
+        element[setAttribute](ariaExpanded,true);
+        bootstrapCustomEvent.call(parent, shownEvent, component, relatedTarget);
+        element[open] = true;
+        off(element, clickEvent, clickHandler);
+        setTimeout(function(){
+          setFocus( menu[getElementsByTagName]('INPUT')[0] || element ); // focus the first input item | element
+          toggleDismiss();
+        },1);
+      },
+      hide = function() {
+        bootstrapCustomEvent.call(parent, hideEvent, component, relatedTarget);
+        removeClass(menu,showClass);
+        removeClass(parent,showClass);
+        element[setAttribute](ariaExpanded,false);
+        bootstrapCustomEvent.call(parent, hiddenEvent, component, relatedTarget);
+        element[open] = false;
+        toggleDismiss();
+        setFocus(element);
+        setTimeout(function(){ on(element, clickEvent, clickHandler); },1);
+      };
+  
+    // set initial state to closed
+    element[open] = false;
+  
+    // public methods
+    this.toggle = function() {
+      if (hasClass(parent,showClass) && element[open]) { hide(); } 
+      else { show(); }
+    };
+  
+    // init
+    if ( !(stringDropdown in element) ) { // prevent adding event handlers twice
+      !tabindex in menu && menu[setAttribute](tabindex, '0'); // Fix onblur on Chrome | Safari
+      on(element, clickEvent, clickHandler);
+    }
+  
+    element[stringDropdown] = self;
+  };
+  
+  // DROPDOWN DATA API
+  // =================
+  supports[push]( [stringDropdown, Dropdown, '['+dataToggle+'="dropdown"]'] );
+  
+  
+  /* Native Javascript for Bootstrap 4 | Modal
+  -------------------------------------------*/
+  
+  // MODAL DEFINITION
+  // ===============
+  var Modal = function(element, options) { // element can be the modal/triggering button
+  
+    // the modal (both JavaScript / DATA API init) / triggering button element (DATA API)
+    element = queryElement(element);
+  
+      // strings
+      var component = 'modal',
+        staticString = 'static',
+        modalTrigger = 'modalTrigger',
+        paddingRight = 'paddingRight',
+        modalBackdropString = 'modal-backdrop',
+        isAnimating = 'isAnimating',
+        // determine modal, triggering element
+        btnCheck = element[getAttribute](dataTarget)||element[getAttribute]('href'),
+        checkModal = queryElement( btnCheck ),
+        modal = hasClass(element,component) ? element : checkModal;
+  
+      if ( hasClass(element, component) ) { element = null; } // modal is now independent of it's triggering element
+  
+    if ( !modal ) { return; } // invalidate
+  
+    // set options
+    options = options || {};
+  
+    this[keyboard] = options[keyboard] === false || modal[getAttribute](dataKeyboard) === 'false' ? false : true;
+    this[backdrop] = options[backdrop] === staticString || modal[getAttribute](databackdrop) === staticString ? staticString : true;
+    this[backdrop] = options[backdrop] === false || modal[getAttribute](databackdrop) === 'false' ? false : this[backdrop];
+    this[animation] = hasClass(modal, 'fade') ? true : false;
+    this[content]  = options[content]; // JavaScript only
+  
+    // set an initial state of the modal
+    modal[isAnimating] = false;
+    
+    // bind, constants, event targets and other vars
+    var self = this, relatedTarget = null,
+      bodyIsOverflowing, scrollBarWidth, overlay, overlayDelay, modalTimer,
+  
+      // also find fixed-top / fixed-bottom items
+      fixedItems = getElementsByClassName(HTML,fixedTop).concat(getElementsByClassName(HTML,fixedBottom)),
+  
+      // private methods
+      getWindowWidth = function() {
+        var htmlRect = HTML[getBoundingClientRect]();
+        return globalObject[innerWidth] || (htmlRect[right] - Math.abs(htmlRect[left]));
+      },
+      setScrollbar = function () {
+        var bodyStyle = globalObject[getComputedStyle](DOC[body]),
+            bodyPad = parseInt((bodyStyle[paddingRight]), 10), itemPad;
+        if (bodyIsOverflowing) {
+          DOC[body][style][paddingRight] = (bodyPad + scrollBarWidth) + 'px';
+          modal[style][paddingRight] = scrollBarWidth+'px';
+          if (fixedItems[length]){
+            for (var i = 0; i < fixedItems[length]; i++) {
+              itemPad = globalObject[getComputedStyle](fixedItems[i])[paddingRight];
+              fixedItems[i][style][paddingRight] = ( parseInt(itemPad) + scrollBarWidth) + 'px';
+            }
+          }
+        }
+      },
+      resetScrollbar = function () {
+        DOC[body][style][paddingRight] = '';
+        modal[style][paddingRight] = '';
+        if (fixedItems[length]){
+          for (var i = 0; i < fixedItems[length]; i++) {
+            fixedItems[i][style][paddingRight] = '';
+          }
+        }
+      },
+      measureScrollbar = function () { // thx walsh
+        var scrollDiv = DOC[createElement]('div'), widthValue;
+        scrollDiv.className = component+'-scrollbar-measure'; // this is here to stay
+        DOC[body][appendChild](scrollDiv);
+        widthValue = scrollDiv[offsetWidth] - scrollDiv[clientWidth];
+        DOC[body].removeChild(scrollDiv);
+        return widthValue;
+      },
+      checkScrollbar = function () {
+        bodyIsOverflowing = DOC[body][clientWidth] < getWindowWidth();
+        scrollBarWidth = measureScrollbar();
+      },
+      createOverlay = function() {
+        var newOverlay = DOC[createElement]('div');
+        overlay = queryElement('.'+modalBackdropString);
+  
+        if ( overlay === null ) {
+          newOverlay[setAttribute]('class', modalBackdropString + (self[animation] ? ' fade' : ''));
+          overlay = newOverlay;
+          DOC[body][appendChild](overlay);
+        }
+        modalOverlay = 1;
+      },
+      removeOverlay = function() {
+        overlay = queryElement('.'+modalBackdropString);
+        if ( overlay && overlay !== null && typeof overlay === 'object' ) {
+          modalOverlay = 0;
+          DOC[body].removeChild(overlay); overlay = null;
+        }
+      },
+      // triggers
+      triggerShow = function() {
+        setFocus(modal);
+        modal[isAnimating] = false;
+        bootstrapCustomEvent.call(modal, shownEvent, component, relatedTarget);
+  
+        on(globalObject, resizeEvent, self.update, passiveHandler);
+        on(modal, clickEvent, dismissHandler);
+        on(DOC, keydownEvent, keyHandler);      
+      },
+      triggerHide = function() {
+        modal[style].display = '';
+        element && (setFocus(element));
+        bootstrapCustomEvent.call(modal, hiddenEvent, component);
+  
+        (function(){
+          if (!getElementsByClassName(DOC,component+' '+showClass)[0]) {
+            resetScrollbar();
+            removeClass(DOC[body],component+'-open');
+            overlay && hasClass(overlay,'fade') ? (removeClass(overlay,showClass), emulateTransitionEnd(overlay,removeOverlay))
+            : removeOverlay();
+  
+            off(globalObject, resizeEvent, self.update, passiveHandler);
+            off(modal, clickEvent, dismissHandler);
+            off(DOC, keydownEvent, keyHandler);
+          }
+        }());
+        modal[isAnimating] = false;
+      },
+      // handlers
+      clickHandler = function(e) {
+        if ( modal[isAnimating] ) return;
+  
+        var clickTarget = e[target];
+        clickTarget = clickTarget[hasAttribute](dataTarget) || clickTarget[hasAttribute]('href') ? clickTarget : clickTarget[parentNode];
+        if ( clickTarget === element && !hasClass(modal,showClass) ) {
+          modal[modalTrigger] = element;
+          relatedTarget = element;
+          self.show();
+          e[preventDefault]();
+        }
+      },
+      keyHandler = function(e) {
+        if ( modal[isAnimating] ) return;
+  
+        if (self[keyboard] && e.which == 27 && hasClass(modal,showClass) ) {
+          self.hide();
+        }
+      },
+      dismissHandler = function(e) {
+        if ( modal[isAnimating] ) return;
+        var clickTarget = e[target];
+  
+        if ( hasClass(modal,showClass) && ( clickTarget[parentNode][getAttribute](dataDismiss) === component
+            || clickTarget[getAttribute](dataDismiss) === component
+            || clickTarget === modal && self[backdrop] !== staticString ) ) {
+          self.hide(); relatedTarget = null;
+          e[preventDefault]();
+        }
+      };
+  
+    // public methods
+    this.toggle = function() {
+      if ( hasClass(modal,showClass) ) {this.hide();} else {this.show();}
+    };
+    this.show = function() {
+      if ( hasClass(modal,showClass) || modal[isAnimating] ) {return}
+  
+      clearTimeout(modalTimer);
+      modalTimer = setTimeout(function(){
+        modal[isAnimating] = true;
+        bootstrapCustomEvent.call(modal, showEvent, component, relatedTarget);
+  
+        // we elegantly hide any opened modal
+        var currentOpen = getElementsByClassName(DOC,component+' '+showClass)[0];
+        if (currentOpen && currentOpen !== modal) {
+          modalTrigger in currentOpen && currentOpen[modalTrigger][stringModal].hide();
+          stringModal in currentOpen && currentOpen[stringModal].hide();
+        }
+  
+        if ( self[backdrop] ) {
+          !modalOverlay && !overlay && createOverlay();
+        }
+  
+        if ( overlay && !hasClass(overlay,showClass) ) {
+          overlay[offsetWidth]; // force reflow to enable trasition
+          overlayDelay = getTransitionDurationFromElement(overlay);
+          addClass(overlay, showClass);
+        }
+  
+        setTimeout( function() {
+          modal[style].display = 'block';
+  
+          checkScrollbar();
+          setScrollbar();
+  
+          addClass(DOC[body],component+'-open');
+          addClass(modal,showClass);
+          modal[setAttribute](ariaHidden, false);
+  
+          hasClass(modal,'fade') ? emulateTransitionEnd(modal, triggerShow) : triggerShow();
+        }, supportTransitions && overlay && overlayDelay ? overlayDelay : 1);
+      },1);
+    };
+    this.hide = function() {
+      if ( modal[isAnimating] || !hasClass(modal,showClass) ) {return}
+  
+      clearTimeout(modalTimer);
+      modalTimer = setTimeout(function(){
+        modal[isAnimating] = true;    
+        bootstrapCustomEvent.call(modal, hideEvent, component);
+        overlay = queryElement('.'+modalBackdropString);
+        overlayDelay = overlay && getTransitionDurationFromElement(overlay);
+  
+        removeClass(modal,showClass);
+        modal[setAttribute](ariaHidden, true);
+  
+        setTimeout(function(){
+          hasClass(modal,'fade') ? emulateTransitionEnd(modal, triggerHide) : triggerHide();
+        }, supportTransitions && overlay && overlayDelay ? overlayDelay : 2);
+      },2)
+    };
+    this.setContent = function( content ) {
+      queryElement('.'+component+'-content',modal)[innerHTML] = content;
+    };
+    this.update = function() {
+      if (hasClass(modal,showClass)) {
+        checkScrollbar();
+        setScrollbar();
+      }
+    };
+  
+    // init
+    // prevent adding event handlers over and over
+    // modal is independent of a triggering element
+    if ( !!element && !(stringModal in element) ) {
+      on(element, clickEvent, clickHandler);
+    }
+    if ( !!self[content] ) { self.setContent( self[content] ); }
+    if (element) { element[stringModal] = self; modal[modalTrigger] = element; }
+    else { modal[stringModal] = self; }
+  };
+  
+  // DATA API
+  supports[push]( [ stringModal, Modal, '['+dataToggle+'="modal"]' ] );
+  
+  /* Native Javascript for Bootstrap 4 | Popover
+  ----------------------------------------------*/
+  
+  // POPOVER DEFINITION
+  // ==================
+  var Popover = function( element, options ) {
+  
+    // initialization element
+    element = queryElement(element);
+  
+    // set options
+    options = options || {};
+  
+    // DATA API
+    var triggerData = element[getAttribute](dataTrigger), // click / hover / focus
+        animationData = element[getAttribute](dataAnimation), // true / false
+        placementData = element[getAttribute](dataPlacement),
+        dismissibleData = element[getAttribute](dataDismissible),
+        delayData = element[getAttribute](dataDelay),
+        containerData = element[getAttribute](dataContainer),
+  
+        // internal strings
+        component = 'popover',
+        template = 'template',
+        trigger = 'trigger',
+        classString = 'class',
+        div = 'div',
+        fade = 'fade',
+        dataContent = 'data-content',
+        dismissible = 'dismissible',
+        closeBtn = '<button type="button" class="close">×</button>',
+  
+        // check container
+        containerElement = queryElement(options[container]),
+        containerDataElement = queryElement(containerData),       
+        
+        // maybe the element is inside a modal
+        modal = getClosest(element,'.modal'),
+        
+        // maybe the element is inside a fixed navbar
+        navbarFixedTop = getClosest(element,'.'+fixedTop),
+        navbarFixedBottom = getClosest(element,'.'+fixedBottom);
+  
+    // set instance options
+    this[template] = options[template] ? options[template] : null; // JavaScript only
+    this[trigger] = options[trigger] ? options[trigger] : triggerData || hoverEvent;
+    this[animation] = options[animation] && options[animation] !== fade ? options[animation] : animationData || fade;
+    this[placement] = options[placement] ? options[placement] : placementData || top;
+    this[delay] = parseInt(options[delay] || delayData) || 200;
+    this[dismissible] = options[dismissible] || dismissibleData === 'true' ? true : false;
+    this[container] = containerElement ? containerElement 
+                    : containerDataElement ? containerDataElement 
+                    : navbarFixedTop ? navbarFixedTop
+                    : navbarFixedBottom ? navbarFixedBottom
+                    : modal ? modal : DOC[body];
+    
+    // bind, content
+    var self = this, 
+        titleString = options.title || element[getAttribute](dataTitle) || null,
+        contentString = options.content || element[getAttribute](dataContent) || null;
+  
+    if ( !contentString && !this[template] ) return; // invalidate
+  
+    // constants, vars
+    var popover = null, timer = 0, placementSetting = this[placement],
+      
+      // handlers
+      dismissibleHandler = function(e) {
+        if (popover !== null && e[target] === queryElement('.close',popover)) {
+          self.hide();
+        }
+      },
+  
+      // private methods
+      removePopover = function() {
+        self[container].removeChild(popover);
+        timer = null; popover = null; 
+      },
+      createPopover = function() {
+        titleString = options.title || element[getAttribute](dataTitle);
+        contentString = options.content || element[getAttribute](dataContent);
+        // fixing https://github.com/thednp/bootstrap.native/issues/233
+        contentString = !!contentString ? contentString.trim() : null;
+  
+        popover = DOC[createElement](div);
+  
+        // popover arrow
+        var popoverArrow = DOC[createElement](div);
+        popoverArrow[setAttribute](classString,'arrow');
+        popover[appendChild](popoverArrow);
+  
+        if ( contentString !== null && self[template] === null ) { //create the popover from data attributes
+  
+          popover[setAttribute]('role','tooltip');     
+  
+          if (titleString !== null) {
+            var popoverTitle = DOC[createElement]('h3');
+            popoverTitle[setAttribute](classString,component+'-header');
+  
+            popoverTitle[innerHTML] = self[dismissible] ? titleString + closeBtn : titleString;
+            popover[appendChild](popoverTitle);
+          }
+  
+          //set popover content
+          var popoverContent = DOC[createElement](div);
+          popoverContent[setAttribute](classString,component+'-body');
+          popoverContent[innerHTML] = self[dismissible] && titleString === null ? contentString + closeBtn : contentString;
+          popover[appendChild](popoverContent);
+  
+        } else {  // or create the popover from template
+          var popoverTemplate = DOC[createElement](div);
+          self[template] = self[template].trim();
+          popoverTemplate[innerHTML] = self[template];
+          popover[innerHTML] = popoverTemplate.firstChild[innerHTML];
+        }
+  
+        //append to the container
+        self[container][appendChild](popover);
+        popover[style].display = 'block';
+        popover[setAttribute](classString, component+ ' bs-' + component+'-'+placementSetting + ' ' + self[animation]);
+      },
+      showPopover = function () {
+        !hasClass(popover,showClass) && ( addClass(popover,showClass) );
+      },
+      updatePopover = function() {
+        styleTip(element, popover, placementSetting, self[container]);
+      },
+  
+      // event toggle
+      dismissHandlerToggle = function(type){
+        if (clickEvent == self[trigger] || 'focus' == self[trigger]) {
+          !self[dismissible] && type( element, 'blur', self.hide );
+        }
+        self[dismissible] && type( DOC, clickEvent, dismissibleHandler );     
+        type( globalObject, resizeEvent, self.hide, passiveHandler );
+      },
+  
+      // triggers
+      showTrigger = function() {
+        dismissHandlerToggle(on);
+        bootstrapCustomEvent.call(element, shownEvent, component);
+      },
+      hideTrigger = function() {
+        dismissHandlerToggle(off);
+        removePopover();
+        bootstrapCustomEvent.call(element, hiddenEvent, component);
+      };
+  
+    // public methods / handlers
+    this.toggle = function() {
+      if (popover === null) { self.show(); } 
+      else { self.hide(); }
+    };
+    this.show = function() {
+      clearTimeout(timer);
+      timer = setTimeout( function() {
+        if (popover === null) {
+          placementSetting = self[placement]; // we reset placement in all cases
+          createPopover();
+          updatePopover();
+          showPopover();
+          bootstrapCustomEvent.call(element, showEvent, component);
+          !!self[animation] ? emulateTransitionEnd(popover, showTrigger) : showTrigger();
+        }
+      }, 20 );
+    };
+    this.hide = function() {
+      clearTimeout(timer);
+      timer = setTimeout( function() {
+        if (popover && popover !== null && hasClass(popover,showClass)) {
+          bootstrapCustomEvent.call(element, hideEvent, component);
+          removeClass(popover,showClass);
+          !!self[animation] ? emulateTransitionEnd(popover, hideTrigger) : hideTrigger();
+        }
+      }, self[delay] );
+    };
+  
+    // init
+    if ( !(stringPopover in element) ) { // prevent adding event handlers twice
+      if (self[trigger] === hoverEvent) {
+        on( element, mouseHover[0], self.show );
+        if (!self[dismissible]) { on( element, mouseHover[1], self.hide ); }
+      } else if (clickEvent == self[trigger] || 'focus' == self[trigger]) {
+        on( element, self[trigger], self.toggle );
+      }
+    }
+    element[stringPopover] = self;
+  };
+  
+  // POPOVER DATA API
+  // ================
+  supports[push]( [ stringPopover, Popover, '['+dataToggle+'="popover"]' ] );
+  
+  
+  /* Native Javascript for Bootstrap 4 | ScrollSpy
+  -----------------------------------------------*/
+  
+  // SCROLLSPY DEFINITION
+  // ====================
+  var ScrollSpy = function(element, options) {
+  
+    // initialization element, the element we spy on
+    element = queryElement(element); 
+  
+    // DATA API
+    var targetData = queryElement(element[getAttribute](dataTarget)),
+        offsetData = element[getAttribute]('data-offset');
+  
+    // set options
+    options = options || {};
+  
+    // invalidate
+    if ( !options[target] && !targetData ) { return; } 
+  
+    // event targets, constants
+    var self = this, spyTarget = options[target] && queryElement(options[target]) || targetData,
+        links = spyTarget && spyTarget[getElementsByTagName]('A'),
+        offset = parseInt(options['offset'] || offsetData) || 10,      
+        items = [], targetItems = [], scrollOffset,
+        scrollTarget = element[offsetHeight] < element[scrollHeight] ? element : globalObject, // determine which is the real scrollTarget
+        isWindow = scrollTarget === globalObject;  
+  
+    // populate items and targets
+    for (var i=0, il=links[length]; i<il; i++) {
+      var href = links[i][getAttribute]('href'), 
+          targetItem = href && href.charAt(0) === '#' && href.slice(-1) !== '#' && queryElement(href);
+      if ( !!targetItem ) {
+        items[push](links[i]);
+        targetItems[push](targetItem);
+      }
+    }
+  
+    // private methods
+    var updateItem = function(index) {
+        var item = items[index],
+          targetItem = targetItems[index], // the menu item targets this element
+          dropdown = item[parentNode][parentNode],
+          dropdownLink = hasClass(dropdown,'dropdown') && dropdown[getElementsByTagName]('A')[0],
+          targetRect = isWindow && targetItem[getBoundingClientRect](),
+  
+          isActive = hasClass(item,active) || false,
+  
+          topEdge = (isWindow ? targetRect[top] + scrollOffset : targetItem[offsetTop]) - offset,
+          bottomEdge = isWindow ? targetRect[bottom] + scrollOffset - offset : targetItems[index+1] ? targetItems[index+1][offsetTop] - offset : element[scrollHeight],
+  
+          inside = scrollOffset >= topEdge && bottomEdge > scrollOffset;
+  
+        if ( !isActive && inside ) {
+          if ( !hasClass(item,active) ) {
+            addClass(item,active);
+            if (dropdownLink && !hasClass(dropdownLink,active) ) {
+              addClass(dropdownLink,active);
+            }
+            bootstrapCustomEvent.call(element, 'activate', 'scrollspy', items[index]);
+          }
+        } else if ( !inside ) {
+          if ( hasClass(item,active) ) {
+            removeClass(item,active);
+            if (dropdownLink && hasClass(dropdownLink,active) && !getElementsByClassName(item[parentNode],active).length  ) {
+              removeClass(dropdownLink,active);
+            }
+          }
+        } else if ( !inside && !isActive || isActive && inside ) {
+          return;
+        }
+      },
+      updateItems = function(){
+        scrollOffset = isWindow ? getScroll().y : element[scrollTop];
+        for (var index=0, itl=items[length]; index<itl; index++) {
+          updateItem(index)
+        }
+      };
+  
+    // public method
+    this.refresh = function () {
+      updateItems();
+    }
+  
+    // init
+    if ( !(stringScrollSpy in element) ) { // prevent adding event handlers twice
+      on( scrollTarget, scrollEvent, self.refresh, passiveHandler );
+      on( globalObject, resizeEvent, self.refresh, passiveHandler );
+    }
+    self.refresh();
+    element[stringScrollSpy] = self;
+  };
+  
+  // SCROLLSPY DATA API
+  // ==================
+  supports[push]( [ stringScrollSpy, ScrollSpy, '['+dataSpy+'="scroll"]' ] );
+  
+  
+  /* Native Javascript for Bootstrap 4 | Tab
+  -----------------------------------------*/
+  
+  // TAB DEFINITION
+  // ==============
+  var Tab = function( element, options ) {
+  
+    // initialization element
+    element = queryElement(element);
+  
+    // DATA API
+    var heightData = element[getAttribute](dataHeight),
+      
+        // strings
+        component = 'tab', height = 'height', float = 'float', isAnimating = 'isAnimating';
+        
+    // set options
+    options = options || {};
+    this[height] = supportTransitions ? (options[height] || heightData === 'true') : false;
+  
+    // bind, event targets
+    var self = this, next,
+      tabs = getClosest(element,'.nav'),
+      tabsContentContainer = false,
+      dropdown = tabs && queryElement('.dropdown-toggle',tabs),
+      activeTab, activeContent, nextContent, containerHeight, equalContents, nextHeight,
+      
+      // trigger
+      triggerEnd = function(){
+        tabsContentContainer[style][height] = '';
+        removeClass(tabsContentContainer,collapsing);
+        tabs[isAnimating] = false;
+      },
+      triggerShow = function() {
+        if (tabsContentContainer) { // height animation
+          if ( equalContents ) {
+            triggerEnd();
+          } else {
+            setTimeout(function(){ // enables height animation
+              tabsContentContainer[style][height] = nextHeight + 'px'; // height animation
+              tabsContentContainer[offsetWidth];
+              emulateTransitionEnd(tabsContentContainer, triggerEnd);
+            },50);
+          }
+        } else {
+          tabs[isAnimating] = false; 
+        }
+        bootstrapCustomEvent.call(next, shownEvent, component, activeTab);
+      },
+      triggerHide = function() {
+        if (tabsContentContainer) {
+          activeContent[style][float] = left;
+          nextContent[style][float] = left;        
+          containerHeight = activeContent[scrollHeight];
+        }
+          
+        addClass(nextContent,active);
+        bootstrapCustomEvent.call(next, showEvent, component, activeTab);
+  
+        removeClass(activeContent,active);
+        bootstrapCustomEvent.call(activeTab, hiddenEvent, component, next);
+        
+        if (tabsContentContainer) {
+          nextHeight = nextContent[scrollHeight];
+          equalContents = nextHeight === containerHeight;
+          addClass(tabsContentContainer,collapsing);
+          tabsContentContainer[style][height] = containerHeight + 'px'; // height animation
+          tabsContentContainer[offsetHeight];
+          activeContent[style][float] = '';
+          nextContent[style][float] = '';
+        }
+  
+        if ( hasClass(nextContent, 'fade') ) {
+          setTimeout(function(){
+            addClass(nextContent,showClass);
+            emulateTransitionEnd(nextContent,triggerShow);
+          },20);
+        } else { triggerShow(); }        
+      };
+  
+    if (!tabs) return; // invalidate
+  
+    // set default animation state
+    tabs[isAnimating] = false;    
+          
+    // private methods
+    var getActiveTab = function() {
+        var activeTabs = getElementsByClassName(tabs,active), activeTab;
+        if ( activeTabs[length] === 1 && !hasClass(activeTabs[0][parentNode],'dropdown') ) {
+          activeTab = activeTabs[0];
+        } else if ( activeTabs[length] > 1 ) {
+          activeTab = activeTabs[activeTabs[length]-1];
+        }
+        return activeTab;
+      },
+      getActiveContent = function() {
+        return queryElement(getActiveTab()[getAttribute]('href'));
+      },
+      // handler 
+      clickHandler = function(e) {
+        e[preventDefault]();
+        next = e[currentTarget];
+        !tabs[isAnimating] && !hasClass(next,active) && self.show();
+      };
+  
+    // public method
+    this.show = function() { // the tab we clicked is now the next tab
+      next = next || element;
+      nextContent = queryElement(next[getAttribute]('href')); //this is the actual object, the next tab content to activate
+      activeTab = getActiveTab(); 
+      activeContent = getActiveContent();
+      
+      tabs[isAnimating] = true;
+      removeClass(activeTab,active);
+      activeTab[setAttribute](ariaSelected,'false');
+      addClass(next,active);
+      next[setAttribute](ariaSelected,'true');    
+  
+      if ( dropdown ) {
+        if ( !hasClass(element[parentNode],'dropdown-menu') ) {
+          if (hasClass(dropdown,active)) removeClass(dropdown,active);
+        } else {
+          if (!hasClass(dropdown,active)) addClass(dropdown,active);
+        }
+      }
+      
+      bootstrapCustomEvent.call(activeTab, hideEvent, component, next);
+  
+      if (hasClass(activeContent, 'fade')) {
+        removeClass(activeContent,showClass);
+        emulateTransitionEnd(activeContent, triggerHide);
+      } else { triggerHide(); }
+    };
+  
+    // init
+    if ( !(stringTab in element) ) { // prevent adding event handlers twice
+      on(element, clickEvent, clickHandler);
+    }
+    if (self[height]) { tabsContentContainer = getActiveContent()[parentNode]; }
+    element[stringTab] = self;
+  };
+  
+  // TAB DATA API
+  // ============
+  supports[push]( [ stringTab, Tab, '['+dataToggle+'="tab"]' ] );
+  
+  
+  /* Native Javascript for Bootstrap 4 | Toast
+  ---------------------------------------------*/
+  
+  // TOAST DEFINITION
+  // ==================
+  var Toast = function( element,options ) {
+  
+    // initialization element
+    element = queryElement(element);
+  
+    // set options
+    options = options || {};
+  
+    // DATA API
+    var animationData = element[getAttribute](dataAnimation),
+        autohideData = element[getAttribute](dataAutohide),
+        delayData = element[getAttribute](dataDelay),
+        
+        // strings
+        component = 'toast',
+        autohide = 'autohide',
+        animation = 'animation',
+        showing = 'showing',
+        hide = 'hide',
+        fade = 'fade';
+  
+    // set instance options
+    this[animation] = options[animation] === false || animationData === 'false' ? 0 : 1; // true by default
+    this[autohide] = options[autohide] === false || autohideData === 'false' ? 0 : 1; // true by default
+    this[delay] = parseInt(options[delay] || delayData) || 500; // 500ms default
+  
+    // bind,toast and timer
+    var self = this, timer = 0,
+        // get the toast element
+        toast = getClosest(element,'.toast');
+  
+    // private methods
+    // animation complete
+    var showComplete = function() {
+        removeClass( toast, showing );
+        addClass( toast, showClass );
+        bootstrapCustomEvent.call(toast, shownEvent, component);
+        if (self[autohide]) { self.hide(); }
+      },
+      hideComplete = function() {
+        addClass( toast, hide );
+        bootstrapCustomEvent.call(toast, hiddenEvent, component);
+      },
+      close = function() {
+        removeClass( toast,showClass );
+        self[animation] ? emulateTransitionEnd(toast, hideComplete) : hideComplete();
+      },
+      disposeComplete = function(){
+        clearTimeout(timer); timer = null;
+        addClass( toast, hide );
+        off(element, clickEvent, self.hide);
+        element[stringToast] = null;
+        element = null;
+        toast = null;
+      };
+  
+    // public methods
+    this.show = function() {
+      if (toast) {
+        bootstrapCustomEvent.call(toast, showEvent, component);
+        self[animation] && addClass( toast,fade );
+        removeClass( toast,hide );
+        addClass( toast,showing );
+  
+        self[animation] ? emulateTransitionEnd(toast, showComplete) : showComplete();
+      }
+    };
+    this.hide = function(noTimer) {
+      if (toast && hasClass(toast,showClass)) {
+        bootstrapCustomEvent.call(toast, hideEvent, component);
+  
+        if (noTimer) {
+          close();
+        } else {
+          timer = setTimeout( close, self[delay]);
+        }
+      }
+    };
+    this.dispose = function() {
+      if ( toast && hasClass(toast,showClass) ) {
+        removeClass( toast,showClass );
+        self[animation] ? emulateTransitionEnd(toast, disposeComplete) : disposeComplete();
+      }
+    };
+  
+    // init
+    if ( !(stringToast in element) ) { // prevent adding event handlers twice
+      on(element, clickEvent, self.hide);
+    }
+    element[stringToast] = self;
+  };
+  
+  // TOAST DATA API
+  // =================
+  supports[push]( [ stringToast, Toast, '['+dataDismiss+'="toast"]' ] );
+  
+  
+  /* Native Javascript for Bootstrap 4 | Tooltip
+  ---------------------------------------------*/
+  
+  // TOOLTIP DEFINITION
+  // ==================
+  var Tooltip = function( element,options ) {
+  
+    // initialization element
+    element = queryElement(element);
+  
+    // set options
+    options = options || {};
+  
+    // DATA API
+    var animationData = element[getAttribute](dataAnimation),
+        placementData = element[getAttribute](dataPlacement),
+        delayData = element[getAttribute](dataDelay),
+        containerData = element[getAttribute](dataContainer),
+        
+        // strings
+        component = 'tooltip',
+        classString = 'class',
+        title = 'title',
+        fade = 'fade',
+        div = 'div',
+  
+        // check container
+        containerElement = queryElement(options[container]),
+        containerDataElement = queryElement(containerData),      
+  
+        // maybe the element is inside a modal
+        modal = getClosest(element,'.modal'),
+        
+        // maybe the element is inside a fixed navbar
+        navbarFixedTop = getClosest(element,'.'+fixedTop),
+        navbarFixedBottom = getClosest(element,'.'+fixedBottom);
+  
+    // set instance options
+    this[animation] = options[animation] && options[animation] !== fade ? options[animation] : animationData || fade;
+    this[placement] = options[placement] ? options[placement] : placementData || top;
+    this[delay] = parseInt(options[delay] || delayData) || 200;
+    this[container] = containerElement ? containerElement 
+                    : containerDataElement ? containerDataElement
+                    : navbarFixedTop ? navbarFixedTop
+                    : navbarFixedBottom ? navbarFixedBottom
+                    : modal ? modal : DOC[body];
+  
+    // bind, event targets, title and constants
+    var self = this, timer = 0, placementSetting = this[placement], tooltip = null,
+        titleString = element[getAttribute](title) || element[getAttribute](dataTitle) || element[getAttribute](dataOriginalTitle);
+  
+    if ( !titleString || titleString == "" ) return; // invalidate
+  
+    // private methods
+    var removeToolTip = function() {
+        self[container].removeChild(tooltip);
+        tooltip = null; timer = null;
+      },
+      createToolTip = function() {
+        titleString = element[getAttribute](title) || element[getAttribute](dataTitle) || element[getAttribute](dataOriginalTitle); // read the title again
+  
+        if ( titleString && titleString !== "" ) { // invalidate, maybe markup changed
+          tooltip = DOC[createElement](div);
+          tooltip[setAttribute]('role',component);
+          tooltip[style][left] = '0';
+          tooltip[style][top] = '0';        
+  
+          // tooltip arrow
+          var tooltipArrow = DOC[createElement](div);
+          tooltipArrow[setAttribute](classString,'arrow');
+          tooltip[appendChild](tooltipArrow);
+      
+          var tooltipInner = DOC[createElement](div);
+          tooltipInner[setAttribute](classString,component+'-inner');
+          tooltip[appendChild](tooltipInner);
+          tooltipInner[innerHTML] = titleString;
+  
+          self[container][appendChild](tooltip);
+          tooltip[setAttribute](classString, component + ' bs-' + component+'-'+placementSetting + ' ' + self[animation]);
+        }
+      },
+      updateTooltip = function () {
+        styleTip(element, tooltip, placementSetting, self[container]);
+      },
+      showTooltip = function () {
+        !hasClass(tooltip,showClass) && ( addClass(tooltip,showClass) );
+      },
+      // triggers
+      showTrigger = function() {
+        on( globalObject, resizeEvent, self.hide, passiveHandler );
+        bootstrapCustomEvent.call(element, shownEvent, component);
+      },
+      hideTrigger = function() {
+        off( globalObject, resizeEvent, self.hide, passiveHandler );
+        removeToolTip();
+        bootstrapCustomEvent.call(element, hiddenEvent, component);
+      };
+  
+    // public methods
+    this.show = function() {
+      clearTimeout(timer);
+      timer = setTimeout( function() {
+        if (tooltip === null) {
+          placementSetting = self[placement]; // we reset placement in all cases
+          // if(createToolTip() == false) return;
+          if(createToolTip() !== false) {
+            updateTooltip();
+            showTooltip();
+            bootstrapCustomEvent.call(element, showEvent, component);
+            !!self[animation] ? emulateTransitionEnd(tooltip, showTrigger) : showTrigger();          
+          }
+        }
+      }, 20 );
+    };
+    this.hide = function() {
+      clearTimeout(timer);
+      timer = setTimeout( function() {
+        if (tooltip && hasClass(tooltip,showClass)) {
+          bootstrapCustomEvent.call(element, hideEvent, component);
+          removeClass(tooltip,showClass);
+          !!self[animation] ? emulateTransitionEnd(tooltip, hideTrigger) : hideTrigger();
+        }
+      }, self[delay]);
+    };
+    this.toggle = function() {
+      if (!tooltip) { self.show(); } 
+      else { self.hide(); }
+    };
+  
+    // init
+    if ( !(stringTooltip in element) ) { // prevent adding event handlers twice
+      element[setAttribute](dataOriginalTitle,titleString);
+      element.removeAttribute(title);
+      on(element, mouseHover[0], self.show);
+      on(element, mouseHover[1], self.hide);
+    }
+    element[stringTooltip] = self;
+  };
+  
+  // TOOLTIP DATA API
+  // =================
+  supports[push]( [ stringTooltip, Tooltip, '['+dataToggle+'="tooltip"]' ] );
+  
+  
+  
+  /* Native Javascript for Bootstrap | Initialize Data API
+  --------------------------------------------------------*/
+  var initializeDataAPI = function( constructor, collection ){
+      for (var i=0, l=collection[length]; i<l; i++) {
+        new constructor(collection[i]);
+      }
+    },
+    initCallback = BSN.initCallback = function(lookUp){
+      lookUp = lookUp || DOC;
+      for (var i=0, l=supports[length]; i<l; i++) {
+        initializeDataAPI( supports[i][1], lookUp[querySelectorAll] (supports[i][2]) );
+      }
+    };
+  
+  // bulk initialize all components
+  DOC[body] ? initCallback() : on( DOC, 'DOMContentLoaded', function(){ initCallback(); } );
+  
+  return {
+    Alert: Alert,
+    Button: Button,
+    Carousel: Carousel,
+    Collapse: Collapse,
+    Dropdown: Dropdown,
+    Modal: Modal,
+    Popover: Popover,
+    ScrollSpy: ScrollSpy,
+    Tab: Tab,
+    Toast: Toast,
+    Tooltip: Tooltip
+  };
+}));
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/validate.js/validate.js":
+/*!**********************************************!*\
+  !*** ./node_modules/validate.js/validate.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {/*!
+ * validate.js 0.13.1
+ *
+ * (c) 2013-2019 Nicklas Ansman, 2013 Wrapp
+ * Validate.js may be freely distributed under the MIT license.
+ * For all details and documentation:
+ * http://validatejs.org/
+ */
+
+(function(exports, module, define) {
+  "use strict";
+
+  // The main function that calls the validators specified by the constraints.
+  // The options are the following:
+  //   - format (string) - An option that controls how the returned value is formatted
+  //     * flat - Returns a flat array of just the error messages
+  //     * grouped - Returns the messages grouped by attribute (default)
+  //     * detailed - Returns an array of the raw validation data
+  //   - fullMessages (boolean) - If `true` (default) the attribute name is prepended to the error.
+  //
+  // Please note that the options are also passed to each validator.
+  var validate = function(attributes, constraints, options) {
+    options = v.extend({}, v.options, options);
+
+    var results = v.runValidations(attributes, constraints, options)
+      , attr
+      , validator;
+
+    if (results.some(function(r) { return v.isPromise(r.error); })) {
+      throw new Error("Use validate.async if you want support for promises");
+    }
+    return validate.processValidationResults(results, options);
+  };
+
+  var v = validate;
+
+  // Copies over attributes from one or more sources to a single destination.
+  // Very much similar to underscore's extend.
+  // The first argument is the target object and the remaining arguments will be
+  // used as sources.
+  v.extend = function(obj) {
+    [].slice.call(arguments, 1).forEach(function(source) {
+      for (var attr in source) {
+        obj[attr] = source[attr];
+      }
+    });
+    return obj;
+  };
+
+  v.extend(validate, {
+    // This is the version of the library as a semver.
+    // The toString function will allow it to be coerced into a string
+    version: {
+      major: 0,
+      minor: 13,
+      patch: 1,
+      metadata: null,
+      toString: function() {
+        var version = v.format("%{major}.%{minor}.%{patch}", v.version);
+        if (!v.isEmpty(v.version.metadata)) {
+          version += "+" + v.version.metadata;
+        }
+        return version;
+      }
+    },
+
+    // Below is the dependencies that are used in validate.js
+
+    // The constructor of the Promise implementation.
+    // If you are using Q.js, RSVP or any other A+ compatible implementation
+    // override this attribute to be the constructor of that promise.
+    // Since jQuery promises aren't A+ compatible they won't work.
+    Promise: typeof Promise !== "undefined" ? Promise : /* istanbul ignore next */ null,
+
+    EMPTY_STRING_REGEXP: /^\s*$/,
+
+    // Runs the validators specified by the constraints object.
+    // Will return an array of the format:
+    //     [{attribute: "<attribute name>", error: "<validation result>"}, ...]
+    runValidations: function(attributes, constraints, options) {
+      var results = []
+        , attr
+        , validatorName
+        , value
+        , validators
+        , validator
+        , validatorOptions
+        , error;
+
+      if (v.isDomElement(attributes) || v.isJqueryElement(attributes)) {
+        attributes = v.collectFormValues(attributes);
+      }
+
+      // Loops through each constraints, finds the correct validator and run it.
+      for (attr in constraints) {
+        value = v.getDeepObjectValue(attributes, attr);
+        // This allows the constraints for an attribute to be a function.
+        // The function will be called with the value, attribute name, the complete dict of
+        // attributes as well as the options and constraints passed in.
+        // This is useful when you want to have different
+        // validations depending on the attribute value.
+        validators = v.result(constraints[attr], value, attributes, attr, options, constraints);
+
+        for (validatorName in validators) {
+          validator = v.validators[validatorName];
+
+          if (!validator) {
+            error = v.format("Unknown validator %{name}", {name: validatorName});
+            throw new Error(error);
+          }
+
+          validatorOptions = validators[validatorName];
+          // This allows the options to be a function. The function will be
+          // called with the value, attribute name, the complete dict of
+          // attributes as well as the options and constraints passed in.
+          // This is useful when you want to have different
+          // validations depending on the attribute value.
+          validatorOptions = v.result(validatorOptions, value, attributes, attr, options, constraints);
+          if (!validatorOptions) {
+            continue;
+          }
+          results.push({
+            attribute: attr,
+            value: value,
+            validator: validatorName,
+            globalOptions: options,
+            attributes: attributes,
+            options: validatorOptions,
+            error: validator.call(validator,
+                value,
+                validatorOptions,
+                attr,
+                attributes,
+                options)
+          });
+        }
+      }
+
+      return results;
+    },
+
+    // Takes the output from runValidations and converts it to the correct
+    // output format.
+    processValidationResults: function(errors, options) {
+      errors = v.pruneEmptyErrors(errors, options);
+      errors = v.expandMultipleErrors(errors, options);
+      errors = v.convertErrorMessages(errors, options);
+
+      var format = options.format || "grouped";
+
+      if (typeof v.formatters[format] === 'function') {
+        errors = v.formatters[format](errors);
+      } else {
+        throw new Error(v.format("Unknown format %{format}", options));
+      }
+
+      return v.isEmpty(errors) ? undefined : errors;
+    },
+
+    // Runs the validations with support for promises.
+    // This function will return a promise that is settled when all the
+    // validation promises have been completed.
+    // It can be called even if no validations returned a promise.
+    async: function(attributes, constraints, options) {
+      options = v.extend({}, v.async.options, options);
+
+      var WrapErrors = options.wrapErrors || function(errors) {
+        return errors;
+      };
+
+      // Removes unknown attributes
+      if (options.cleanAttributes !== false) {
+        attributes = v.cleanAttributes(attributes, constraints);
+      }
+
+      var results = v.runValidations(attributes, constraints, options);
+
+      return new v.Promise(function(resolve, reject) {
+        v.waitForResults(results).then(function() {
+          var errors = v.processValidationResults(results, options);
+          if (errors) {
+            reject(new WrapErrors(errors, options, attributes, constraints));
+          } else {
+            resolve(attributes);
+          }
+        }, function(err) {
+          reject(err);
+        });
+      });
+    },
+
+    single: function(value, constraints, options) {
+      options = v.extend({}, v.single.options, options, {
+        format: "flat",
+        fullMessages: false
+      });
+      return v({single: value}, {single: constraints}, options);
+    },
+
+    // Returns a promise that is resolved when all promises in the results array
+    // are settled. The promise returned from this function is always resolved,
+    // never rejected.
+    // This function modifies the input argument, it replaces the promises
+    // with the value returned from the promise.
+    waitForResults: function(results) {
+      // Create a sequence of all the results starting with a resolved promise.
+      return results.reduce(function(memo, result) {
+        // If this result isn't a promise skip it in the sequence.
+        if (!v.isPromise(result.error)) {
+          return memo;
+        }
+
+        return memo.then(function() {
+          return result.error.then(function(error) {
+            result.error = error || null;
+          });
+        });
+      }, new v.Promise(function(r) { r(); })); // A resolved promise
+    },
+
+    // If the given argument is a call: function the and: function return the value
+    // otherwise just return the value. Additional arguments will be passed as
+    // arguments to the function.
+    // Example:
+    // ```
+    // result('foo') // 'foo'
+    // result(Math.max, 1, 2) // 2
+    // ```
+    result: function(value) {
+      var args = [].slice.call(arguments, 1);
+      if (typeof value === 'function') {
+        value = value.apply(null, args);
+      }
+      return value;
+    },
+
+    // Checks if the value is a number. This function does not consider NaN a
+    // number like many other `isNumber` functions do.
+    isNumber: function(value) {
+      return typeof value === 'number' && !isNaN(value);
+    },
+
+    // Returns false if the object is not a function
+    isFunction: function(value) {
+      return typeof value === 'function';
+    },
+
+    // A simple check to verify that the value is an integer. Uses `isNumber`
+    // and a simple modulo check.
+    isInteger: function(value) {
+      return v.isNumber(value) && value % 1 === 0;
+    },
+
+    // Checks if the value is a boolean
+    isBoolean: function(value) {
+      return typeof value === 'boolean';
+    },
+
+    // Uses the `Object` function to check if the given argument is an object.
+    isObject: function(obj) {
+      return obj === Object(obj);
+    },
+
+    // Simply checks if the object is an instance of a date
+    isDate: function(obj) {
+      return obj instanceof Date;
+    },
+
+    // Returns false if the object is `null` of `undefined`
+    isDefined: function(obj) {
+      return obj !== null && obj !== undefined;
+    },
+
+    // Checks if the given argument is a promise. Anything with a `then`
+    // function is considered a promise.
+    isPromise: function(p) {
+      return !!p && v.isFunction(p.then);
+    },
+
+    isJqueryElement: function(o) {
+      return o && v.isString(o.jquery);
+    },
+
+    isDomElement: function(o) {
+      if (!o) {
+        return false;
+      }
+
+      if (!o.querySelectorAll || !o.querySelector) {
+        return false;
+      }
+
+      if (v.isObject(document) && o === document) {
+        return true;
+      }
+
+      // http://stackoverflow.com/a/384380/699304
+      /* istanbul ignore else */
+      if (typeof HTMLElement === "object") {
+        return o instanceof HTMLElement;
+      } else {
+        return o &&
+          typeof o === "object" &&
+          o !== null &&
+          o.nodeType === 1 &&
+          typeof o.nodeName === "string";
+      }
+    },
+
+    isEmpty: function(value) {
+      var attr;
+
+      // Null and undefined are empty
+      if (!v.isDefined(value)) {
+        return true;
+      }
+
+      // functions are non empty
+      if (v.isFunction(value)) {
+        return false;
+      }
+
+      // Whitespace only strings are empty
+      if (v.isString(value)) {
+        return v.EMPTY_STRING_REGEXP.test(value);
+      }
+
+      // For arrays we use the length property
+      if (v.isArray(value)) {
+        return value.length === 0;
+      }
+
+      // Dates have no attributes but aren't empty
+      if (v.isDate(value)) {
+        return false;
+      }
+
+      // If we find at least one property we consider it non empty
+      if (v.isObject(value)) {
+        for (attr in value) {
+          return false;
+        }
+        return true;
+      }
+
+      return false;
+    },
+
+    // Formats the specified strings with the given values like so:
+    // ```
+    // format("Foo: %{foo}", {foo: "bar"}) // "Foo bar"
+    // ```
+    // If you want to write %{...} without having it replaced simply
+    // prefix it with % like this `Foo: %%{foo}` and it will be returned
+    // as `"Foo: %{foo}"`
+    format: v.extend(function(str, vals) {
+      if (!v.isString(str)) {
+        return str;
+      }
+      return str.replace(v.format.FORMAT_REGEXP, function(m0, m1, m2) {
+        if (m1 === '%') {
+          return "%{" + m2 + "}";
+        } else {
+          return String(vals[m2]);
+        }
+      });
+    }, {
+      // Finds %{key} style patterns in the given string
+      FORMAT_REGEXP: /(%?)%\{([^\}]+)\}/g
+    }),
+
+    // "Prettifies" the given string.
+    // Prettifying means replacing [.\_-] with spaces as well as splitting
+    // camel case words.
+    prettify: function(str) {
+      if (v.isNumber(str)) {
+        // If there are more than 2 decimals round it to two
+        if ((str * 100) % 1 === 0) {
+          return "" + str;
+        } else {
+          return parseFloat(Math.round(str * 100) / 100).toFixed(2);
+        }
+      }
+
+      if (v.isArray(str)) {
+        return str.map(function(s) { return v.prettify(s); }).join(", ");
+      }
+
+      if (v.isObject(str)) {
+        if (!v.isDefined(str.toString)) {
+          return JSON.stringify(str);
+        }
+
+        return str.toString();
+      }
+
+      // Ensure the string is actually a string
+      str = "" + str;
+
+      return str
+        // Splits keys separated by periods
+        .replace(/([^\s])\.([^\s])/g, '$1 $2')
+        // Removes backslashes
+        .replace(/\\+/g, '')
+        // Replaces - and - with space
+        .replace(/[_-]/g, ' ')
+        // Splits camel cased words
+        .replace(/([a-z])([A-Z])/g, function(m0, m1, m2) {
+          return "" + m1 + " " + m2.toLowerCase();
+        })
+        .toLowerCase();
+    },
+
+    stringifyValue: function(value, options) {
+      var prettify = options && options.prettify || v.prettify;
+      return prettify(value);
+    },
+
+    isString: function(value) {
+      return typeof value === 'string';
+    },
+
+    isArray: function(value) {
+      return {}.toString.call(value) === '[object Array]';
+    },
+
+    // Checks if the object is a hash, which is equivalent to an object that
+    // is neither an array nor a function.
+    isHash: function(value) {
+      return v.isObject(value) && !v.isArray(value) && !v.isFunction(value);
+    },
+
+    contains: function(obj, value) {
+      if (!v.isDefined(obj)) {
+        return false;
+      }
+      if (v.isArray(obj)) {
+        return obj.indexOf(value) !== -1;
+      }
+      return value in obj;
+    },
+
+    unique: function(array) {
+      if (!v.isArray(array)) {
+        return array;
+      }
+      return array.filter(function(el, index, array) {
+        return array.indexOf(el) == index;
+      });
+    },
+
+    forEachKeyInKeypath: function(object, keypath, callback) {
+      if (!v.isString(keypath)) {
+        return undefined;
+      }
+
+      var key = ""
+        , i
+        , escape = false;
+
+      for (i = 0; i < keypath.length; ++i) {
+        switch (keypath[i]) {
+          case '.':
+            if (escape) {
+              escape = false;
+              key += '.';
+            } else {
+              object = callback(object, key, false);
+              key = "";
+            }
+            break;
+
+          case '\\':
+            if (escape) {
+              escape = false;
+              key += '\\';
+            } else {
+              escape = true;
+            }
+            break;
+
+          default:
+            escape = false;
+            key += keypath[i];
+            break;
+        }
+      }
+
+      return callback(object, key, true);
+    },
+
+    getDeepObjectValue: function(obj, keypath) {
+      if (!v.isObject(obj)) {
+        return undefined;
+      }
+
+      return v.forEachKeyInKeypath(obj, keypath, function(obj, key) {
+        if (v.isObject(obj)) {
+          return obj[key];
+        }
+      });
+    },
+
+    // This returns an object with all the values of the form.
+    // It uses the input name as key and the value as value
+    // So for example this:
+    // <input type="text" name="email" value="foo@bar.com" />
+    // would return:
+    // {email: "foo@bar.com"}
+    collectFormValues: function(form, options) {
+      var values = {}
+        , i
+        , j
+        , input
+        , inputs
+        , option
+        , value;
+
+      if (v.isJqueryElement(form)) {
+        form = form[0];
+      }
+
+      if (!form) {
+        return values;
+      }
+
+      options = options || {};
+
+      inputs = form.querySelectorAll("input[name], textarea[name]");
+      for (i = 0; i < inputs.length; ++i) {
+        input = inputs.item(i);
+
+        if (v.isDefined(input.getAttribute("data-ignored"))) {
+          continue;
+        }
+
+        var name = input.name.replace(/\./g, "\\\\.");
+        value = v.sanitizeFormValue(input.value, options);
+        if (input.type === "number") {
+          value = value ? +value : null;
+        } else if (input.type === "checkbox") {
+          if (input.attributes.value) {
+            if (!input.checked) {
+              value = values[name] || null;
+            }
+          } else {
+            value = input.checked;
+          }
+        } else if (input.type === "radio") {
+          if (!input.checked) {
+            value = values[name] || null;
+          }
+        }
+        values[name] = value;
+      }
+
+      inputs = form.querySelectorAll("select[name]");
+      for (i = 0; i < inputs.length; ++i) {
+        input = inputs.item(i);
+        if (v.isDefined(input.getAttribute("data-ignored"))) {
+          continue;
+        }
+
+        if (input.multiple) {
+          value = [];
+          for (j in input.options) {
+            option = input.options[j];
+             if (option && option.selected) {
+              value.push(v.sanitizeFormValue(option.value, options));
+            }
+          }
+        } else {
+          var _val = typeof input.options[input.selectedIndex] !== 'undefined' ? input.options[input.selectedIndex].value : /* istanbul ignore next */ '';
+          value = v.sanitizeFormValue(_val, options);
+        }
+        values[input.name] = value;
+      }
+
+      return values;
+    },
+
+    sanitizeFormValue: function(value, options) {
+      if (options.trim && v.isString(value)) {
+        value = value.trim();
+      }
+
+      if (options.nullify !== false && value === "") {
+        return null;
+      }
+      return value;
+    },
+
+    capitalize: function(str) {
+      if (!v.isString(str)) {
+        return str;
+      }
+      return str[0].toUpperCase() + str.slice(1);
+    },
+
+    // Remove all errors who's error attribute is empty (null or undefined)
+    pruneEmptyErrors: function(errors) {
+      return errors.filter(function(error) {
+        return !v.isEmpty(error.error);
+      });
+    },
+
+    // In
+    // [{error: ["err1", "err2"], ...}]
+    // Out
+    // [{error: "err1", ...}, {error: "err2", ...}]
+    //
+    // All attributes in an error with multiple messages are duplicated
+    // when expanding the errors.
+    expandMultipleErrors: function(errors) {
+      var ret = [];
+      errors.forEach(function(error) {
+        // Removes errors without a message
+        if (v.isArray(error.error)) {
+          error.error.forEach(function(msg) {
+            ret.push(v.extend({}, error, {error: msg}));
+          });
+        } else {
+          ret.push(error);
+        }
+      });
+      return ret;
+    },
+
+    // Converts the error mesages by prepending the attribute name unless the
+    // message is prefixed by ^
+    convertErrorMessages: function(errors, options) {
+      options = options || {};
+
+      var ret = []
+        , prettify = options.prettify || v.prettify;
+      errors.forEach(function(errorInfo) {
+        var error = v.result(errorInfo.error,
+            errorInfo.value,
+            errorInfo.attribute,
+            errorInfo.options,
+            errorInfo.attributes,
+            errorInfo.globalOptions);
+
+        if (!v.isString(error)) {
+          ret.push(errorInfo);
+          return;
+        }
+
+        if (error[0] === '^') {
+          error = error.slice(1);
+        } else if (options.fullMessages !== false) {
+          error = v.capitalize(prettify(errorInfo.attribute)) + " " + error;
+        }
+        error = error.replace(/\\\^/g, "^");
+        error = v.format(error, {
+          value: v.stringifyValue(errorInfo.value, options)
+        });
+        ret.push(v.extend({}, errorInfo, {error: error}));
+      });
+      return ret;
+    },
+
+    // In:
+    // [{attribute: "<attributeName>", ...}]
+    // Out:
+    // {"<attributeName>": [{attribute: "<attributeName>", ...}]}
+    groupErrorsByAttribute: function(errors) {
+      var ret = {};
+      errors.forEach(function(error) {
+        var list = ret[error.attribute];
+        if (list) {
+          list.push(error);
+        } else {
+          ret[error.attribute] = [error];
+        }
+      });
+      return ret;
+    },
+
+    // In:
+    // [{error: "<message 1>", ...}, {error: "<message 2>", ...}]
+    // Out:
+    // ["<message 1>", "<message 2>"]
+    flattenErrorsToArray: function(errors) {
+      return errors
+        .map(function(error) { return error.error; })
+        .filter(function(value, index, self) {
+          return self.indexOf(value) === index;
+        });
+    },
+
+    cleanAttributes: function(attributes, whitelist) {
+      function whitelistCreator(obj, key, last) {
+        if (v.isObject(obj[key])) {
+          return obj[key];
+        }
+        return (obj[key] = last ? true : {});
+      }
+
+      function buildObjectWhitelist(whitelist) {
+        var ow = {}
+          , lastObject
+          , attr;
+        for (attr in whitelist) {
+          if (!whitelist[attr]) {
+            continue;
+          }
+          v.forEachKeyInKeypath(ow, attr, whitelistCreator);
+        }
+        return ow;
+      }
+
+      function cleanRecursive(attributes, whitelist) {
+        if (!v.isObject(attributes)) {
+          return attributes;
+        }
+
+        var ret = v.extend({}, attributes)
+          , w
+          , attribute;
+
+        for (attribute in attributes) {
+          w = whitelist[attribute];
+
+          if (v.isObject(w)) {
+            ret[attribute] = cleanRecursive(ret[attribute], w);
+          } else if (!w) {
+            delete ret[attribute];
+          }
+        }
+        return ret;
+      }
+
+      if (!v.isObject(whitelist) || !v.isObject(attributes)) {
+        return {};
+      }
+
+      whitelist = buildObjectWhitelist(whitelist);
+      return cleanRecursive(attributes, whitelist);
+    },
+
+    exposeModule: function(validate, root, exports, module, define) {
+      if (exports) {
+        if (module && module.exports) {
+          exports = module.exports = validate;
+        }
+        exports.validate = validate;
+      } else {
+        root.validate = validate;
+        if (validate.isFunction(define) && define.amd) {
+          define([], function () { return validate; });
+        }
+      }
+    },
+
+    warn: function(msg) {
+      if (typeof console !== "undefined" && console.warn) {
+        console.warn("[validate.js] " + msg);
+      }
+    },
+
+    error: function(msg) {
+      if (typeof console !== "undefined" && console.error) {
+        console.error("[validate.js] " + msg);
+      }
+    }
+  });
+
+  validate.validators = {
+    // Presence validates that the value isn't empty
+    presence: function(value, options) {
+      options = v.extend({}, this.options, options);
+      if (options.allowEmpty !== false ? !v.isDefined(value) : v.isEmpty(value)) {
+        return options.message || this.message || "can't be blank";
+      }
+    },
+    length: function(value, options, attribute) {
+      // Empty values are allowed
+      if (!v.isDefined(value)) {
+        return;
+      }
+
+      options = v.extend({}, this.options, options);
+
+      var is = options.is
+        , maximum = options.maximum
+        , minimum = options.minimum
+        , tokenizer = options.tokenizer || function(val) { return val; }
+        , err
+        , errors = [];
+
+      value = tokenizer(value);
+      var length = value.length;
+      if(!v.isNumber(length)) {
+        return options.message || this.notValid || "has an incorrect length";
+      }
+
+      // Is checks
+      if (v.isNumber(is) && length !== is) {
+        err = options.wrongLength ||
+          this.wrongLength ||
+          "is the wrong length (should be %{count} characters)";
+        errors.push(v.format(err, {count: is}));
+      }
+
+      if (v.isNumber(minimum) && length < minimum) {
+        err = options.tooShort ||
+          this.tooShort ||
+          "is too short (minimum is %{count} characters)";
+        errors.push(v.format(err, {count: minimum}));
+      }
+
+      if (v.isNumber(maximum) && length > maximum) {
+        err = options.tooLong ||
+          this.tooLong ||
+          "is too long (maximum is %{count} characters)";
+        errors.push(v.format(err, {count: maximum}));
+      }
+
+      if (errors.length > 0) {
+        return options.message || errors;
+      }
+    },
+    numericality: function(value, options, attribute, attributes, globalOptions) {
+      // Empty values are fine
+      if (!v.isDefined(value)) {
+        return;
+      }
+
+      options = v.extend({}, this.options, options);
+
+      var errors = []
+        , name
+        , count
+        , checks = {
+            greaterThan:          function(v, c) { return v > c; },
+            greaterThanOrEqualTo: function(v, c) { return v >= c; },
+            equalTo:              function(v, c) { return v === c; },
+            lessThan:             function(v, c) { return v < c; },
+            lessThanOrEqualTo:    function(v, c) { return v <= c; },
+            divisibleBy:          function(v, c) { return v % c === 0; }
+          }
+        , prettify = options.prettify ||
+          (globalOptions && globalOptions.prettify) ||
+          v.prettify;
+
+      // Strict will check that it is a valid looking number
+      if (v.isString(value) && options.strict) {
+        var pattern = "^-?(0|[1-9]\\d*)";
+        if (!options.onlyInteger) {
+          pattern += "(\\.\\d+)?";
+        }
+        pattern += "$";
+
+        if (!(new RegExp(pattern).test(value))) {
+          return options.message ||
+            options.notValid ||
+            this.notValid ||
+            this.message ||
+            "must be a valid number";
+        }
+      }
+
+      // Coerce the value to a number unless we're being strict.
+      if (options.noStrings !== true && v.isString(value) && !v.isEmpty(value)) {
+        value = +value;
+      }
+
+      // If it's not a number we shouldn't continue since it will compare it.
+      if (!v.isNumber(value)) {
+        return options.message ||
+          options.notValid ||
+          this.notValid ||
+          this.message ||
+          "is not a number";
+      }
+
+      // Same logic as above, sort of. Don't bother with comparisons if this
+      // doesn't pass.
+      if (options.onlyInteger && !v.isInteger(value)) {
+        return options.message ||
+          options.notInteger ||
+          this.notInteger ||
+          this.message ||
+          "must be an integer";
+      }
+
+      for (name in checks) {
+        count = options[name];
+        if (v.isNumber(count) && !checks[name](value, count)) {
+          // This picks the default message if specified
+          // For example the greaterThan check uses the message from
+          // this.notGreaterThan so we capitalize the name and prepend "not"
+          var key = "not" + v.capitalize(name);
+          var msg = options[key] ||
+            this[key] ||
+            this.message ||
+            "must be %{type} %{count}";
+
+          errors.push(v.format(msg, {
+            count: count,
+            type: prettify(name)
+          }));
+        }
+      }
+
+      if (options.odd && value % 2 !== 1) {
+        errors.push(options.notOdd ||
+            this.notOdd ||
+            this.message ||
+            "must be odd");
+      }
+      if (options.even && value % 2 !== 0) {
+        errors.push(options.notEven ||
+            this.notEven ||
+            this.message ||
+            "must be even");
+      }
+
+      if (errors.length) {
+        return options.message || errors;
+      }
+    },
+    datetime: v.extend(function(value, options) {
+      if (!v.isFunction(this.parse) || !v.isFunction(this.format)) {
+        throw new Error("Both the parse and format functions needs to be set to use the datetime/date validator");
+      }
+
+      // Empty values are fine
+      if (!v.isDefined(value)) {
+        return;
+      }
+
+      options = v.extend({}, this.options, options);
+
+      var err
+        , errors = []
+        , earliest = options.earliest ? this.parse(options.earliest, options) : NaN
+        , latest = options.latest ? this.parse(options.latest, options) : NaN;
+
+      value = this.parse(value, options);
+
+      // 86400000 is the number of milliseconds in a day, this is used to remove
+      // the time from the date
+      if (isNaN(value) || options.dateOnly && value % 86400000 !== 0) {
+        err = options.notValid ||
+          options.message ||
+          this.notValid ||
+          "must be a valid date";
+        return v.format(err, {value: arguments[0]});
+      }
+
+      if (!isNaN(earliest) && value < earliest) {
+        err = options.tooEarly ||
+          options.message ||
+          this.tooEarly ||
+          "must be no earlier than %{date}";
+        err = v.format(err, {
+          value: this.format(value, options),
+          date: this.format(earliest, options)
+        });
+        errors.push(err);
+      }
+
+      if (!isNaN(latest) && value > latest) {
+        err = options.tooLate ||
+          options.message ||
+          this.tooLate ||
+          "must be no later than %{date}";
+        err = v.format(err, {
+          date: this.format(latest, options),
+          value: this.format(value, options)
+        });
+        errors.push(err);
+      }
+
+      if (errors.length) {
+        return v.unique(errors);
+      }
+    }, {
+      parse: null,
+      format: null
+    }),
+    date: function(value, options) {
+      options = v.extend({}, options, {dateOnly: true});
+      return v.validators.datetime.call(v.validators.datetime, value, options);
+    },
+    format: function(value, options) {
+      if (v.isString(options) || (options instanceof RegExp)) {
+        options = {pattern: options};
+      }
+
+      options = v.extend({}, this.options, options);
+
+      var message = options.message || this.message || "is invalid"
+        , pattern = options.pattern
+        , match;
+
+      // Empty values are allowed
+      if (!v.isDefined(value)) {
+        return;
+      }
+      if (!v.isString(value)) {
+        return message;
+      }
+
+      if (v.isString(pattern)) {
+        pattern = new RegExp(options.pattern, options.flags);
+      }
+      match = pattern.exec(value);
+      if (!match || match[0].length != value.length) {
+        return message;
+      }
+    },
+    inclusion: function(value, options) {
+      // Empty values are fine
+      if (!v.isDefined(value)) {
+        return;
+      }
+      if (v.isArray(options)) {
+        options = {within: options};
+      }
+      options = v.extend({}, this.options, options);
+      if (v.contains(options.within, value)) {
+        return;
+      }
+      var message = options.message ||
+        this.message ||
+        "^%{value} is not included in the list";
+      return v.format(message, {value: value});
+    },
+    exclusion: function(value, options) {
+      // Empty values are fine
+      if (!v.isDefined(value)) {
+        return;
+      }
+      if (v.isArray(options)) {
+        options = {within: options};
+      }
+      options = v.extend({}, this.options, options);
+      if (!v.contains(options.within, value)) {
+        return;
+      }
+      var message = options.message || this.message || "^%{value} is restricted";
+      if (v.isString(options.within[value])) {
+        value = options.within[value];
+      }
+      return v.format(message, {value: value});
+    },
+    email: v.extend(function(value, options) {
+      options = v.extend({}, this.options, options);
+      var message = options.message || this.message || "is not a valid email";
+      // Empty values are fine
+      if (!v.isDefined(value)) {
+        return;
+      }
+      if (!v.isString(value)) {
+        return message;
+      }
+      if (!this.PATTERN.exec(value)) {
+        return message;
+      }
+    }, {
+      PATTERN: /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/i
+    }),
+    equality: function(value, options, attribute, attributes, globalOptions) {
+      if (!v.isDefined(value)) {
+        return;
+      }
+
+      if (v.isString(options)) {
+        options = {attribute: options};
+      }
+      options = v.extend({}, this.options, options);
+      var message = options.message ||
+        this.message ||
+        "is not equal to %{attribute}";
+
+      if (v.isEmpty(options.attribute) || !v.isString(options.attribute)) {
+        throw new Error("The attribute must be a non empty string");
+      }
+
+      var otherValue = v.getDeepObjectValue(attributes, options.attribute)
+        , comparator = options.comparator || function(v1, v2) {
+          return v1 === v2;
+        }
+        , prettify = options.prettify ||
+          (globalOptions && globalOptions.prettify) ||
+          v.prettify;
+
+      if (!comparator(value, otherValue, options, attribute, attributes)) {
+        return v.format(message, {attribute: prettify(options.attribute)});
+      }
+    },
+    // A URL validator that is used to validate URLs with the ability to
+    // restrict schemes and some domains.
+    url: function(value, options) {
+      if (!v.isDefined(value)) {
+        return;
+      }
+
+      options = v.extend({}, this.options, options);
+
+      var message = options.message || this.message || "is not a valid url"
+        , schemes = options.schemes || this.schemes || ['http', 'https']
+        , allowLocal = options.allowLocal || this.allowLocal || false
+        , allowDataUrl = options.allowDataUrl || this.allowDataUrl || false;
+      if (!v.isString(value)) {
+        return message;
+      }
+
+      // https://gist.github.com/dperini/729294
+      var regex =
+        "^" +
+        // protocol identifier
+        "(?:(?:" + schemes.join("|") + ")://)" +
+        // user:pass authentication
+        "(?:\\S+(?::\\S*)?@)?" +
+        "(?:";
+
+      var tld = "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))";
+
+      if (allowLocal) {
+        tld += "?";
+      } else {
+        regex +=
+          // IP address exclusion
+          // private & local networks
+          "(?!(?:10|127)(?:\\.\\d{1,3}){3})" +
+          "(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})" +
+          "(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})";
+      }
+
+      regex +=
+          // IP address dotted notation octets
+          // excludes loopback network 0.0.0.0
+          // excludes reserved space >= 224.0.0.0
+          // excludes network & broacast addresses
+          // (first & last IP address of each class)
+          "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])" +
+          "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}" +
+          "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" +
+        "|" +
+          // host name
+          "(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)" +
+          // domain name
+          "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*" +
+          tld +
+        ")" +
+        // port number
+        "(?::\\d{2,5})?" +
+        // resource path
+        "(?:[/?#]\\S*)?" +
+      "$";
+
+      if (allowDataUrl) {
+        // RFC 2397
+        var mediaType = "\\w+\\/[-+.\\w]+(?:;[\\w=]+)*";
+        var urlchar = "[A-Za-z0-9-_.!~\\*'();\\/?:@&=+$,%]*";
+        var dataurl = "data:(?:"+mediaType+")?(?:;base64)?,"+urlchar;
+        regex = "(?:"+regex+")|(?:^"+dataurl+"$)";
+      }
+
+      var PATTERN = new RegExp(regex, 'i');
+      if (!PATTERN.exec(value)) {
+        return message;
+      }
+    },
+    type: v.extend(function(value, originalOptions, attribute, attributes, globalOptions) {
+      if (v.isString(originalOptions)) {
+        originalOptions = {type: originalOptions};
+      }
+
+      if (!v.isDefined(value)) {
+        return;
+      }
+
+      var options = v.extend({}, this.options, originalOptions);
+
+      var type = options.type;
+      if (!v.isDefined(type)) {
+        throw new Error("No type was specified");
+      }
+
+      var check;
+      if (v.isFunction(type)) {
+        check = type;
+      } else {
+        check = this.types[type];
+      }
+
+      if (!v.isFunction(check)) {
+        throw new Error("validate.validators.type.types." + type + " must be a function.");
+      }
+
+      if (!check(value, options, attribute, attributes, globalOptions)) {
+        var message = originalOptions.message ||
+          this.messages[type] ||
+          this.message ||
+          options.message ||
+          (v.isFunction(type) ? "must be of the correct type" : "must be of type %{type}");
+
+        if (v.isFunction(message)) {
+          message = message(value, originalOptions, attribute, attributes, globalOptions);
+        }
+
+        return v.format(message, {attribute: v.prettify(attribute), type: type});
+      }
+    }, {
+      types: {
+        object: function(value) {
+          return v.isObject(value) && !v.isArray(value);
+        },
+        array: v.isArray,
+        integer: v.isInteger,
+        number: v.isNumber,
+        string: v.isString,
+        date: v.isDate,
+        boolean: v.isBoolean
+      },
+      messages: {}
+    })
+  };
+
+  validate.formatters = {
+    detailed: function(errors) {return errors;},
+    flat: v.flattenErrorsToArray,
+    grouped: function(errors) {
+      var attr;
+
+      errors = v.groupErrorsByAttribute(errors);
+      for (attr in errors) {
+        errors[attr] = v.flattenErrorsToArray(errors[attr]);
+      }
+      return errors;
+    },
+    constraint: function(errors) {
+      var attr;
+      errors = v.groupErrorsByAttribute(errors);
+      for (attr in errors) {
+        errors[attr] = errors[attr].map(function(result) {
+          return result.validator;
+        }).sort();
+      }
+      return errors;
+    }
+  };
+
+  validate.exposeModule(validate, this, exports, module, __webpack_require__(/*! !webpack amd define */ "./node_modules/webpack/buildin/amd-define.js"));
+}).call(this,
+         true ? /* istanbul ignore next */ exports : undefined,
+         true ? /* istanbul ignore next */ module : undefined,
+        __webpack_require__(/*! !webpack amd define */ "./node_modules/webpack/buildin/amd-define.js"));
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/amd-define.js":
+/*!***************************************!*\
+  !*** (webpack)/buildin/amd-define.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function() {
+	throw new Error("define cannot be used indirect");
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/module.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/module.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if (!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+
+/***/ 0:
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** multi ./app/Modules/js/index.js ./app/Modules/sass/index.scss ./app/Modules/Admin/sass/index.scss ./app/Modules/Shop/sass/index.scss ./app/Modules/Auth/sass/index.scss ***!
+  \*******************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/js/index.js */"./app/Modules/js/index.js");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/sass/index.scss */"./app/Modules/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/Admin/sass/index.scss */"./app/Modules/Admin/sass/index.scss");
+__webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/Shop/sass/index.scss */"./app/Modules/Shop/sass/index.scss");
+module.exports = __webpack_require__(/*! /Users/dimitriyyuliya/yandex.disk/laravel/app/Modules/Auth/sass/index.scss */"./app/Modules/Auth/sass/index.scss");
+
+
+/***/ })
+
+/******/ });

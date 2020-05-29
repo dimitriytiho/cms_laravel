@@ -14,7 +14,7 @@ document.addEventListener('click', function(e) {
             spanBtn = e.target.querySelector('span')
         timeDeleteDiv = 300
 
-        div.classList.add('pulseJS')
+        div.classList.add('pulse_js')
         style.width = style.height = max + px
         style.left = e.clientX - rect.left - (max / 2) + px
         style.top = e.clientY - rect.top - (max / 2) + px
@@ -40,7 +40,7 @@ document.addEventListener('click', function(e) {
             timeDeleteDiv = 300
 
 
-        div.classList.add('pulseJS')
+        div.classList.add('pulse_js')
         style.width = style.height = max + px
         style.left = e.clientX - rect.left - (max / 2) + px
         style.top = e.clientY - rect.top - (max / 2) + px

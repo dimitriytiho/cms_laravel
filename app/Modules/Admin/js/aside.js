@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             headerIcon.classList.remove('d-flex')
             headerIcon.classList.add('d-none')
 
-            document.querySelector('#app main.container-fluid').classList.add('px-0')
+            //document.querySelector('#app main.container-fluid').classList.add('px-0')
 
         }
 

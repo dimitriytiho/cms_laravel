@@ -20,5 +20,6 @@ return [
     'read_more' => 'Read more',
     'reset' => 'Reset',
     'nothing_found' => 'Nothing found, try again...',
+    'move_to_top' => 'Move to the top of the page',
 
 ];

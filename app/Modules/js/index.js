@@ -3,10 +3,17 @@
 
 window.Bootstrap = require('bootstrap.native/dist/bootstrap-native-v4')
 
+window.AOS = require('aos')
+//  data-aos="fade-up" fade-down-right flip-left zoom-in
+AOS.init({
+    duration: 500
+})
+
 import './components'
 import './search'
 import './forms'
 import './pulse'
+import './scroll'
 import './validate'
 
 

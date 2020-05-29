@@ -43,6 +43,7 @@ return [
     'scss' => [
         'primary' => '#40c4ff',
         'dark' => '#292b37',
+        'secondary' => '#6c757d',
         'light' => '#eceff1',
         'gray-blue' => '#78909c',
         'light-light' => '#fafafa',

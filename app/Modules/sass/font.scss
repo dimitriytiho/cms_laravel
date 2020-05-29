@@ -1,3 +1,25 @@
 @import "config/params";
 @import "config/mixins";
 @import "config/blocks";
+
+.a-black {
+  @include for-a($dark, $secondary);
+}
+.a-dark {
+  @include for-a($dark, $primary);
+}
+.a-secondary {
+  @include for-a($secondary, $dark);
+}
+.a-light {
+  @include for-a($light);
+}
+.a-white {
+  @include for-a($white, darken($white, 10%));
+}
+.a-primary {
+  @include for-a($primary);
+}
+.a-secondary {
+  @include for-a($secondary);
+}

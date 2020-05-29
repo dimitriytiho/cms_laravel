@@ -52,6 +52,16 @@
     }
 }
 
+#menu-mobile {
+    position: relative;
+    padding-bottom: .5rem;
+    background: $white;
+    z-index: 1;
+    a {
+        color: $black;
+    }
+}
+
 /*main.main > div.row {
     flex-wrap: nowrap;
 }*/

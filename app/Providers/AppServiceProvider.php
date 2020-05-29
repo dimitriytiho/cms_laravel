@@ -58,6 +58,13 @@ class AppServiceProvider extends ServiceProvider
             \Debugbar::disable();
         }
 
+        // Мобильный или планшет
+        $detect = new \Mobile_Detect();
+        $isMobile = $detect->isMobile();
+        $isTablet = $detect->isTablet();
+        Main::set('isMobile', $isMobile);
+        Main::set('isTablet', $isTablet);
+
         // Добавление настроек в контейнет сайта
         $this->setting();
 
@@ -104,7 +111,10 @@ class AppServiceProvider extends ServiceProvider
         // Если не вызван метод \App\Helpers\App\setMeta(), то по-умолчанию мета: title - название сайта, тег description - пустой
         View::share('getMeta', "<title>{$siteName}</title>\n\t<meta name='description' content=''>\n");
 
+        View::share('isMobile', Main::get('isMobile'));
+        View::share('isTablet', Main::get('isTablet'));
+
         // Название папки для картинок в public
-        View::share('img', config('add.img'));
+        View::share('img', env('IMG', 'img'));
     }
 }

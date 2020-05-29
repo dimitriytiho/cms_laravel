@@ -7,7 +7,6 @@ html {
 }
 html, body {
     height: 100%;
-    overflow-x: hidden;
 }
 body {
     width: 100%;
@@ -16,6 +15,7 @@ body {
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
+    overflow-x: hidden;
 }
 
 // Футер прижатый книзу

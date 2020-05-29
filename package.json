@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "aos": "^2.3.4",
         "bootstrap.native": "^2.0.27",
         "dropzone": "^5.7.0",
         "imask": "^6.0.5",

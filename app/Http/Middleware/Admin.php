@@ -20,7 +20,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        //return $next($request);
+        //return $next($request); // Чтобы отключить раскомментируйте
 
         if (auth()->check() && auth()->user()->Admin()) {
 
