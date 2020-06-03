@@ -23,12 +23,12 @@
                         @method('put')
                     @endif
                     @csrf
-                    {!! hidden('belong_id', $values->belong_id ?? $currentParentId) !!}
-                    {!! input('title', $values->title ?? null, null) !!}
+                    {!! $constructor::hidden('belong_id', $values->belong_id ?? $currentParentId) !!}
+                    {!! $constructor::input('title', $values->title ?? null, null) !!}
 
                     <div class="d-flex justify-content-between w-100">
                         <div class="w-96">
-                            {!! input('slug', $values->slug ?? null) !!}
+                            {!! $constructor::input('slug', $values->slug ?? null) !!}
                         </div>
                         <div class="mt-4">
                             <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="@lang("{$lang}::a.generate_link")">autorenew</button>
@@ -53,34 +53,34 @@
                                             'attrs' => [
                                                 'name' => 'parent_id',
                                             ],
-                                            'prepend' => '<option value="0"> ' . __("{$lang}::f.parent_id") . ' </option>',
+                                            'before' => '<option value="0"> ' . __("{$lang}::f.parent_id") . ' </option>',
                                         ]
                                     ) !!}
                                 @endif
                             </div>
                         </div>
                         <div class="col-md-6">
-                            {!! input('target', $values->target ?? null, null) !!}
+                            {!! $constructor::input('target', $values->target ?? null, null) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            {!! input('item', $values->item ?? null, null) !!}
+                            {!! $constructor::input('item', $values->item ?? null, null) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! input('class', $values->class ?? null, null) !!}
+                            {!! $constructor::input('class', $values->class ?? null, null) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            {!! input('attr', $values->attr ?? null, null) !!}
+                            {!! $constructor::input('attr', $values->attr ?? null, null) !!}
                         </div>
                         @if (isset($values->id))
                             <div class="col-md-6">
-                                {!! input('class', $values->class ?? null, null) !!}
+                                {!! $constructor::input('class', $values->class ?? null, null) !!}
                             </div>
                             <div class="col-md-6">
-                                {!! input('sort', $values->sort ?? null, null) !!}
+                                {!! $constructor::input('sort', $values->sort ?? null, null) !!}
                             </div>
                         @endif
                     </div>
@@ -88,13 +88,13 @@
                     @if (isset($values->id) && isset($values->updated_at) && isset($values->created_at))
                         <div class="row">
                             <div class="col-md-4">
-                                {!! input('id', $values->id, null, 'text', true, null, null, ['disabled' => 'true']) !!}
+                                {!! $constructor::input('id', $values->id, null, 'text', true, null, null, ['disabled' => 'true']) !!}
                             </div>
                             <div class="col-md-4">
-                                {!! input('updated_at', d($values->updated_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true']) !!}
+                                {!! $constructor::input('updated_at', d($values->updated_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true']) !!}
                             </div>
                             <div class="col-md-4">
-                                {!! input('created_at', d($values->created_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true'])!!}
+                                {!! $constructor::input('created_at', d($values->created_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true'])!!}
                             </div>
                         </div>
                     @endif

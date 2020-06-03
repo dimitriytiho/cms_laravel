@@ -54,7 +54,9 @@ export default function validator(form, settings) {
         // Если нет ошибок, блокируется кнопка и отправка формы
         if (!errors) {
             btn.disabled = true
-            btn.querySelector('.btn-spinner').style.display = 'inline'
+            if (btn.querySelector('.js-none')) {
+                btn.querySelector('.js-none').style.display = 'inline-block'
+            }
             form.submit()
         }
         showErrors(form, errors || {})

@@ -55,7 +55,7 @@ class Main
 
 
     /*
-     * Подключает файл из /resources/views/inc с название написаном в контенте ##!!!inc_name.
+     * Подключает файл из /app/Modules/views/inc с название написаном в контенте ##!!!inc_name (название файла inc_name.php).
      * $content - если передаётся контент, то в нём будет искаться ##!!!inc_name и заменяется на файл из папки inc.
      * $values - $values5 - Можно передать данные в подключаемый файл.
      */
@@ -69,7 +69,7 @@ class Main
 
             if ($matches) {
                 foreach ($matches as $v) {
-                    $inc = resource_path("views/inc/{$v[0]}.php");
+                    $inc = config('modules.path') . "/views/inc/{$v[0]}.php";
                     $pattern_inner = '/' . $search . $v[0] . '/';
 
                     if (is_file($inc)) {
@@ -84,11 +84,10 @@ class Main
                     } else {
                         $content = preg_replace($pattern_inner, '', $content);
                     }
-                    return $content;
                 }
             }
         }
-        return false;
+        return $content;
     }
 
 

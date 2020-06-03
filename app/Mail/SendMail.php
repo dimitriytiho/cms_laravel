@@ -83,7 +83,7 @@ class SendMail extends Mailable
 
 
         if ($this->template && view()->exists("{$this->viewPath}.mail.{$this->template}")) {
-            $view = view("{$this->viewPath}.mail.{$this->template}", compact('title', 'values', 'body', 'color', 'name'))->render();
+            $view = view("{$this->viewPath}.mail.{$this->template}", compact('title', 'values', 'body', 'color', 'site_name'))->render();
         }
 
         $email = Main::site('email');

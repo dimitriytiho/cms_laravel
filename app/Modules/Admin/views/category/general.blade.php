@@ -12,11 +12,11 @@
                     @method('put')
                 @endif
                 @csrf
-                {!! input('title', $values->title ?? null) !!}
+                {!! $constructor::input('title', $values->title ?? null) !!}
 
                 <div class="d-flex justify-content-between w-100">
                     <div class="w-96">
-                        {!! input('slug', $values->slug ?? null) !!}
+                        {!! $constructor::input('slug', $values->slug ?? null) !!}
                     </div>
                     <div class="mt-4">
                         <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="@lang("{$lang}::a.generate_link")">autorenew</button>
@@ -25,7 +25,7 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        {!! textarea('description', $values->description ?? null, null) !!}
+                        {!! $constructor::textarea('description', $values->description ?? null, null) !!}
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -44,7 +44,7 @@
                                         'attrs' => [
                                             'name' => 'parent_id',
                                         ],
-                                        'prepend' => '<option value="0"> ' . __("{$lang}::f.parent_id") . ' </option>',
+                                        'before' => '<option value="0"> ' . __("{$lang}::f.parent_id") . ' </option>',
                                     ]
                                 ) !!}
                             @endif
@@ -52,31 +52,31 @@
                     </div>
                 </div>
 
-                {!! textarea('body', $values->body ?? null, null, true, null, 'codemirror', null, 20) !!}
+                {!! $constructor::textarea('body', $values->body ?? null, null, true, null, 'codemirror', null, 20) !!}
                 @if (isset($values->id) && isset($values->updated_at) && isset($values->created_at))
                     <div class="row">
                         <div class="col-md-6">
-                            {!! select('status', config('add.page_statuses'), $values->status ?? null) !!}
+                            {!! $constructor::select('status', config('add.page_statuses'), $values->status ?? null) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! input('sort', $values->sort ?? null, null) !!}
+                            {!! $constructor::input('sort', $values->sort ?? null, null) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            {!! input('id', $values->id, null, 'text', true, null, null, ['disabled' => 'true']) !!}
+                            {!! $constructor::input('id', $values->id, null, 'text', true, null, null, ['disabled' => 'true']) !!}
                         </div>
                         <div class="col-md-4">
-                            {!! input('updated_at', d($values->updated_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true']) !!}
+                            {!! $constructor::input('updated_at', d($values->updated_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true']) !!}
                         </div>
                         <div class="col-md-4">
-                            {!! input('created_at', d($values->created_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true'])!!}
+                            {!! $constructor::input('created_at', d($values->created_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true'])!!}
                         </div>
                     </div>
                 @else
                     <div class="row">
                         <div class="col">
-                            {!! select('status', config('add.page_statuses'), $values->status ?? null) !!}
+                            {!! $constructor::select('status', config('add.page_statuses'), $values->status ?? null) !!}
                         </div>
                     </div>
                 @endif

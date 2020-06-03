@@ -2,24 +2,62 @@
 @import "config/mixins";
 @import "config/blocks";
 
-.a-black {
-  @include for-a($dark, $secondary);
+.active_color {
+  color: $primary !important;
 }
-.a-dark {
-  @include for-a($dark, $primary);
+.active_bg {
+  background-color: $primary !important;
 }
-.a-secondary {
-  @include for-a($secondary, $dark);
+
+// Цвет ссылок .a-color
+@each $color, $value in $colors {
+  .a-#{$color} {
+      @if $color == 'black' {
+          @include for-a($value, lighten($value, 20%));
+      } @else if ($color == 'dark') {
+          @include for-a($value, lighten($value, 15%));
+      } @else {
+          @include for-a($value, darken($value, 15%));
+      }
+  }
 }
-.a-light {
-  @include for-a($light);
+
+// Цвет иконок .fill-color
+@each $color, $value in $colors {
+  .fill-#{$color} {
+      fill: $value;
+  }
 }
-.a-white {
-  @include for-a($white, darken($white, 10%));
+// Цвет иконок .fill-hover-color с эффектом наведения
+@each $color, $value in $colors {
+  .fill-hover-#{$color} {
+      fill: $value;
+      @include transition();
+      &:hover,
+      &:active {
+          @if $color == 'black' {
+              fill: lighten($value, 20%);
+          } @else if ($color == 'dark') {
+              fill: lighten($value, 15%);
+          } @else {
+              fill: darken($value, 15%);
+          }
+      }
+  }
 }
-.a-primary {
-  @include for-a($primary);
-}
-.a-secondary {
-  @include for-a($secondary);
+// Цвет иконок для для классов .btn-outline-color .fill-outline
+@each $color, $value in $theme-colors {
+  .btn-outline-#{$color} {
+      .fill-outline {
+          fill: $value;
+      }
+      &:hover .fill-outline,
+      &:active .fill-outline {
+          @if $color == 'light' {
+              fill: $dark;
+          } @else {
+              fill: $white;
+          }
+      }
+  }
 }

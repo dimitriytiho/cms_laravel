@@ -3,9 +3,236 @@
 
 namespace App\Modules\Admin\Helpers;
 
+use Illuminate\Support\Facades\Lang;
 
 class Constructor
 {
+    /*
+     * Возвращает input для формы.
+     * $name - передать название, перевод будет взять из /app/Modules/lang/en/f.php.
+     * $value - передать значение, необязательный параметр.
+     * $required - если input необязательный, то передайте null, необязательный параметр.
+     * $type - тип input, по-умолчанию text, необязательный параметр.
+     * $label - если он нужен, то передать true, необязательный параметр.
+     * $placeholder - если нужен другой текст, то передать его, необязательный параметр.
+     * $class - передайте свой класс, необязательный параметр.
+     * $attrs - передайте необходимые параметры в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
+     * $classInput - передайте свой класс для input, необязательный параметр.
+     * $id - Передайте свой id, необязательный параметр.
+     * $idForm - если используется форма несколько раз на странице, то передайте id формы, чтобы у id у чекбоксова были оригинальные id.
+     */
+    public static function input($name, $value = null, $required = true, $type = null, $label = true, $placeholder = null, $class = null, $attrs = [], $classInput = null, $id = null, $idForm = null)
+    {
+        $lang = lang();
+        $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+        $id = $idForm ? "{$idForm}_{$id}" : $id;
+        $id = $id ?: $name;
+
+        $required = $required ? 'required' : null;
+        $type = $type ? $type : 'text';
+        $star = $required ? '<sup>*</sup>' : null;
+        $value = $value ?? old($name) ?? null;
+
+        $placeholderStar = $label && $required ? '*' : null;
+        $placeholderLabel = !$label && $required ? '...' : null;
+        $placeholder = $placeholder ?: $title . $placeholderStar . $placeholderLabel;
+        $label = $label ? null : 'class="sr-only"';
+
+        $_required = __("{$lang}::f.required");
+        $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
+        $part = '';
+
+        if ($attrs) {
+            foreach ($attrs as $k => $v) {
+                if ($v) {
+                    $part .= "{$k}='{$v}' ";
+                } else {
+                    $part .= "$k ";
+                }
+
+            }
+        }
+
+        return <<<S
+<div class="form-group {$class}">
+    <label for="{$id}" {$label}>$title $star</label>
+    <input type="{$type}" name="{$name}" id="{$id}" class="form-control {$classInput}" aria-describedby="{$name}" placeholder="{$placeholder}" value="{$value}" $part {$required}>
+    $_required
+</div>
+S;
+    }
+
+
+    /*
+     * Возвращает textarea для формы.
+     * $name - передать название, перевод будет взять из /app/Modules/lang/en/f.php.
+     * $value - передать значение, необязательный параметр.
+     * $required - если input необязательный, то передайте null, необязательный параметр.
+     * $label - если он нужен, то передать true, необязательный параметр.
+     * $placeholder - если нужен другой текст, то передать его, необязательный параметр.
+     * $class - передайте свой класс, необязательный параметр.
+     * $attrs - передайте необходимые параметры в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
+     * $rows - кол-во рядов, по-умолчанию 3, необязательный параметр.
+     * $id - Передайте свой id, необязательный параметр.
+     * $idForm - если используется форма несколько раз на странице, то передайте id формы, чтобы у id у чекбоксова были оригинальные id.
+     */
+    public static function textarea($name, $value = null, $required = true, $label = true, $placeholder = null, $class = null, $attrs = [], $rows = 3, $id = null, $idForm = null)
+    {
+        $lang = lang();
+        $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+        $id = $idForm ? "{$idForm}_{$id}" : $id;
+        $id = $id ?: $name;
+
+        $required = $required ? 'required' : null;
+        $star = $required ? '<sup>*</sup>' : null;
+
+        $value = $value ?: old($name) ?: null;
+        $placeholderStar = $label && $required ? '*' : null;
+        $placeholderLabel = !$label && $required ? '...' : null;
+        $placeholder = $placeholder ?: $title . $placeholderStar . $placeholderLabel;
+
+        $label = $label ? null : 'class="sr-only"';
+        $rows = (int)$rows;
+        $_required = __("{$lang}::f.required");
+        $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
+        $part = '';
+        if ($attrs) {
+            foreach ($attrs as $k => $v) {
+                if ($v) {
+                    $part .= "{$k}='{$v}' ";
+                } else {
+                    $part .= "$k ";
+                }
+            }
+        }
+
+        return <<<S
+<div class="form-group">
+    <label for="{$id}" {$label}>$title $star</label>
+    <textarea name="{$name}" id="{$id}" class="form-control {$class}" placeholder="{$placeholder}" rows="{$rows}" $part {$required}>{$value}</textarea>
+    $_required
+</div>
+S;
+    }
+
+
+    /*
+     * Возвращает select для формы.
+     * $name - передать название, перевод будет взять из /app/Modules/lang/en/f.php.
+     * $options - передать в массиве options (если $value будет равна одму из значений этого массива, то этот option будет selected).
+     * $value - передать значение, необязательный параметр.
+     * $label - если он нужен, то передать true, необязательный параметр.
+     * $class - передайте свой класс, необязательный параметр.
+     * $attrs - передайте необходимые параметры в массиве ['id' => 'test', 'data-id' => 'dataTest'], необязательный параметр.
+     * $option_id_value - передайте true, если передаёте массив $options, в котором ключи это id для вывода как значения для option, необязательный параметр.
+     * $translation - если не надо переводить текст option, то передать true, необязательный параметр.
+     * $disabledValue - передать значения, для которого установить атрибут disabled.
+     * $id - Передайте свой id, необязательный параметр.
+     * $idForm - если используется форма несколько раз на странице, то передайте id формы, чтобы у id у чекбоксова были оригинальные id.
+     */
+    public static function select($name, $options, $value = null, $label = true, $class = null, $attrs = [], $option_id_value = null, $translation = null, $disabledValue = null, $id = null, $idForm = null)
+    {
+        $lang = lang();
+        $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+        $id = $idForm ? "{$idForm}_{$id}" : $id;
+        $id = $id ?: $name;
+        $value = $value ?: old($name) ?: null;
+        $label = $label ? null : 'class="sr-only"';
+
+        // Принимает в объекте 2 параметра, первый - value для option, второй название для option
+        if (is_object($options)) {
+            $opts = '';
+            foreach ($options as $v) {
+                $i = 0;
+                foreach ($v as $vv) {
+                    if (!$i) {
+                        $selected = $value == $vv ? ' selected' : null;
+                        $opts .= "<option value='{$vv}' {$selected}>";
+
+                    } else {
+
+                        $t = $translation ? $vv : __("{$lang}::s.{$vv}");
+                        $opts .= "{$t}</option>\n";
+                    }
+                    $i++;
+                }
+            }
+        } elseif (is_array($options)) {
+            $opts = '';
+            foreach ($options as $k => $v) {
+                $selected = $value === $v ? ' selected' : null;
+                $disabled = $disabledValue && $k == $disabledValue ? ' disabled' : null;
+                $t = $translation ? $v : __("{$lang}::s.{$v}");
+                $v = $option_id_value ? $k : $v;
+                $opts .= "<option value='{$v}' {$selected}{$disabled}>{$t}</option>\n";
+            }
+        } else {
+            return false;
+        }
+
+        $part = '';
+        if ($attrs) {
+            foreach ($attrs as $k => $v) {
+                $part .= "$k='$v' ";
+            }
+        }
+
+        return <<<S
+<div class="form-group $class">
+        <label for="{$id}" {$label}>{$title}</label>
+        <select class="form-control" name="{$name}" id="{$id}" {$part}>
+            $opts
+        </select>
+    </div>
+S;
+    }
+
+
+    /*
+     * Возвращает checkbox для формы.
+     * $name - передать название, перевод будет взять из /app/Modules/lang/en/f.php.
+     * $required - если необязательный, то передайте null, необязательный параметр.
+     * $checked - Если checkbox должен быть нажат, то передайте true, необязательный параметр.
+     * $class - Передайте свой класс, необязательный параметр.
+     * $title - Можно передать свой заголовок, например с ссылкой, необязательный параметр.
+     * $idForm - если используется форма несколько раз на странице, то передайте id формы, чтобы у id у чекбоксова были оригинальные id.
+     */
+    public static function checkbox($name, $required = true, $checked = null, $class = null, $title = null, $idForm = null)
+    {
+        $lang = lang();
+        $_title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+        $title = $title ?: $_title;
+        $id = $idForm ? "{$idForm}_{$name}" : $name;
+
+        $checked = $checked || old($name) ? 'checked' : null;
+        $required = $required ? 'required' : null;
+        $_required = __("{$lang}::f.required");
+        $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
+
+        return <<<S
+<div class="{$class}">
+    <div class="custom-control custom-checkbox mt-4 mb-2">
+        <input type="checkbox" class="custom-control-input" name="{$name}" id="{$id}" $checked {$required}>
+        <label class="custom-control-label" for="{$id}">{$title}</label>
+        $_required
+        </div>
+    </div>
+</div>
+S;
+    }
+
+
+    /*
+     * Возвращает скрытый input для формы.
+     * $name - передать имя input.
+     * $value - значение.
+     */
+    public static function hidden($name, $value)
+    {
+        return "<input type=\"hidden\" name=\"{$name}\" value='{$value}'>";
+    }
+
+
     /*
      * Возвращает заголовок h2.
      * $title - передать заголовок.
@@ -158,105 +385,74 @@ S;
     */
     public static function stickyScript($idBtn = 'btn-sticky')
     {
-    if ($idBtn) {
-        ob_start(); ?>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
+        if ($idBtn) {
+            ob_start(); ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
 
-                var sticky = document.getElementById('<?= $idBtn; ?>'),
-                    aside = document.querySelector('.aside'),
-                    //content = document.querySelector('.main-content'),
-                    tabs = document.getElementById('tabs-edit-content'),
-                    tabActive = null,
-                    tabHeight = null,
-                    topBlock = null,
-                    bottomBlocks = null,
-                    heightMain = null
+                    var sticky = document.getElementById('<?= $idBtn; ?>'),
+                        aside = document.querySelector('.aside'),
+                        //content = document.querySelector('.main-content'),
+                        tabs = document.getElementById('tabs-edit-content'),
+                        tabActive = null,
+                        tabHeight = null,
+                        topBlock = null,
+                        bottomBlocks = null,
+                        heightMain = null
 
-                if (tabs) {
-                    tabActive = tabs.querySelector('.active')
+                    if (tabs) {
+                        tabActive = tabs.querySelector('.active')
 
-                    if (tabActive) {
-                        /*var rect = tabActive.getBoundingClientRect()
-                        tabHeight = rect.height*/
-                        tabHeight = tabActive.offsetHeight
-                        topBlock = 38
-                        bottomBlocks = 157
+                        if (tabActive) {
+                            /*var rect = tabActive.getBoundingClientRect()
+                            tabHeight = rect.height*/
+                            tabHeight = tabActive.offsetHeight
+                            topBlock = 38
+                            bottomBlocks = 157
 
-                        heightMain = tabHeight + topBlock + bottomBlocks
-                    }
-                }
-
-
-                // Если ширина экрана больше 991рх
-                if (sticky && aside && content && document.body.clientWidth > 991) {
-
-                    var heightWindow = window.innerHeight, // Высота окна браузера
-                        //heightSticky = sticky.getBoundingClientRect().top, // Высота до блока sticky
-                        heightSticky = sticky.offsetTop, // Высота от блока sticky до верха тега формы
-                        heightBlock = sticky.offsetHeight, // Высота блока
-                        add = 192, // Добавляемое значение от тега формы до самого верха
-                        heightNewSticky = 66
-
-                    heightSticky = heightSticky + heightBlock + add
-                    heightMain = heightMain + heightBlock + add
-
-
-                    function addButton() {
-                        /*var asideWidth = aside.offsetWidth, // Ширина сайдбара слева
-                            contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left')*/ // У контента получить padding-left в px
-
-                        // Отрезать px в конце строки
-                        //contentLeft = contentLeft.substring(0, contentLeft.length - 2)
-
-                        //sticky.style.paddingLeft = '34px'
-                        sticky.classList.add('bg-white', 'w-100', 'position-fixed', 'z-7')
-                        sticky.style.left = '82px'
-                        //sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
-                        sticky.style.height = heightNewSticky + 'px'
-                        sticky.style.top = (heightWindow - heightNewSticky) + 'px'
+                            heightMain = tabHeight + topBlock + bottomBlocks
+                        }
                     }
 
-                    function remove() {
-                        sticky.classList.remove('bg-white', 'w-100', 'position-fixed', 'z-7')
-                        sticky.style.padding = '0'
-                    }
 
-                    // Без скролла
-                    if (tabs) { // Если есть табы
+                    // Если ширина экрана больше 991рх
+                    if (sticky && aside && content && document.body.clientWidth > 991) {
 
-                        if (heightWindow < heightMain) {
+                        var heightWindow = window.innerHeight, // Высота окна браузера
+                            //heightSticky = sticky.getBoundingClientRect().top, // Высота до блока sticky
+                            heightSticky = sticky.offsetTop, // Высота от блока sticky до верха тега формы
+                            heightBlock = sticky.offsetHeight, // Высота блока
+                            add = 192, // Добавляемое значение от тега формы до самого верха
+                            heightNewSticky = 66
 
-                            addButton()
+                        heightSticky = heightSticky + heightBlock + add
+                        heightMain = heightMain + heightBlock + add
 
-                        } else {
 
-                            remove()
+                        function addButton() {
+                            /*var asideWidth = aside.offsetWidth, // Ширина сайдбара слева
+                                contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left')*/ // У контента получить padding-left в px
 
+                            // Отрезать px в конце строки
+                            //contentLeft = contentLeft.substring(0, contentLeft.length - 2)
+
+                            //sticky.style.paddingLeft = '34px'
+                            sticky.classList.add('bg-white', 'w-100', 'position-fixed', 'z-7')
+                            sticky.style.left = '82px'
+                            //sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
+                            sticky.style.height = heightNewSticky + 'px'
+                            sticky.style.top = (heightWindow - heightNewSticky) + 'px'
                         }
 
-                    } else { // Для всех прочих
-
-                        if (heightWindow < heightSticky) {
-
-                            addButton()
-
-                        } else {
-
-                            remove()
-
+                        function remove() {
+                            sticky.classList.remove('bg-white', 'w-100', 'position-fixed', 'z-7')
+                            sticky.style.padding = '0'
                         }
 
-                    }
+                        // Без скролла
+                        if (tabs) { // Если есть табы
 
-
-                    // Отлеживаем скролл
-                    window.addEventListener('scroll', function(e) {
-
-                        // Если есть табы
-                        if (tabs) {
-
-                            if (pageYOffset + heightWindow < heightMain) {
+                            if (heightWindow < heightMain) {
 
                                 addButton()
 
@@ -266,10 +462,9 @@ S;
 
                             }
 
-                        // Для всех прочих
-                        } else {
+                        } else { // Для всех прочих
 
-                            if (pageYOffset + heightWindow < heightSticky) {
+                            if (heightWindow < heightSticky) {
 
                                 addButton()
 
@@ -281,15 +476,47 @@ S;
 
                         }
 
-                    })
-                }
 
-            }, false)
-        </script>
-        <?php
+                        // Отлеживаем скролл
+                        window.addEventListener('scroll', function(e) {
+
+                            // Если есть табы
+                            if (tabs) {
+
+                                if (pageYOffset + heightWindow < heightMain) {
+
+                                    addButton()
+
+                                } else {
+
+                                    remove()
+
+                                }
+
+                                // Для всех прочих
+                            } else {
+
+                                if (pageYOffset + heightWindow < heightSticky) {
+
+                                    addButton()
+
+                                } else {
+
+                                    remove()
+
+                                }
+
+                            }
+
+                        })
+                    }
+
+                }, false)
+            </script>
+            <?php
 
             return ob_get_clean();
         }
-    return false;
+        return false;
     }
 }

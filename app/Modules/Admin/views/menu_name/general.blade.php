@@ -12,18 +12,18 @@
                     @method('put')
                 @endif
                 @csrf
-                {!! input('title', $values->title ?? null) !!}
+                {!! $constructor::input('title', $values->title ?? null) !!}
 
                 @if (isset($values->id) && isset($values->updated_at) && isset($values->created_at))
                     <div class="row">
                         <div class="col-md-4">
-                            {!! input('id', $values->id, null, 'text', true, null, null, ['disabled' => 'true']) !!}
+                            {!! $constructor::input('id', $values->id, null, 'text', true, null, null, ['disabled' => 'true']) !!}
                         </div>
                         <div class="col-md-4">
-                            {!! input('updated_at', d($values->updated_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true']) !!}
+                            {!! $constructor::input('updated_at', d($values->updated_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true']) !!}
                         </div>
                         <div class="col-md-4">
-                            {!! input('created_at', d($values->created_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true'])!!}
+                            {!! $constructor::input('created_at', d($values->created_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true'])!!}
                         </div>
                     </div>
                 @endif

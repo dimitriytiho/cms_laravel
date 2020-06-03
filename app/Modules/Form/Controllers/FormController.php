@@ -83,13 +83,15 @@ class FormController extends AppController
 
                 // Письмо администратору
                 try {
-                    //$template = Str::snake(__FUNCTION__); // Из contactUs будет contact_us
+                    $formName = Str::snake(__FUNCTION__); // Из contactUs будет contact_us
                     $template = 'table_form'; // Все данные в таблице
-                    $title = __("{$this->lang}::s.Completed_form", ['name' => __("{$this->lang}::c.{$template}")]) . config('add.domain');
+                    $title = __("{$this->lang}::s.Completed_form", ['name' => $formName]) . config('add.domain');
                     $email_admin = HelpersStr::strToArr(Main::site('admin_email'));
-
-                    Mail::to($email_admin)
-                        ->send(new SendMail($title, null, $data, $template));
+                    
+                    if ($email_admin) {
+                        Mail::to($email_admin)
+                            ->send(new SendMail($title, null, $data, $template));
+                    }
 
                 } catch (\Exception $e) {
                     Main::getError("Error sending email admin: $e", __METHOD__, false);

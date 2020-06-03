@@ -27,7 +27,7 @@
     </noscript>
 </head>
 <body class="bg-light">
-<div class="app" id="app">
+<div class="d-block app" id="app">
     <div class="container-fluid">
         <div class="mt-2 a-primary">
             <a href="{{ route('index') }}" title="@lang("{$lang}::c.home")">

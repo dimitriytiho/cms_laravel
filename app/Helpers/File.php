@@ -23,7 +23,7 @@ class File
     {
         $part = '';
         $diskName = $diskName ?: 'public_folder';
-        $writeFile = $writeFile || env('APP_ENV') === 'local';
+        //$writeFile = $writeFile || env('APP_ENV') === 'local';
         $disk = Storage::disk($diskName);
 
 

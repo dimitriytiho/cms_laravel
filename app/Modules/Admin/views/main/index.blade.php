@@ -30,14 +30,14 @@
             <div class="col">
                 <div class="d-flex justify-content-between w-100">
                     <div class="w-96">
-                        {!! input('cyrillic') !!}
+                        {!! $constructor::input('cyrillic') !!}
                     </div>
                     <div class="mt-4">
                         <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="transliterator" title="{{ __("{$lang}::a.generate") }}">autorenew</button>
                     </div>
                 </div>
-                {!! input('latin') !!}
-                {{--{!! input('latin', null, null, 'text', null, null, null, ['disabled' => null]) !!}--}}
+                {!! $constructor::input('latin') !!}
+                {{--{!! $constructor::input('latin', null, null, 'text', null, null, null, ['disabled' => null]) !!}--}}
             </div>
         </div>
     </section>
@@ -55,7 +55,7 @@
                 <div class="col">
                     <div class="d-flex justify-content-between w-100">
                         <div class="w-96">
-                            {!! input('to_change_key', $key->key) !!}
+                            {!! $constructor::input('to_change_key', $key->key) !!}
                         </div>
                         <div class="mt-4">
                             <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="key-to-enter" title="@lang("{$lang}::f.save")">save_alt</button>
@@ -67,10 +67,10 @@
             @if (Main::site('change_key'))
                 <div class="row">
                     <div class="col-md-6">
-                        {!! input('created_at', d($key->date_key, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => null]) !!}
+                        {!! $constructor::input('created_at', d($key->date_key, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => null]) !!}
                     </div>
                     <div class="col-md-6">
-                        {!! input('will_be_updated', d($key->date_upload, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => null])!!}
+                        {!! $constructor::input('will_be_updated', d($key->date_upload, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => null])!!}
                     </div>
                 </div>
             @endif

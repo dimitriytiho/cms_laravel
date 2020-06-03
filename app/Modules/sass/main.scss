@@ -33,8 +33,11 @@ body {
     flex: 0 0 auto;
 }
 
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
 .no-wrap {
-    overflow-wrap: normal;
-    word-wrap: normal;
-    hyphens: manual;
+    @include no-wrap();
 }

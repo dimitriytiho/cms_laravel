@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use App\Modules\AppController as AppController;
+use App\Modules\Admin\Controllers\AppController as AppController;
 use App\Helpers\User as userHelpers;
 
 class EnterController extends AppController
@@ -36,7 +36,7 @@ class EnterController extends AppController
 
     public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
 
         $module = $this->module;
         $namespace = config('modules.namespace');
@@ -186,11 +186,9 @@ class EnterController extends AppController
     protected function authenticated(Request $request, $user)
     {
         // Действия после успешной авторизации
-        $email = $request->email;
-        $ip = $request->ip();
 
         // Записать ip пользователя в БД
-        User::saveIpStatic($email, $ip);
+        $user->saveIp();
 
         // Сохранить сообщение об совершённом входе в админку
         Log::info('Authorization of user with access Admin. ' . Main::dataUser());

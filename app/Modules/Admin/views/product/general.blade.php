@@ -53,7 +53,7 @@
 
 
                             Тело таба с контентом --}}
-                            {!! textarea('body', $values->body ?? null, null, true, null, 'codemirror', null, 20) !!}
+                            {!! $constructor::textarea('body', $values->body ?? null, null, true, null, 'codemirror', null, 20) !!}
                         </div>
                         <div class="tab-pane fade pt-4" id="tab-main-link" role="tabpanel" aria-labelledby="tab-main">
                 @endif
@@ -61,25 +61,25 @@
 
 
                         Тело таба с основным --}}
-                        {!! input('title', $values->title ?? null) !!}
+                        {!! $constructor::input('title', $values->title ?? null) !!}
 
                         <div class="d-flex justify-content-between w-100">
                             <div class="w-96">
-                                {!! input('slug', $values->slug ?? null) !!}
+                                {!! $constructor::input('slug', $values->slug ?? null) !!}
                             </div>
                             <div class="mt-4">
                                 <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="@lang("{$lang}::a.generate_link")">autorenew</button>
                             </div>
                         </div>
 
-                        {!! textarea('description', $values->description ?? null, null) !!}
+                        {!! $constructor::textarea('description', $values->description ?? null, null) !!}
 
                         <div class="row">
                             <div class="col-md-6">{{-- pattern="^[0-9.]{1,}$" --}}
-                                {!! input('old_price', $values->old_price ?? null, null, null, true, null, null, ['pattern' => '^[0-9.]{1,}$']) !!}
+                                {!! $constructor::input('old_price', $values->old_price ?? null, null, null, true, null, null, ['pattern' => '^[0-9.]{1,}$']) !!}
                             </div>
                             <div class="col-md-6">
-                                {!! input('price', $values->price ?? null, true, null, true, null, null, ['pattern' => '^[0-9.]{1,}$']) !!}
+                                {!! $constructor::input('price', $values->price ?? null, true, null, true, null, null, ['pattern' => '^[0-9.]{1,}$']) !!}
                             </div>
                         </div>
 
@@ -102,7 +102,7 @@
                                                     'name' => 'category_id',
                                                     'id' => 'select-product-category',
                                                 ],
-                                                'prepend' => '<option value="0"> ' . __("{$lang}::s.choose") . ' </option>',
+                                                'before' => '<option value="0"> ' . __("{$lang}::s.choose") . ' </option>',
                                             ]
                                         ) !!}
                                     </div>
@@ -161,7 +161,7 @@
 
 
                             Тело таба галереи картинок --}}
-                            {!! hidden('img', $values->img) !!}
+                            {!! $constructor::hidden('img', $values->img) !!}
                             <div class="row">
                                 <div class="col-md-6 d-flex justify-content-center align-items-center img-view" id="dropzone-images">
                                     <a href="{{ asset($values->img) }}" class="ml-3 mt-3" target="_blank">
@@ -208,27 +208,27 @@
                 @if (isset($values->id) && isset($values->updated_at) && isset($values->created_at))
                     <div class="row">
                         <div class="col-md-6">
-                            {!! select('status', config('add.page_statuses'), $values->status ?? null) !!}
+                            {!! $constructor::select('status', config('add.page_statuses'), $values->status ?? null) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! input('sort', $values->sort ?? null, null) !!}
+                            {!! $constructor::input('sort', $values->sort ?? null, null) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            {!! input('id', $values->id, null, 'text', true, null, null, ['disabled' => 'true']) !!}
+                            {!! $constructor::input('id', $values->id, null, 'text', true, null, null, ['disabled' => 'true']) !!}
                         </div>
                         <div class="col-md-4">
-                            {!! input('updated_at', d($values->updated_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true']) !!}
+                            {!! $constructor::input('updated_at', d($values->updated_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true']) !!}
                         </div>
                         <div class="col-md-4">
-                            {!! input('created_at', d($values->created_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true'])!!}
+                            {!! $constructor::input('created_at', d($values->created_at, config('admin.date_format')), null, 'text', true, null, null, ['disabled' => 'true'])!!}
                         </div>
                     </div>
                 @else
                     <div class="row">
                         <div class="col">
-                            {!! select('status', config('add.page_statuses'), $values->status ?? null) !!}
+                            {!! $constructor::select('status', config('add.page_statuses'), $values->status ?? null) !!}
                         </div>
                     </div>
                 @endif

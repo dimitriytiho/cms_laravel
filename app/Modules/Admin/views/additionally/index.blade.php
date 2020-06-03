@@ -51,7 +51,7 @@
 
             <form action="{{ route("admin.{$c}") }}" method="post">
                 @csrf
-                {!! hidden('command', '') !!}
+                {!! $constructor::hidden('command', '') !!}
                 <button type="submit" class="btn btn-primary no-wrap">{{ __("{$lang}::a.run") }}</button>
             </form>
         </div>

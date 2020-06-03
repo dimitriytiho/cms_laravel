@@ -11,16 +11,16 @@
                 <h1 class="font-weight-light text-secondary pb-2">@lang("{$lang}::s.login")</h1>
                 <form method="post" action="{{ route('enter_post') }}" class="form-post mt-4" name="enter" novalidate>
                     @csrf
-                    {!! input('email', null, true, 'email', null) !!}
-                    {!! input('password', null, true, 'password', null) !!}
-                    {!! checkbox('remember', null, true) !!}
+                    {!! $constructor::input('email', null, true, 'email', null) !!}
+                    {!! $constructor::input('password', null, true, 'password', null) !!}
+                    {!! $constructor::checkbox('remember', null, true) !!}
                     {{--@if (empty($auth_view))
-                        {!! input('email', null, true, 'email', null) !!}
+                        {!! $constructor::input('email', null, true, 'email', null) !!}
                     @elseif($auth_view == 'confirm')
-                        {!! input('confirm', null, true, 'text', null) !!}
+                        {!! $constructor::input('confirm', null, true, 'text', null) !!}
                     @elseif($auth_view == 'password')
-                        {!! input('password', null, true, 'password', null) !!}
-                        {!! checkbox('remember', null, true) !!}
+                        {!! $constructor::input('password', null, true, 'password', null) !!}
+                        {!! $constructor::checkbox('remember', null, true) !!}
                     @endif--}}
                     <button type="submit" class="btn btn-primary mt-2 btn-pulse">
                         <span class="btn-spinner">

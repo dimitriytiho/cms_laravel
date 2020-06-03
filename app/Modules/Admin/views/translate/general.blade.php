@@ -13,11 +13,11 @@
                 @endif
                 @csrf
 
-                {!! input('id', $id ?? null) !!}
+                {!! $constructor::input('id', $id ?? null) !!}
 
                 @if (!empty($locales))
                     @foreach ($locales as $locale)
-                        {!! input($locale, $values[$locale] ?? null) !!}
+                        {!! $constructor::input($locale, $values[$locale] ?? null) !!}
                     @endforeach
                 @endif
 

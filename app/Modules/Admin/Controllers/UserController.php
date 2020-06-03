@@ -4,8 +4,8 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
-use App\Modules\admin\Helpers\Img;
-use App\Modules\admin\Helpers\Slug;
+use App\Modules\Admin\Helpers\Img;
+use App\Modules\Admin\Helpers\Slug;
 use App\Modules\Admin\Models\User;
 use App\Modules\Admin\Models\UserLastData;
 use Illuminate\Http\Request;
@@ -62,7 +62,7 @@ class UserController extends AppController
         $search = in_array($query, $queryArr) && isset($requestQuery[$query]) ? $requestQuery[$query] : null;*/
 
         // Если есть строка поиска
-        if ($col && $cell) {
+        if ($col && in_array($col, $queryArr) && $cell) {
             $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($this->perPage);
 
             // Иначе выборка всех элементов из БД

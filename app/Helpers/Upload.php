@@ -161,7 +161,7 @@ class Upload
     // Сформировать robots.txt
     public static function robots()
     {
-        $index = config('add.not_index_website');
+        $index = env('NOT_INDEX_WEBSITE');
         $disallow = config('add.disallow');
         $disallow[] = 'not-found';
         $disallow[] = '*.php$';
@@ -328,7 +328,7 @@ class Upload
         $r .= 'RewriteRule ^(.*)$ public/$1 [L]' . PHP_EOL . PHP_EOL;
 
         // Если индексирование сайта выключено
-        if (config('add.not_index_website')) {
+        if (env('NOT_INDEX_WEBSITE')) {
             $r .= PHP_EOL . 'SetEnvIfNoCase User-Agent "^Googlebot" search_bot' . PHP_EOL;
             $r .= 'SetEnvIfNoCase User-Agent "^Yandex" search_bot' . PHP_EOL;
             $r .= 'SetEnvIfNoCase User-Agent "^Yahoo" search_bot' . PHP_EOL;

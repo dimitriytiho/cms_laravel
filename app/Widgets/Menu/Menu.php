@@ -3,10 +3,8 @@
 
 namespace App\Widgets\Menu;
 
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
 
 class Menu
 {
@@ -14,23 +12,25 @@ class Menu
     private static $options = [
 
         // Общие
-        'tpl' => 'default', // Передать название шаблона из папки tpl
+        'tpl' => 'default', // Передать название шаблона из папки tpl, без .php
         'submenu' => null, // Передать $page->id
         'cache' => true, // Если не нужно кэшировать, то передать false
         'cacheName' => '', // При кэшировании передать название кэша или оно возьмётся из название tpl
+        'data' => null, // Можно передать готовые данные SQL запроса для обработки
 
         // Запрос Sql
         'table' => 'menu', // Название таблицы
-        'where' => [], // 'id', '7' К примеру где id = 7 или множественно [['id', '7'], ['accept', '1'],]
-        'orderBy' => 'id',
+        'where' => [], // [['id', 7]] К примеру где id = 7 или множественно [['id', '7'], ['accept', '1'],]
+        'orderBy' => 'sort',
         'sort' => 'desc',
         'sql' => '', // Передать частный sql запрос, так делается дополнительный цикл, при этом не будут работать настройки: table, where, orderBy, sort ('SELECT * FROM menus ORDER BY id DESC')
 
         // Вывод для Html
         'container' => 'ul',
         'class' => null,
-        'attrs' => [], // Массив атрибутов html
-        'prepend' => '', // Для select можно передать перевый option
+        'attrs' => null, // Передать строкой или массив атрибутов html, например ['id' => 'menu_mobile'], будет id="menu_mobile"
+        'before' => '', // Добавить первый пункт, к примеру для select можно передать перевый option
+        'after' => '', // Добавить последний пункт
     ];
 
 
@@ -39,8 +39,17 @@ class Menu
     // Входной основной метод
     public static function init($params = [])
     {
+        // Параметры виджета по умолчанию
+        $option = self::$options;
+
+        // Заполняем пользовательские данные в параметры
         self::getParams($params);
+
+        // Запускаем работу виджета
         self::run();
+
+        // Обнуляем параметры виджета
+        self::$options = $option;
     }
 
 
@@ -51,17 +60,16 @@ class Menu
     {
         $data = [];
         $name = class_basename(__CLASS__);
-        $random = Str::random(8);
 
         foreach (self::$options as $propName => $value) {
             isset($params[$propName]) ? $data[$propName] = $params[$propName] : $data[$propName] = $value;
         }
 
+        // Если не передаётся cacheName, то будет имя шаблона меню tpl
+        $data['cacheName'] = $data['cacheName'] ?: "{$name}_{$data['tpl']}";
+
         // Назначим шаблон html
         $data['tpl'] = is_file(__DIR__ . "/tpl/{$data['tpl']}.php") ? __DIR__ . "/tpl/{$data['tpl']}.php" : __DIR__ . '/tpl/default.php';
-
-        // Если не передаётся cacheName, то будет имя шаблона меню tpl
-        $data['cacheName'] = $data['cacheName'] ?: "{$name}_{$data['tpl']}_{$random}";
 
         self::$options = $data;
         return;
@@ -73,64 +81,58 @@ class Menu
     {
         $params = self::$options;
 
-        // Если не существует таблица
-        if (!Schema::hasTable($params['table'])) {
-            return false;
-        }
+        // Если передаются данные, то не делаем запросов в БД
+        if ($params['data']) {
+            $data = $params['data'];
 
-        $html = cache()->has($params['cacheName']) ? cache()->get($params['cacheName']) : null;
+        } else {
 
-        if (!$html) {
-
-            if ($params['sql']) {
-                $data = DB::select($params['sql']);
-
-                // Ключи массива заменяем на id
-                if (!empty($data)) {
-                    foreach ($data as $v) {
-                        $dataSql[$v->id] = $v;
-                    }
-                    $data = $dataSql;
-                }
-
-            } else {
-
-                $data = DB::table($params['table'])->where($params['where'])->orderBy($params['orderBy'], $params['sort'])->get()->keyBy('id');
-            }
-
-            // Если нет данных
-            if (!$data) {
+            // Если не существует таблица
+            if (!Schema::hasTable($params['table'])) {
                 return false;
             }
 
-            $tree = self::getTree($data);
-            $html = self::getMenuHtml($tree);
-            if ($params['cache']) {
-                cache()->forever($params['cacheName'], $html);
+            // Получаем данные из кэша
+            $data = $params['cache'] && cache()->has($params['cacheName']) ? cache()->get($params['cacheName']) : null;
+
+            // Если не получили из кэша делаем запрос в БД
+            if (!$data) {
+                if ($params['sql']) {
+                    $data = DB::select($params['sql']);
+
+                    // Ключи массива заменяем на id
+                    if (!empty($data)) {
+                        foreach ($data as $v) {
+                            $dataSql[$v->id] = $v;
+                        }
+                        $data = $dataSql;
+                    }
+
+                } else {
+
+                    $data = DB::table($params['table'])
+                        ->where($params['where'])
+                        ->orderBy($params['orderBy'], $params['sort'])
+                        ->get()
+                        ->keyBy('id');
+                }
             }
         }
 
+        // Если нет данных
+        if (!$data) {
+            return false;
+        }
+
+        // Кэшируем данные
+        if (!$params['data'] && $params['cache']) {
+            cache()->forever($params['cacheName'], $data);
+        }
+
+        $tree = self::getTree($data);
+        $html = self::getMenuHtml($tree);
         self::output($html);
         return true;
-    }
-
-
-    // Редактируем Html
-    private static function output($html)
-    {
-        $params = self::$options;
-        $attrs = '';
-
-        if (!empty($params['attrs'])) {
-            foreach ($params['attrs'] as $k => $v) {
-                $attrs .= " {$k}='{$v}' ";
-            }
-        }
-        $params['class'] = $params['class'] ? " class='{$params['class']}'" : null;
-        echo $params['container'] ? "<{$params['container']}{$params['class']}{$attrs}>\n" : null;
-        echo $params['prepend'];
-        echo $html;
-        echo $params['container'] ? "</{$params['container']}>\n" : null;
     }
 
 
@@ -167,7 +169,6 @@ class Menu
     {
         $str = '';
         $i = 0;
-
         foreach ($tree as $id => $item) {
             $i++;
             $str .= self::toTemplate($item, $tab, $id, $i);
@@ -184,5 +185,28 @@ class Menu
         ob_start();
         include $params['tpl'];
         return ob_get_clean();
+    }
+
+
+    // Редактируем Html
+    private static function output($html)
+    {
+        $params = self::$options;
+        $attrs = '';
+
+        if ($params['attrs'] && is_array($params['attrs'])) {
+            foreach ($params['attrs'] as $k => $v) {
+                $attrs .= "{$k}='{$v}' ";
+            }
+        } else {
+            $attrs = $params['attrs'];
+        }
+
+        $params['class'] = $params['class'] ? " class='{$params['class']}'" : null;
+        echo $params['container'] ? "<{$params['container']}{$params['class']} {$attrs}>\n" : null;
+        echo $params['before'];
+        echo $html;
+        echo $params['after'];
+        echo $params['container'] ? "</{$params['container']}>\n" : null;
     }
 }

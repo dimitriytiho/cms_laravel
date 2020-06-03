@@ -77,8 +77,8 @@ class AppController extends Controller
 
         // Конструкция для получения auth() через middleware, auth() работает внутри этой конструкции
         $this->middleware(function ($request, $next) {
-            $this->user = auth()->user() ?? null;
-            $this->isAdmin = $isAdmin = auth()->user()->isAdmin() ?? null;
+            $this->user = auth()->check() ? auth()->user() : null;
+            $this->isAdmin = $isAdmin = auth()->check() ? auth()->user()->isAdmin() : null;
 
             // Если Редактор откроет запрещённый раздел, выбросится исключение
             if (in_array($this->controller, config('admin.editor_section_banned')) && !$isAdmin) {

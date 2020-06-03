@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
         Main::$registry = Registry::instance();
 
         // Если индексирование сайта выключено
-        if (config('add.not_index_website')) {
+        if (!env('NOT_INDEX_WEBSITE')) {
             header('X-Robots-Tag: noindex,nofollow'); // Заголовок запрещающий индексацию сайта
         }
 

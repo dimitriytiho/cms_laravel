@@ -14,10 +14,10 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
-                            {!! textarea('note', $values->note ?? null, null, true, null, null, null, 4) !!}
+                            {!! $constructor::textarea('note', $values->note ?? null, null, true, null, null, null, 4) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! select('status', $statuses, $values->status ?? null) !!}
+                            {!! $constructor::select('status', $statuses, $values->status ?? null) !!}
                             <div class="text-right">
                                 <button type="submit" class="btn btn-primary mt-2 btn-pulse">@lang("{$lang}::f.save")</button>
                             </div>

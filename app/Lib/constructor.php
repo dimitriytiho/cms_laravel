@@ -4,6 +4,36 @@ use App\Helpers\Str;
 
 
 /*
+ * $idIcon - id иконки из спрайта.
+ * $width - ширина иконки, необязательный параметр.
+ * $height - высота иконки, необязательный параметр.
+ * $class - класс, необязательный параметр.
+ * $style - в тег style написать стили, необязательный параметр.
+ * $attrs - дополнительные атрибуты, необязательный параметр.
+ */
+function icon($idIcon, $width = null, $height = null, $class = null, $style = null, $attrs = null)
+{
+    if ($idIcon) {
+        $width = $width ? "width=\"{$width}\"" : null;
+        $height = $height ? "height=\"{$height}\"" : null;
+        $class = $class ? "class=\"{$class}\"" : null;
+        $style = $style ? "style=\"{$style}\"" : null;
+        $svg = IMG . '/svg/icon.svg';
+        $path = asset("{$svg}#{$idIcon}");
+
+        if (is_file(public_path($svg))) {
+            return <<<S
+<svg $width $height $class $attrs $style aria-hidden="true">
+    <use xlink:href="{$path}"></use>
+</svg>
+S;
+        }
+    }
+    return false;
+}
+
+
+/*
  * Возвращает картинку svg вместе с заменяющей её картинкой.
  * $img - путь с названием картинки.
  * $alt - текст для картинки.
@@ -22,38 +52,16 @@ function svg($img, $alt = null, $width = null, $img_svg = null, $class = null, $
     $alt = $alt ? Str::removeTag($alt) : ' ';
     $classPicture = $classPicture ? "class='{$classPicture}'" : null;
 
-    if (is_file(config('add.imgPath') . "/$img") && is_file(config('add.imgPath') . "/$img_svg")) {
-        $img = asset(config('add.img') . "/$img");
-        $img_svg = asset(config('add.img') . "/$img_svg");
+    if (is_file(config('add.imgPath') . "/{$img}") && is_file(config('add.imgPath') . "/{$img_svg}")) {
+        $img = asset(config('add.img') . "/{$img}");
+        $img_svg = asset(config('add.img') . "/{$img_svg}");
 
         return <<<S
-        <picture {$classPicture}>
-            <source srcset="{$img}" type="image/svg+xml">
-            <img src="{$img_svg}" class="responsive-img {$class}" $id alt="{$alt}" {$width}>
-        </picture>
+<picture {$classPicture}>
+    <source srcset="{$img}" type="image/svg+xml">
+    <img src="{$img_svg}" class="responsive-img {$class}" $id alt="{$alt}" {$width}>
+</picture>
 S;
-    }
-    return false;
-}
-
-
-function icon($idIcon, $width = null, $height = null, $class = null, $style = null, $attrs = null)
-{
-    if ($idIcon) {
-        $width = $width ? "width=\"{$width}\"" : null;
-        $height = $height ? "height=\"{$height}\"" : null;
-        $class = $class ? "class=\"{$class}\"" : null;
-        $style = $style ? "style=\"{$style}\"" : null;
-        $svg = IMG . '/svg/icon.svg';
-        $path = asset("{$svg}#{$idIcon}");
-
-        if (is_file(public_path($svg))) {
-            return <<<S
-            <svg $width $height $class $attrs $style aria-hidden="true">
-                <use xlink:href="{$path}"></use>
-            </svg>
-S;
-        }
     }
     return false;
 }
@@ -62,47 +70,49 @@ S;
 /*
  * Возвращает input для формы.
  * $name - передать название, перевод будет взять из /app/Modules/lang/en/f.php.
- * $value - передать значение, необязательный параметр.
+ * $idForm - если используется форма несколько раз на странице, то передайте id формы, чтобы у id у чекбоксова были оригинальные id.
  * $required - если input необязательный, то передайте null, необязательный параметр.
  * $type - тип input, по-умолчанию text, необязательный параметр.
+ * $value - передать значение, необязательный параметр.
  * $label - если он нужен, то передать true, необязательный параметр.
  * $placeholder - если нужен другой текст, то передать его, необязательный параметр.
  * $class - передайте свой класс, необязательный параметр.
- * $attrs - передайте необходимые параметры в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
- * $classInput - передайте свой класс для input, необязательный параметр.
+ * $attrs - передайте необходимые параметры строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
  */
-function input($name, $value = null, $required = true, $type = null, $label = true, $placeholder = null, $class = null, $attrs = [], $classInput = null)
+function input($name, $idForm = false, $required = true, $type = null, $value = null, $label = false, $placeholder = false, $class = false, $attrs = false)
 {
     $lang = lang();
     $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $id = $idForm ? "{$idForm}_{$name}" : $name;
+
     $required = $required ? 'required' : null;
     $type = $type ? $type : 'text';
     $star = $required ? '<sup>*</sup>' : null;
     $value = $value ?? old($name) ?? null;
-    $label = $label ? null : 'class="sr-only"';
+
     $placeholderStar = $label && $required ? '*' : null;
     $placeholderLabel = !$label && $required ? '...' : null;
     $placeholder = $placeholder ?: $title . $placeholderStar . $placeholderLabel;
+    $label = $label ? null : 'class="sr-only"';
+
     $_required = __("{$lang}::f.required");
     $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
     $part = '';
-    if ($attrs) {
-        foreach ($attrs as $k => $v) {
-            if ($v) {
-                $part .= "$k='$v' ";
-            } else {
-                $part .= "$k ";
-            }
 
+    if ($attrs && is_array($attrs)) {
+        foreach ($attrs as $k => $v) {
+            $part .= "{$k}='{$v}' ";
         }
+    } else {
+        $part = $attrs;
     }
 
     return <<<S
 <div class="form-group {$class}">
-        <label for="{$name}" {$label}>$title $star</label>
-        <input type="{$type}" name="{$name}" class="form-control {$classInput}" aria-describedby="{$name}" placeholder="{$placeholder}" value="{$value}" $part {$required}>
-        $_required
-    </div>
+    <label for="{$id}" {$label}>$title $star</label>
+    <input type="{$type}" name="{$name}" id="{$id}" class="form-control" aria-describedby="{$name}" placeholder="{$placeholder}" value="{$value}" $part {$required}>
+    $_required
+</div>
 S;
 }
 
@@ -110,48 +120,48 @@ S;
 /*
  * Возвращает textarea для формы.
  * $name - передать название, перевод будет взять из /app/Modules/lang/en/f.php.
- * $value - передать значение, необязательный параметр.
+ * $idForm - если используется форма несколько раз на странице, то передайте id формы, чтобы у id у чекбоксова были оригинальные id.
  * $required - если input необязательный, то передайте null, необязательный параметр.
+ * $value - передать значение, необязательный параметр.
  * $label - если он нужен, то передать true, необязательный параметр.
  * $placeholder - если нужен другой текст, то передать его, необязательный параметр.
  * $class - передайте свой класс, необязательный параметр.
- * $attrs - передайте необходимые параметры в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
+ * $attrs - передайте необходимые параметры строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
  * $rows - кол-во рядов, по-умолчанию 3, необязательный параметр.
  */
-function textarea($name, $value = null, $required = true, $label = true, $placeholder = null, $class = null, $attrs = [], $rows = 3)
+function textarea($name, $idForm = false, $required = true, $value = false, $label = false, $placeholder = false, $class = false, $attrs = false, $rows = 3)
 {
     $lang = lang();
     $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $id = $idForm ? "{$idForm}_{$name}" : $name;
     $required = $required ? 'required' : null;
     $star = $required ? '<sup>*</sup>' : null;
-    $label = $label ? null : 'class="sr-only"';
 
     $value = $value ?: old($name) ?: null;
     $placeholderStar = $label && $required ? '*' : null;
     $placeholderLabel = !$label && $required ? '...' : null;
-    $placeholder = $placeholder ? $title . $placeholderStar . $placeholderLabel  : null;
-    //$value = $value ?: $placeholder;
+    $placeholder = $placeholder ?: $title . $placeholderStar . $placeholderLabel;
 
+    $label = $label ? null : 'class="sr-only"';
     $rows = (int)$rows;
     $_required = __("{$lang}::f.required");
     $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
     $part = '';
-    if ($attrs) {
+
+    if ($attrs && is_array($attrs)) {
         foreach ($attrs as $k => $v) {
-            if ($v) {
-                $part .= "$k='$v' ";
-            } else {
-                $part .= "$k ";
-            }
+            $part .= "{$k}='{$v}' ";
         }
+    } else {
+        $part = $attrs;
     }
 
     return <<<S
 <div class="form-group">
-        <label for="{$name}" {$label}>$title $star</label>
-        <textarea name="{$name}" class="form-control {$class}" placeholder="{$placeholder}" rows="{$rows}" $part {$required}>{$value}</textarea>
-        $_required
-    </div>
+    <label for="{$id}" {$label}>$title $star</label>
+    <textarea name="{$name}" id="{$id}" class="form-control {$class}" placeholder="{$placeholder}" rows="{$rows}" $part {$required}>{$value}</textarea>
+    $_required
+</div>
 S;
 }
 
@@ -159,25 +169,26 @@ S;
 /*
  * Возвращает select для формы.
  * $name - передать название, перевод будет взять из /app/Modules/lang/en/f.php.
- * $options - передать в массиве options (если $value будет равна одму из значений этого массива, то этот option будет selected).
+ * $options - передать options, строкой, массивом или объектом (если $value будет равна одму из значений этого массива, то этот option будет selected).
+ * $idForm - если используется форма несколько раз на странице, то передайте id формы, чтобы у id у чекбоксова были оригинальные id.
  * $value - передать значение, необязательный параметр.
  * $label - если он нужен, то передать true, необязательный параметр.
  * $class - передайте свой класс, необязательный параметр.
- * $attrs - передайте необходимые параметры в массиве ['id' => 'test', 'data-id' => 'dataTest'], необязательный параметр.
- * $option_id_value - передайте true, если передаёте массив $options, в котором ключи это id для вывода как значения для option, необязательный параметр.
- * $translation - если не надо переводить текст option, то передать true, необязательный параметр.
+ * $attrs - передайте необходимые параметры строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
  * $disabledValue - передать значения, для которого установить атрибут disabled.
+ * $option_id_value - передайте true, если передаёте массив $options, в котором ключи это id для вывода как значения для option, необязательный параметр.
  */
-function select($name, $options, $value = null, $label = true, $class = null, $attrs = [], $option_id_value = null, $translation = null, $disabledValue = null)
+function select($name, $options, $idForm = null, $value = null, $label = false, $class = null, $attrs = false, $disabledValue = null, $option_id_value = null)
 {
     $lang = lang();
     $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $id = $idForm ? "{$idForm}_{$name}" : $name;
     $value = $value ?: old($name) ?: null;
     $label = $label ? null : 'class="sr-only"';
 
     // Принимает в объекте 2 параметра, первый - value для option, второй название для option
+    $opts = '';
     if (is_object($options)) {
-        $opts = '';
         foreach ($options as $v) {
             $i = 0;
             foreach ($v as $vv) {
@@ -187,39 +198,41 @@ function select($name, $options, $value = null, $label = true, $class = null, $a
 
                 } else {
 
-                    $t = $translation ? $vv : __("{$lang}::s.{$vv}");
+                    $t = Lang::has("{$lang}::t.{$vv}")  ? __("{$lang}::t.{$vv}") : $vv;
                     $opts .= "{$t}</option>\n";
                 }
                 $i++;
             }
         }
+
     } elseif (is_array($options)) {
-        $opts = '';
         foreach ($options as $k => $v) {
             $selected = $value === $v ? ' selected' : null;
             $disabled = $disabledValue && $k == $disabledValue ? ' disabled' : null;
-            $t = $translation ? $v : __("{$lang}::s.{$v}");
+            $t = Lang::has("{$lang}::t.{$v}") ? __("{$lang}::t.{$v}") : $v;
             $v = $option_id_value ? $k : $v;
             $opts .= "<option value='{$v}' {$selected}{$disabled}>{$t}</option>\n";
         }
     } else {
-        return false;
+        $opts = $options;
     }
 
     $part = '';
-    if ($attrs) {
+    if ($attrs && is_array($attrs)) {
         foreach ($attrs as $k => $v) {
-            $part .= "$k='$v' ";
+            $part .= "{$k}='{$v}' ";
         }
+    } else {
+        $part = $attrs;
     }
 
     return <<<S
 <div class="form-group $class">
-        <label for="{$name}" {$label}>{$title}</label>
-        <select class="form-control" name="{$name}" {$part}>
-            $opts
-        </select>
-    </div>
+    <label for="{$id}" {$label}>{$title}</label>
+    <select class="form-control" name="{$name}" id="{$id}" {$part}>
+        $opts
+    </select>
+</div>
 S;
 }
 
@@ -227,37 +240,86 @@ S;
 /*
  * Возвращает checkbox для формы.
  * $name - передать название, перевод будет взять из /app/Modules/lang/en/f.php.
+ * $idForm - если используется форма несколько раз на странице, то передайте id формы, чтобы у id у чекбоксова были оригинальные id.
  * $required - если необязательный, то передайте null, необязательный параметр.
  * $checked - Если checkbox должен быть нажат, то передайте true, необязательный параметр.
  * $class - Передайте свой класс, необязательный параметр.
- * $id - Передайте свой id, необязательный параметр.
  * $title - Можно передать свой заголовок, например с ссылкой, необязательный параметр.
  */
-function checkbox($name, $required = true, $checked = null, $class = null, $id = null, $title = null)
+function checkbox($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
 {
     $lang = lang();
-    $titleLang = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
-    $title = $title ?: $titleLang;
-    $id = $id ?: $name;
+    $_title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $title = $title ?: $_title;
+    $id = $idForm ? "{$idForm}_{$name}" : $name;
+
     $checked = $checked || old($name) ? 'checked' : null;
     $required = $required ? 'required' : null;
-    $_required = __("{$lang}::f.required");
+    $_required = __("{$lang}::f.must_accept");
     $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
 
     return <<<S
-<div class="custom-control custom-checkbox mt-4 mb-2 {$class}">
+<div class="{$class}">
+    <div class="custom-control custom-checkbox my-3">
         <input type="checkbox" class="custom-control-input" name="{$name}" id="{$id}" $checked {$required}>
-        <label class="custom-control-label" for="{$name}">{$title}</label>
+        <label class="custom-control-label" for="{$id}">{$title}</label>
         $_required
     </div>
+</div>
+S;
+}
+
+function checkboxSimple($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
+{
+    $lang = lang();
+    $_title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $title = $title ?: $_title;
+    $id = $idForm ? "{$idForm}_{$name}" : $name;
+
+    $checked = $checked || old($name) ? 'checked' : null;
+    $required = $required ? 'required' : null;
+    $_required = __("{$lang}::f.must_accept");
+    $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
+
+    return <<<S
+<div class="form-group {$class}">
+    <div class="form-check mt-3 mb-2">
+        <input class="form-check-input" type="checkbox" name="{$name}" id="{$id}" $checked {$required}>
+        <label class="form-check-label" for="{$id}">{$title}</label>
+        $_required
+    </div>
+</div>
+S;
+}
+
+function checkboxSwitch($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
+{
+    $lang = lang();
+    $_title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $title = $title ?: $_title;
+    $id = $idForm ? "{$idForm}_{$name}" : $name;
+
+    $checked = $checked || old($name) ? 'checked' : null;
+    $required = $required ? 'required' : null;
+    $_required = __("{$lang}::f.must_accept");
+    $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
+
+    return <<<S
+<div class="{$class}">
+    <div class="custom-control custom-switch my-3">
+        <input type="checkbox" class="custom-control-input" name="{$name}" id="{$id}" $checked {$required}>
+        <label class="custom-control-label" for="{$id}">{$title}</label>
+        $_required
+    </div>
+</div>
 S;
 }
 
 
 /*
  * Возвращает скрытый input для формы.
- * $name - передать имя input.
- * $value - значение.
+ * $name - Передать имя input.
+ * $value - Значение.
  */
 function hidden($name, $value)
 {
@@ -266,49 +328,102 @@ function hidden($name, $value)
 
 
 /*
- * Возвращает конструкцию модального окна, без кнопки запуска.
- * $id - id, которое указали в кнопки для модального окна.
- * $title - заголовок модального окна.
- * $body - содержание модального окна, необязательный параметр.
- * $class - к примеру modal-lg, будет большое окно, необязательный параметр.
- * $attrs - если нужны дополнительные атрибуты, необязательный параметр.
+ * Возвращает код рекапчи от Гугл.
+ * $class - Передайте свой класс, необязательный параметр.
  */
-function modal($id, $title, $body = null, $class = null, $attrs = null) {
-    $lang = lang();
-    $close = __("{$lang}::s.Close");
+function recaptcha($class = false)
+{
+    $key = config('add.recaptcha_public_key');
+    if (!$key) return false;
 
     return <<<S
-<div class="modal fade" id="{$id}" tabindex="-1" role="dialog" aria-labelledby="{$id}" aria-hidden="true" {$attrs}>
-    <div class="modal-dialog {$class}" role="document">
-        <div class="modal-content px-3">
-            <div class="modal-header border-0 mt-3">
-                <h4 class="modal-title">{$title}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="{$close}">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body mb-3">
-                $body
-            </div>
-        </div>
-    </div>
-</div>\n
+<div class="{$class}">
+    <div class="g-recaptcha my-3" data-sitekey="{$key}"></div>
+</div>
 S;
 }
 
 
-function modalFooter($orderBtn = true) {
+/*
+ * Возвращает скрытый input для формы.
+ * $title - Передать название для кнопки.
+ * $class - Передайте свой класс, необязательный параметр.
+ */
+function btn($title, $class = false)
+{
+    if ($title) {
+        $lang = lang();
+        if (Lang::has("{$lang}::f.{$title}")) {
+            $title = __("{$lang}::f.{$title}");
+
+        } elseif (Lang::has("{$lang}::t.{$title}")) {
+            $title = __("{$lang}::t.{$title}");
+        }
+
+        return <<<S
+<button type="submit" class="btn btn-primary btn-pulse {$class}">
+    <span class="spinner-grow spinner-grow-sm mr-2 js-none" role="status" aria-hidden="true"></span>
+    <span>{$title}</span>
+</button>
+S;
+    }
+    return false;
+}
+
+
+/*
+ * Возвращает модальное окно.
+ * $id - передать связующее id.
+ * $title - Передать название, перевод будет взять из /resources/lang/en/e.php, необязательный параметр.
+ * $class - к примеру modal-lg, будет большое окно, необязательный параметр.
+ * $attrs - если нужны дополнительные атрибуты, необязательный параметр.
+ */
+function modal($id, $title = null, $class = null, $attrs = null)
+{
     $lang = lang();
-    $close = __("{$lang}::sh.continue_shopping");
-    //$close = $orderBtn ? __("{$lang}::sh.continue_shopping") : __("{$lang}::s.Close");
-    $makeOrder = __("{$lang}::sh.make_an_order");
-    $routeCart = route('cart');
-    $orderBtn = $orderBtn ? "<a href=\"{$routeCart}\" class=\"btn btn-primary\">{$makeOrder}</a>" : null;
+    $titleLang = Lang::has("{$lang}::t.{$title}") ? __("{$lang}::t.{$title}") : $title;
+    $title = $titleLang ? "<h4 class=\"modal-title mb-2\">{$titleLang}</h4>" : null;
 
     return <<<S
-<div class="modal-footer border-0">
-        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">{$close}</button>
-        $orderBtn
-</div>\n
+<div id="{$id}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="{$id}" aria-hidden="true" {$attrs}>
+    <div class="modal-dialog {$class}" role="document">
+        <div class="modal-content px-0 px-lg-3">
+            <div class="modal-header border-0 mt-2 pb-0 position-relative">
+                $title
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mb-4">
 S;
+}
+/*
+ * Если нужно разместить футер модального окна, передайте true. И в коде перед футером закройте </div>
+ */
+function modalEnd($footer = null)
+{
+    $footer = $footer ? null : '</div>';
+    return <<<S
+            $footer
+        </div>
+    </div>
+</div>
+S;
+}
+
+
+/*
+ * Возвращает плеер youtube.
+ * $link - ссылка на видео youtube, из кнопки поделиться (Не передавать ссылку из окна браузера).
+ * Чтобы в паузе не было предложений других видео в конце ссылки добавлено ?rel=0
+ */
+function youtube($link) {
+    if ($link) {
+        return <<<S
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="{$link}?rel=0" allowfullscreen></iframe>
+</div>
+S;
+    }
+    return false;
 }

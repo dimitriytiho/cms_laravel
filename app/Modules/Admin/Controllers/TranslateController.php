@@ -83,7 +83,7 @@ class TranslateController extends AppController
             $valuesObj = include $file;
 
             // Если есть строка поиска
-            if ($col && $cell) {
+            if ($col && in_array($col, $queryArr) && $cell) {
                 if (!empty($valuesObj)) {
                     foreach ($valuesObj as $k => $v) {
                         if (strpos($k, $cell) !== false) {

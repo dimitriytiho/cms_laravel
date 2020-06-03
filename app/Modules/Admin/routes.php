@@ -4,7 +4,7 @@ use App\Helpers\Upload;
 
 
 $admin = env('APP_ADMIN', 'admin');
-$namespace = '\App\\Modules\\admin\\Controllers';
+$namespace = '\App\\Modules\\Admin\\Controllers';
 
 //Route::namespace($namespace)->prefix($admin)->get('/', 'MainController@index')->name('admin.main')->middleware('admin');
 

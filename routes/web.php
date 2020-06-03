@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Если выключен веб-сайт, то редирект на страницу /public/error.php
-if (config('add.site_off')) {
+if (env('OFF_WEBSITE')) {
     Route::domain(env('APP_URL'))->group(function () {
         header('Location: ' . env('APP_URL') . '/error.php');
         die;

@@ -42,6 +42,7 @@ return [
     'updated_at' => 'Updated',
     'will_be_updated' => 'Will be updated',
     'required' => 'Field is required',
+    'must_accept' => 'You must accept it',
 
     'type' => 'Type',
     'value' => 'Value',

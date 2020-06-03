@@ -46,7 +46,7 @@ class PageController extends AppController
         $cell = request()->query('cell');
 
         // Если есть строка поиска
-        if ($col && $cell) {
+        if ($col && in_array($col, $queryArr) && $cell) {
             $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($this->perPage);
 
         // Иначе выборка всех элементов из БД
