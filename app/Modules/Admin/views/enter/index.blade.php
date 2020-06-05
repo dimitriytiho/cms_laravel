@@ -13,6 +13,7 @@
                     @csrf
                     {!! $constructor::input('email', null, true, 'email', null) !!}
                     {!! $constructor::input('password', null, true, 'password', null) !!}
+                    {!! $constructor::checkbox('remember', null) !!}
                     <button type="submit" class="btn btn-primary mt-2 btn-pulse">@lang("{$lang}::f.submit")</button>
                 </form>
             </div>

@@ -215,7 +215,6 @@ S;
         <input type="checkbox" class="custom-control-input" name="{$name}" id="{$id}" $checked {$required}>
         <label class="custom-control-label" for="{$id}">{$title}</label>
         $_required
-        </div>
     </div>
 </div>
 S;

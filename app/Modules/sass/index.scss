@@ -2,17 +2,12 @@
 
 // Настройки темы
 @import "config/theme";
-@import "main";
+
+// Стили по-умолчанию
+@import "default";
+
+// Стили для темы сайта
+@import "theme";
 
 // Модуль Page
 @import "../Page/sass";
-
-@import "service";
-@import "search";
-@import "form";
-@import "animate";
-@import "bootstrap";
-@import "dashboard";
-@import "font";
-@import "template";
-@import "style";

@@ -727,7 +727,11 @@ function validator(form, settings) {
 
     if (!errors) {
       btn.disabled = true;
-      btn.querySelector('.btn-spinner').style.display = 'inline';
+
+      if (btn.querySelector('.js-none')) {
+        btn.querySelector('.js-none').style.display = 'inline-block';
+      }
+
       form.submit();
     }
 

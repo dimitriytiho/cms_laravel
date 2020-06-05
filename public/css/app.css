@@ -9942,6 +9942,16 @@ body {
   flex: 0 0 auto;
 }
 
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
 .no-wrap {
   overflow-wrap: normal;
   word-wrap: normal;
@@ -9961,6 +9971,34 @@ $value - какое свойство анимировать, по-умолчан
 $transition - скорость анимации, по-умолчанию $transition-sm.
 $value - какое свойство анимировать, по-умолчанию all.
 */
+
+.contain {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cover {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.w-3 {
+  width: 3rem;
+}
+
+.h-12 {
+  height: 12rem;
+}
+
+.h-18 {
+  height: 18rem;
+}
+
+.h-24 {
+  height: 24rem;
+}
 
 /*
 Миксин анимации.
@@ -10233,10 +10271,6 @@ label {
   box-shadow: none;
 }
 
-.btn .btn-spinner {
-  display: none;
-}
-
 .breadcrumb i {
   font-size: 1.2rem;
   color: #40c4ff;
@@ -10301,7 +10335,7 @@ $value - какое свойство анимировать, по-умолчан
 
 .panel-dashboard {
   padding: 7px 15px;
-  background-color: #292b37;
+  background-color: #22242e;
 }
 
 .panel-dashboard__icons {
@@ -10337,44 +10371,12 @@ $transition - скорость анимации, по-умолчанию $transi
 $value - какое свойство анимировать, по-умолчанию all.
 */
 
-.a-black a {
-  color: #292b37;
-  transition: all 0.25s;
+.active_color {
+  color: #40c4ff !important;
 }
 
-.a-black a:hover,
-.a-black a:active {
-  color: #6c757d;
-}
-
-.a-dark a {
-  color: #292b37;
-  transition: all 0.25s;
-}
-
-.a-dark a:hover,
-.a-dark a:active {
-  color: #40c4ff;
-}
-
-.a-secondary a {
-  color: #6c757d;
-  transition: all 0.25s;
-}
-
-.a-secondary a:hover,
-.a-secondary a:active {
-  color: #292b37;
-}
-
-.a-light a {
-  color: #eceff1;
-  transition: all 0.25s;
-}
-
-.a-light a:hover,
-.a-light a:active {
-  color: #c0cad1;
+.active_bg {
+  background-color: #40c4ff !important;
 }
 
 .a-white a {
@@ -10384,7 +10386,7 @@ $value - какое свойство анимировать, по-умолчан
 
 .a-white a:hover,
 .a-white a:active {
-  color: #e6e6e6;
+  color: #d9d9d9;
 }
 
 .a-primary a {
@@ -10407,36 +10409,342 @@ $value - какое свойство анимировать, по-умолчан
   color: #494f54;
 }
 
-/*
-Миксин анимации.
-$transition - скорость анимации, по-умолчанию $transition-sm.
-$value - какое свойство анимировать, по-умолчанию all.
-*/
-
-/*
-Миксин анимации.
-$transition - скорость анимации, по-умолчанию $transition-sm.
-$value - какое свойство анимировать, по-умолчанию all.
-*/
-
-.z {
-  z-index: 9;
+.a-success a {
+  color: #28a745;
+  transition: all 0.25s;
 }
 
-.z2 {
+.a-success a:hover,
+.a-success a:active {
+  color: #19692c;
+}
+
+.a-info a {
+  color: #17a2b8;
+  transition: all 0.25s;
+}
+
+.a-info a:hover,
+.a-info a:active {
+  color: #0f6674;
+}
+
+.a-warning a {
+  color: #ffc107;
+  transition: all 0.25s;
+}
+
+.a-warning a:hover,
+.a-warning a:active {
+  color: #ba8b00;
+}
+
+.a-danger a {
+  color: #dc3545;
+  transition: all 0.25s;
+}
+
+.a-danger a:hover,
+.a-danger a:active {
+  color: #a71d2a;
+}
+
+.a-light a {
+  color: #eceff1;
+  transition: all 0.25s;
+}
+
+.a-light a:hover,
+.a-light a:active {
+  color: #c0cad1;
+}
+
+.a-dark a {
+  color: #292b37;
+  transition: all 0.25s;
+}
+
+.a-dark a:hover,
+.a-dark a:active {
+  color: #4a4d63;
+}
+
+.a-black a {
+  color: #000;
+  transition: all 0.25s;
+}
+
+.a-black a:hover,
+.a-black a:active {
+  color: #333333;
+}
+
+.fill-white {
+  fill: #fff;
+}
+
+.fill-primary {
+  fill: #40c4ff;
+}
+
+.fill-secondary {
+  fill: #6c757d;
+}
+
+.fill-success {
+  fill: #28a745;
+}
+
+.fill-info {
+  fill: #17a2b8;
+}
+
+.fill-warning {
+  fill: #ffc107;
+}
+
+.fill-danger {
+  fill: #dc3545;
+}
+
+.fill-light {
+  fill: #eceff1;
+}
+
+.fill-dark {
+  fill: #292b37;
+}
+
+.fill-black {
+  fill: #000;
+}
+
+.fill-hover-white {
+  fill: #fff;
+  transition: all 0.25s;
+}
+
+.fill-hover-white:hover,
+.fill-hover-white:active {
+  fill: #d9d9d9;
+}
+
+.fill-hover-primary {
+  fill: #40c4ff;
+  transition: all 0.25s;
+}
+
+.fill-hover-primary:hover,
+.fill-hover-primary:active {
+  fill: #00a8f3;
+}
+
+.fill-hover-secondary {
+  fill: #6c757d;
+  transition: all 0.25s;
+}
+
+.fill-hover-secondary:hover,
+.fill-hover-secondary:active {
+  fill: #494f54;
+}
+
+.fill-hover-success {
+  fill: #28a745;
+  transition: all 0.25s;
+}
+
+.fill-hover-success:hover,
+.fill-hover-success:active {
+  fill: #19692c;
+}
+
+.fill-hover-info {
+  fill: #17a2b8;
+  transition: all 0.25s;
+}
+
+.fill-hover-info:hover,
+.fill-hover-info:active {
+  fill: #0f6674;
+}
+
+.fill-hover-warning {
+  fill: #ffc107;
+  transition: all 0.25s;
+}
+
+.fill-hover-warning:hover,
+.fill-hover-warning:active {
+  fill: #ba8b00;
+}
+
+.fill-hover-danger {
+  fill: #dc3545;
+  transition: all 0.25s;
+}
+
+.fill-hover-danger:hover,
+.fill-hover-danger:active {
+  fill: #a71d2a;
+}
+
+.fill-hover-light {
+  fill: #eceff1;
+  transition: all 0.25s;
+}
+
+.fill-hover-light:hover,
+.fill-hover-light:active {
+  fill: #c0cad1;
+}
+
+.fill-hover-dark {
+  fill: #292b37;
+  transition: all 0.25s;
+}
+
+.fill-hover-dark:hover,
+.fill-hover-dark:active {
+  fill: #4a4d63;
+}
+
+.fill-hover-black {
+  fill: #000;
+  transition: all 0.25s;
+}
+
+.fill-hover-black:hover,
+.fill-hover-black:active {
+  fill: #333333;
+}
+
+.btn-outline-primary .fill-outline {
+  fill: #40c4ff;
+}
+
+.btn-outline-primary:hover .fill-outline,
+.btn-outline-primary:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-secondary .fill-outline {
+  fill: #6c757d;
+}
+
+.btn-outline-secondary:hover .fill-outline,
+.btn-outline-secondary:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-success .fill-outline {
+  fill: #28a745;
+}
+
+.btn-outline-success:hover .fill-outline,
+.btn-outline-success:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-info .fill-outline {
+  fill: #17a2b8;
+}
+
+.btn-outline-info:hover .fill-outline,
+.btn-outline-info:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-warning .fill-outline {
+  fill: #ffc107;
+}
+
+.btn-outline-warning:hover .fill-outline,
+.btn-outline-warning:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-danger .fill-outline {
+  fill: #dc3545;
+}
+
+.btn-outline-danger:hover .fill-outline,
+.btn-outline-danger:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-light .fill-outline {
+  fill: #eceff1;
+}
+
+.btn-outline-light:hover .fill-outline,
+.btn-outline-light:active .fill-outline {
+  fill: #292b37;
+}
+
+.btn-outline-dark .fill-outline {
+  fill: #292b37;
+}
+
+.btn-outline-dark:hover .fill-outline,
+.btn-outline-dark:active .fill-outline {
+  fill: #fff;
+}
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
+.js-none {
+  display: none;
+}
+
+.mt {
+  margin-top: 4rem;
+}
+
+.mb {
+  margin-bottom: 4rem;
+}
+
+.mt-mini {
+  margin-top: 2.5rem;
+}
+
+.mb-mini {
+  margin-bottom: 2.5rem;
+}
+
+.bg-transparent {
+  background-color: transparent !important;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-top: 22px solid #fff;
+  border-left: 16.5px solid transparent;
+  border-right: 16.5px solid transparent;
+}
+
+.z-min {
   z-index: 10;
 }
 
-.z3 {
-  z-index: 99;
+.z {
+  z-index: 100;
 }
 
-.z8 {
+.z-max {
   z-index: 9999;
-}
-
-.z9 {
-  z-index: 99999;
 }
 
 .w-5 {
@@ -10449,6 +10757,350 @@ $value - какое свойство анимировать, по-умолчан
 
 .cur {
   cursor: pointer;
+}
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
+/*
+Миксин анимации.
+$transition - скорость анимации, по-умолчанию $transition-sm.
+$value - какое свойство анимировать, по-умолчанию all.
+*/
+
+.active_color {
+  color: #40c4ff !important;
+}
+
+.active_bg {
+  background-color: #40c4ff !important;
+}
+
+.a-white a {
+  color: #fff;
+  transition: all 0.25s;
+}
+
+.a-white a:hover,
+.a-white a:active {
+  color: #d9d9d9;
+}
+
+.a-primary a {
+  color: #40c4ff;
+  transition: all 0.25s;
+}
+
+.a-primary a:hover,
+.a-primary a:active {
+  color: #00a8f3;
+}
+
+.a-secondary a {
+  color: #6c757d;
+  transition: all 0.25s;
+}
+
+.a-secondary a:hover,
+.a-secondary a:active {
+  color: #494f54;
+}
+
+.a-success a {
+  color: #28a745;
+  transition: all 0.25s;
+}
+
+.a-success a:hover,
+.a-success a:active {
+  color: #19692c;
+}
+
+.a-info a {
+  color: #17a2b8;
+  transition: all 0.25s;
+}
+
+.a-info a:hover,
+.a-info a:active {
+  color: #0f6674;
+}
+
+.a-warning a {
+  color: #ffc107;
+  transition: all 0.25s;
+}
+
+.a-warning a:hover,
+.a-warning a:active {
+  color: #ba8b00;
+}
+
+.a-danger a {
+  color: #dc3545;
+  transition: all 0.25s;
+}
+
+.a-danger a:hover,
+.a-danger a:active {
+  color: #a71d2a;
+}
+
+.a-light a {
+  color: #eceff1;
+  transition: all 0.25s;
+}
+
+.a-light a:hover,
+.a-light a:active {
+  color: #c0cad1;
+}
+
+.a-dark a {
+  color: #292b37;
+  transition: all 0.25s;
+}
+
+.a-dark a:hover,
+.a-dark a:active {
+  color: #4a4d63;
+}
+
+.a-black a {
+  color: #000;
+  transition: all 0.25s;
+}
+
+.a-black a:hover,
+.a-black a:active {
+  color: #333333;
+}
+
+.fill-white {
+  fill: #fff;
+}
+
+.fill-primary {
+  fill: #40c4ff;
+}
+
+.fill-secondary {
+  fill: #6c757d;
+}
+
+.fill-success {
+  fill: #28a745;
+}
+
+.fill-info {
+  fill: #17a2b8;
+}
+
+.fill-warning {
+  fill: #ffc107;
+}
+
+.fill-danger {
+  fill: #dc3545;
+}
+
+.fill-light {
+  fill: #eceff1;
+}
+
+.fill-dark {
+  fill: #292b37;
+}
+
+.fill-black {
+  fill: #000;
+}
+
+.fill-hover-white {
+  fill: #fff;
+  transition: all 0.25s;
+}
+
+.fill-hover-white:hover,
+.fill-hover-white:active {
+  fill: #d9d9d9;
+}
+
+.fill-hover-primary {
+  fill: #40c4ff;
+  transition: all 0.25s;
+}
+
+.fill-hover-primary:hover,
+.fill-hover-primary:active {
+  fill: #00a8f3;
+}
+
+.fill-hover-secondary {
+  fill: #6c757d;
+  transition: all 0.25s;
+}
+
+.fill-hover-secondary:hover,
+.fill-hover-secondary:active {
+  fill: #494f54;
+}
+
+.fill-hover-success {
+  fill: #28a745;
+  transition: all 0.25s;
+}
+
+.fill-hover-success:hover,
+.fill-hover-success:active {
+  fill: #19692c;
+}
+
+.fill-hover-info {
+  fill: #17a2b8;
+  transition: all 0.25s;
+}
+
+.fill-hover-info:hover,
+.fill-hover-info:active {
+  fill: #0f6674;
+}
+
+.fill-hover-warning {
+  fill: #ffc107;
+  transition: all 0.25s;
+}
+
+.fill-hover-warning:hover,
+.fill-hover-warning:active {
+  fill: #ba8b00;
+}
+
+.fill-hover-danger {
+  fill: #dc3545;
+  transition: all 0.25s;
+}
+
+.fill-hover-danger:hover,
+.fill-hover-danger:active {
+  fill: #a71d2a;
+}
+
+.fill-hover-light {
+  fill: #eceff1;
+  transition: all 0.25s;
+}
+
+.fill-hover-light:hover,
+.fill-hover-light:active {
+  fill: #c0cad1;
+}
+
+.fill-hover-dark {
+  fill: #292b37;
+  transition: all 0.25s;
+}
+
+.fill-hover-dark:hover,
+.fill-hover-dark:active {
+  fill: #4a4d63;
+}
+
+.fill-hover-black {
+  fill: #000;
+  transition: all 0.25s;
+}
+
+.fill-hover-black:hover,
+.fill-hover-black:active {
+  fill: #333333;
+}
+
+.btn-outline-primary .fill-outline {
+  fill: #40c4ff;
+}
+
+.btn-outline-primary:hover .fill-outline,
+.btn-outline-primary:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-secondary .fill-outline {
+  fill: #6c757d;
+}
+
+.btn-outline-secondary:hover .fill-outline,
+.btn-outline-secondary:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-success .fill-outline {
+  fill: #28a745;
+}
+
+.btn-outline-success:hover .fill-outline,
+.btn-outline-success:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-info .fill-outline {
+  fill: #17a2b8;
+}
+
+.btn-outline-info:hover .fill-outline,
+.btn-outline-info:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-warning .fill-outline {
+  fill: #ffc107;
+}
+
+.btn-outline-warning:hover .fill-outline,
+.btn-outline-warning:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-danger .fill-outline {
+  fill: #dc3545;
+}
+
+.btn-outline-danger:hover .fill-outline,
+.btn-outline-danger:active .fill-outline {
+  fill: #fff;
+}
+
+.btn-outline-light .fill-outline {
+  fill: #eceff1;
+}
+
+.btn-outline-light:hover .fill-outline,
+.btn-outline-light:active .fill-outline {
+  fill: #292b37;
+}
+
+.btn-outline-dark .fill-outline {
+  fill: #292b37;
+}
+
+.btn-outline-dark:hover .fill-outline,
+.btn-outline-dark:active .fill-outline {
+  fill: #fff;
 }
 
 /*

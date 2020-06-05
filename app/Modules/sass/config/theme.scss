@@ -56,3 +56,19 @@ $custom-file-text: (
 
 // Подключение стилей Bootstrap
 @import "bootstrap";
+
+$colors: map-merge(
+        (
+            'white': $white,
+            'primary': $primary,
+            'secondary': $secondary,
+            'success': $success,
+            'info': $info,
+            'warning' : $warning,
+            'danger': $danger,
+            'light': $light,
+            'dark': $dark,
+            'black': $black
+        ),
+        $theme-colors
+);
