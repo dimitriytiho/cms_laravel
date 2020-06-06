@@ -18,7 +18,7 @@ class OnlineUsers
     public function handle($request, Closure $next)
     {
         $user = [
-            'ip' => $request->ip ?: 'no ip',
+            'ip' => $request->ip() ?: 'no ip',
         ];
         $delimiter = helpersOnlineUsers::$delimiter;
         $delimiterRow = helpersOnlineUsers::$delimiterRow;
