@@ -42,8 +42,12 @@ class Upload
     public static function resourceInit()
     {
         $modulesPath = config('modules.path');
+        $folderAdmin = config('modules.admin');
         $sassParams = config('add.scss');
         $sassParams = !empty($sassParams) && is_array($sassParams) ? $sassParams : null;
+        $sassParamsAdmin = config('admin.scss');
+        $sassParamsAdmin = !empty($sassParamsAdmin) && is_array($sassParamsAdmin) ? $sassParamsAdmin : null;
+        $sassParams = array_merge($sassParams, $sassParamsAdmin);
         $partSassInit = "\n// Settings SASS from \\" . __METHOD__ . "();\n\n";
 
         if ($modulesPath && $sassParams) {
@@ -52,9 +56,18 @@ class Upload
             }
             $partSassInit .= "\$path-img: '/" . env('IMG', 'img') . "';\n";
 
+            // Записываем файл _init.scss
             $fileSassInit = "{$modulesPath}/sass/config/_init.scss";
             if (File::exists(($fileSassInit))) {
                 File::replace($fileSassInit, $partSassInit);
+            }
+
+            // Записываем в админке файл _init.scss
+            if ($folderAdmin) {
+                $fileSassInitAdmin = "{$modulesPath}/{$folderAdmin}/sass/config/_init.scss";
+                if (File::exists(($fileSassInitAdmin))) {
+                    File::replace($fileSassInitAdmin, $partSassInit);
+                }
             }
         }
 

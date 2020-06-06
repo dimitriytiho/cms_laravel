@@ -25,16 +25,16 @@
     {{--
 
     Объединяем css в один файл --}}
-    {{ HelpersFile::merge(
+    {{--{{ HelpersFile::merge(
         [
             'css/app.css',
             'css/add.css',
         ],
         'css/main.css'
     ) }}
-     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
-    {{--<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/add.css') }}">--}}
+     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/add.css') }}">
 </head>
 <body>
 {{--
@@ -118,15 +118,15 @@
 {{--
 
 Объединяем скрипты в один файл --}}
-{{ HelpersFile::merge(
+{{--{{ HelpersFile::merge(
     [
         'js/app.js',
         'js/add.js',
     ],
     'js/main.js'
 ) }}
-<script src="{{ asset('js/main.js') }}" defer></script>
-{{--<script src="{{ asset('js/app.js') }}" defer></script>
-<script src="{{ asset('js/add.js') }}" defer></script>--}}
+<script src="{{ asset('js/main.js') }}" defer></script>--}}
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/add.js') }}" defer></script>
 </body>
 </html>

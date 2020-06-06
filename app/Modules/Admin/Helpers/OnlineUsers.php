@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class OnlineUsers
 {
-    public static $file = 'storage/users_online.log'; // По пути данного файла должны быть папки, файла может не быть, иначе будет ошибка!
+    public static $file = 'storage/online/users_online.log'; // По пути данного файла должны быть папки (storage и online), файла может не быть, иначе будет ошибка!
     public static $formatData = 'Y_m_d_H_i';
     public static $delimiter = '==';
     public static $delimiterRow = '||';

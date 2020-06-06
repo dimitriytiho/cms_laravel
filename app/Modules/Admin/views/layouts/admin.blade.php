@@ -141,8 +141,8 @@
     var main = {
             url: '{{ route('admin.main') }}',
             cookie: {{ (int)config('admin.cookie') * 1000 }},
-            asideWidthIcon: '{{ config("add.scss-admin.aside-width-icon") }}',
-            asideWidthText: '{{ config("add.scss-admin.aside-width-text") }}'
+            asideWidthIcon: '{{ config("admin.scss.aside-width-icon") }}',
+            asideWidthText: '{{ config("admin.scss.aside-width-text") }}'
         },
         {{--
 

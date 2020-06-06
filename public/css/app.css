@@ -10335,7 +10335,7 @@ $value - какое свойство анимировать, по-умолчан
 
 .panel-dashboard {
   padding: 7px 15px;
-  background-color: black;
+  background-color: #22242e;
 }
 
 .panel-dashboard__icons {

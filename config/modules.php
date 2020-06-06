@@ -17,6 +17,9 @@ return [
     'path_file' => "app/{$modules}",
     'namespace' => "App\\{$modules}",
 
+    // Папка админки
+    'admin' => 'Admin',
+
     // Папка с видами
     'views' => 'views',
 

@@ -13,7 +13,7 @@ View::getFinder()->setPaths("{$modulesPath}/Admin/views");
 $isAdmin = auth()->user()->isAdmin() ?? null;
 
 $asideWidth = $_COOKIE['asideWidth'] ?? null;
-$asideText = $asideWidth === config('add.scss-admin.aside-width-icon') ? ' style="display: none;"' : null;
+$asideText = $asideWidth === config('admin.scss.aside-width-icon') ? ' style="display: none;"' : null;
 $asideWidth = $asideWidth ? " style='width: $asideWidth;'" : null;
 
 // Левое меню для мобильных

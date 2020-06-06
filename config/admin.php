@@ -78,6 +78,17 @@ return [
         'make:migration',
     ],
 
+    // Настройки для SCSS, при изменении настроек необходимо запустить метод \App\Helpers\Upload::resourceInit(); и перекомпилировать стили
+    'scss' => [
+        'primary-admin' => '#78909c',
+        'dark-admin' => '#292b37',
+        'light-admin' => '#eceff1',
+        'gray-blue' => '#78909c',
+        'transition-admin' => '.5',
+        'aside-width-icon' => '3rem',
+        'aside-width-text' => '15rem',
+    ],
+
     // Картинки - для новых, используйте название как написаны, в конце подставляя свои, например imgBrand
     // Пользователи
     'imgUser' => '/' . env('APP_IMG', 'img') . '/users-photo',

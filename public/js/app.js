@@ -250,22 +250,26 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components */ "./app/Modules/js/components/index.js");
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./search */ "./app/Modules/js/search.js");
-/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_search__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./forms */ "./app/Modules/js/forms.js");
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_forms__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pulse */ "./app/Modules/js/pulse.js");
-/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_pulse__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _scroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scroll */ "./app/Modules/js/scroll.js");
-/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./validate */ "./app/Modules/js/validate/index.js");
+/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validate */ "./app/Modules/js/validate/index.js");
+/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./search */ "./app/Modules/js/search.js");
+/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_search__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./forms */ "./app/Modules/js/forms.js");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_forms__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pulse */ "./app/Modules/js/pulse.js");
+/* harmony import */ var _pulse__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_pulse__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _scroll__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scroll */ "./app/Modules/js/scroll.js");
+/* harmony import */ var _template__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./template */ "./app/Modules/js/template.js");
+/* harmony import */ var _script__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./script */ "./app/Modules/js/script.js");
 // require('./bootstrap');
 // window.Vue = require('vue');
 window.Bootstrap = __webpack_require__(/*! bootstrap.native/dist/bootstrap-native-v4 */ "./node_modules/bootstrap.native/dist/bootstrap-native-v4.js");
-window.AOS = __webpack_require__(/*! aos */ "./node_modules/aos/dist/aos.js"); //  data-aos="fade-up" fade-down-right flip-left zoom-in
+window.AOS = __webpack_require__(/*! aos */ "./node_modules/aos/dist/aos.js"); // data-aos="fade-up" fade-down-right flip-left zoom-in
 
 AOS.init({
   duration: 500
 });
+
+
 
 
 
@@ -449,6 +453,40 @@ document.addEventListener('click', function (e) {
 
 /***/ }),
 
+/***/ "./app/Modules/js/script.js":
+/*!**********************************!*\
+  !*** ./app/Modules/js/script.js ***!
+  \**********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./app/Modules/js/functions.js");
+ // При клике на кнопку Вверх, движение вверх
+
+$('#btn-up').click(function () {
+  _functions__WEBPACK_IMPORTED_MODULE_0__["default"].scrollUp();
+});
+/*
+* Плавная прокрутка страницы до якоря.
+* Добавить класс anchor и в href="#name_anchor" написать название якоря.
+*/
+
+$('.anchor').click(function (e) {
+  e.preventDefault();
+  var anchor = $(this).attr('href');
+
+  if (anchor) {
+    $('html, body').stop().animate({
+      scrollTop: $(anchor).offset().top
+    }, 400);
+  }
+});
+document.addEventListener('DOMContentLoaded', function () {}, false);
+
+/***/ }),
+
 /***/ "./app/Modules/js/scroll.js":
 /*!**********************************!*\
   !*** ./app/Modules/js/scroll.js ***!
@@ -573,6 +611,72 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   });
+}, false);
+
+/***/ }),
+
+/***/ "./app/Modules/js/template.js":
+/*!************************************!*\
+  !*** ./app/Modules/js/template.js ***!
+  \************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./app/Modules/js/functions.js");
+ // Скрываем элементы с классами .js-hide
+
+$('.js-hide').hide(); // Делаем видимыми элементы с классами .js-none-visible
+
+$('.js-none-visible').show(); // Делаем видимыми элементы с классами .js-none-visible-flex
+
+$('.js-none-visible-flex').css('display', 'flex'); // Отменяем обычное поведение ссылки при клике по класс .prevent-default
+
+$('.prevent-default').click(function () {
+  return false;
+}); // Открыть модальное окно по клику на класс .modal-show, при этом нужно указать здесь же атрибут data-modal-id="" и в него вписать id модального окна
+
+document.addEventListener('click', function (e) {
+  var modalShowClass = 'modal-show',
+      block = e.target.classList.contains(modalShowClass) || e.target.closest('.' + modalShowClass) && e.target.closest('.' + modalShowClass).classList.contains(modalShowClass);
+
+  if (block) {
+    var modalId = e.target.dataset.modalId || e.target.closest('.' + modalShowClass).dataset.modalId;
+
+    if (modalId) {
+      e.preventDefault();
+      var modal = document.getElementById(modalId);
+
+      if (modal) {
+        var modalInit = new Bootstrap.Modal(modal);
+        modalInit.show();
+      }
+    }
+  }
+}); // При клике добавляем класс .active к родителю
+
+$('.click_add_active').click(function () {
+  $(this).parent().addClass('active');
+}); // При клике в любом месте убираем класс .active у блока с классом .click_remove_active
+
+document.body.onclick = function (e) {
+  var blockClass = 'remove_active',
+      blocks = document.querySelectorAll('.' + blockClass),
+      blockClick = e.target.classList.contains(blockClass) || e.target.closest('.' + blockClass);
+
+  if (!blockClick) {
+    blocks.forEach(function (el) {
+      if (el.classList.contains('active')) {
+        el.classList.remove('active');
+      }
+    });
+  }
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Одинаковая высота блоков, задать класс у элементов .height-math
+  _functions__WEBPACK_IMPORTED_MODULE_0__["default"].getHeight('height-math');
 }, false);
 
 /***/ }),

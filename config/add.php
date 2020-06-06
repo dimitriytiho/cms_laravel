@@ -38,22 +38,13 @@ return [
     // Настройки для SCSS, при изменении настроек необходимо запустить метод \App\Helpers\Upload::resourceInit(); и перекомпилировать стили
     'scss' => [
         'primary' => '#ff5e5e',
-        'dark' => '#000', // 292b37
+        'dark' => '#000', // #292b37
         'secondary' => '#6c757d',
         'light' => '#eceff1',
-        'gray-blue' => '#78909c',
         'light-light' => '#fafafa',
         'transition' => '.5',
     ],
-    'scss-admin' => [
-        'primary-admin' => '#78909c',
-        'dark-admin' => '#292b37',
-        'light-admin' => '#eceff1',
-        'transition-admin' => '.5',
-        'path-img' => "'../" . env('APP_IMG', 'img') . "/'",
-        'aside-width-icon' => '3rem',
-        'aside-width-text' => '15rem',
-    ],
+
     'height' => 600,
 
     // Указать IP, для которых запрещён доступ к сайту после этого нужно запустить команду \App\Helpers\Upload::htaccess();
