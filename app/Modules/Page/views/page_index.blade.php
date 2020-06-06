@@ -25,7 +25,7 @@
                         <hr class="my-4">
                         <p>Использются служебные классы для типографики и расстояния содержимого в контейнере большего размера.</p>
                         <p class="lead">
-                            <a class="btn btn-dark" href="#" role="button">Подробнее</a>
+                            <a class="btn btn-primary" href="#" role="button">Подробнее</a>
                         </p>
                     </div>
                 </div>

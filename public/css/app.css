@@ -14,14 +14,14 @@
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: #40c4ff;
+  --primary: #ff5e5e;
   --secondary: #6c757d;
   --success: #28a745;
   --info: #17a2b8;
   --warning: #ffc107;
   --danger: #dc3545;
   --light: #eceff1;
-  --dark: #292b37;
+  --dark: #000;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -163,13 +163,13 @@ sup {
 }
 
 a {
-  color: #40c4ff;
+  color: #ff5e5e;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #00a8f3;
+  color: #ff1212;
   text-decoration: none;
 }
 
@@ -1815,23 +1815,23 @@ mark,
 .table-primary,
 .table-primary > th,
 .table-primary > td {
-  background-color: #caeeff;
+  background-color: #ffd2d2;
 }
 
 .table-primary th,
 .table-primary td,
 .table-primary thead th,
 .table-primary tbody + tbody {
-  border-color: #9ce0ff;
+  border-color: #ffabab;
 }
 
 .table-hover .table-primary:hover {
-  background-color: #b1e6ff;
+  background-color: #ffb9b9;
 }
 
 .table-hover .table-primary:hover > td,
 .table-hover .table-primary:hover > th {
-  background-color: #b1e6ff;
+  background-color: #ffb9b9;
 }
 
 .table-secondary,
@@ -1969,23 +1969,23 @@ mark,
 .table-dark,
 .table-dark > th,
 .table-dark > td {
-  background-color: #c3c4c7;
+  background-color: #b8b8b8;
 }
 
 .table-dark th,
 .table-dark td,
 .table-dark thead th,
 .table-dark tbody + tbody {
-  border-color: #909197;
+  border-color: #7a7a7a;
 }
 
 .table-hover .table-dark:hover {
-  background-color: #b6b7bb;
+  background-color: #ababab;
 }
 
 .table-hover .table-dark:hover > td,
 .table-hover .table-dark:hover > th {
-  background-color: #b6b7bb;
+  background-color: #ababab;
 }
 
 .table-active,
@@ -2137,7 +2137,7 @@ mark,
 .form-control:focus {
   color: #495057;
   background-color: #fff;
-  border-color: #c0ebff;
+  border-color: #ffdede;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
 }
@@ -2662,44 +2662,44 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-  color: #212529;
-  background-color: #40c4ff;
-  border-color: #40c4ff;
+  color: #fff;
+  background-color: #ff5e5e;
+  border-color: #ff5e5e;
 }
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #1ab8ff;
-  border-color: #0db4ff;
+  background-color: #ff3838;
+  border-color: #ff2b2b;
 }
 
 .btn-primary:focus,
 .btn-primary.focus {
   color: #fff;
-  background-color: #1ab8ff;
-  border-color: #0db4ff;
-  box-shadow: 0 0 0 0.2rem rgba(59, 172, 223, 0.5);
+  background-color: #ff3838;
+  border-color: #ff2b2b;
+  box-shadow: 0 0 0 0.2rem rgba(255, 118, 118, 0.5);
 }
 
 .btn-primary.disabled,
 .btn-primary:disabled {
-  color: #212529;
-  background-color: #40c4ff;
-  border-color: #40c4ff;
+  color: #fff;
+  background-color: #ff5e5e;
+  border-color: #ff5e5e;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #0db4ff;
-  border-color: #00b0ff;
+  background-color: #ff2b2b;
+  border-color: #ff1e1e;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(59, 172, 223, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(255, 118, 118, 0.5);
 }
 
 .btn-secondary {
@@ -2950,79 +2950,79 @@ fieldset:disabled a.btn {
 
 .btn-dark {
   color: #fff;
-  background-color: #292b37;
-  border-color: #292b37;
+  background-color: #000;
+  border-color: #000;
 }
 
 .btn-dark:hover {
   color: #fff;
-  background-color: #191a21;
-  border-color: #13141a;
+  background-color: black;
+  border-color: black;
 }
 
 .btn-dark:focus,
 .btn-dark.focus {
   color: #fff;
-  background-color: #191a21;
-  border-color: #13141a;
-  box-shadow: 0 0 0 0.2rem rgba(73, 75, 85, 0.5);
+  background-color: black;
+  border-color: black;
+  box-shadow: 0 0 0 0.2rem rgba(38, 38, 38, 0.5);
 }
 
 .btn-dark.disabled,
 .btn-dark:disabled {
   color: #fff;
-  background-color: #292b37;
-  border-color: #292b37;
+  background-color: #000;
+  border-color: #000;
 }
 
 .btn-dark:not(:disabled):not(.disabled):active,
 .btn-dark:not(:disabled):not(.disabled).active,
 .show > .btn-dark.dropdown-toggle {
   color: #fff;
-  background-color: #13141a;
-  border-color: #0e0e12;
+  background-color: black;
+  border-color: black;
 }
 
 .btn-dark:not(:disabled):not(.disabled):active:focus,
 .btn-dark:not(:disabled):not(.disabled).active:focus,
 .show > .btn-dark.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(73, 75, 85, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(38, 38, 38, 0.5);
 }
 
 .btn-outline-primary {
-  color: #40c4ff;
-  border-color: #40c4ff;
+  color: #ff5e5e;
+  border-color: #ff5e5e;
 }
 
 .btn-outline-primary:hover {
-  color: #212529;
-  background-color: #40c4ff;
-  border-color: #40c4ff;
+  color: #fff;
+  background-color: #ff5e5e;
+  border-color: #ff5e5e;
 }
 
 .btn-outline-primary:focus,
 .btn-outline-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(64, 196, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(255, 94, 94, 0.5);
 }
 
 .btn-outline-primary.disabled,
 .btn-outline-primary:disabled {
-  color: #40c4ff;
+  color: #ff5e5e;
   background-color: transparent;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active,
 .btn-outline-primary:not(:disabled):not(.disabled).active,
 .show > .btn-outline-primary.dropdown-toggle {
-  color: #212529;
-  background-color: #40c4ff;
-  border-color: #40c4ff;
+  color: #fff;
+  background-color: #ff5e5e;
+  border-color: #ff5e5e;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
 .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(64, 196, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(255, 94, 94, 0.5);
 }
 
 .btn-outline-secondary {
@@ -3242,24 +3242,24 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-dark {
-  color: #292b37;
-  border-color: #292b37;
+  color: #000;
+  border-color: #000;
 }
 
 .btn-outline-dark:hover {
   color: #fff;
-  background-color: #292b37;
-  border-color: #292b37;
+  background-color: #000;
+  border-color: #000;
 }
 
 .btn-outline-dark:focus,
 .btn-outline-dark.focus {
-  box-shadow: 0 0 0 0.2rem rgba(41, 43, 55, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5);
 }
 
 .btn-outline-dark.disabled,
 .btn-outline-dark:disabled {
-  color: #292b37;
+  color: #000;
   background-color: transparent;
 }
 
@@ -3267,24 +3267,24 @@ fieldset:disabled a.btn {
 .btn-outline-dark:not(:disabled):not(.disabled).active,
 .show > .btn-outline-dark.dropdown-toggle {
   color: #fff;
-  background-color: #292b37;
-  border-color: #292b37;
+  background-color: #000;
+  border-color: #000;
 }
 
 .btn-outline-dark:not(:disabled):not(.disabled):active:focus,
 .btn-outline-dark:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-dark.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(41, 43, 55, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5);
 }
 
 .btn-link {
   font-weight: 400;
-  color: #40c4ff;
+  color: #ff5e5e;
   text-decoration: none;
 }
 
 .btn-link:hover {
-  color: #00a8f3;
+  color: #ff1212;
   text-decoration: none;
 }
 
@@ -3590,7 +3590,7 @@ input[type=button].btn-block {
 .dropdown-item:active {
   color: #fff;
   text-decoration: none;
-  background-color: #40c4ff;
+  background-color: #ff5e5e;
 }
 
 .dropdown-item.disabled,
@@ -3952,8 +3952,8 @@ input[type=button].btn-block {
 
 .custom-control-input:checked ~ .custom-control-label::before {
   color: #fff;
-  border-color: #40c4ff;
-  background-color: #40c4ff;
+  border-color: #ff5e5e;
+  background-color: #ff5e5e;
 }
 
 .custom-control-input:focus ~ .custom-control-label::before {
@@ -3961,13 +3961,13 @@ input[type=button].btn-block {
 }
 
 .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
-  border-color: #c0ebff;
+  border-color: #ffdede;
 }
 
 .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
   color: #fff;
-  background-color: #f3fbff;
-  border-color: #f3fbff;
+  background-color: white;
+  border-color: white;
 }
 
 .custom-control-input[disabled] ~ .custom-control-label,
@@ -4019,8 +4019,8 @@ input[type=button].btn-block {
 }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
-  border-color: #40c4ff;
-  background-color: #40c4ff;
+  border-color: #ff5e5e;
+  background-color: #ff5e5e;
 }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {
@@ -4028,11 +4028,11 @@ input[type=button].btn-block {
 }
 
 .custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: rgba(64, 196, 255, 0.5);
+  background-color: rgba(255, 94, 94, 0.5);
 }
 
 .custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {
-  background-color: rgba(64, 196, 255, 0.5);
+  background-color: rgba(255, 94, 94, 0.5);
 }
 
 .custom-radio .custom-control-label::before {
@@ -4044,7 +4044,7 @@ input[type=button].btn-block {
 }
 
 .custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: rgba(64, 196, 255, 0.5);
+  background-color: rgba(255, 94, 94, 0.5);
 }
 
 .custom-switch {
@@ -4080,7 +4080,7 @@ input[type=button].btn-block {
 }
 
 .custom-switch .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: rgba(64, 196, 255, 0.5);
+  background-color: rgba(255, 94, 94, 0.5);
 }
 
 .custom-select {
@@ -4102,7 +4102,7 @@ input[type=button].btn-block {
 }
 
 .custom-select:focus {
-  border-color: #c0ebff;
+  border-color: #ffdede;
   outline: 0;
   box-shadow: rgba(108, 117, 125, 0.25);
 }
@@ -4167,7 +4167,7 @@ input[type=button].btn-block {
 }
 
 .custom-file-input:focus ~ .custom-file-label {
-  border-color: #c0ebff;
+  border-color: #ffdede;
   box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
 }
 
@@ -4255,7 +4255,7 @@ input[type=button].btn-block {
   width: 1rem;
   height: 1rem;
   margin-top: -0.25rem;
-  background-color: #40c4ff;
+  background-color: #ff5e5e;
   border: 0;
   border-radius: 1rem;
   -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4272,7 +4272,7 @@ input[type=button].btn-block {
 }
 
 .custom-range::-webkit-slider-thumb:active {
-  background-color: #f3fbff;
+  background-color: white;
 }
 
 .custom-range::-webkit-slider-runnable-track {
@@ -4288,7 +4288,7 @@ input[type=button].btn-block {
 .custom-range::-moz-range-thumb {
   width: 1rem;
   height: 1rem;
-  background-color: #40c4ff;
+  background-color: #ff5e5e;
   border: 0;
   border-radius: 1rem;
   -moz-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4305,7 +4305,7 @@ input[type=button].btn-block {
 }
 
 .custom-range::-moz-range-thumb:active {
-  background-color: #f3fbff;
+  background-color: white;
 }
 
 .custom-range::-moz-range-track {
@@ -4324,7 +4324,7 @@ input[type=button].btn-block {
   margin-top: 0;
   margin-right: 0.2rem;
   margin-left: 0.2rem;
-  background-color: #40c4ff;
+  background-color: #ff5e5e;
   border: 0;
   border-radius: 1rem;
   -ms-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4340,7 +4340,7 @@ input[type=button].btn-block {
 }
 
 .custom-range::-ms-thumb:active {
-  background-color: #f3fbff;
+  background-color: white;
 }
 
 .custom-range::-ms-track {
@@ -4467,7 +4467,7 @@ input[type=button].btn-block {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #40c4ff;
+  background-color: #ff5e5e;
 }
 
 .nav-fill .nav-item {
@@ -5214,14 +5214,14 @@ input[type=button].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #40c4ff;
+  color: #ff5e5e;
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
 
 .page-link:hover {
   z-index: 2;
-  color: #00a8f3;
+  color: #ff1212;
   text-decoration: none;
   background-color: #e9ecef;
   border-color: #dee2e6;
@@ -5247,8 +5247,8 @@ input[type=button].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #40c4ff;
-  border-color: #40c4ff;
+  background-color: #ff5e5e;
+  border-color: #ff5e5e;
 }
 
 .page-item.disabled .page-link {
@@ -5331,20 +5331,20 @@ a.badge:focus {
 }
 
 .badge-primary {
-  color: #212529;
-  background-color: #40c4ff;
+  color: #fff;
+  background-color: #ff5e5e;
 }
 
 a.badge-primary:hover,
 a.badge-primary:focus {
-  color: #212529;
-  background-color: #0db4ff;
+  color: #fff;
+  background-color: #ff2b2b;
 }
 
 a.badge-primary:focus,
 a.badge-primary.focus {
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(64, 196, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(255, 94, 94, 0.5);
 }
 
 .badge-secondary {
@@ -5451,19 +5451,19 @@ a.badge-light.focus {
 
 .badge-dark {
   color: #fff;
-  background-color: #292b37;
+  background-color: #000;
 }
 
 a.badge-dark:hover,
 a.badge-dark:focus {
   color: #fff;
-  background-color: #13141a;
+  background-color: black;
 }
 
 a.badge-dark:focus,
 a.badge-dark.focus {
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(41, 43, 55, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5);
 }
 
 .alert {
@@ -5495,17 +5495,17 @@ a.badge-dark.focus {
 }
 
 .alert-primary {
-  color: #216685;
-  background-color: #d9f3ff;
-  border-color: #caeeff;
+  color: #853131;
+  background-color: #ffdfdf;
+  border-color: #ffd2d2;
 }
 
 .alert-primary hr {
-  border-top-color: #b1e6ff;
+  border-top-color: #ffb9b9;
 }
 
 .alert-primary .alert-link {
-  color: #17475c;
+  color: #602323;
 }
 
 .alert-secondary {
@@ -5593,13 +5593,13 @@ a.badge-dark.focus {
 }
 
 .alert-dark {
-  color: #15161d;
-  background-color: #d4d5d7;
-  border-color: #c3c4c7;
+  color: black;
+  background-color: #cccccc;
+  border-color: #b8b8b8;
 }
 
 .alert-dark hr {
-  border-top-color: #b6b7bb;
+  border-top-color: #ababab;
 }
 
 .alert-dark .alert-link {
@@ -5948,14 +5948,14 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #40c4ff !important;
+  background-color: #ff5e5e !important;
 }
 
 a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-  background-color: #0db4ff !important;
+  background-color: #ff2b2b !important;
 }
 
 .bg-secondary {
@@ -6025,14 +6025,14 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  background-color: #292b37 !important;
+  background-color: #000 !important;
 }
 
 a.bg-dark:hover,
 a.bg-dark:focus,
 button.bg-dark:hover,
 button.bg-dark:focus {
-  background-color: #13141a !important;
+  background-color: black !important;
 }
 
 .bg-white {
@@ -6084,7 +6084,7 @@ button.bg-dark:focus {
 }
 
 .border-primary {
-  border-color: #40c4ff !important;
+  border-color: #ff5e5e !important;
 }
 
 .border-secondary {
@@ -6112,7 +6112,7 @@ button.bg-dark:focus {
 }
 
 .border-dark {
-  border-color: #292b37 !important;
+  border-color: #000 !important;
 }
 
 .border-white {
@@ -9682,12 +9682,12 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-  color: #40c4ff !important;
+  color: #ff5e5e !important;
 }
 
 a.text-primary:hover,
 a.text-primary:focus {
-  color: #00a8f3 !important;
+  color: #ff1212 !important;
 }
 
 .text-secondary {
@@ -9745,12 +9745,12 @@ a.text-light:focus {
 }
 
 .text-dark {
-  color: #292b37 !important;
+  color: #000 !important;
 }
 
 a.text-dark:hover,
 a.text-dark:focus {
-  color: #08090b !important;
+  color: black !important;
 }
 
 .text-body {
@@ -9925,7 +9925,7 @@ body {
   -webkit-hyphens: auto;
       -ms-hyphens: auto;
           hyphens: auto;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
 .app {
@@ -10273,7 +10273,7 @@ label {
 
 .breadcrumb i {
   font-size: 1.2rem;
-  color: #40c4ff;
+  color: #ff5e5e;
 }
 
 .pagination li.active span {
@@ -10291,7 +10291,7 @@ label {
   left: 12.5%;
   width: 75%;
   height: 0.12rem;
-  background-color: #292b37;
+  background-color: #000;
   transition-duration: 0.5s;
 }
 
@@ -10335,7 +10335,7 @@ $value - какое свойство анимировать, по-умолчан
 
 .panel-dashboard {
   padding: 7px 15px;
-  background-color: #22242e;
+  background-color: black;
 }
 
 .panel-dashboard__icons {
@@ -10372,11 +10372,11 @@ $value - какое свойство анимировать, по-умолчан
 */
 
 .active_color {
-  color: #40c4ff !important;
+  color: #ff5e5e !important;
 }
 
 .active_bg {
-  background-color: #40c4ff !important;
+  background-color: #ff5e5e !important;
 }
 
 .a-white a {
@@ -10390,13 +10390,13 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .a-primary a {
-  color: #40c4ff;
+  color: #ff5e5e;
   transition: all 0.25s;
 }
 
 .a-primary a:hover,
 .a-primary a:active {
-  color: #00a8f3;
+  color: #ff1212;
 }
 
 .a-secondary a {
@@ -10460,13 +10460,13 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .a-dark a {
-  color: #292b37;
+  color: #000;
   transition: all 0.25s;
 }
 
 .a-dark a:hover,
 .a-dark a:active {
-  color: #4a4d63;
+  color: #262626;
 }
 
 .a-black a {
@@ -10484,7 +10484,7 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .fill-primary {
-  fill: #40c4ff;
+  fill: #ff5e5e;
 }
 
 .fill-secondary {
@@ -10512,7 +10512,7 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .fill-dark {
-  fill: #292b37;
+  fill: #000;
 }
 
 .fill-black {
@@ -10530,13 +10530,13 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .fill-hover-primary {
-  fill: #40c4ff;
+  fill: #ff5e5e;
   transition: all 0.25s;
 }
 
 .fill-hover-primary:hover,
 .fill-hover-primary:active {
-  fill: #00a8f3;
+  fill: #ff1212;
 }
 
 .fill-hover-secondary {
@@ -10600,13 +10600,13 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .fill-hover-dark {
-  fill: #292b37;
+  fill: #000;
   transition: all 0.25s;
 }
 
 .fill-hover-dark:hover,
 .fill-hover-dark:active {
-  fill: #4a4d63;
+  fill: #262626;
 }
 
 .fill-hover-black {
@@ -10620,7 +10620,7 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .btn-outline-primary .fill-outline {
-  fill: #40c4ff;
+  fill: #ff5e5e;
 }
 
 .btn-outline-primary:hover .fill-outline,
@@ -10679,11 +10679,11 @@ $value - какое свойство анимировать, по-умолчан
 
 .btn-outline-light:hover .fill-outline,
 .btn-outline-light:active .fill-outline {
-  fill: #292b37;
+  fill: #000;
 }
 
 .btn-outline-dark .fill-outline {
-  fill: #292b37;
+  fill: #000;
 }
 
 .btn-outline-dark:hover .fill-outline,
@@ -10784,11 +10784,11 @@ $value - какое свойство анимировать, по-умолчан
 */
 
 .active_color {
-  color: #40c4ff !important;
+  color: #ff5e5e !important;
 }
 
 .active_bg {
-  background-color: #40c4ff !important;
+  background-color: #ff5e5e !important;
 }
 
 .a-white a {
@@ -10802,13 +10802,13 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .a-primary a {
-  color: #40c4ff;
+  color: #ff5e5e;
   transition: all 0.25s;
 }
 
 .a-primary a:hover,
 .a-primary a:active {
-  color: #00a8f3;
+  color: #ff1212;
 }
 
 .a-secondary a {
@@ -10872,13 +10872,13 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .a-dark a {
-  color: #292b37;
+  color: #000;
   transition: all 0.25s;
 }
 
 .a-dark a:hover,
 .a-dark a:active {
-  color: #4a4d63;
+  color: #262626;
 }
 
 .a-black a {
@@ -10896,7 +10896,7 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .fill-primary {
-  fill: #40c4ff;
+  fill: #ff5e5e;
 }
 
 .fill-secondary {
@@ -10924,7 +10924,7 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .fill-dark {
-  fill: #292b37;
+  fill: #000;
 }
 
 .fill-black {
@@ -10942,13 +10942,13 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .fill-hover-primary {
-  fill: #40c4ff;
+  fill: #ff5e5e;
   transition: all 0.25s;
 }
 
 .fill-hover-primary:hover,
 .fill-hover-primary:active {
-  fill: #00a8f3;
+  fill: #ff1212;
 }
 
 .fill-hover-secondary {
@@ -11012,13 +11012,13 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .fill-hover-dark {
-  fill: #292b37;
+  fill: #000;
   transition: all 0.25s;
 }
 
 .fill-hover-dark:hover,
 .fill-hover-dark:active {
-  fill: #4a4d63;
+  fill: #262626;
 }
 
 .fill-hover-black {
@@ -11032,7 +11032,7 @@ $value - какое свойство анимировать, по-умолчан
 }
 
 .btn-outline-primary .fill-outline {
-  fill: #40c4ff;
+  fill: #ff5e5e;
 }
 
 .btn-outline-primary:hover .fill-outline,
@@ -11091,11 +11091,11 @@ $value - какое свойство анимировать, по-умолчан
 
 .btn-outline-light:hover .fill-outline,
 .btn-outline-light:active .fill-outline {
-  fill: #292b37;
+  fill: #000;
 }
 
 .btn-outline-dark .fill-outline {
-  fill: #292b37;
+  fill: #000;
 }
 
 .btn-outline-dark:hover .fill-outline,

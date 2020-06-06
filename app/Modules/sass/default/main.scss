@@ -15,7 +15,7 @@ body {
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
 // Футер прижатый книзу

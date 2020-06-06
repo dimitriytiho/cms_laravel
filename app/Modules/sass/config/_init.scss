@@ -1,11 +1,11 @@
 
-// Settings SASS from App\Helpers\Upload::resourceInit
+// Settings SASS from \App\Helpers\Upload::resourceInit();
 
-$primary: #40c4ff;
-$dark: #292b37;
+$primary: #ff5e5e;
+$dark: #000;
 $secondary: #6c757d;
 $light: #eceff1;
 $gray-blue: #78909c;
 $light-light: #fafafa;
 $transition: .5;
-$path-img: '../img';
+$path-img: '/img';

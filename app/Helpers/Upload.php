@@ -44,7 +44,7 @@ class Upload
         $modulesPath = config('modules.path');
         $sassParams = config('add.scss');
         $sassParams = !empty($sassParams) && is_array($sassParams) ? $sassParams : null;
-        $partSassInit = "\n// Settings SASS from " . __METHOD__ . "\n\n";
+        $partSassInit = "\n// Settings SASS from \\" . __METHOD__ . "();\n\n";
 
         if ($modulesPath && $sassParams) {
             foreach ($sassParams as $k => $v) {

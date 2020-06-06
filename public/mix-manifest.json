@@ -2,9 +2,9 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/append.css": "/css/append.css",
+    "/css/shop.css": "/css/shop.css",
+    "/css/auth.css": "/css/auth.css",
     "/js/append.js": "/js/append.js",
     "/js/auth.js": "/js/auth.js",
-    "/js/shop.js": "/js/shop.js",
-    "/css/shop.css": "/css/shop.css",
-    "/css/auth.css": "/css/auth.css"
+    "/js/shop.js": "/js/shop.js"
 }
