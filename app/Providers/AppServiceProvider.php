@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Main;
 use App\Helpers\Services\Registry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use ReCaptcha\ReCaptcha;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,14 @@ class AppServiceProvider extends ServiceProvider
 
 
         // ЗДЕСЬ ПИСАТЬ КОД, КОТОРЫЙ ЗАПУСКАЕТСЯ ПОСЛЕ ЗАГРУЗКИ ВСЕХ СЕРВИС-ПРОВАЙДЕРОВ
+
+        // Добавляем Google ReCaptcha в валидатор
+        Validator::extend('recaptcha', function ($attribute, $value, $parameters, $validator) {
+            $recaptcha = new ReCaptcha(env('RECAPTCHA_SECRET_KEY'));
+            $resp = $recaptcha->verify($value, request()->ip());
+
+            return $resp->isSuccess();
+        });
 
 
         // Добавляем папку для переводов, т.е. namespace для переводов

@@ -12,7 +12,7 @@ class Sms
     {
         $tel = self::onlyPhoneNumber($phoneNumber);
         if ($tel) {
-            $smsru = new SMSRU(config('add.smsru')); // Ваш уникальный программный ключ, который можно получить на главной странице
+            $smsru = new SMSRU(env('SMSRU')); // Ваш уникальный программный ключ, который можно получить на главной странице
 
             $data = new \stdClass();
             $data->to = $tel;

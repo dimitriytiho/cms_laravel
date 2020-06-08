@@ -147,4 +147,7 @@ return [
 
     'attributes' => [],
 
+
+    'recaptcha' => 'The :attribute answer is invalid.',
+
 ];

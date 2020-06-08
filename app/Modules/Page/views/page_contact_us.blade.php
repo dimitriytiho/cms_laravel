@@ -44,7 +44,7 @@
 
                         Google reCaptcha --}}
                         {{--<div class="mb-2">
-                            <div class="g-recaptcha" data-sitekey="{{ config('add.recaptcha_public_key') }}"></div>
+                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_PUBLIC_KEY') }}"></div>
                         </div>--}}
 
                         {{--<div class="form-group">

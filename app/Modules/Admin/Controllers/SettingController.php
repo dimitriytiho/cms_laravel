@@ -36,7 +36,7 @@ class SettingController extends AppController
     {
         $f = __FUNCTION__;
         Main::viewExists("{$this->view}.{$f}", __METHOD__);
-        //$values = DB::table($this->table)->paginate($this->perPage);
+        //$values = DB::table($this->table)->orderBy('id', 'desc')->paginate($this->perPage);
 
 
         // Поиск. Массив гет ключей для поиска
@@ -51,11 +51,11 @@ class SettingController extends AppController
 
         // Если есть строка поиска
         if ($col && in_array($col, $queryArr) && $cell) {
-            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($this->perPage);
+            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->orderBy('id', 'desc')->paginate($this->perPage);
 
         // Иначе выборка всех элементов из БД
         } else {
-            $values = $this->model::paginate($this->perPage);
+            $values = $this->model::orderBy('id', 'desc')->paginate($this->perPage);
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));

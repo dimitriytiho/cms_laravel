@@ -189,4 +189,7 @@ return [
         'available'             => 'Доступно',
         'size'                  => 'Размер',
     ],
+
+
+    'recaptcha' => ':attribute ответ неверен.',
 ];

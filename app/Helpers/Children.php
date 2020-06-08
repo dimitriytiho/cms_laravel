@@ -69,15 +69,45 @@ class Children
 
 
     /*
-     * В тексте ищется текст обрамлённый с 2-х сторон такими символами ##!!!, к примеру: ##!!!Мета для вывода у вложенных элементов##!!!.
+     * Возвращает родителя из дерева.
+     * $id = id элемента.
+     * $model - название модели в формате \App\Page.
+     * $column - название колонки родителя, по-умолчанию parent_id, необязательный параметр.
+     */
+    public static function getParent($id, $model, $column = 'parent_id')
+    {
+        if ((int)$id && $model && $column) {
+            $data = self::getDataKeyId($model);
+            $parentId = $data[(int)$id][$column] ?: '0';
+            return self::getFindParent($data, (int)$id, $parentId, $column);
+        }
+        return false;
+    }
+    private static function getFindParent($data, $id, $parentId, $column = 'parent_id')
+    {
+        if ($data && is_array($data)) {
+            foreach ($data as $dataId => $value) {
+                if ($parentId === '0') {
+                    return (int)$id;
+                } elseif ($parentId == $dataId) {
+                    return self::getFindParent($data, $dataId, (string)$value[$column], $column);
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /*
+     * В тексте ищется текст обрамлённый с 2-х сторон такими символами ###!!, к примеру: ###!!Мета для вывода у вложенных элементов###!!.
      * $text - текст, с этими символами или без них.
      * $symbol - можно изменить искомые символы, необязательный параметр.
      */
-    public static function getSymbol($text, $symbol = '##!!!')
+    public static function getSymbol($text, $symbol = '###!!')
     {
         if ($text) {
             $pattern = "/{$symbol}([^&]*){$symbol}/";
-            //$pattern = "/##!!!(.*)##!!!/";
+            //$pattern = "/###!!(.*)###!!/";
             //$text = preg_replace($pattern, '', $text);
             preg_match($pattern, $text, $matches);
 

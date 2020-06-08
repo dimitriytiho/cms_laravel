@@ -69,7 +69,7 @@ class FilterValueController extends AppController
 
         if ($parentCount > 0) {
             $parentValues = DB::table($this->parentTable)->select('id', 'title')->get();
-            $values = DB::table($this->table)->where('parent_id', $currentParentId)->paginate($this->perPage);
+            $values = DB::table($this->table)->where('parent_id', $currentParentId)->orderBy('id', 'desc')->paginate($this->perPage);
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->view)));

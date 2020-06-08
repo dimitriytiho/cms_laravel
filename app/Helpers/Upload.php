@@ -200,7 +200,7 @@ class Upload
     }
 
 
-    // Сформировать human.txt
+    // Сформировать humans.txt
     public static function human()
     {
         $values = config('add.development');

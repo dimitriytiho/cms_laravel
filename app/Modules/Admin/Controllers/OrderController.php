@@ -33,7 +33,7 @@ class OrderController extends AppController
     {
         $f = __FUNCTION__;
         Main::viewExists("{$this->view}.{$f}", __METHOD__);
-        //$values = $this->model::paginate($this->perPage); // Такой запрос, если используется связь к таблице пользователей
+        //$values = $this->model::orderBy('id', 'desc')->paginate($this->perPage); // Такой запрос, если используется связь к таблице пользователей
 
 
         // Поиск. Массив гет ключей для поиска
@@ -48,11 +48,11 @@ class OrderController extends AppController
 
         // Если есть строка поиска
         if ($col && in_array($col, $queryArr) && $cell) {
-            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($this->perPage);
+            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->orderBy('id', 'desc')->paginate($this->perPage);
 
         // Иначе выборка всех элементов из БД
         } else {
-            $values = $this->model::paginate($this->perPage);
+            $values = $this->model::orderBy('id', 'desc')->paginate($this->perPage);
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));

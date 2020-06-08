@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 
 class UserController extends AppController
 {
-    private $guardedLast = ['note', 'accept', 'email_verified_at', 'remember_token', 'created_at', 'updated_at'];
+    public static $guardedLast = ['id', 'note', 'accept', 'email_verified_at', 'remember_token', 'created_at', 'updated_at'];
 
 
     public function __construct(Request $request)
@@ -40,7 +40,7 @@ class UserController extends AppController
     {
         $f = __FUNCTION__;
         Main::viewExists("{$this->view}.{$f}", __METHOD__);
-        //$values = $this->model::with('role')->paginate($this->perPage);
+        //$values = $this->model::with('role')->orderBy('id', 'desc')->paginate($this->perPage);
 
         // Поиск. Массив гет ключей для поиска
         $queryArr = [
@@ -63,11 +63,11 @@ class UserController extends AppController
 
         // Если есть строка поиска
         if ($col && in_array($col, $queryArr) && $cell) {
-            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->paginate($this->perPage);
+            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->orderBy('id', 'desc')->paginate($this->perPage);
 
             // Иначе выборка всех элементов из БД
         } else {
-            $values = $this->model::paginate($this->perPage);
+            $values = $this->model::orderBy('id', 'desc')->paginate($this->perPage);
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
@@ -278,7 +278,7 @@ class UserController extends AppController
                 foreach ($lastData as $k => $v) {
 
                     // Исключаем не нужные поля
-                    if (!in_array($k, $this->guardedLast)) {
+                    if (!in_array($k, self::$guardedLast)) {
                         $lastDataNew[$k] = $v;
                     }
                 }

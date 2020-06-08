@@ -143,48 +143,57 @@ class Setting extends Model
         }
 
         $menu = $menu + [
-            6 => [
-                'title' => 'Pages',
-                'controller' => 'Page',
-                'parent_id' => null,
-                'slug' => '/page',
-                'request' => 'page',
-                'item' => 'web',
-                'count' => 'pages', // Название таблицы
-            ],
-            7 => [
-                'title' => 'Create',
-                'controller' => 'Page',
-                'parent_id' => 6,
-                'slug' => '/page/create',
-                'request' => 'page',
-                'item' => 'add',
-            ],
-            8 => [
-                'title' => 'Users',
-                'controller' => 'User',
-                'parent_id' => null,
-                'slug' => '/user',
-                'request' => 'user',
-                'item' => 'supervisor_account',
-                'count' => 'users', // Название таблицы
-            ],
-            9 => [
-                'title' => 'Create',
-                'controller' => 'User',
-                'parent_id' => 8,
-                'slug' => '/user/create',
-                'request' => 'user',
-                'item' => 'add',
-            ],
-            82 => [
-                'title' => 'Banned_ip',
-                'controller' => 'User',
-                'parent_id' => 8,
-                'slug' => '/user-banned-ip',
-                'request' => 'user',
-                'item' => 'remove_circle_outline',
-            ],
+                6 => [
+                    'title' => 'Pages',
+                    'controller' => 'Page',
+                    'parent_id' => null,
+                    'slug' => '/page',
+                    'request' => 'page',
+                    'item' => 'web',
+                    'count' => 'pages', // Название таблицы
+                ],
+                7 => [
+                    'title' => 'Create',
+                    'controller' => 'Page',
+                    'parent_id' => 6,
+                    'slug' => '/page/create',
+                    'request' => 'page',
+                    'item' => 'add',
+                ],
+                8 => [
+                    'title' => 'Users',
+                    'controller' => 'User',
+                    'parent_id' => null,
+                    'slug' => '/user',
+                    'request' => 'user',
+                    'item' => 'supervisor_account',
+                    'count' => 'users', // Название таблицы
+                ],
+                9 => [
+                    'title' => 'Create',
+                    'controller' => 'User',
+                    'parent_id' => 8,
+                    'slug' => '/user/create',
+                    'request' => 'user',
+                    'item' => 'add',
+                ],
+            ];
+
+        // Если выключена авторизация на сайте
+        if (!config('add.auth')) {
+            $menu = $menu + [
+                82 => [
+                    'title' => 'Banned_ip',
+                    'controller' => 'User',
+                    'parent_id' => 8,
+                    'slug' => '/user-banned-ip',
+                    'request' => 'user',
+                    'item' => 'remove_circle_outline',
+                ],
+            ];
+        }
+
+            $menu = $menu + [
             10 => [
                 'title' => 'Menu',
                 'controller' => 'Menu',

@@ -95,3 +95,23 @@
         </div>
     </div>
 @endif
+{{--
+
+Сообщения статусов --}}
+@if (session()->has('status'))
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col">
+                <div class="alert alert-info alert-dismissible fade show py-3 px-4" role="alert">
+                    <span>{{ session('status') }}</span>
+                    @php
+                        session()->forget('status')
+                    @endphp
+                    <button type="button" class="close" data-dismiss="alert" aria-label="@lang("{$lang}::s.Close")">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif

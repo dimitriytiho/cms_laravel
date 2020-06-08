@@ -68,4 +68,14 @@ return [
     'old_price' => 'Old price',
     'section' => 'Section',
 
+    'login' => 'Login',
+    'register' => 'Register',
+    'forget_password' => 'Forget your password?',
+    'verify_email' => 'Verify your email address',
+    'fresh_verification_link' => 'A fresh verification link has been sent to your email address.',
+    'check_email_verification_link' => 'Before proceeding, please check your email for a verification link.',
+    'not_receive_email' => 'If you did not receive the email:',
+    'request_another' => 'Click here to request another',
+    'account' => 'Account',
+
 ];

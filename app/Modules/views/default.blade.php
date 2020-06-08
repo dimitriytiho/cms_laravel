@@ -73,6 +73,9 @@
     </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@if (env('RECAPTCHA_SECRET_KEY'))
+    <script src="//www.google.com/recaptcha/api.js"></script>
+@endif
 {{--
 
 @if (!request()->is('/'))

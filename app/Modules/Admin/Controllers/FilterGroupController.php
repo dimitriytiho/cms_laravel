@@ -44,7 +44,7 @@ class FilterGroupController extends AppController
         $f = __FUNCTION__;
         Main::viewExists("{$this->view}.{$f}", __METHOD__);
 
-        $values = DB::table($this->table)->paginate($this->perPage);
+        $values = DB::table($this->table)->orderBy('id', 'desc')->paginate($this->perPage);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->view)));
         return view("{$this->view}.{$f}", compact('values'));

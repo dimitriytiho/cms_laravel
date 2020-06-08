@@ -93,8 +93,4 @@ return [
         'contact-us',
     ],
 
-    'recaptcha_public_key' => '',
-    'recaptcha_secret_key' => '',
-    'smsru' => '',
-
 ];

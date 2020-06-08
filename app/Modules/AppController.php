@@ -13,6 +13,8 @@ class AppController extends Controller
     public $lang;
     public $statusActive;
     public $perPage;
+    public $userTable = 'users';
+    public $userModel = '\App\User';
 
 
     public function __construct()

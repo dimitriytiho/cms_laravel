@@ -30,8 +30,8 @@ class LoginController extends AppController
     |
     */
 
-    //use AuthenticatesUsers;
-    use ThrottlesLogins;
+    use AuthenticatesUsers;
+    //use ThrottlesLogins;
 
     /**
      * Where to redirect users after login.
@@ -59,11 +59,6 @@ class LoginController extends AppController
     }
 
 
-    /**
-     * Show the application's login form.
-     *
-     * @return \Illuminate\View\View
-     */
     public function showLoginForm(Request $request)
     {
         Main::viewExists("{$this->viewPathModule}.{$this->view}", __METHOD__);
@@ -71,13 +66,36 @@ class LoginController extends AppController
     }
 
 
-    /**
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logout(Request $request)
+    // Поля для валидации
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+            //'g-recaptcha-response' => 'required|recaptcha',
+        ]);
+    }
+
+
+    // Действия после успешной авторизации
+    protected function authenticated(Request $request, $user)
+    {
+        // Записать ip пользователя в БД
+        $email = $user->email;
+        $ip = $request->ip();
+
+        // Записать ip пользователя в БД
+        User::saveIpStatic($email, $ip);
+        //$user->saveIp();
+
+        // Если пользователь админ или редактор запишем в логи об авторизации
+        if (isset($user->role_id) && in_array($user->role_id, User::roleIdAdmin())) {
+            Log::info('Authorization of user with access Admin. ' . Main::dataUser());
+        }
+    }
+
+
+    /*public function logout(Request $request)
     {
         $this->guard()->logout();
         $request->session()->invalidate();
@@ -87,14 +105,6 @@ class LoginController extends AppController
     }
 
 
-    /**
-     * Handle a login request to the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -174,5 +184,5 @@ class LoginController extends AppController
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
         ]);
-    }
+    }*/
 }

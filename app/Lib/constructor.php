@@ -79,7 +79,7 @@ S;
  * $class - передайте свой класс, необязательный параметр.
  * $attrs - передайте необходимые параметры строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
  */
-function input($name, $idForm = false, $required = true, $type = null, $value = null, $label = false, $placeholder = false, $class = false, $attrs = false)
+function input($name, $idForm = false, $required = true, $type = false, $value = false, $label = false, $placeholder = false, $class = false, $attrs = false)
 {
     $lang = lang();
     $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
@@ -88,10 +88,10 @@ function input($name, $idForm = false, $required = true, $type = null, $value = 
     $required = $required ? 'required' : null;
     $type = $type ? $type : 'text';
     $star = $required ? '<sup>*</sup>' : null;
-    $value = $value ?? old($name) ?? null;
+    $value = $value ?: old($name);
 
-    $placeholderStar = $label && $required ? '*' : null;
-    $placeholderLabel = !$label && $required ? '...' : null;
+    $placeholderStar = !$label && $required ? '*' : null;
+    $placeholderLabel = !$label && !$required || $label ? '...' : null;
     $placeholder = $placeholder ?: $title . $placeholderStar . $placeholderLabel;
     $label = $label ? null : 'class="sr-only"';
 
@@ -136,10 +136,10 @@ function textarea($name, $idForm = false, $required = true, $value = false, $lab
     $id = $idForm ? "{$idForm}_{$name}" : $name;
     $required = $required ? 'required' : null;
     $star = $required ? '<sup>*</sup>' : null;
+    $value = $value ?: old($name);
 
-    $value = $value ?: old($name) ?: null;
-    $placeholderStar = $label && $required ? '*' : null;
-    $placeholderLabel = !$label && $required ? '...' : null;
+    $placeholderStar = !$label && $required ? '*' : null;
+    $placeholderLabel = !$label && !$required || $label ? '...' : null;
     $placeholder = $placeholder ?: $title . $placeholderStar . $placeholderLabel;
 
     $label = $label ? null : 'class="sr-only"';
@@ -183,7 +183,7 @@ function select($name, $options, $idForm = null, $value = null, $label = false, 
     $lang = lang();
     $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
     $id = $idForm ? "{$idForm}_{$name}" : $name;
-    $value = $value ?: old($name) ?: null;
+    $value = $value ?: old($name);
     $label = $label ? null : 'class="sr-only"';
 
     // Принимает в объекте 2 параметра, первый - value для option, второй название для option
@@ -333,7 +333,7 @@ function hidden($name, $value)
  */
 function recaptcha($class = false)
 {
-    $key = config('add.recaptcha_public_key');
+    $key = env('RECAPTCHA_PUBLIC_KEY');
     if (!$key) return false;
 
     return <<<S

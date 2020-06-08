@@ -96,7 +96,7 @@ class Form extends Model
         $recaptcha = $data['g-recaptcha-response'] ?? null;
         $postdata = http_build_query(
             [
-                'secret' => config('add.recaptcha_secret_key'),
+                'secret' => env('RECAPTCHA_SECRET_KEY'),
                 'response' => $recaptcha,
             ]
         );

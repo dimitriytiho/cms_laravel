@@ -36,13 +36,13 @@ class FormController extends AppController
                 'email' => 'required|string|email|max:190',
                 'message' => 'required', 'string',
                 'accept' => 'accepted',
-                //'g-recaptcha-response' => 'required',
+                //'g-recaptcha-response' => 'required|recaptcha',
             ];
-
             $this->validate($request, $rules);
 
+            //unset($data['g-recaptcha-response']);
+
             /*if (Form::googleReCaptcha($data)) {
-                unset($data['g-recaptcha-response']);
 
                 // code form...
             }*/

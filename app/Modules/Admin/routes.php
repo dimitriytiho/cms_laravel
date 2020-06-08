@@ -61,11 +61,15 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
     Route::resource('form', 'FormController')->only(['index', 'show', 'destroy']);
     Route::resource('page', 'PageController')->except(['show']);
     Route::resource('user', 'UserController')->except(['show']);
-    Route::resource('user-banned-ip', 'BannedIpController')->only(['index', 'show', 'destroy']);
     Route::resource('menu-name', 'MenuNameController')->except(['show']);
     Route::resource('menu', 'MenuController')->except(['show']);
     Route::resource('setting', 'SettingController')->except(['show']);
     Route::resource('translate', 'TranslateController')->except(['show']);
+
+    // Если выключена авторизация на сайте
+    if (!config('add.auth')) {
+        Route::resource('user-banned-ip', 'BannedIpController')->only(['index', 'show', 'destroy']);
+    }
 
 
     // Website add controllers

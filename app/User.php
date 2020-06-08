@@ -136,8 +136,11 @@ class User extends Authenticatable
     // Возвращает объект пользователя. Принимает email пользователя.
     public static function getUserStatic($email)
     {
-        $self = new self();
-        return $self->model::where('email', $email)->first();
+        if ($email) {
+            $self = new self();
+            return $self->model::where('email', $email)->first();
+        }
+        return false;
     }
 
 
@@ -148,10 +151,14 @@ class User extends Authenticatable
      */
     public static function saveIpStatic($user_id_or_email, $ip)
     {
-        $column = is_int($user_id_or_email) ? 'id' : 'email';
-        DB::table('users')
-            ->where($column, $user_id_or_email)
-            ->update(['ip' => $ip]);
+        if ($user_id_or_email && $ip) {
+            $column = is_int($user_id_or_email) ? 'id' : 'email';
+            $user = DB::table('users')->where($column, $user_id_or_email);
+            if ($user->update(['ip' => $ip])) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

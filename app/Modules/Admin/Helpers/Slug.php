@@ -68,7 +68,7 @@ class Slug
      * $cyrillicToLatin - перевести из кириллицы в латиницу, по-умолчанию true, необязательный параметр.
      * $length - возвращаемая длина, по-умолчанию 72 символов, необязательный параметр.
      */
-    public static function uniqueItem($slug, $add = null, $table = null, $cyrillicToLatin = true, $length = 72)
+    public static function uniqueItem($slug, $add = null, $table = null, $cyrillicToLatin = true, $length = 78)
     {
         if (!$add && Schema::hasTable($table)) {
 
@@ -88,7 +88,7 @@ class Slug
      * $str - строка.
      * $length - возвращаемая длина, по-умолчанию 72 символов, необязательный параметр.
      */
-    public static function cyrillicToLatin($str, $length = 72)
+    public static function cyrillicToLatin($str, $length = 78)
     {
         return Str::limit(Str::slug($str), $length, '');
         /*if ($str && is_string($str)) {
