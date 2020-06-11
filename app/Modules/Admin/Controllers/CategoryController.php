@@ -90,7 +90,7 @@ class CategoryController extends AppController
             ];
             $this->validate($request, $rules);
             $data = $request->all();
-            $data['slug'] = Slug::checkRecursion($this->table, $data['slug']);
+            //$data['slug'] = Slug::checkRecursion($this->table, $data['slug']);
 
             $values = new Category();
             $values->fill($data);
@@ -179,7 +179,7 @@ class CategoryController extends AppController
             $values = $this->model::find((int)$id);
 
             // Уникальный slug
-            $data['slug'] = Slug::checkRecursion($this->table, $data['slug'], null, $values->id);
+            //$data['slug'] = Slug::checkRecursion($this->table, $data['slug'], null, $values->id);
 
             // Если нет сортировки, то по-умолчанию 500
             $data['sort'] = empty($data['sort']) ? 500 : $data['sort'];

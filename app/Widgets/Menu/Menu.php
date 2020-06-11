@@ -13,7 +13,7 @@ class Menu
 
         // Общие
         'tpl' => 'default', // Передать название шаблона из папки tpl, без .php
-        'submenu' => null, // Передать $page->id
+        'submenu' => null, // Передать id, например $page->id
         'cache' => true, // Если не нужно кэшировать, то передать false
         'cacheName' => '', // При кэшировании передать название кэша или оно возьмётся из название tpl
         'data' => null, // Можно передать готовые данные SQL запроса для обработки
@@ -65,8 +65,8 @@ class Menu
             isset($params[$propName]) ? $data[$propName] = $params[$propName] : $data[$propName] = $value;
         }
 
-        // Если не передаётся cacheName, то будет имя шаблона меню tpl
-        $data['cacheName'] = $data['cacheName'] ?: "{$name}_{$data['tpl']}";
+        // Если не передаётся cacheName, то будет имя класса, имя таблицы, имя шаблона меню tpl
+        $data['cacheName'] = $data['cacheName'] ?: "{$name}_{$data['table']}_{$data['tpl']}";
 
         // Назначим шаблон html
         $data['tpl'] = is_file(__DIR__ . "/tpl/{$data['tpl']}.php") ? __DIR__ . "/tpl/{$data['tpl']}.php" : __DIR__ . '/tpl/default.php';
@@ -142,11 +142,11 @@ class Menu
         $params = self::$options;
         $tree = [];
 
-        if ($params['submenu']) {
-            $tree = $tree[$params['submenu']]->childs;
+        // Если данные не пусты
+        $check = is_object($data) && $data->isNotEmpty() || is_array($data) && array_filter($data);
+        if ($check) {
 
-        } else {
-
+            // Строим дерево
             foreach ($data as $key => &$node) {
                 $parent_id = $node->parent_id ?? 0;
                 $id = $node->id;
@@ -160,6 +160,20 @@ class Menu
                 }
             }
         }
+
+        // Если нужно получить часть меню
+        $subId = (int)$params['submenu'];
+        if ($subId) {
+            
+            // Если есть вложенные элементы вернём их
+            return $tree[$subId]->childs ?? [];
+
+        } else {
+
+            // Возвращаем дерево
+            return $tree;
+        }
+
         return $tree;
     }
 

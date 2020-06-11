@@ -2,6 +2,7 @@
 
 if (config('add.shop')) {
 
+    // Route::namespace()->prefix(LaravelLocalization::setLocale()) // Для многоязычной версии сайта, добавить перед ->group(
     Route::namespace('\App\\Modules\\Shop\\Controllers')->group(function () {
         Route::get('cart/{product_id}/destroy', 'CartController@destroy')->name('cart_destroy');
         Route::get('cart/{product_id}/minus', 'CartController@minus')->name('cart_minus');

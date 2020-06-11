@@ -1,5 +1,6 @@
 <?php
 
+// Route::namespace()->prefix(LaravelLocalization::setLocale()) // Для многоязычной версии сайта, добавить перед ->group(
 Route::namespace('\App\\Modules\\Page\\Controllers')->group(function () {
 
     Route::get('/', 'PageController@index')->name('index');

@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
         asideWidthSave = _cookie__WEBPACK_IMPORTED_MODULE_0__["default"].getCookie('asideWidth'),
         //asideWidthSave = localStorage.getItem('asideWidth'),
     asideText = document.querySelectorAll('.aside-text'),
+        asideIconSelector = document.querySelector('.aside-width'),
         url = location.href,
         closeMenu = true; // cookie.setCookie('asideWidth', main.asideWidthIcon)
     // cookie.getCookie('asideWidth')
@@ -128,13 +129,21 @@ document.addEventListener('DOMContentLoaded', function () {
     if (asideWidthSave) {
       asideWidthChange.forEach(function (el) {
         el.style.width = asideWidthSave;
-      });
+      }); // Если ширина для текста
 
       if (asideWidthSave === main.asideWidthText) {
         asideText.forEach(function (el) {
           el.style.display = 'inline';
         });
-        asideWidth = false;
+
+        if (asideIconSelector) {
+          asideIconSelector.classList.add('open');
+        } // Если ширина для иконок
+
+      } else if (asideWidthSave === main.asideWidthIcon) {
+        if (asideIconSelector) {
+          asideIconSelector.classList.remove('open');
+        }
       }
 
       if (asideMarginChange) {
@@ -146,6 +155,10 @@ document.addEventListener('DOMContentLoaded', function () {
       asideWidthChange.forEach(function (el) {
         el.style.width = main.asideWidthText;
       });
+
+      if (asideIconSelector) {
+        asideIconSelector.classList.add('open');
+      }
     } // При клике на на .aside-width меняется ширина сайдбара
 
 
@@ -153,10 +166,9 @@ document.addEventListener('DOMContentLoaded', function () {
       if (document.body.clientWidth > 768) {
         // Для десктопов
         if (e.target.classList.contains('aside-width')) {
-          e.preventDefault();
-          asideWidth = !asideWidth;
-
-          if (asideWidth) {
+          // Если есть класс .open
+          if (e.target.classList.contains('open')) {
+            e.target.classList.remove('open');
             asideWidthChange.forEach(function (el) {
               el.style.width = main.asideWidthIcon;
             });
@@ -171,7 +183,9 @@ document.addEventListener('DOMContentLoaded', function () {
               el.style.display = 'none';
             });
             _cookie__WEBPACK_IMPORTED_MODULE_0__["default"].setCookie('asideWidth', main.asideWidthIcon); //localStorage.setItem('asideWidth', main.asideWidthIcon)
+            // Если нет класса .open
           } else {
+            e.target.classList.add('open');
             asideWidthChange.forEach(function (el) {
               el.style.width = main.asideWidthText;
             });

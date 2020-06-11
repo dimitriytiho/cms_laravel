@@ -102,5 +102,6 @@ return [
     'no_users_now' => 'Сейчас на сайте нет пользователей.',
     'now_on_the_site' => 'сейчас на сайте',
     'successfully_changed' => 'Успешно изменено.',
+    'change_personal_info' => 'Изменить личные данные',
 
 ];

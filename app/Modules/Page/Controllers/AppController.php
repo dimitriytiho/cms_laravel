@@ -6,6 +6,7 @@ use App\Main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
 
 class AppController extends \App\Modules\AppController
 {
@@ -20,6 +21,9 @@ class AppController extends \App\Modules\AppController
     {
         parent::__construct();
 
+        $route = null; // Задайте название маршрута, если он называется не как модуль
+        $route = $this->route = Route::has(Str::snake($this->module)) ? Str::snake($this->module) : 'page';
+
         $module = $this->module;
         $namespace = config('modules.namespace');
         $modulesPath = config('modules.path');
@@ -33,7 +37,6 @@ class AppController extends \App\Modules\AppController
 
         $model = $this->model = "{$this->namespace}\\Models\\{$module}";
         $table = $this->table = with(new $model)->getTable();
-        $route = $this->route = $request->segment(1);
         $viewPathModule = $this->viewPathModule  = "{$module}.views";
 
         View::share(compact('module', 'm', 'table', 'model', 'route', 'viewPathModule'));

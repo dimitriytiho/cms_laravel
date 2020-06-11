@@ -1,5 +1,6 @@
 <?php
 
+// Route::namespace()->prefix(LaravelLocalization::setLocale()) // Для многоязычной версии сайта, добавить перед ->group(
 Route::namespace('\FullNamespace')->group(function () {
 
     Route::get('ModuleLowerName', 'ModuleNameController@index')->name('ModuleLowerName_index');

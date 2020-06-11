@@ -191,7 +191,34 @@ class User extends Authenticatable
                 }
             }
         }
-        return false;
+        return [];
+    }
+
+
+    // Возвращает массив id всех, у кого доступ к админке
+    public static function adminEditorAllId()
+    {
+        $self = new self();
+        $adminEditor = self::roleIdAdmin();
+        $cacheName = __FUNCTION__;
+
+        // Взязь из кэша
+        if (cache()->has($cacheName)) {
+            return cache()->get($cacheName);
+
+        } else {
+
+            // Запрос в БД
+            $ids = DB::table($self->table)->whereIn('role_id', $adminEditor)->pluck('id')->toArray();
+            if ($ids) {
+
+                // Кэшируется запрос
+                cache()->forever($cacheName, $ids);
+
+                return $ids;
+            }
+        }
+        return [];
     }
 
 

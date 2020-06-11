@@ -94,7 +94,7 @@ class ProductController extends AppController
             $data = $request->all();
 
             // Уникальный slug
-            $data['slug'] = Slug::checkRecursion($this->table, $data['slug']);
+            //$data['slug'] = Slug::checkRecursion($this->table, $data['slug']);
 
             // Приводим цену к float
             $data['old_price'] = is_float($data['old_price']) ? $data['old_price'] : floatval($data['old_price']);
@@ -209,7 +209,7 @@ class ProductController extends AppController
             $values = $this->model::find((int)$id);
 
             // Уникальный slug
-            $data['slug'] = Slug::checkRecursion($this->table, $data['slug'], null, $values->id);
+            //$data['slug'] = Slug::checkRecursion($this->table, $data['slug'], null, $values->id);
 
             // Приводим цену к float
             $data['old_price'] = is_float($data['old_price']) ? $data['old_price'] : floatval($data['old_price']);

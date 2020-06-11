@@ -5,7 +5,7 @@
 
 --}}
 @section('content')
-    @if (!empty($values))
+    @if ($values->isNotEmpty())
         <div class="row">
             <div class="col">
                 @include('inc.search')

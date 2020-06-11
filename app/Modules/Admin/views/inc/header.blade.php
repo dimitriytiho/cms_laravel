@@ -3,8 +3,8 @@
         <div class="col bg-primary d-flex justify-content-between shadow py-1 a-white header__left transition {{--aside-margin-change--}}" {{--style="margin-left: {{ $asideWidth }};"--}}>
             <ul class="nav">
                 <li class="nav-item d-flex align-items-center">
-                    <a href="#" class="nav-link d-flex align-items-center aside-width">
-                        <i aria-hidden="true" class="material-icons aside-width">menu</i>
+                    <a class="nav-link d-flex align-items-center">
+                        <i aria-hidden="true" class="material-icons cur aside-width">menu</i>
                     </a>
                 </li>
             </ul>

@@ -75,8 +75,9 @@ S;
      * $rows - кол-во рядов, по-умолчанию 3, необязательный параметр.
      * $id - Передайте свой id, необязательный параметр.
      * $idForm - если используется форма несколько раз на странице, то передайте id формы, чтобы у id у чекбоксова были оригинальные id.
+     * $htmlspecialchars - $value обёртываем в функцию htmlspecialchars, передайте false, если не надо.
      */
-    public static function textarea($name, $value = null, $required = true, $label = true, $placeholder = null, $class = null, $attrs = [], $rows = 3, $id = null, $idForm = null)
+    public static function textarea($name, $value = null, $required = true, $label = true, $placeholder = null, $class = null, $attrs = [], $rows = 3, $id = null, $idForm = null, $htmlspecialchars = true)
     {
         $lang = lang();
         $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
@@ -87,6 +88,7 @@ S;
         $star = $required ? '<sup>*</sup>' : null;
 
         $value = $value ?: old($name) ?: null;
+        $value = $htmlspecialchars ? e($value) : $value;
         $placeholderStar = $label && $required ? '*' : null;
         $placeholderLabel = !$label && $required ? '...' : null;
         $placeholder = $placeholder ?: $title . $placeholderStar . $placeholderLabel;

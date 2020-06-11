@@ -95,6 +95,9 @@ class RegisterController extends AppController
             $user->fill($request->all());
             if ($user->save()) {
 
+                // Удалить все кэши
+                cache()->flush();
+
                 // Авторизируем нового пользователя
                 $this->guard()->login($user);
 

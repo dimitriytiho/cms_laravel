@@ -14,7 +14,7 @@ class CreateProductGalleryTable extends Migration
     public function up()
     {
         Schema::create('product_gallery', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
             $table->string('img');

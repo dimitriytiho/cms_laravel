@@ -128,35 +128,46 @@ class Upload
     // Сформировать карту сайта
     public static function sitemap()
     {
-        $tables = config('add.list_of_information_block.tables');
-        $routes = config('add.list_of_information_block.routes');
-        $list_pages = config('add.list_pages_for_sitemap_no_db');
+        $itemsDb = config('add.list_of_information_block.tables');
+        $routesDb = config('add.list_of_information_block.routes');
+        $items = config('add.list_pages_for_sitemap_no_db.items');
+        $routes = config('add.list_pages_for_sitemap_no_db.routes');
         $active = config('add.page_statuses')[1] ?: 'active';
         $date = date('Y-m-d');
 
         $r = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
         $r .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
 
-        if ($tables) {
-            foreach ($tables as $key => $table) {
-                $route = isset($routes[$key]) ? "{$routes[$key]}/" : null;
-                $values = DB::select("select slug from `$table` where status = '$active'");
+        if ($itemsDb) {
+            foreach ($itemsDb as $key => $table) {
 
-                foreach ($values as $slug) {
-                    $r .= "\t<url>\n\t\t";
-                    $r .= '<loc>' . env('APP_URL') . "/{$route}{$slug->slug}/</loc>\n\t\t";
-                    $r .= "<lastmod>{$date}</lastmod>\n";
-                    $r .= "\t</url>\n";
+                if (Schema::hasTable($table)) {
+
+                    $route = Route::has($routesDb[$key]) ? $routesDb[$key] : null;
+                    $values = DB::table($table)->where('status', $active)->pluck('slug')->toArray();
+
+                    if ($route && $values) {
+                        foreach ($values as $slug) {
+                            $r .= "\t<url>\n\t\t";
+                            $r .= '<loc>' . route($route, $slug) . "</loc>\n\t\t";
+                            $r .= "<lastmod>{$date}</lastmod>\n";
+                            $r .= "\t</url>\n";
+                        }
+                    }
                 }
             }
         }
 
-        if ($list_pages) {
-            foreach ($list_pages as $page) {
-                $r .= "\t<url>\n\t\t";
-                $r .= '<loc>' . env('APP_URL') . "/{$page}/</loc>\n\t\t";
-                $r .= "<lastmod>{$date}</lastmod>\n";
-                $r .= "\t</url>\n";
+        if ($items) {
+            foreach ($items as $key => $page) {
+
+                $route = Route::has($routes[$key]) ? $routes[$key] : null;
+                if ($route) {
+                    $r .= "\t<url>\n\t\t";
+                    $r .= '<loc>' . route($route) . "</loc>\n\t\t";
+                    $r .= "<lastmod>{$date}</lastmod>\n";
+                    $r .= "\t</url>\n";
+                }
             }
         }
         $r .= '</urlset>';

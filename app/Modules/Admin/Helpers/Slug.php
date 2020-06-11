@@ -23,7 +23,7 @@ class Slug
     {
         $slug = $value;
         $select = $select ?: 'slug';
-        if (self::checkItem($table, $value, $current_id, $select, $addSelectKey, $addSelectValue)) {
+        if (!self::checkItem($table, $value, $current_id, $select, $addSelectKey, $addSelectValue)) {
             $slug = self::uniqueItem($value, $add, $table);
         }
 

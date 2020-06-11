@@ -128,8 +128,9 @@ S;
  * $class - передайте свой класс, необязательный параметр.
  * $attrs - передайте необходимые параметры строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
  * $rows - кол-во рядов, по-умолчанию 3, необязательный параметр.
+ * $htmlspecialchars - $value обёртываем в функцию htmlspecialchars, передайте false, если не надо.
  */
-function textarea($name, $idForm = false, $required = true, $value = false, $label = false, $placeholder = false, $class = false, $attrs = false, $rows = 3)
+function textarea($name, $idForm = false, $required = true, $value = false, $label = false, $placeholder = false, $class = false, $attrs = false, $rows = 3, $htmlspecialchars = true)
 {
     $lang = lang();
     $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
@@ -137,6 +138,7 @@ function textarea($name, $idForm = false, $required = true, $value = false, $lab
     $required = $required ? 'required' : null;
     $star = $required ? '<sup>*</sup>' : null;
     $value = $value ?: old($name);
+    $value = $htmlspecialchars ? e($value) : $value;
 
     $placeholderStar = !$label && $required ? '*' : null;
     $placeholderLabel = !$label && !$required || $label ? '...' : null;

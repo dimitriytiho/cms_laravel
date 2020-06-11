@@ -7,6 +7,16 @@ namespace App\Helpers;
 class Arr
 {
     /*
+     * Если входящие данные ассоциативный массив или объект Laravel и нужно проверить на пустоту.
+     * $arr - массив или объект.
+     */
+    public static function isNotEmpty($data)
+    {
+        return $data && is_array($data) && array_filter($data) || $data && is_object($data) && $data->isNotEmpty();
+    }
+
+
+    /*
      * Возвращает объект для JS из вложенного массива php.
      * $arr - вложенный массив.
      */

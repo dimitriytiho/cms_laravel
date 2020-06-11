@@ -2,6 +2,7 @@
 
 if (config('add.auth')) {
 
+	// Route::namespace()->prefix(LaravelLocalization::setLocale()) // Для многоязычной версии сайта, добавить перед ->group(
     Route::namespace('\App\\Modules\\Auth\\Controllers')->group(function () {
 
         Route::get('home', 'HomeController@index')->name('home');

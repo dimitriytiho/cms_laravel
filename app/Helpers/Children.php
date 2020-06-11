@@ -11,6 +11,8 @@ class Children
     /*
      * Возвращает массив из БД, где ключи это id элементов, запрос кэшируется.
      * $model - название модели в формате \App\Page.
+     *
+     * Если данные не меняются сбросьте кэш!
      */
     public static function getDataKeyId($model)
     {
@@ -69,7 +71,7 @@ class Children
 
 
     /*
-     * Возвращает родителя из дерева.
+     * Возвращает массив родителя из дерева.
      * $id = id элемента.
      * $model - название модели в формате \App\Page.
      * $column - название колонки родителя, по-умолчанию parent_id, необязательный параметр.
@@ -88,7 +90,7 @@ class Children
         if ($data && is_array($data)) {
             foreach ($data as $dataId => $value) {
                 if ($parentId === '0') {
-                    return (int)$id;
+                    return $data[(int)$id];
                 } elseif ($parentId == $dataId) {
                     return self::getFindParent($data, $dataId, (string)$value[$column], $column);
                 }
