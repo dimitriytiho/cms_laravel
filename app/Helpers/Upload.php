@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\File;
 
 class Upload
 {
-    // Запусть этот метод, чтобы обновить сайт
+    // Запусть этот метод, чтобы обновить сайт \App\Helpers\Upload::getUpload();
     public static function getUpload()
     {
         self::sitemap();
@@ -73,7 +73,7 @@ class Upload
 
         // Перезапишем файл webpack.mix.js js('resources/js/app.js', 'public/js')
         $webpackPart = "const mix = require('laravel-mix');\n\n\n";
-        $webpackPart .= "mix";
+        $webpackPart .= "mix\n";
         $modulesPathFile = config('modules.path_file');
         $modules = config('modules.modules');
 
@@ -116,7 +116,7 @@ class Upload
             }
 
             $webpackPart = rtrim($webpackPart, "\n");
-            $webpackPart .= ";\n";
+            $webpackPart .= "\n;\n";
             $webpackFile = base_path('webpack.mix.js');
             if (File::exists(($webpackFile))) {
                 File::replace($webpackFile, $webpackPart);

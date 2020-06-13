@@ -43,6 +43,17 @@ class AppController extends Controller
         View::getFinder()->setPaths($modulesPath);
 
 
+        // Конструкция для получения auth() через middleware, auth() работает внутри этой конструкции
+        /*$this->middleware(function ($request, $next) {
+
+            $lang = lang();
+            $authCheck = auth()->check();
+
+            //View::share(compact('authCheck'));
+            return $next($request);
+        });*/
+
+
         // Добавляем namespace для переводов
         $lang = $this->lang = "{$modulesNamespace}\\{$modulesLang}";
 

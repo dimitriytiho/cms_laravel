@@ -9,7 +9,7 @@ use App\Helpers\Str;
  * $height - высота иконки, необязательный параметр.
  * $class - класс, необязательный параметр.
  * $style - в тег style написать стили, необязательный параметр.
- * $attrs - дополнительные атрибуты, необязательный параметр.
+ * $attrs - передайте атрибуты строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
  */
 function icon($idIcon, $width = null, $height = null, $class = null, $style = null, $attrs = null)
 {
@@ -21,9 +21,18 @@ function icon($idIcon, $width = null, $height = null, $class = null, $style = nu
         $svg = IMG . '/svg/icon.svg';
         $path = asset("{$svg}#{$idIcon}");
 
+        $part = '';
+        if ($attrs && is_array($attrs)) {
+            foreach ($attrs as $k => $v) {
+                $part .= "{$k}='{$v}' ";
+            }
+        } else {
+            $part = $attrs;
+        }
+
         if (is_file(public_path($svg))) {
             return <<<S
-<svg $width $height $class $attrs $style aria-hidden="true">
+<svg $width $height $class $part $style aria-hidden="true">
     <use xlink:href="{$path}"></use>
 </svg>
 S;
@@ -77,7 +86,7 @@ S;
  * $label - если он нужен, то передать true, необязательный параметр.
  * $placeholder - если нужен другой текст, то передать его, необязательный параметр.
  * $class - передайте свой класс, необязательный параметр.
- * $attrs - передайте необходимые параметры строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
+ * $attrs - передайте атрибуты строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
  */
 function input($name, $idForm = false, $required = true, $type = false, $value = false, $label = false, $placeholder = false, $class = false, $attrs = false)
 {
@@ -126,7 +135,7 @@ S;
  * $label - если он нужен, то передать true, необязательный параметр.
  * $placeholder - если нужен другой текст, то передать его, необязательный параметр.
  * $class - передайте свой класс, необязательный параметр.
- * $attrs - передайте необходимые параметры строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
+ * $attrs - передайте атрибуты строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
  * $rows - кол-во рядов, по-умолчанию 3, необязательный параметр.
  * $htmlspecialchars - $value обёртываем в функцию htmlspecialchars, передайте false, если не надо.
  */
@@ -176,11 +185,12 @@ S;
  * $value - передать значение, необязательный параметр.
  * $label - если он нужен, то передать true, необязательный параметр.
  * $class - передайте свой класс, необязательный параметр.
- * $attrs - передайте необходимые параметры строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
+ * $attrs - передайте атрибуты строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
  * $disabledValue - передать значения, для которого установить атрибут disabled.
  * $option_id_value - передайте true, если передаёте массив $options, в котором ключи это id для вывода как значения для option, необязательный параметр.
+ * $langFile - название файла из /app/Modules/lang/en/t.php (этот файл по-умолчанию), необязательный параметр.
  */
-function select($name, $options, $idForm = null, $value = null, $label = false, $class = null, $attrs = false, $disabledValue = null, $option_id_value = null)
+function select($name, $options, $idForm = null, $value = null, $label = false, $class = null, $attrs = false, $disabledValue = null, $option_id_value = null, $langFile = 't')
 {
     $lang = lang();
     $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
@@ -190,30 +200,14 @@ function select($name, $options, $idForm = null, $value = null, $label = false, 
 
     // Принимает в объекте 2 параметра, первый - value для option, второй название для option
     $opts = '';
-    if (is_object($options)) {
-        foreach ($options as $v) {
-            $i = 0;
-            foreach ($v as $vv) {
-                if (!$i) {
-                    $selected = $value == $vv ? ' selected' : null;
-                    $opts .= "<option value='{$vv}' {$selected}>";
-
-                } else {
-
-                    $t = Lang::has("{$lang}::t.{$vv}")  ? __("{$lang}::t.{$vv}") : $vv;
-                    $opts .= "{$t}</option>\n";
-                }
-                $i++;
-            }
-        }
-
-    } elseif (is_array($options)) {
+    if (is_array($options)) {
         foreach ($options as $k => $v) {
+            $v = $option_id_value ? $k : $v;
             $selected = $value === $v ? ' selected' : null;
             $disabled = $disabledValue && $k == $disabledValue ? ' disabled' : null;
-            $t = Lang::has("{$lang}::t.{$v}") ? __("{$lang}::t.{$v}") : $v;
-            $v = $option_id_value ? $k : $v;
+            $t = Lang::has("{$lang}::{$langFile}.{$v}") ? __("{$lang}::{$langFile}.{$v}") : $v;
             $opts .= "<option value='{$v}' {$selected}{$disabled}>{$t}</option>\n";
+
         }
     } else {
         $opts = $options;

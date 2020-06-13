@@ -4,6 +4,7 @@
 Route::namespace('\App\\Modules\\Page\\Controllers')->group(function () {
 
     Route::get('/', 'PageController@index')->name('index');
+    Route::post('set-cookie', 'PostController@setCookie')->name('set_cookie');
 
     if (config('add.search')) {
         Route::get('search', 'SearchController@index')->name('search');

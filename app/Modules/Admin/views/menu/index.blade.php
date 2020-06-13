@@ -12,7 +12,7 @@
             </div>
         </div>
     @endif
-    @if ($values->isNotEmpty())
+    @if ($values && $values->isNotEmpty())
         <div class="row">
             <div class="col">
                 @include('inc.search')

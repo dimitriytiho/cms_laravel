@@ -40,6 +40,7 @@ class CategoryController extends AppController
         // Поиск. Массив гет ключей для поиска
         $queryArr = [
             'id',
+            'parent_id',
             'title',
             'slug',
             'status',

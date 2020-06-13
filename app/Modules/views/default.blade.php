@@ -94,6 +94,8 @@
         site_email = '{{ Main::site('email') ?: ' ' }}',
         main_color = '{{ config('add.scss')['primary'] ?? '#ccc' }}',
         height = '{{ config('add.height') ?? 600 }}',
+        cookieTime = '{{ config('admin.cookie') ?: 5184000 }}',
+        cookieUrl = '{{ route('set_cookie') }}',
         spinner = $('#spinner')
 
     if (_token) {

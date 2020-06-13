@@ -1,5 +1,37 @@
 
+import message from './message';
+
+
 export default {
+
+    /*
+    * Записать куку через Action php, после записи куки будет перезагрузка старницы.
+    * name - имя cookie.
+    * value - значение cookie.
+    * reloading - после записи куки будет перезагрузка старницы, если это не нужно, то передайте false.
+    */
+    setCookiePhp: function (name, value, reloading = true) {
+        if (_token && cookieUrl && name && value) {
+
+            $.ajax({
+                type: 'POST',
+                url: cookieUrl,
+                data: {_token, name, value},
+                success: function(res) {
+                    if (reloading && res == 1) {
+
+                        // Перезагрузка страницы
+                        document.location.href = document.location.href
+                    }
+                },
+                error: function() {
+                    message.error(translations['something_went_wrong'])
+                }
+            })
+        }
+        return false
+    },
+
 
     // Возвращает куки с указанным name, или false, если ничего не найдено.
     getCookie: function (name) {
@@ -19,7 +51,7 @@ export default {
     setCookie: function (name, value, options = {}) {
         let isCookie = navigator.cookieEnabled,
             date = new Date(),
-            dateCookie = new Date(date.getTime() + main.cookie)
+            dateCookie = new Date(date.getTime() + cookieTime)
 
         if (isCookie) {
             options = {
