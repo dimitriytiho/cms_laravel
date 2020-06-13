@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // id модального окна
-    const modalID = 'cart_modal'
+    const modalId = 'cart_modal'
 
     // Проверяем подключен ли jQuery
     if (window.jQuery) {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     type: 'GET',
                     url: '/cart/show',
                     success: function (res) {
-                        showCart(res, modalID)
+                        showCart(res, modalId)
                     },
                     error: function () {
                         alert(translations['something_went_wrong'])
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 alert(translations['something_went_wrong'])
                             }
 
-                            showCart(res, modalID)
+                            showCart(res, modalId)
                         },
                         error: function () {
                             alert(translations['something_went_wrong'])
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 alert(translations['something_went_wrong'])
                             }
 
-                            showCart(res, modalID)
+                            showCart(res, modalId)
                         },
                         error: function () {
                             alert(translations['something_went_wrong'])
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 alert(translations['something_went_wrong'])
                             }
 
-                            showCart(res, modalID)
+                            showCart(res, modalId)
                         },
                         error: function () {
                             alert(translations['something_went_wrong'])
@@ -122,13 +122,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
         // Функция показа корзины, принимает содержимое корзины, в ответе на ajax
-        function showCart(cart, modalID) {
-            const modal = document.getElementById(modalID),
+        function showCart(cart, modalId) {
+            const modal = document.getElementById(modalId),
                 modalInstance = new Bootstrap.Modal(modal)
 
 
             // Вставим в модальное окно содержимое корзины
-            $('#' + modalID + ' .modal-body').html(cart)
+            $('#' + modalId + ' .modal-body').html(cart)
 
             // Открыть модальное окно
             modalInstance.show()

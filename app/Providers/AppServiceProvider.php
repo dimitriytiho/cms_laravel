@@ -21,10 +21,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // ЗДЕСЬ ПИСАТЬ КОД, КОТОРЫЙ ЗАПУСКАЕТСЯ ПЕРЕД ЗАГРУЗКОЙ ПРИЛОЖЕНИЙ
-
-        // Костанты
-        define('MENU', app_path('Widgets/Menu/tpl'));
-        define('IMG', env('IMG', 'img'));
     }
 
     /**

@@ -54,11 +54,11 @@
         </table>
     </div>
     @if (!isset($noBtnModal))
-        {!! modalFooter() !!}
+        {!! modalEnd() !!}
     @endif
 @else
     <h4 class="font-weight-light my-3">@lang("{$lang}::sh.cart_empty")</h4>
     @if (!isset($noBtnModal))
-        {!! modalFooter(false) !!}
+        {!! modalEnd(false) !!}
     @endif
 @endif

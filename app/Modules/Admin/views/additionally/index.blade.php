@@ -45,7 +45,7 @@
         </div>
         <div class="col d-flex justify-content-between align-items-center my-2">
             <div class="form-group w-100 mb-0 mr-md-3">
-                <label for="full-command" class="sr-only">{{ __("{$lang}::a.full_team") }}</label>
+                <label for="full-command" class="sr-only">{{ __("{$lang}::a.command") }}</label>
                 <input type="text" class="form-control" id="full-command" placeholder="{{ __("{$lang}::a.command") }}" value="php artisan">
             </div>
 

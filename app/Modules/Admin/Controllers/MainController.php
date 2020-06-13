@@ -63,7 +63,7 @@ class MainController extends AppController
             }
         }
 
-        $this->setMeta(__("{$this->lang}::a.{$this->currentRoute['title']}"));
+        $this->setMeta(__("{$this->lang}::a.Dashboard"));
         return view("{$this->view}.{$f}", compact('count_forms', 'count_pages', 'count_users', 'key', 'count_orders'));
     }
 

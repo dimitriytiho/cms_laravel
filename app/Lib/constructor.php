@@ -18,7 +18,7 @@ function icon($idIcon, $width = null, $height = null, $class = null, $style = nu
         $height = $height ? "height=\"{$height}\"" : null;
         $class = $class ? "class=\"{$class}\"" : null;
         $style = $style ? "style=\"{$style}\"" : null;
-        $svg = IMG . '/svg/icon.svg';
+        $svg = env('IMG', 'img') . '/svg/icon.svg';
         $path = asset("{$svg}#{$idIcon}");
 
         $part = '';

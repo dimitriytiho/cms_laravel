@@ -95,15 +95,15 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   // id модального окна
-  var modalID = 'cart_modal'; // Проверяем подключен ли jQuery
+  var modalId = 'cart_modal'; // Проверяем подключен ли jQuery
 
   if (window.jQuery) {
     // Функция показа корзины, принимает содержимое корзины, в ответе на ajax
-    var showCart = function showCart(cart, modalID) {
-      var modal = document.getElementById(modalID),
+    var showCart = function showCart(cart, modalId) {
+      var modal = document.getElementById(modalId),
           modalInstance = new Bootstrap.Modal(modal); // Вставим в модальное окно содержимое корзины
 
-      $('#' + modalID + ' .modal-body').html(cart); // Открыть модальное окно
+      $('#' + modalId + ' .modal-body').html(cart); // Открыть модальное окно
 
       modalInstance.show();
       var cartQty = $('#cart_modal_qty').text(),
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
           type: 'GET',
           url: '/cart/show',
           success: function success(res) {
-            showCart(res, modalID);
+            showCart(res, modalId);
           },
           error: function error() {
             alert(translations['something_went_wrong']);
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert(translations['something_went_wrong']);
               }
 
-              showCart(res, modalID);
+              showCart(res, modalId);
             },
             error: function error() {
               alert(translations['something_went_wrong']);
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert(translations['something_went_wrong']);
               }
 
-              showCart(res, modalID);
+              showCart(res, modalId);
             },
             error: function error() {
               alert(translations['something_went_wrong']);
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert(translations['something_went_wrong']);
               }
 
-              showCart(res, modalID);
+              showCart(res, modalId);
             },
             error: function error() {
               alert(translations['something_went_wrong']);

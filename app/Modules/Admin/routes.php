@@ -26,7 +26,7 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
     //Route::post('/menu/index', 'Admin\MenuController@index')->name('menu.index.post');
 
     // Routes import export
-    Route::get('import-export', 'importExportController@view')->name('import_export');
+    Route::get('import-export', 'ImportExportController@view')->name('import_export');
     // Route export User
     Route::get('export-user', 'importExportController@exportUser')->name('export_user');
 

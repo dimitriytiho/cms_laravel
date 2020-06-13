@@ -14,7 +14,9 @@ class AdditionallyController extends AppController
     {
         parent::__construct($request);
 
-        $this->class = str_replace('Controller', '', class_basename(__CLASS__));
+        $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
+        $c = $this->c = Str::lower($this->class);
+        View::share(compact('class','c'));
     }
 
 
