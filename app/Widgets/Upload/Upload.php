@@ -119,29 +119,35 @@ class Upload
         $files = $all ? $this->allFiles : $this->recommend;
         if ($files) {
 
+            // Добавляем в исключения папку с этим виджетом
+            array_push($this->exclude, 'app/Widgets/Upload');
+
             // Удалим из массива файлы исключения
-            if ($this->exclude) {
-                foreach ($this->exclude as $item) {
-                    $path = base_path($item);
+            foreach ($this->exclude as $item) {
+                $path = base_path($item);
 
-                    // Если файл
-                    if (File::isFile($path)) {
-                        $files = helpersArr::unsetValue($item, $files);
+                // Если файл
+                if (File::isFile($path)) {
+                    $files = helpersArr::unsetValue($item, $files);
 
-                    // Если папка
-                    } elseif (File::isDirectory($path)) {
+                // Если папка
+                } elseif (File::isDirectory($path)) {
 
-                        $directories = File::allFiles($path);
-                        if ($directories) {
-                            foreach ($directories as $file) {
-                                $path = str_replace(base_path() . '/', '', $file->getRealPath());
-                                $files = helpersArr::unsetValue($path, $files);
-                            }
+                    $directories = File::allFiles($path);
+                    if ($directories) {
+                        foreach ($directories as $file) {
+                            $path = str_replace(base_path() . '/', '', $file->getRealPath());
+                            $files = helpersArr::unsetValue($path, $files);
                         }
                     }
+                    
+                } else {
+
+                    $files = helpersArr::unsetValue($item, $files);
                 }
             }
 
+            //dump($files);
             if ($files) {
                 foreach ($files as $file) {
                     $path = base_path($file);

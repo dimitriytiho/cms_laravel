@@ -6,6 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Helpers\Upload;
 use App\Widgets\Upload\Upload as widgetsUpload;
+use Illuminate\Support\Facades\File;
 
 class Kernel extends ConsoleKernel
 {
@@ -59,6 +60,7 @@ class Kernel extends ConsoleKernel
         //$schedule->command('backup:run')->monthlyOn(1, '04:01');
 
         // Обновление файлов CMS
+        // Внимание, замолните файл исключений app/Widgets/Upload/excludeFiles.php
         /*$schedule->call(function () {
             widgetsUpload::allFilesToArr();
             widgetsUpload::init();
