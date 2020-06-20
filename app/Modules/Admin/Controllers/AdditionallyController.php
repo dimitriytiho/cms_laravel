@@ -41,14 +41,12 @@ class AdditionallyController extends AppController
 
                 case 'routes':
                     $res1 = Commands::getCommand('route:clear');
-                    $res2 = Commands::getCommand('route:cache');
-                    $res1 && $res2 ? session()->put('success', "{$res1}\n{$res2}") : session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                    $res1 ? session()->put('success', $res1) : session()->put('error', __("{$this->lang}::s.something_went_wrong"));
                     return redirect()->route("admin.{$t}");
 
                 case 'config':
                     $res1 = Commands::getCommand('config:clear');
-                    $res2 = Commands::getCommand('optimize');
-                    $res1 && $res2 ? session()->put('success', "{$res1}\n{$res2}") : session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                    $res1 ? session()->put('success', $res1) : session()->put('error', __("{$this->lang}::s.something_went_wrong"));
                     return redirect()->route("admin.{$t}");
             }
         }

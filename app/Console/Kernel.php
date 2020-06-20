@@ -50,7 +50,7 @@ class Kernel extends ConsoleKernel
         })->hourlyAt(1);*/
 
 
-        // Обновление веб-сайта
+        // Обновление веб-сайта (в первый день месяца)
         $schedule->call(function () {
             Upload::getUpload();
         })->monthlyOn(1, '02:01');

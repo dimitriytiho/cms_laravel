@@ -13,12 +13,12 @@
         <div class="col-md-6">
             {!! $constructor::adminBlockLink(__("{$lang}::a.view_caches"), __("{$lang}::s.remove"), route('admin.additionally', 'cache=views'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
         </div>
-        {{--<div class="col-md-6">
+        <div class="col-md-6">
             {!! $constructor::adminBlockLink(__("{$lang}::a.route_caches"), __("{$lang}::s.remove"), route('admin.additionally', 'cache=routes'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
         </div>
         <div class="col-md-6">
             {!! $constructor::adminBlockLink(__("{$lang}::a.config_caches"), __("{$lang}::s.remove"), route('admin.additionally', 'cache=config'), 'confirm-link', 'data-toggle="modal" data-target="#modal-confirm"') !!}
-        </div>--}}
+        </div>
     </div>
 
     {!! $constructor::adminH2(__("{$lang}::a.Backup"), 'mt-5') !!}
