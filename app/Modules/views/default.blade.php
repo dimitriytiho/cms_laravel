@@ -7,14 +7,21 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
+    {{--
+
+    Если не нужно индексировать сайт, то true, если нужно, то false --}}
+    @if (!config('add.not_index_website'))
+        <meta name="robots" content="index, follow" />
+    @endif
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset(config('add.img') . '/logo/touch-icon-iphone.png') }}">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset(config('add.img') . '/logo/touch-icon-ipad.png') }}">
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset(config('add.img') . '/logo/touch-icon-iphone-retina.png') }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset(config('add.img') . '/logo/touch-icon-ipad-retina.png') }}">
+    <link rel="cononical" href="{{ $cononical }}">
     {{-- <link href="//fonts.googleapis.com/css?family=Roboto:300,400,700&amp;subset=cyrillic" rel="stylesheet"> --}}
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     {!! $getMeta !!}
     {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> --}}
     @include("{$viewPath}.inc.warning")
@@ -73,7 +80,7 @@
     </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-@if (env('RECAPTCHA_SECRET_KEY'))
+@if (config('add.recaptcha_secret_key'))
     <script src="//www.google.com/recaptcha/api.js"></script>
 @endif
 {{--

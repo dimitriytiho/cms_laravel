@@ -16,7 +16,6 @@
                             <th scope="col" class="font-weight-light">@lang("{$lang}::a.action")</th>
                             <th scope="col" class="font-weight-light">ID</th>
                             <th scope="col" class="font-weight-light">@lang("{$lang}::f.title")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.sort")</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -29,7 +28,6 @@
                                 </th>
                                 <td class="font-weight-light">{{ $v->id }}</td>
                                 <td>{{ $v->title }}</td>
-                                <td class="font-weight-light">{{ $v->sort }}</td>
                             </tr>
                         @endforeach
                         </tbody>

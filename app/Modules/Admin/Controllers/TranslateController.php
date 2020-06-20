@@ -222,7 +222,10 @@ class TranslateController extends AppController
 
                     if (File::exists(($file))) {
                         $translation = include $file;
-                        $values[$locale] = $translation[$id];
+                        
+                        if (isset($translation[$id])) {
+                            $values[$locale] = $translation[$id];
+                        }
                     }
                 }
             }

@@ -1,7 +1,7 @@
 <div class="row pt-4 pb-2 pl-2 top-panel">
     <div class="col pt-1 d-flex justify-content-between align-items-center flex-wrap">
         <div class="btn-group" role="group" aria-label="nav">
-            <a href="{{ route('admin.main') }}" class="btn btn-outline-primary d-flex align-items-center @if (Request::path() === env('APP_ADMIN')) disabled @endif btn-pulse">@lang("{$lang}::a.Dashboard")</a>
+            <a href="{{ route('admin.main') }}" class="btn btn-outline-primary d-flex align-items-center @if (Request::path() === config('add.admin')) disabled @endif btn-pulse">@lang("{$lang}::a.Dashboard")</a>
             @if (!empty($currentRoute['single']))
                 <a href="{{ $currentRoute['slug'] }}" class="btn btn-outline-primary btn-pulse disabled">@lang("{$lang}::a.{$currentRoute['title']}")</a>
             @endif

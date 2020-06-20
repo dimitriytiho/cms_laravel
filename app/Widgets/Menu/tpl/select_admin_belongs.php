@@ -19,6 +19,6 @@ if (!empty($item)):
     <?php
 
     if (isset($item->childs)):
-        echo self::getMenuHtml($item->childs, "{$tab}-");
+        echo $this->getMenuHtml($item->childs, "{$tab}-");
     endif;
 endif;

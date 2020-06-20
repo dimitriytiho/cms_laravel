@@ -77,7 +77,7 @@
                         </div>
                         @if (isset($values->id))
                             <div class="col-md-6">
-                                {!! $constructor::input('class', $values->class ?? null, null) !!}
+                                {!! $constructor::select('status', config('add.page_statuses'), $values->status ?? null) !!}
                             </div>
                             <div class="col-md-6">
                                 {!! $constructor::input('sort', $values->sort ?? null, null) !!}

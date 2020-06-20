@@ -19,7 +19,7 @@ class ChangeUsersTable extends Migration
             $table->string('tel')->nullable()->after('email');
             $table->index('tel');
             $table->string('address')->nullable()->after('tel');
-            $table->integer('role_id')->unsigned()->after('address')->default('1'); // Зарегистрированный пользователь id из /config/admin.php user_roles config('admin.user_roles')[1]
+            $table->bigInteger('role_id')->unsigned()->after('address')->default('1'); // Зарегистрированный пользователь id из /config/admin.php user_roles config('admin.user_roles')[1]
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('status', 32)->default(config('admin.user_statuses')[0])->after('password');
             $table->text('note')->nullable()->after('status');

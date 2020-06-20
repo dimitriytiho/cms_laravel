@@ -154,6 +154,13 @@ class ProductController extends AppController
             Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
             $values = $this->model::with('category')->find((int)$id);
+            if (!$values) {
+
+                // Сообщение об ошибке
+                Main::getError('Request', __METHOD__, null);
+                session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                return redirect()->route("admin.{$this->route}.index");
+            }
 
             $filterGroups = FilterGroup::all()->keyBy('id');
             $filters = DB::table('filter_values')->get();
@@ -207,48 +214,50 @@ class ProductController extends AppController
             $data = $request->all();
 
             $values = $this->model::find((int)$id);
+            if ($values) {
 
-            // Уникальный slug
-            //$data['slug'] = Slug::checkRecursion($this->table, $data['slug'], null, $values->id);
+                // Уникальный slug
+                //$data['slug'] = Slug::checkRecursion($this->table, $data['slug'], null, $values->id);
 
-            // Приводим цену к float
-            $data['old_price'] = is_float($data['old_price']) ? $data['old_price'] : floatval($data['old_price']);
-            $data['price'] = is_float($data['price']) ? $data['price'] : floatval($data['price']);
+                // Приводим цену к float
+                $data['old_price'] = is_float($data['old_price']) ? $data['old_price'] : floatval($data['old_price']);
+                $data['price'] = is_float($data['price']) ? $data['price'] : floatval($data['price']);
 
-            // Если нет картинки, то по-умолчанию
-            if (empty($data['img'])) {
-                $data['img'] = config("admin.img{$this->class}Default");
-            }
+                // Если нет картинки, то по-умолчанию
+                if (empty($data['img'])) {
+                    $data['img'] = config("admin.img{$this->class}Default");
+                }
 
-            // Если нет сортировки, то по-умолчанию 500
-            $data['sort'] = empty($data['sort']) ? 500 : $data['sort'];
+                // Если нет сортировки, то по-умолчанию 500
+                $data['sort'] = empty($data['sort']) ? 500 : $data['sort'];
 
-            // Удаляем category_id, т.к. он нужен, чтобы на JS сохранить категории для товара
-            if (isset($data['category_id'])) unset($data['category_id']);
+                // Удаляем category_id, т.к. он нужен, чтобы на JS сохранить категории для товара
+                if (isset($data['category_id'])) unset($data['category_id']);
 
-            // Удаляем filter_value, т.к. он нужен, чтобы на JS сохранить filter для товара
-            if (isset($data['filter_value'])) unset($data['filter_value']);
+                // Удаляем filter_value, т.к. он нужен, чтобы на JS сохранить filter для товара
+                if (isset($data['filter_value'])) unset($data['filter_value']);
 
-            $values->fill($data);
+                $values->fill($data);
 
-            // Если данные не изменины
-            $lastData = $this->model::find((int)$id)->toArray();
-            $current = $values->toArray();
-            if (!appHelpers::arrayDiff($lastData, $current)) {
+                // Если данные не изменины
+                $lastData = $this->model::find((int)$id)->toArray();
+                $current = $values->toArray();
+                if (!appHelpers::arrayDiff($lastData, $current)) {
 
-                // Сообщение об ошибке
-                session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
-                return redirect()->route("admin.{$this->route}.edit", $values->id);
-            }
+                    // Сообщение об ошибке
+                    session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
+                    return redirect()->route("admin.{$this->route}.edit", $values->id);
+                }
 
-            if ($values->save()) {
+                if ($values->save()) {
 
-                // Удалить все кэши
-                cache()->flush();
+                    // Удалить все кэши
+                    cache()->flush();
 
-                // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
-                return redirect()->route("admin.{$this->route}.edit", $values->id);
+                    // Сообщение об успехе
+                    session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
+                    return redirect()->route("admin.{$this->route}.edit", $values->id);
+                }
             }
         }
 

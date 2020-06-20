@@ -14,8 +14,8 @@ class CreateFilterValuesTable extends Migration
     public function up()
     {
         Schema::create('filter_values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('parent_id')->unsigned();
+            $table->id();
+            $table->bigInteger('parent_id')->unsigned();
             $table->foreign('parent_id')->references('id')->on('filter_groups');
             $table->string('value', 64);
             $table->index('value');

@@ -33,6 +33,21 @@
     display: flex;
 }
 
+// Футер прижатый книзу
+.body-block {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+// Основной раздел будет занимать все свободное место на странице
+.content-block {
+    flex: 1 0 auto;
+}
+// Футер будет занимать столько места по вертикали, сколько и должен
+.footer-block {
+    flex: 0 0 auto;
+}
+
 .header {
     height: 48px;
     &__left {

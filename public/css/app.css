@@ -10049,13 +10049,13 @@ $value - какое свойство анимировать, по-умолчан
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  background: #6c757d;
+  background: rgba(0, 0, 0, 0.5);
   transition: all 0.25s;
 }
 
 #btn-up:hover,
 #btn-up:active {
-  background: #545b62;
+  background: #000;
 }
 
 /*

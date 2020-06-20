@@ -80,7 +80,7 @@ return [
 
     // Список таблиц информационных блоков (для обновления веб-сайта и пр.), у таблиц должны быть статусы как в массиве page_statuses.
     'list_of_information_block' => [
-        
+
         // Имена таблиц в БД
         'tables' => [
             'pages',
@@ -107,5 +107,21 @@ return [
             //'order',
         ],
     ],
+
+
+    // Настройки из файла /.env, т.к. после кэширования они будут возращать null
+    'name' => env('APP_NAME', 'OmegaKontur'),
+    'url' => env('APP_URL', '/'),
+    'not_index_website' => env('NOT_INDEX_WEBSITE'), // Если не нужно индексировать сайт, то true, если нужно, то false
+
+    'dev' => env('APP_DEV', 'OmegaKontur'),
+    'admin' => env('APP_ADMIN', 'dashboard'),
+    'area_public' => env('AREA_PUBLIC', 'public'),
+    'area_admin' => env('AREA_ADMIN', 'admin'),
+    'app_email' => env('APP_EMAIL'),
+
+    'recaptcha_public_key' => env('RECAPTCHA_PUBLIC_KEY'),
+    'recaptcha_secret_key' => env('RECAPTCHA_SECRET_KEY'),
+    'smsru' => env('SMSRU'),
 
 ];

@@ -10150,6 +10150,20 @@ $value - какое свойство анимировать, по-умолчан
   display: flex;
 }
 
+.body-block {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content-block {
+  flex: 1 0 auto;
+}
+
+.footer-block {
+  flex: 0 0 auto;
+}
+
 .header {
   height: 48px;
 }

@@ -1,8 +1,8 @@
 <aside class="aside a-primary-light transition aside-width-change" style="width: {{ $asideWidth }};">
 
     <div class="d-flex align-items-center py-1 transition a-secondary aside-width-change aside__header" id="header__icon" style="width: {{ $asideWidth }};">
-        <a href="{{ route('index') }}" class="d-flex align-items-center">
-            <img src="{{ asset(config('add.img') . '/omegakontur/admin/touch-icon-iphone-retina.png') }}" class="pr-3 pl-2" alt="{{ env('APP_NAME') }}">
+        <a href="{{ route('index') }}" class="d-flex align-items-center" title="@lang("{$lang}::a.Website")">
+            <img src="{{ asset(config('add.img') . '/omegakontur/admin/touch-icon-iphone-retina.png') }}" class="pr-3 pl-2" alt="{{ config('add.name') }}">
             <span class="aside-text fadein"{!! $asideText !!}>@lang("{$lang}::a.Website")</span>
         </a>
     </div>

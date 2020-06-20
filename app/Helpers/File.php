@@ -72,9 +72,11 @@ class File
             $part .= "\n];\n";
 
             // Сохраняем данные в файл
-            SupportFile::put($filePath, $part);
+            if (SupportFile::isFile($filePath)) {
+                SupportFile::put($filePath, $part);
 
-            return true;
+                return true;
+            }
         }
         return false;
     }

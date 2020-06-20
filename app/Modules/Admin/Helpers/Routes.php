@@ -24,7 +24,7 @@ class Routes
     {
         $self = new self();
         $menu = $self->menu;
-        $slug_now = ltrim($slug, env('APP_ADMIN'));
+        $slug_now = ltrim($slug, config('add.admin', 'dashboard'));
         $slug_now = $slug_now ?: '/';
         $slug_controller = '/' . \App\Helpers\Str::strToSegment($slug, 1);
         $int = (int)class_basename($slug);

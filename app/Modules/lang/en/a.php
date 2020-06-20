@@ -138,5 +138,6 @@ return [
     'Filter_group' => 'Filter group',
     'Filter_value' => 'Filters',
     'online_users' => 'Online users',
+    'described_in_detail' => 'Described in detail in',
 
 ];

@@ -14,8 +14,8 @@ class CreateMenuTable extends Migration
     public function up()
     {
         Schema::create('menu', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('belong_id')->unsigned();
+            $table->id();
+            $table->bigInteger('belong_id')->unsigned();
             $table->foreign('belong_id')->references('id')->on('menu_name')->onDelete('cascade');
             $table->integer('parent_id')->default('0')->unsigned();
             $table->string('title', 64)->nullable();

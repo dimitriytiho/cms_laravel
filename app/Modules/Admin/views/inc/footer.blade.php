@@ -1,3 +1,11 @@
+<footer class="footer-block">
+    <div class="row">
+        <div class="col font-weight-light text-secondary text-right mt-4 py-2 px-4 footer">
+            <small class="pr-4">&copy; {{ date('Y') }} {{ config('add.dev') }} | Laravel {{ App::version() }}</small>
+        </div>
+    </div>
+</footer>
+
 <div class="position-fixed" id="btn-up">
     <div class="d-flex justify-content-center align-items-center bg-primary text-white rounded-circle cur btn-up-click">
         <i aria-hidden="true" class="material-icons btn-up-click">keyboard_arrow_up</i>

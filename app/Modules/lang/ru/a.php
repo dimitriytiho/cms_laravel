@@ -139,5 +139,6 @@ return [
     'Filter_group' => 'Группы фильтров',
     'Filter_value' => 'Фильтры',
     'online_users' => 'Пользователи онлайн',
+    'described_in_detail' => 'Подробно описано в',
 
 ];

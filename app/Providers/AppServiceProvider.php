@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Main;
+use Illuminate\Support\Facades\Validator;
 use App\Helpers\Services\Registry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Добавляем Google ReCaptcha в валидатор
         Validator::extend('recaptcha', function ($attribute, $value, $parameters, $validator) {
-            $recaptcha = new ReCaptcha(env('RECAPTCHA_SECRET_KEY'));
+            $recaptcha = new ReCaptcha(config('add.recaptcha_secret_key'));
             $resp = $recaptcha->verify($value, request()->ip());
 
             return $resp->isSuccess();
@@ -55,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
         Main::$registry = Registry::instance();
 
         // Если индексирование сайта выключено
-        if (!env('NOT_INDEX_WEBSITE')) {
+        if (config('add.not_index_website')) {
             header('X-Robots-Tag: noindex,nofollow'); // Заголовок запрещающий индексацию сайта
         }
 
@@ -112,15 +112,22 @@ class AppServiceProvider extends ServiceProvider
     // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ДЛЯ ВИДОВ
     private function views()
     {
-        $siteName = Main::site('name') ?? env('APP_NAME');
+        // Имя сайта
+        $siteName = Main::site('name') ?: config('add.name');
 
         // Если не вызван метод \App\Helpers\App\setMeta(), то по-умолчанию мета: title - название сайта, тег description - пустой
-        View::share('getMeta', "<title>{$siteName}</title>\n\t<meta name='description' content=''>\n");
+        $getMeta = "<title>{$siteName}</title>\n\t<meta name='description' content=''>\n";
 
-        View::share('isMobile', Main::get('isMobile'));
-        View::share('isTablet', Main::get('isTablet'));
+        // Кононический Url без Get параметров
+        $cononical = Main::notPublicInURL();
+
+        // Телефон или планшет
+        $isMobile = Main::get('isMobile');
+        $isTablet = Main::get('isTablet');
 
         // Название папки для картинок в public
-        View::share('img', env('IMG', 'img'));
+        $img = config('add.img', 'img');
+
+        View::share(compact('siteName', 'getMeta', 'cononical', 'isMobile', 'isTablet', 'img'));
     }
 }

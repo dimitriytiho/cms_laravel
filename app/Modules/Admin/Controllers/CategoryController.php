@@ -178,33 +178,35 @@ class CategoryController extends AppController
             $data = $request->all();
 
             $values = $this->model::find((int)$id);
+            if ($values) {
 
-            // Уникальный slug
-            //$data['slug'] = Slug::checkRecursion($this->table, $data['slug'], null, $values->id);
+                // Уникальный slug
+                //$data['slug'] = Slug::checkRecursion($this->table, $data['slug'], null, $values->id);
 
-            // Если нет сортировки, то по-умолчанию 500
-            $data['sort'] = empty($data['sort']) ? 500 : $data['sort'];
-            $values->fill($data);
+                // Если нет сортировки, то по-умолчанию 500
+                $data['sort'] = empty($data['sort']) ? 500 : $data['sort'];
+                $values->fill($data);
 
 
-            // Если данные не изменины
-            $lastData = $this->model::find((int)$id)->toArray();
-            $current = $values->toArray();
-            if (!appHelpers::arrayDiff($lastData, $current)) {
+                // Если данные не изменины
+                $lastData = $this->model::find((int)$id)->toArray();
+                $current = $values->toArray();
+                if (!appHelpers::arrayDiff($lastData, $current)) {
 
-                // Сообщение об ошибке
-                session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
-                return redirect()->route("admin.{$this->route}.edit", $values->id);
-            }
+                    // Сообщение об ошибке
+                    session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
+                    return redirect()->route("admin.{$this->route}.edit", $values->id);
+                }
 
-            if ($values->save()) {
+                if ($values->save()) {
 
-                // Удалить все кэши
-                cache()->flush();
+                    // Удалить все кэши
+                    cache()->flush();
 
-                // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
-                return redirect()->route("admin.{$this->route}.edit", $values->id);
+                    // Сообщение об успехе
+                    session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
+                    return redirect()->route("admin.{$this->route}.edit", $values->id);
+                }
             }
         }
 

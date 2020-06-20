@@ -217,27 +217,29 @@ class FilterValueController extends AppController
             $data['sort'] = empty($data['sort']) ? 500 : $data['sort'];
 
             $values = $this->model::find((int)$id);
-            $values->fill($data);
+            if ($values) {
+                $values->fill($data);
 
-            // Если данные не изменины
-            $lastData = $this->model::find((int)$id)->toArray();
-            $current = $values->toArray();
+                // Если данные не изменины
+                $lastData = $this->model::find((int)$id)->toArray();
+                $current = $values->toArray();
 
-            if (!appHelpers::arrayDiff($lastData, $current)) {
+                if (!appHelpers::arrayDiff($lastData, $current)) {
 
-                // Сообщение об ошибке
-                session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
-                return redirect()->route("admin.{$this->route}.edit", $values->id);
-            }
+                    // Сообщение об ошибке
+                    session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
+                    return redirect()->route("admin.{$this->route}.edit", $values->id);
+                }
 
-            if ($values->save()) {
+                if ($values->save()) {
 
-                // Удалить все кэши
-                cache()->flush();
+                    // Удалить все кэши
+                    cache()->flush();
 
-                // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
-                return redirect()->route("admin.{$this->route}.edit", $values->id);
+                    // Сообщение об успехе
+                    session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
+                    return redirect()->route("admin.{$this->route}.edit", $values->id);
+                }
             }
         }
 

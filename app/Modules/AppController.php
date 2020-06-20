@@ -64,6 +64,14 @@ class AppController extends Controller
 
         //cache()->flush(); // Удалить все кэши
 
+        /*$a = app_path('1.php');
+        $b = app_path('2.php');*/
+        //\Illuminate\Support\Facades\File::copy($a, $b);
+        //$path = base_path('routes');
+        //dump(\Illuminate\Support\Facades\File::isFile($path));
+
+        //\App\Widgets\Upload\Upload::init();
+
         // Строка поиска
         $searchQuery = s(request()->query('s')) ?: Main::get('search_query');
 

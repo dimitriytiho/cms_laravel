@@ -31,5 +31,5 @@
     border-radius: 50%;
     cursor: pointer;
     @include flex-center();
-    @include hover($secondary, darken($secondary, 10%), background);
+    @include hover(rgba($black, .5), $black, background);
 }

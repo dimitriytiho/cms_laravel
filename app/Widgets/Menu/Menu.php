@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 class Menu
 {
     // Настройки виджета
-    private static $options = [
+    private $options = [
 
         // Общие
         'tpl' => 'default', // Передать название шаблона из папки tpl, без .php
@@ -28,6 +28,8 @@ class Menu
         // Вывод для Html
         'container' => 'ul',
         'class' => null,
+        'classLi' => null,
+        'classLink' => null,
         'attrs' => null, // Передать строкой или массив атрибутов html, например ['id' => 'menu_mobile'], будет id="menu_mobile"
         'before' => '', // Добавить первый пункт, к примеру для select можно передать перевый option
         'after' => '', // Добавить последний пункт
@@ -39,30 +41,32 @@ class Menu
     // Входной основной метод
     public static function init($params = [])
     {
+        $self = new self();
+
         // Параметры виджета по умолчанию
-        $option = self::$options;
+        $option = $self->options;
 
         // Заполняем пользовательские данные в параметры
-        self::getParams($params);
+        $self->getParams($params);
 
         // Запускаем работу виджета
-        self::run();
+        $self->run();
 
         // Обнуляем параметры виджета
-        self::$options = $option;
+        $self->options = $option;
     }
 
 
 
 
     // Заполняем настройки
-    private static function getParams($params = [])
+    private function getParams($params = [])
     {
         $data = [];
         $name = class_basename(__CLASS__);
 
-        foreach (self::$options as $propName => $value) {
-            isset($params[$propName]) ? $data[$propName] = $params[$propName] : $data[$propName] = $value;
+        foreach ($this->options as $propName => $value) {
+            $data[$propName] = isset($params[$propName]) ? $params[$propName] : $value;
         }
 
         // Если не передаётся cacheName, то будет имя класса, имя таблицы, имя шаблона меню tpl
@@ -71,15 +75,15 @@ class Menu
         // Назначим шаблон html
         $data['tpl'] = is_file(__DIR__ . "/tpl/{$data['tpl']}.php") ? __DIR__ . "/tpl/{$data['tpl']}.php" : __DIR__ . '/tpl/default.php';
 
-        self::$options = $data;
+        $this->options = $data;
         return;
     }
 
 
     // Получаем данные
-    private static function run()
+    private function run()
     {
-        $params = self::$options;
+        $params = $this->options;
 
         // Если передаются данные, то не делаем запросов в БД
         if ($params['data']) {
@@ -137,9 +141,9 @@ class Menu
 
 
     // Строим дерево
-    private static function getTree($data)
+    private function getTree($data)
     {
-        $params = self::$options;
+        $params = $this->options;
         $tree = [];
 
         // Если данные не пусты
@@ -164,22 +168,19 @@ class Menu
         // Если нужно получить часть меню
         $subId = (int)$params['submenu'];
         if ($subId) {
-            
+
             // Если есть вложенные элементы вернём их
             return $tree[$subId]->childs ?? [];
 
-        } else {
-
-            // Возвращаем дерево
-            return $tree;
         }
 
+        // Возвращаем дерево
         return $tree;
     }
 
 
     // В цикле вызываем передаём данные в шаблон Html
-    private static function getMenuHtml($tree, $tab = '')
+    private function getMenuHtml($tree, $tab = '')
     {
         $str = '';
         $i = 0;
@@ -192,9 +193,9 @@ class Menu
 
 
     // В шаблон передаются массив с данными из БД ($item), $tab - показывает вложенность (к примеру можно использовать дефис -, $id - id, $i - счётчик)
-    private static function toTemplate($item, $tab, $id, $i)
+    private function toTemplate($item, $tab, $id, $i)
     {
-        $params = self::$options;
+        $params = $this->options;
 
         ob_start();
         include $params['tpl'];
@@ -203,9 +204,9 @@ class Menu
 
 
     // Редактируем Html
-    private static function output($html)
+    private function output($html)
     {
-        $params = self::$options;
+        $params = $this->options;
         $attrs = '';
 
         if ($params['attrs'] && is_array($params['attrs'])) {

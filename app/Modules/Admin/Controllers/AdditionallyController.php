@@ -5,6 +5,7 @@ namespace App\Modules\Admin\Controllers;
 use App\Main;
 use App\Modules\Admin\Helpers\Commands;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 

@@ -52,9 +52,9 @@
 </div>
 <script>
     var body = document.body,
-        height = '{{ config('add.height') ?: 600 }}',
+        height = '{{ config('add.height', 600) }}',
         main = {
-            url: '{{ env('APP_URL') . '/' }}'
+            url: '{{ config('add.url', '/') }}'
         },
         table = null
 

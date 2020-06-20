@@ -2,11 +2,11 @@
 
 namespace App;
 
-use App\Mail\SendServiceMail;
-use App\Modules\Auth\Models\Role as RoleModel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Mail\SendServiceMail;
+use App\Modules\Auth\Models\Role as RoleModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 

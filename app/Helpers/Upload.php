@@ -54,7 +54,7 @@ class Upload
             foreach ($sassParams as $k => $v) {
                 $partSassInit .= "\${$k}: {$v};\n";
             }
-            $partSassInit .= "\$path-img: '/" . env('IMG', 'img') . "';\n";
+            $partSassInit .= "\$path-img: '/" . config('add.img', 'img') . "';\n";
 
             // Записываем файл _init.scss
             $fileSassInit = "{$modulesPath}/sass/config/_init.scss";
@@ -185,13 +185,14 @@ class Upload
     // Сформировать robots.txt
     public static function robots()
     {
-        $index = env('NOT_INDEX_WEBSITE');
+        $index = config('add.not_index_website'); // Если не нужно индексировать сайт, то true, если нужно, то false
         $disallow = config('add.disallow');
         $disallow[] = 'not-found';
         $disallow[] = '*.php$';
         $disallow[] = 'js/*.js$';
         $disallow[] = 'css/*.css$';
         $r = 'User-agent: *' . PHP_EOL;
+        $url = config('add.url', '/');
 
         // Если не индексировать
         if ($index) {
@@ -203,9 +204,9 @@ class Upload
                 $r .= "Disallow: /{$v}" . PHP_EOL;
             }
 
-            $r .= PHP_EOL . 'Host: ' . env('APP_URL') . PHP_EOL;
-            $r .= 'Sitemap: ' . env('APP_URL') . '/sitemap.xml' . PHP_EOL;
-            $r .= 'Sitemap: ' . env('APP_URL') . '/sitemap.xml.gz';
+            $r .= PHP_EOL . "Host: {$url}" . PHP_EOL;
+            $r .= "Sitemap: {$url}/sitemap.xml" . PHP_EOL;
+            $r .= "Sitemap: {$url}/sitemap.xml.gz";
         }
         Storage::disk('public_folder')->put('robots.txt', $r);
     }
@@ -226,12 +227,33 @@ class Upload
     }
 
 
-    // Создаётся файл /error.php и в нём вид error из /resources/error.blade.php
+    // Создаётся файл /error.php и в нём вид error из /app/Modules/views/errors/preventive.blade.php
     public static function errorPage()
     {
-        if (view()->exists('error')) {
-            $r = view('error')->render();
-            Storage::disk('root')->put('error.php', $r);
+        $modulesPath = config('modules.path');
+        $viewPath = 'views';
+        $lang = lang();
+        $noMain = true;
+        if ($modulesPath) {
+
+            // Определяем папку с видами в папке /app/Modules
+            View::getFinder()->setPaths($modulesPath);
+
+            if (view()->exists("{$viewPath}.errors.preventive")) {
+                $r = view('views.errors.preventive')
+                    ->with(compact('viewPath', 'lang', 'noMain'))
+                    ->render();
+                $file = base_path('error.php');
+
+                // Если есть файл, то перезапишем его
+                if (File::isFile($file)) {
+                    File::replace($file, $r);
+
+                    // Иначе создадим файл и запишем в него
+                } else {
+                    File::put($file, $r);
+                }
+            }
         }
     }
 
@@ -239,6 +261,7 @@ class Upload
     // Возвращает ключ для входа в admin
     public static function getKeyAdmin()
     {
+        //return true;
         //return 'testing';
         //$key = 'testing';
 
@@ -352,7 +375,7 @@ class Upload
         $r .= 'RewriteRule ^(.*)$ public/$1 [L]' . PHP_EOL . PHP_EOL;
 
         // Если индексирование сайта выключено
-        if (env('NOT_INDEX_WEBSITE')) {
+        if (config('add.not_index_website')) {
             $r .= PHP_EOL . 'SetEnvIfNoCase User-Agent "^Googlebot" search_bot' . PHP_EOL;
             $r .= 'SetEnvIfNoCase User-Agent "^Yandex" search_bot' . PHP_EOL;
             $r .= 'SetEnvIfNoCase User-Agent "^Yahoo" search_bot' . PHP_EOL;

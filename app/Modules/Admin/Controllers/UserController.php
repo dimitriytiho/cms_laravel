@@ -184,6 +184,13 @@ class UserController extends AppController
             Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
 
             $values = $this->model::with('role')->find((int)$id);
+            if (!$values) {
+
+                // Сообщение об ошибке
+                Main::getError('Request', __METHOD__, null);
+                session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                return redirect()->route("admin.{$this->route}.index");
+            }
 
             // Статусы пользователей
             $statuses = config('admin.user_statuses');
@@ -257,71 +264,73 @@ class UserController extends AppController
             }*/
 
             $values = $this->model::find((int)$id);
-            $values->fill($data);
+            if ($values) {
+                $values->fill($data);
 
-            // Если не Админ выбирает роль Админ, то ошибка
-            if (!auth()->user()->isAdmin() && $data['role_id'] == auth()->user()->getRoleIdAdmin()) {
+                // Если не Админ выбирает роль Админ, то ошибка
+                if (!auth()->user()->isAdmin() && $data['role_id'] == auth()->user()->getRoleIdAdmin()) {
 
-                // Сообщение об ошибке
-                session()->put('error', __("{$this->lang}::s.admin_choose_admin"));
-                return redirect()->back();
-            }
-
-            // Если данные изменины
-            $lastData = $this->model::with('role')->find((int)$id)->toArray();
-            if (isset($lastData['role'])) unset($lastData['role']);
-            $lastDataNew = [];
-            $current = $values->toArray();
-            if (appHelpers::arrayDiff($lastData, $current)) {
-
-                // В таблицу users_last_data запишутся предыдущие данные
-                foreach ($lastData as $k => $v) {
-
-                    // Исключаем не нужные поля
-                    if (!in_array($k, self::$guardedLast)) {
-                        $lastDataNew[$k] = $v;
-                    }
-                }
-                $lastDataNew['user_id'] = $lastData['id'];
-
-                // Сохраняем данные
-                if ($lastDataNew) {
-                    $last = new UserLastData();
-                    $last->fill($lastDataNew);
-
-                    if (!$last->save()) {
-
-                        // Сообщение что-то пошло не так
-                        $message = 'Error UserLastData save and in ' . __METHOD__;
-                        Log::warning($message);
-                    }
+                    // Сообщение об ошибке
+                    session()->put('error', __("{$this->lang}::s.admin_choose_admin"));
+                    return redirect()->back();
                 }
 
-            } else {
+                // Если данные изменины
+                $lastData = $this->model::with('role')->find((int)$id)->toArray();
+                if (isset($lastData['role'])) unset($lastData['role']);
+                $lastDataNew = [];
+                $current = $values->toArray();
+                if (appHelpers::arrayDiff($lastData, $current)) {
 
-                // Сообщение об ошибке
-                session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
-                return redirect()->route("admin.{$this->route}.edit", $values->id);
-            }
+                    // В таблицу users_last_data запишутся предыдущие данные
+                    foreach ($lastData as $k => $v) {
 
-            if ($values->save()) {
+                        // Исключаем не нужные поля
+                        if (!in_array($k, self::$guardedLast)) {
+                            $lastDataNew[$k] = $v;
+                        }
+                    }
+                    $lastDataNew['user_id'] = $lastData['id'];
 
-                // Если меняются данные текущего пользователя, то изменим их в объекте auth
-                if ($values->id === auth()->user()->id) {
-                    $auth = auth()->user()->toArray();
-                    if ($auth) {
-                        unset($auth['img']); // Удалим из массива картинку, т.к. она меняется сразу при смене картинки
-                        foreach ($auth as $authKey => $authValue) {
-                            if (isset($data[$authKey]) && $data[$authKey] != $authValue) {
-                                auth()->user()->update([$authKey => $data[$authKey]]);
+                    // Сохраняем данные
+                    if ($lastDataNew) {
+                        $last = new UserLastData();
+                        $last->fill($lastDataNew);
+
+                        if (!$last->save()) {
+
+                            // Сообщение что-то пошло не так
+                            $message = 'Error UserLastData save and in ' . __METHOD__;
+                            Log::warning($message);
+                        }
+                    }
+
+                } else {
+
+                    // Сообщение об ошибке
+                    session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
+                    return redirect()->route("admin.{$this->route}.edit", $values->id);
+                }
+
+                if ($values->save()) {
+
+                    // Если меняются данные текущего пользователя, то изменим их в объекте auth
+                    if ($values->id === auth()->user()->id) {
+                        $auth = auth()->user()->toArray();
+                        if ($auth) {
+                            unset($auth['img']); // Удалим из массива картинку, т.к. она меняется сразу при смене картинки
+                            foreach ($auth as $authKey => $authValue) {
+                                if (isset($data[$authKey]) && $data[$authKey] != $authValue) {
+                                    auth()->user()->update([$authKey => $data[$authKey]]);
+                                }
                             }
                         }
                     }
-                }
 
-                // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
-                return redirect()->route("admin.{$this->route}.edit", $values->id);
+                    // Сообщение об успехе
+                    session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
+                    return redirect()->route("admin.{$this->route}.edit", $values->id);
+                }
             }
         }
 

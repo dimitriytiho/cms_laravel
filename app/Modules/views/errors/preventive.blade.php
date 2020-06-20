@@ -9,7 +9,7 @@
 {{-- Вывод контента --}}
 @section('content')
     <main class="main">
-        <div class="container">
+        <div class="container no-wrap">
             <div class="row">
                 <div class="col">
                     <h1 class="font-weight-light text-secondary mt-5 mb-4">@lang("{$lang}::s.Preventive_work")</h1>

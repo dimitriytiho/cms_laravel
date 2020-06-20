@@ -1,18 +1,22 @@
 <?php
 
+$lang = lang();
 $params = $params ?? null;
 $parent = isset($item->childs);
 
 if (!empty($item)):
     $title = $item->title ?? null;
+    $langTitle = Lang::has("{$lang}::t.{$title}") ? __("{$lang}::t.{$title}") : $title;
     $slug = $item->slug ?? null;
+    $target = !empty($item->target ) ? " target=\"{$item->target}\"" : null;
+    $activeColor = Str::contains(request()->path(), trim($slug, '/')) ? ' active_color' : null;
 
     ?>
-    <li>
-        <a href="/<?= $slug; ?>"><?= $title; ?></a>
+    <li class="<?= $params['classLi'] ?>">
+        <a href="<?= $slug; ?>" class="<?= $params['classLink'] . $activeColor ?>"<?= $target ?>><?= $langTitle; ?></a>
         <?php if ($parent): ?>
             <ul>
-                <?= self::getMenuHtml($item->childs); ?>
+                <?= $this->getMenuHtml($item->childs); ?>
             </ul>
         <?php endif; ?>
     </li>

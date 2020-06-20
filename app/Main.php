@@ -133,10 +133,10 @@ class Main
 
         // Формируем метатеги
         $getMeta = "<title>{$titleSeo}</title>\n\t";
-        $getMeta .= "<meta name=\"description\" content=\"{$description}\">\n";
+        $getMeta .= "<meta name=\"description\" content=\"{$description}\" />\n";
 
         if ($keywords) {
-            $getMeta .= "<meta name=\"keywords\" content=\"{$keywords}\">\n";
+            $getMeta .= "<meta name=\"keywords\" content=\"{$keywords}\" />\n";
         }
 
         // Переменные передаются в виды
@@ -204,5 +204,17 @@ class Main
             return $modules && is_array($modules) && key_exists($module, $modules);
         }
         return false;
+    }
+
+
+    // Возвращает URL без префикса языка и без папки public.
+    public static function notPublicInURL()
+    {
+        $url = request()->url();
+        $public = '/public';
+        if (stripos($url, $public)) {
+            $url = str_replace($public, '', $url);
+        }
+        return $url;
     }
 }
