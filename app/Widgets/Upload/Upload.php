@@ -43,8 +43,20 @@ class Upload
     public static function init($all = null)
     {
         $self = new self();
-        $self->run($all);
-        return true;
+
+        // Выключем сайт на время обновления
+        $siteOffFile = config('add.site_off_file');
+        if (File::isFile($siteOffFile)) {
+            File::replace($siteOffFile, '1');
+
+            // Обновляем файлы
+            $self->run($all);
+
+            // Включаем сайт
+            File::replace($siteOffFile, '');
+            return true;
+        }
+        return false;
     }
 
 
@@ -130,18 +142,20 @@ class Upload
                 }
             }
 
-            foreach ($files as $file) {
-                $path = base_path($file);
+            if ($files) {
+                foreach ($files as $file) {
+                    $path = base_path($file);
 
-                // Если нет папки по пути, то создадим её
-                $this->makeDirectory($path);
+                    // Если нет папки по пути, то создадим её
+                    $this->makeDirectory($path);
 
-                // Получим файл с GitHub
-                $fileGitHub = $this->curl($this->github . $file);
+                    // Получим файл с GitHub
+                    $fileGitHub = $this->curl($this->github . $file);
 
-                // Перезаписываем файлы
-                if ($fileGitHub) {
-                    File::put($path, $fileGitHub);
+                    // Перезаписываем файлы
+                    if ($fileGitHub) {
+                        File::put($path, $fileGitHub);
+                    }
                 }
             }
         }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Helpers\Add;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Если выключен веб-сайт, то редирект на страницу /public/error.php
-if (env('OFF_WEBSITE')) {
-    Route::domain(env('APP_URL'))->group(function () {
+if (Add::siteOff()) {
+    Route::domain(config('add.url'))->group(function () {
         header('Location: ' . env('APP_URL') . '/error.php');
         die;
     });

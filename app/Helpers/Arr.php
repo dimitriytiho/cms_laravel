@@ -23,11 +23,11 @@ class Arr
      */
     public static function unsetValue($value, $arr)
     {
-        if ($value && $arr && is_array($arr)) {
+        if ($arr && is_array($arr)) {
             if (in_array($value, $arr)) {
                 unset($arr[array_search($value, $arr)]);
-                return $arr;
             }
+            return $arr;
         }
         return false;
     }
