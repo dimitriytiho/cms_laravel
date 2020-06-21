@@ -56,27 +56,9 @@ class Handler extends ExceptionHandler
         if ($this->isHttpException($exception)) {
             $code = $exception->getStatusCode();
 
-            // Ошибки 401
-            if ($code == 401) {
-                $title = __("{$lang}::s.unauthorized_error");
-                $message = __("{$lang}::s.whoops_no_auth");
-                Main::getError($title, __METHOD__, false, 'critical');
-                $status = 401; // HTTP/1.0 401 Unauthorized
-
-                // Ошибки 500
-            } elseif ($code == 500 || $code == 419 || $code == 422) {
-                $title = __("{$lang}::s.unauthorized_error");
-                $message = __("{$lang}::s.whoops_no_server");
-                Main::getError($title, __METHOD__, false, 'critical');
-                $status = 500; // 500 Internal Server Error
-
-                // Ошибки 404 и прочии
-            } else {
-                $title = __("{$lang}::s.page_not_found");
-                $message = __("{$lang}::s.whoops_no_page");
-                Main::getError($title, __METHOD__, false, 'critical');
-                $status = 404; // HTTP/1.1 404 Not Found
-            }
+            $title = __("{$lang}::s.page_not_found");
+            $message = __("{$lang}::s.whoops_no_page");
+            $status = 404; // HTTP/1.1 404 Not Found
 
             Main::setMeta($title);
             $modulesPath = config('modules.path');

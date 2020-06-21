@@ -7,7 +7,10 @@
 return [
 
     //'app/Modules/Page',
-    //'app/Exports/CategoriesExport.php',
+
+    //'app/Modules/Admin/Controllers/MainController.php',
+    //'app/Modules/Admin/views/main/index.blade.php',
+
     //'',
 
 ];
