@@ -78,4 +78,8 @@ return [
     'request_another' => 'Click here to request another',
     'account' => 'Account',
 
+    'reply' => 'Reply',
+    'write' => 'To write',
+    'text' => 'Text',
+
 ];

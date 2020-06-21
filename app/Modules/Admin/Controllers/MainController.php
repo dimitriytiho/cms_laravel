@@ -8,6 +8,7 @@ use App\Modules\Admin\Helpers\Slug;
 use App\Helpers\Upload;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -75,7 +76,13 @@ class MainController extends AppController
     {
         $locales = config('admin.locales');
         if (in_array($locale, $locales)) {
-            $locale = Crypt::encryptString($locale);
+
+            try {
+                $locale = Crypt::encryptString($locale);
+            } catch (DecryptException $e) {
+                Main::getError('Error Crypt::encryptString', __METHOD__, false);
+            }
+
             setcookie('loc', $locale, time() + config('admin.cookie'), '/', config('add.domain'), config('add.protocol') === 'https', true);
             return redirect()->back();
             //return redirect()->back()->withCookie('locale', $locale, config('admin.cookie'));

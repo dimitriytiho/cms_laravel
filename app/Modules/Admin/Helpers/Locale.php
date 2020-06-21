@@ -3,6 +3,8 @@
 
 namespace App\Modules\Admin\Helpers;
 
+use App\Main;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
 
 class Locale
@@ -36,7 +38,13 @@ class Locale
         $locales = $self->locales;
         $locale = $request->cookie('loc');
         if ($locale) {
-            $locale = Crypt::decryptString($locale);
+
+            try {
+                $locale = Crypt::decryptString($locale);
+            } catch (DecryptException $e) {
+                Main::getError('Error Crypt::decryptString', __METHOD__, false);
+            }
+
             if ($locale !== $currentLocale && in_array($locale, $locales)) {
                 app()->setLocale($locale);
             }

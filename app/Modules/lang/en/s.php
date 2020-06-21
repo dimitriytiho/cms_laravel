@@ -40,6 +40,7 @@ return [
     'Fill_error' => 'Fill error',
     'Preventive_work_go' => 'Whoops! The fact is that at the moment on the website there are preventive work...',
     'Preventive_work_contact' => 'If you need to contact us urgently, please email us: <a href="mailto::email">:email</a>',
+    'new_forum_post' => 'New forum post ',
 
     'active' => 'Active',
     'inactive' => 'Inactive',
@@ -63,6 +64,8 @@ return [
     'user' => 'User',
     'admin' => 'Admin',
     'editor' => 'Editor',
+    'checked' => 'Checked',
+    'moderator' => 'Moderator',
 
     'new' => 'New',
     'strange' => 'Strange',

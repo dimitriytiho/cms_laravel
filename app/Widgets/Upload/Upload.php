@@ -38,9 +38,10 @@ class Upload
 
     /*
      * По-умолчанию обновляем рекомендованные файлы из источника GitHub, кроме исключённых в excludeFiles.php.
-     * $all - Если нужно обновить все файлы передать true (Будьте осторожны с этим, сделайте сначала бэкап).
+     * $all - Если нужно обновить все файлы передать true (Будьте осторожны с этим, сделайте сначала бэкап), необязательный параметр.
+     * $excludeFiles - передайте путь к файлам строкой или массивом. например: 'app/Modules/Page', необязательный параметр.
      */
-    public static function init($all = null)
+    public static function init($all = null, $excludeFiles = null)
     {
         $self = new self();
 
@@ -50,7 +51,7 @@ class Upload
             File::replace($siteOffFile, '1');
 
             // Обновляем файлы
-            $self->run($all);
+            $self->run($all, $excludeFiles);
 
             // Включаем сайт
             File::replace($siteOffFile, '');
@@ -61,16 +62,22 @@ class Upload
 
 
 
-    private function run($all)
+    private function run($all, $excludeFiles)
     {
         $files = $all ? $this->allFiles : $this->recommend;
         if ($files) {
 
-
-            // Добавляем в исключения
+            // Добавляем в исключения по-умолчанию
             array_push($this->exclude, 'app/Widgets/Upload');
             array_push($this->exclude, 'app/Modules/Admin/add_routes.php');
             array_push($this->exclude, 'app/Modules/Admin/Nav.php');
+
+            // Добавляем в исключения из параметра
+            if (is_string($excludeFiles)) {
+                array_push($this->exclude, $excludeFiles);
+            } elseif (is_array($excludeFiles)) {
+                $this->exclude = array_merge($excludeFiles, $this->exclude);
+            }
 
 
             // Удалим из массива файлы исключения

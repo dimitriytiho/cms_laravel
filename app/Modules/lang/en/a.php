@@ -140,4 +140,9 @@ return [
     'online_users' => 'Online users',
     'described_in_detail' => 'Described in detail in',
 
+    'Forums' => 'Forum',
+    'forum' => 'Forum',
+    'update_cms_files' => 'Update CMS Files with GitHub',
+    'make_backup_first_if' => 'Make backup first! If something breaks, then replace the app folder from the /storage/app/site_name archive. This is a lengthy process, wait for completion.',
+
 ];

@@ -4,6 +4,7 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Main;
 use App\Modules\Admin\Helpers\Commands;
+use App\Widgets\Upload\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Artisan;
@@ -70,6 +71,26 @@ class AdditionallyController extends AppController
             }
         }
 
+        // Работа с Обновлением
+        $update = $request->query('update');
+        $updateDisabled = null;
+        if ($update) {
+
+            // После backup заброкируем кнопку Выполнить
+            if ($update === 'disabled') {
+                $updateDisabled = ' disabled';
+            }
+
+            if ($update === 'run') {
+
+                // Обновляем файлы CMS, кроме данного файла
+                Upload::init(null, 'app/Modules/Admin/Controllers/AdditionallyController.php');
+
+                session()->put('success', __("{$this->lang}::a.completed_successfully"));
+                return redirect()->route('admin.additionally', 'update=disabled');
+            }
+        }
+
         // Работа с командами
         if ($request->isMethod('post')) {
             $command = $request->command ?? null;
@@ -91,7 +112,7 @@ class AdditionallyController extends AppController
 
         Main::viewExists("{$t}.{$f}", __METHOD__);
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($t)));
-        return view("{$t}.{$f}", compact('backupDisabled'));
+        return view("{$t}.{$f}", compact('backupDisabled', 'updateDisabled'));
     }
 
 

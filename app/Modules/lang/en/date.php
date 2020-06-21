@@ -21,4 +21,15 @@ return [
     'november' => 'November',
     'december' => 'December',
 
+    'Mon' => 'Mon',
+    'Tue' => 'Tue',
+    'Wed' => 'Wed',
+    'Thu' => 'Thu',
+    'Fri' => 'Fri',
+    'Sat' => 'Sat',
+    'Sun' => 'Sun',
+
+    'from' => ' from ',
+    'to' => ' to ',
+
 ];

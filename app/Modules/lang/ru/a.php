@@ -139,6 +139,11 @@ return [
     'Filter_group' => 'Группы фильтров',
     'Filter_value' => 'Фильтры',
     'online_users' => 'Пользователи онлайн',
+
     'described_in_detail' => 'Подробно описано в',
+    'Forums' => 'Форум',
+    'forum' => 'Форум',
+    'update_cms_files' => 'Обновить файлы CMS с GitHub',
+    'make_backup_first_if' => 'Сначала сделайте  резервную копию! Если что-то сломается, то замените папку app из архива /storage/app/site_name. Это длительный процесс ожидайте завершения.',
 
 ];
