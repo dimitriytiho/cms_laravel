@@ -3,16 +3,17 @@
 
 namespace App\Modules\Admin\Helpers;
 
-use App\Modules\Admin\Models\Setting;
-use Illuminate\Support\Facades\File;
+use App\Modules\Admin\Nav;
+use App\Helpers\Str as helpersStr;
 
 class Routes
 {
-    private $menu = null;
+    private $menu;
+
 
     private function __construct()
     {
-        $this->menu = Setting::menuLeftAdmin();
+        $this->menu = Nav::menuLeft();
     }
 
 
@@ -26,7 +27,7 @@ class Routes
         $menu = $self->menu;
         $slug_now = ltrim($slug, config('add.admin', 'dashboard'));
         $slug_now = $slug_now ?: '/';
-        $slug_controller = '/' . \App\Helpers\Str::strToSegment($slug, 1);
+        $slug_controller = '/' . helpersStr::strToSegment($slug, 1);
         $int = (int)class_basename($slug);
 
         if ($menu && $slug) {
@@ -91,52 +92,5 @@ class Routes
             return $part;
         }
         return false;
-    }
-
-
-    // При изменении меню из /config/admin.php запустить этот метод
-    public static function routes()
-    {
-        self::makeAdminControllers();
-        self::routesLaravel();
-    }
-
-
-    // Внимание, после создания необходимы правки! Если нет контроллеров для админки, то они создадуться. Рекомендуется использовать только при первом запуске админки.
-    public static function makeAdminControllers()
-    {
-        $self = new self();
-        $menu = $self->menu;
-        $path = app_path() . '/Http/Controllers/Admin';
-
-        if ($menu) {
-            foreach ($menu as $v) {
-                $name = "{$v['controller']}Controller";
-                if (!is_file("$path/$name.php")) {
-                    Commands::getCommand("make:controller Admin/$name --resource");
-                }
-            }
-        }
-    }
-
-
-    // Внимание, после создания необходимы правки! Создание машрутов для админки в файл /routes/admin.php. Рекомендуется использовать только при первом запуске админки.
-    public static function routesLaravel()
-    {
-        $self = new self();
-        $menu = $self->menu;
-        $part = "<?php\n\n";
-
-        if ($menu) {
-            foreach ($menu as $v) {
-                if (!$v['parent_id'] && $v['slug'] !== '/') {
-                    $part .= "Route::resource('{$v['slug']}', 'Admin\\{$v['controller']}Controller');\n";
-                }
-            }
-            $file = base_path('routes/admin.php');
-            if (File::exists(($file))) {
-                File::replace($file, $part);
-            }
-        }
     }
 }

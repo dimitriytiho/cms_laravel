@@ -9,7 +9,7 @@ use Curl\Curl;
 
 class Upload
 {
-    private $github = 'https://raw.githubusercontent.com/dimitriyyuliy/cms_laravel/master/'; // https://raw.githubusercontent.com/dimitriyyuliy/cms_laravel/master/app/Main.php
+    private $github = 'https://raw.githubusercontent.com/dimitriyyuliy/cms_laravel/master/';
     private $allFilesName = 'service/uploadAllFiles.php';
     private $recommendName = 'service/uploadRecommendFiles.php';
     private $excludeName = 'excludeFiles.php';
@@ -60,67 +60,18 @@ class Upload
     }
 
 
-    /*
-     * Вызвать это метод, чтобы создать массивы (uploadAllFiles.php и uploadRecommendFiles.php) с файлами, если были созданые новые файлы.
-     */
-    public static function allFilesToArr()
-    {
-        $self = new self();
-        $pathBase = __DIR__;
-        $all = File::isFile("{$pathBase}/uploadAllFiles.php") ? require 'uploadAllFiles.php' : [];
-        $recommend = File::isFile("{$pathBase}/uploadRecommendAllFiles.php") ? require 'uploadRecommendAllFiles.php' : [];
-
-        $partAll = $self->makePart($all);
-        File::put("{$pathBase}/{$self->allFilesName}", $partAll);
-
-        $partRecommend = $self->makePart($recommend);
-        File::put("{$pathBase}/{$self->recommendName}", $partRecommend);
-    }
-
-    private function makePart($data)
-    {
-        $part = "<?php\n";
-        $part .= "\n/*\n";
-        $part .= " * Файл сформирован программно.\n";
-        $part .= " */\n\n";
-        $part .= "return [\n\n";
-
-        if ($data) {
-            foreach ($data as $v) {
-                $path = base_path($v);
-
-                if (File::isFile($path)) {
-                    $part .= "\t'{$v}',\n";
-
-                } elseif (File::isDirectory($path)) {
-
-                    $directories = File::allFiles($path);
-                    if ($directories) {
-                        foreach ($directories as $file) {
-
-                            if ($file->isFile()) {
-                                $path = str_replace(base_path() . '/', '', $file->getRealPath());
-                                $part .= "\t'{$path}',\n";
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        $part .= "\n];\n";
-        return $part;
-    }
-
-
 
     private function run($all)
     {
         $files = $all ? $this->allFiles : $this->recommend;
         if ($files) {
 
-            // Добавляем в исключения папку с этим виджетом
+
+            // Добавляем в исключения
             array_push($this->exclude, 'app/Widgets/Upload');
+            array_push($this->exclude, 'app/Modules/Admin/add_routes.php');
+            array_push($this->exclude, 'app/Modules/Admin/Nav.php');
+
 
             // Удалим из массива файлы исключения
             foreach ($this->exclude as $item) {
@@ -140,7 +91,7 @@ class Upload
                             $files = helpersArr::unsetValue($path, $files);
                         }
                     }
-                    
+
                 } else {
 
                     $files = helpersArr::unsetValue($item, $files);
@@ -194,5 +145,60 @@ class Upload
             return $response;
         }
         return false;
+    }
+
+
+
+
+    /*
+     * Вызвать это метод, чтобы создать массивы (uploadAllFiles.php и uploadRecommendFiles.php) с файлами, если были созданые новые файлы.
+     */
+    public static function allFilesToArr()
+    {
+        $self = new self();
+        $pathBase = __DIR__;
+        $all = File::isFile("{$pathBase}/uploadAllFiles.php") ? require 'uploadAllFiles.php' : [];
+        $recommend = File::isFile("{$pathBase}/uploadRecommendAllFiles.php") ? require 'uploadRecommendAllFiles.php' : [];
+
+        $partAll = $self->makePart($all);
+        File::put("{$pathBase}/{$self->allFilesName}", $partAll);
+
+        $partRecommend = $self->makePart($recommend);
+        File::put("{$pathBase}/{$self->recommendName}", $partRecommend);
+    }
+
+    private function makePart($data)
+    {
+        $part = "<?php\n";
+        $part .= "\n/*\n";
+        $part .= " * Файл сформирован программно.\n";
+        $part .= " */\n\n";
+        $part .= "return [\n\n";
+
+        if ($data) {
+            foreach ($data as $v) {
+                $path = base_path($v);
+
+                if (File::isFile($path)) {
+                    $part .= "\t'{$v}',\n";
+
+                } elseif (File::isDirectory($path)) {
+
+                    $directories = File::allFiles($path);
+                    if ($directories) {
+                        foreach ($directories as $file) {
+
+                            if ($file->isFile()) {
+                                $path = str_replace(base_path() . '/', '', $file->getRealPath());
+                                $part .= "\t'{$path}',\n";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $part .= "\n];\n";
+        return $part;
     }
 }

@@ -98,4 +98,10 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
     if (!config('add.auth')) {
         Route::post('to-change-key', 'MainController@toChangeKey');
     }
+
+
+    // Добавлять маршнуты для админки в add_routes.php
+    if (is_file($file = __DIR__ . '/add_routes.php')) {
+        require_once $file;
+    }
 });

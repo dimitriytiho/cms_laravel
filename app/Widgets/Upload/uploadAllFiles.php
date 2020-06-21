@@ -70,6 +70,11 @@ return [
     'database/migrations/2020_05_16_094551_create_filter_products_table.php',
 
 
+    // Public
+    'public/css/append.css',
+    'public/js/append.js',
+
+
     // Resources
     'resources/lang',
     'resources/views/vendor/laravel-log-viewer',

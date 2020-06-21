@@ -24,9 +24,12 @@ return [
 
 
     // Config
-    //'config/add.php',
     'config/admin.php',
-    'config/modules.php',
     //'config/shop.php',
+
+
+    // Public
+    'public/css/append.css',
+    'public/js/append.js',
 
 ];

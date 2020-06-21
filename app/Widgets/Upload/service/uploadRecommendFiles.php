@@ -350,6 +350,7 @@ return [
 	'app/Main.php',
 	'app/User.php',
 	'config/admin.php',
-	'config/modules.php',
+	'public/css/append.css',
+	'public/js/append.js',
 
 ];

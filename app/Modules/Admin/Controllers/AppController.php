@@ -6,7 +6,7 @@ use App\Main;
 use App\Modules\Admin\Helpers\Locale;
 use App\Modules\Admin\Helpers\OnlineUsers;
 use App\Modules\Admin\Helpers\Routes;
-use App\Modules\Admin\Models\Setting;
+use App\Modules\Admin\Nav;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
@@ -90,7 +90,7 @@ class AppController extends Controller
             return $next($request);
         });
 
-        //$breadcrumbs = Breadcrumbs::breadcrumbs(Setting::menuLeftAdmin(), $currentRoute);
+        //$breadcrumbs = Breadcrumbs::breadcrumbs(Nav::menuLeft(), $currentRoute);
         $currentRoutesExclude = Routes::currentRoutes($currentRoute);
         $table = $this->table = null;
         $this->template = 'general';
@@ -100,7 +100,7 @@ class AppController extends Controller
 
         // Левое меню для мобильных
         $menuAsideChunk = null;
-        $menuAside = Setting::menuLeftAdmin() ?? [];
+        $menuAside = Nav::menuLeft() ?? [];
         if ($menuAside && is_array($menuAside) && count($menuAside) > 2) {
 
             $menuAsideOnlyParent = [];

@@ -2,7 +2,7 @@
 
 use App\Modules\Admin\Helpers\OnlineUsers;
 use Illuminate\Support\Facades\View;
-use App\Modules\Admin\Models\Setting;
+use App\Modules\Admin\Nav;
 use Illuminate\Support\Facades\Request;
 use App\Modules\Admin\Helpers\Routes;
 
@@ -18,7 +18,7 @@ $asideWidth = $asideWidth ? " style='width: $asideWidth;'" : null;
 
 // Левое меню для мобильных
 $menuAsideChunk = null;
-$menuAside = Setting::menuLeftAdmin();
+$menuAside = Nav::menuLeft();
 if ($menuAside && is_array($menuAside) && count($menuAside) > 2) {
 
     $menuAsideOnlyParent = [];

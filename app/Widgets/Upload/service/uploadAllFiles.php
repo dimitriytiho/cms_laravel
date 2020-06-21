@@ -384,6 +384,8 @@ return [
 	'database/migrations/2020_05_16_094455_create_filter_groups_table.php',
 	'database/migrations/2020_05_16_094505_create_filter_values_table.php',
 	'database/migrations/2020_05_16_094551_create_filter_products_table.php',
+	'public/css/append.css',
+	'public/js/append.js',
 	'resources/lang/en/auth.php',
 	'resources/lang/en/log-viewer.php',
 	'resources/lang/en/pagination.php',
