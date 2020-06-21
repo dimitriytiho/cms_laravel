@@ -11,13 +11,7 @@ AOS.init({
 
 import './components'
 import './validate'
-import './search'
-import './forms'
-import './pulse'
-import './scroll'
-import './template'
-import './script'
-
+import './default'
 
 
 
