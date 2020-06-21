@@ -12,7 +12,7 @@ $img = config('add.img', 'img');
 
 ?>
 <div class="panel-dashboard">
-    <a href="<?= route('admin.main'); ?>" class="panel-dashboard__icons" title="<?= __("{$lang}::a.Dashboard"); ?>">
+    <a href="<?= session()->get('back_link_admin', route('admin.main')); ?>" class="panel-dashboard__icons" title="<?= __("{$lang}::a.Dashboard"); ?>">
         <svg class="panel-dashboard__tachometer">
             <use xlink:href="<?= asset("{$img}/svg/dashboard_sprite.svg#tachometer-alt"); ?>"></use>
         </svg>
