@@ -87,6 +87,17 @@ class AppController extends Controller
 
             View::share(compact('isAdmin'));
 
+
+            // Сохраняем в сессию страницу с которой пользователь перешёл в админку
+            $backLink = url()->previous();
+            $adminPrefix = config('add.admin');
+            // Если url не содержит админский префикс
+            $containAdmin = Str::is("*{$adminPrefix}*", $backLink);
+            if (!$containAdmin) {
+                session()->put('back_link_site', $backLink);
+            }
+
+
             return $next($request);
         });
 
