@@ -237,6 +237,8 @@ class Upload
         $viewPath = 'views';
         $lang = lang();
         $noMain = true;
+        $statusActive = config('add.page_statuses')[1] ?: 'active';
+
         if ($modulesPath) {
 
             // Определяем папку с видами в папке /app/Modules
@@ -244,7 +246,7 @@ class Upload
 
             if (view()->exists("{$viewPath}.errors.preventive")) {
                 $r = view('views.errors.preventive')
-                    ->with(compact('viewPath', 'lang', 'noMain'))
+                    ->with(compact('viewPath', 'lang', 'noMain', 'statusActive'))
                     ->render();
                 $file = base_path('error.php');
 

@@ -30,7 +30,7 @@ class AppController extends Controller
         $modulesNamespace = config('modules.namespace');
         $viewPath = $this->viewPath  = config('modules.views');
         $modulesLang = config('modules.lang');
-        $this->statusActive = config('add.page_statuses')[1] ?: 'active';
+        $statusActive = $this->statusActive = config('add.page_statuses')[1] ?: 'active';
 
         // Если нет данных, то выдадим ошибку
         if (!$modulesPath || !$modulesNamespace || !$viewPath || !$modulesLang) {
@@ -68,6 +68,6 @@ class AppController extends Controller
         $searchQuery = s(request()->query('s')) ?: Main::get('search_query');
 
         // Передаём в вид путь к видам
-        View::share(compact('viewPath', 'lang', 'searchQuery'));
+        View::share(compact('viewPath', 'statusActive', 'lang', 'searchQuery'));
     }
 }

@@ -263,10 +263,10 @@ S;
     public static function adminBlockLink($title, $title_link, $link, $class = null, $attrs = null)
     {
         return <<<S
-<div class="d-flex justify-content-between align-items-center flex-wrap border text-secondary rounded my-2 py-3 px-4">
-            <span class="my-1">{$title}</span>
-            <a href="{$link}" class="btn btn-primary btn-sm my-1 {$class}" {$attrs}>{$title_link}</a>
-        </div>
+<div class="d-md-flex justify-content-between align-items-center border text-secondary rounded my-2 py-3 px-4 no-wrap">
+    <div class="my-1 mr-md-2">{$title}</div>
+    <a href="{$link}" class="btn btn-primary btn-sm my-1 d-block {$class}" {$attrs}>{$title_link}</a>
+</div>
 S;
     }
 

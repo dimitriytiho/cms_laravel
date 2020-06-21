@@ -11,7 +11,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'site_off' => false, // Выключить работу сайта, передать true
+    'site_off' => env('OFF_WEBSITE', false), // Выключить работу сайта, передать true
     'site_off_file' => storage_path('site_off.php'),
 
     'debugbar' => false, // Панель debug

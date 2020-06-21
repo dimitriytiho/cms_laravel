@@ -37,7 +37,7 @@ class Upload
 
 
     /*
-     * По-умолчанию обновляем рекомендованные файлы, кроме исключённых в excludeFiles.php.
+     * По-умолчанию обновляем рекомендованные файлы из источника GitHub, кроме исключённых в excludeFiles.php.
      * $all - Если нужно обновить все файлы передать true (Будьте осторожны с этим, сделайте сначала бэкап).
      */
     public static function init($all = null)
@@ -151,7 +151,7 @@ class Upload
 
 
     /*
-     * Вызвать это метод, чтобы создать массивы (uploadAllFiles.php и uploadRecommendFiles.php) с файлами, если были созданые новые файлы.
+     * Вызвать это метод, чтобы создать массивы (uploadAllFiles.php и uploadRecommendFiles.php) с файлами, если были созданы новые файлы на источнике GitHub.
      */
     public static function allFilesToArr()
     {

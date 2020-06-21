@@ -65,7 +65,7 @@
                     <div class="ml-4">'cache' => true,</div>
                     <div class="ml-4">'cacheName' => 'top_menu',</div>
                     <div class="ml-4">'table' => 'menu',</div>
-                    <div class="ml-4">'where' => [['belong_id', 1]],</div>
+                    <div class="ml-4">'where' => [['belong_id', 1], ['status', $statusActive]],</div>
                     <div class="ml-4">'container' => 'ul',</div>
                     <div class="ml-4">'class' => 'navbar-nav mr-auto',</div>
                     <div class="ml-4">'classLi' => 'nav-item',</div>
