@@ -93,8 +93,9 @@ class AppController extends Controller
             $adminPrefix = config('add.admin');
             // Если url не содержит админский префикс
             $containAdmin = Str::is("*{$adminPrefix}*", $backLink);
-            $containEnter = Str::is("*enter*", $backLink);
-            if (!$containAdmin || !$containEnter) {
+            $enter = config('add.enter');
+            $containEnter = Str::is("*{$enter}*", $backLink);
+            if (!($containAdmin || $containEnter)) {
                 session()->put('back_link_site', $backLink);
             }
 

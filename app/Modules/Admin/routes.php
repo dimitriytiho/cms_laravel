@@ -10,7 +10,7 @@ $namespace = '\App\\Modules\\Admin\\Controllers';
 
 // Страница входа в админку. Если включена авторизация, то админы авторизируется в публичной части сайта.
 if (!config('add.auth')) {
-    Route::namespace($namespace)->name('enter')->middleware('access-ip-admin')->group(function () {
+    Route::namespace($namespace)->name(config('add.enter'))->middleware('access-ip-admin')->group(function () {
 
         $key = Upload::getKeyAdmin();
         $keyRoute = "enter/{$key}";
