@@ -22,15 +22,6 @@ if (Add::siteOff()) {
     });
 }
 
-// Если в запросе /public, то сделается редирект на без /public
-$url = request()->capture()->url();
-$public = '/public';
-if (stripos($url, $public)) {
-    $url = str_replace($public, '', $url);
-    header("Location: $url");
-    die;
-}
-
 
 /*Route::get('news/{alias}', function () {
     return view('page.index', compact('getMeta'));
