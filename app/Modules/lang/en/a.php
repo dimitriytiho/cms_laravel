@@ -45,6 +45,7 @@ return [
     'Confirm' => 'Confirm',
     'Code' => 'Code',
     'Status' => 'Status',
+    'Notes' => 'Notes',
     'Note' => 'Note',
     'Create_item' => 'Create item',
     'Create_group' => 'Create group',
