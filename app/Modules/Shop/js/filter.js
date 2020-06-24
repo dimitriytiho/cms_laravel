@@ -1,4 +1,4 @@
-import message from './../../js/message'
+import message from './../../js/default/message'
 
 
 document.addEventListener('DOMContentLoaded', function() {

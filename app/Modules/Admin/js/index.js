@@ -1,6 +1,6 @@
 /*import bsn from 'bootstrap.native/dist/bootstrap-native-v4'
 export default bsn*/
-window.Bootstrap = require('bootstrap.native/dist/bootstrap-native-v4')
+window.Bootstrap = require('bootstrap.native/dist/bootstrap-native.min')
 
 import IMask from 'imask'
 import './axios'

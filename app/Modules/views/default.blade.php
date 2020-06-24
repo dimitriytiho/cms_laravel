@@ -121,10 +121,6 @@
 @endif
 {{--
 
-Здесь можно добавить файлы js --}}
-@yield('js')
-{{--
-
 Вывод js кода из вида pages.contact_us --}}
 @stack('novalidate')
 {{--
@@ -139,6 +135,10 @@
 ) }}
 <script src="{{ asset('js/main.js') }}" defer></script>--}}
 <script src="{{ asset('js/app.js') }}" defer></script>
+{{--
+
+Здесь можно добавить файлы js --}}
+@yield('js')
 <script src="{{ asset('js/add.js') }}" defer></script>
 </body>
 </html>

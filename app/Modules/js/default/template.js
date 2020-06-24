@@ -20,18 +20,18 @@ $('.prevent-default').click(function() {
 // Открыть модальное окно по клику на класс .modal-show, при этом нужно указать здесь же атрибут data-modal-id="" и в него вписать id модального окна
 document.addEventListener('click', function(e) {
 
-    const modalShowClass = 'modal-show',
+    var modalShowClass = 'modal-show',
         block = e.target.classList.contains(modalShowClass) || e.target.closest('.' + modalShowClass) && e.target.closest('.' + modalShowClass).classList.contains(modalShowClass)
 
     if (block) {
-        const modalId = e.target.dataset.modalId || e.target.closest('.' + modalShowClass).dataset.modalId
+        var modalId = e.target.dataset.modalId || e.target.closest('.' + modalShowClass).dataset.modalId
 
         if (modalId) {
             e.preventDefault()
-            const modal = document.getElementById(modalId)
+            var modal = document.getElementById(modalId)
 
             if (modal) {
-                const modalInit = new Bootstrap.Modal(modal)
+                var modalInit = new BSN.Modal(modal)
                 modalInit.show()
             }
         }

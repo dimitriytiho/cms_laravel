@@ -30,8 +30,8 @@
                                         <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.edit")">visibility</i>
                                     </a>
                                 </th>
-                                <td class="font-weight-light">{{ $v->parent_id }}</td>
                                 <td class="font-weight-light">{{ $v->id }}</td>
+                                <td class="font-weight-light">{{ $v->parent_id }}</td>
                                 <td>{{ Lang::has("{$lang}::t.{$v->title}") ? __("{$lang}::t.{$v->title}") : $v->title }}</td>
                                 <td class="font-weight-light">{{ $v->slug }}</td>
                                 <td class="font-weight-light">@lang("{$lang}::s.{$v->status}")</td>

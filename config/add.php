@@ -24,8 +24,8 @@ return [
 
     // Список используемых локалей
     'locales' => [
-        'en',
         'ru',
+        //'en',
     ],
 
     // Перечислить те страницы, которые не нужно индексировать
@@ -69,7 +69,7 @@ return [
 
     // Папка для картинок
     'img' => '/' . env('APP_IMG', 'img'),
-    'imgPath' => public_path() . '/' . env('APP_IMG', 'img'),
+    'imgPath' => public_path() . '/' . env('APP_IMG', public_path() . '/' . 'img'),
 
     // Протокол и домен
     'protocol' => Str::before(env('APP_URL'), '://'),

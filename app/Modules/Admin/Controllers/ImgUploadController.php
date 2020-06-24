@@ -5,12 +5,13 @@ namespace App\Modules\Admin\Controllers;
 use App\Main;
 use App\Modules\Admin\Helpers\Img;
 use App\Modules\Admin\Helpers\Slug;
-use App\Helpers\File;
+use App\Helpers\File as helpersFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class ImgUploadController extends AppController
 {
@@ -25,23 +26,18 @@ class ImgUploadController extends AppController
     {
         if ($request->isMethod('post') && $request->wantsJson()) {
 
-            /*$destinationPath = 'files/';
-            // Create directory if not exists
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }*/
-            /*Storage::disk('local')->putFileAs(
-                'files/' . $filename,
-                '$uploadedFile',
-                '$filename'
-            );*/
-            //$path = $request->photo->storeAs('images', 'filename.jpg', 's3');
-
             $requestAll = $request->all();
             if ($requestAll && is_array($requestAll)) {
                 $class = $request->input('class');
                 $route = Str::lower($class);
                 $table = $request->input('table');
+
+                // Если нет папок по пути, то создадим их
+                $dateDir = date('Y_m');
+                $directory = config('add.imgPath') . "/{$route}/{$dateDir}";
+                if (!File::isDirectory($directory)) {
+                    File::makeDirectory($directory, 0755, true);
+                }
 
                 // ID элемента, для которого картинка
                 $imgUploadID = (int)$request->input('imgUploadID');
@@ -82,21 +78,21 @@ class ImgUploadController extends AppController
                 }
 
                 // Путь на сервере для картинки
-                $imgSavePath = config("admin.imgPath{$class}") . '/';
+                $imgSavePath = config("admin.imgPath{$class}") . "/{$dateDir}/";
 
                 // Дата картинки
                 $date = Slug::exceptionsName(d(time(), config('admin.date_format')));
 
                 // Имя картинки
                 //$imgName = "{$requestName}_" . Str::lower(Str::random(3)) . "_{$date}{$ext}";
-                $imgName = File::nameCount($imgSavePath, $requestName, $ext, $date);
+                $imgName = helpersFile::nameCount($imgSavePath, $requestName, $ext, $date);
 
 
                 // Перемещаем картинку в нужное место
                 $img->move($imgSavePath, $imgName);
 
                 // Путь URL для новой картинки
-                $imgNewPaht = config("admin.img{$class}") . "/{$imgName}";
+                $imgNewPaht = config("admin.img{$class}") . "/{$dateDir}/{$imgName}";
 
                 // Одиночная загрузка
                 if ($maxFiles <= 1) {
@@ -135,8 +131,8 @@ class ImgUploadController extends AppController
 
 
                 // Если не сохранено в БД, то удалим файл
-                if (is_file($imgSavePath . $imgName)) {
-                    \Illuminate\Support\Facades\File::delete(($imgSavePath . $imgName));
+                if (File::isFile($imgSavePath . $imgName)) {
+                    File::delete(($imgSavePath . $imgName));
                 }
             }
             return response()->json(['answer' => __("{$this->lang}::s.whoops")]);

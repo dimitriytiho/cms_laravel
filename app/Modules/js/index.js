@@ -1,7 +1,7 @@
 // require('./bootstrap');
 // window.Vue = require('vue');
 
-window.Bootstrap = require('bootstrap.native/dist/bootstrap-native-v4')
+window.BSN = require('bootstrap.native/dist/bootstrap-native.min')
 
 window.AOS = require('aos')
 // data-aos="fade-up" fade-down-right flip-left zoom-in
@@ -12,7 +12,6 @@ AOS.init({
 import './components'
 import './validate'
 import './default'
-
 
 
 

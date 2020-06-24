@@ -100,8 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (window.jQuery) {
     // Функция показа корзины, принимает содержимое корзины, в ответе на ajax
     var showCart = function showCart(cart, modalId) {
-      var modal = document.getElementById(modalId),
-          modalInstance = new Bootstrap.Modal(modal); // Вставим в модальное окно содержимое корзины
+      var modalInstance = new BSN.Modal('#' + modalId); // Вставим в модальное окно содержимое корзины
 
       $('#' + modalId + ' .modal-body').html(cart); // Открыть модальное окно
 
@@ -219,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _js_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../js/message */ "./app/Modules/js/message.js");
+/* harmony import */ var _js_default_message__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../js/default/message */ "./app/Modules/js/default/message.js");
 
 document.addEventListener('DOMContentLoaded', function () {
   var filterClass = 'filter',
@@ -258,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
           });
         },
         error: function error() {
-          _js_message__WEBPACK_IMPORTED_MODULE_0__["default"].error(translations['something_went_wrong']);
+          _js_default_message__WEBPACK_IMPORTED_MODULE_0__["default"].error(translations['something_went_wrong']);
         }
       });
     } else {
@@ -304,10 +303,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./app/Modules/js/message.js":
-/*!***********************************!*\
-  !*** ./app/Modules/js/message.js ***!
-  \***********************************/
+/***/ "./app/Modules/js/default/message.js":
+/*!*******************************************!*\
+  !*** ./app/Modules/js/default/message.js ***!
+  \*******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

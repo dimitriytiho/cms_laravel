@@ -123,9 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Функция показа корзины, принимает содержимое корзины, в ответе на ajax
         function showCart(cart, modalId) {
-            const modal = document.getElementById(modalId),
-                modalInstance = new Bootstrap.Modal(modal)
-
+            var modalInstance = new BSN.Modal('#' + modalId)
 
             // Вставим в модальное окно содержимое корзины
             $('#' + modalId + ' .modal-body').html(cart)
@@ -134,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modalInstance.show()
 
 
-            const cartQty = $('#cart_modal_qty').text(),
+            var cartQty = $('#cart_modal_qty').text(),
                 cartSum = $('#cart_modal_sum').text()
 
             // Вставляем кол-во из корзины в кнопку вызова
