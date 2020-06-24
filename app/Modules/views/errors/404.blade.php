@@ -26,8 +26,8 @@
                 <div class="col-md-6">
                     <p class="mt-3 mb-5">{{ $message . __("{$lang}::s.you_can_go") }}</p>
                     <div>
-                        <a href="javascript:history.back()" class="btn btn-outline-dark"><i class="fa fa-arrow-left"></i> @lang("{$lang}::c.back")</a>
-                        <a href="{{ route('index') }}" class="btn btn-primary"><i class="fa fa-home"></i> @lang("{$lang}::c.home")</a>
+                        <a href="javascript:history.back()" class="btn btn-outline-dark"><i class="fa fa-arrow-left"></i> @lang("{$lang}::s.back")</a>
+                        <a href="{{ route('index') }}" class="btn btn-primary"><i class="fa fa-home"></i> @lang("{$lang}::s.home")</a>
                     </div>
                 </div>
                 <div class="col-md-6 text-md-center">

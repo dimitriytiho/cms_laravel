@@ -42,7 +42,7 @@ if ($groups): ?>
         <?php endforeach; ?>
         <div class="row">
             <div class="col-12">
-                <button class="btn btn-outline-primary btn-sm mt-4 reset"><?= __("{$lang}::c.reset") ?></button>
+                <button class="btn btn-outline-primary btn-sm mt-4 reset"><?= __("{$lang}::s.reset") ?></button>
             </div>
         </div>
     </div>

@@ -24,7 +24,7 @@
                 @if ($cell)
                     <div>
                         <a href="{{ route("admin.{$route}.index") }}" class="btn btn-outline-primary ml-2 btn-icons">
-                            <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::c.reset")">clear</i>
+                            <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::s.reset")">clear</i>
                         </a>
                     </div>
                 @endif

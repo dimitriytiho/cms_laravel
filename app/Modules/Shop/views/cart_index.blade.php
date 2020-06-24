@@ -28,7 +28,7 @@
                 <div class="col pt-4 no_js">
                     @include("{$viewPathModule}.cart_modal")
                     @if (!$cartSession)
-                        <a href="{{ route('catalog') }}" class="btn btn-primary mt-4">@lang("{$lang}::sh.catalog")</a>
+                        <a href="{{ route('catalog') }}" class="btn btn-primary mt-4">@lang("{$lang}::s.catalog")</a>
                     @endif
                 </div>
             </div>

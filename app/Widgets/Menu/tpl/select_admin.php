@@ -13,7 +13,7 @@ $getID = Request::segment(3);
 
 if (!empty($item)):
     $title = $item->title ?? null;
-    $title = $title && Lang::has("{$lang}::c.{$item->title}") ? __("{$lang}::c.{$item->title}") : $title;
+    $title = $title && Lang::has("{$lang}::s.{$item->title}") ? __("{$lang}::s.{$item->title}") : $title;
 
     ?>
     <option value="<?= $id; ?>"<?php if ($id == $parentID) echo ' selected'; if ($getID == $id) echo ' disabled'; ?>><?= $tab ? "{$tab} " : null; ?><?= $title; ?></option>

@@ -34,7 +34,7 @@ class PageController extends AppController
 
 
         Main::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
-        $this->setMeta(__("{$this->lang}::c.home"), __("{$this->lang}::c.You_are_on_home"));
+        $this->setMeta(__("{$this->lang}::s.home"), __("{$this->lang}::s.You_are_on_home"));
         return view("{$this->viewPathModule}.{$this->c}_index");
     }
 
@@ -84,7 +84,7 @@ class PageController extends AppController
     public function contactUs(Request $request)
     {
         Main::viewExists("{$this->viewPathModule}.{$this->c}_contact_us", __METHOD__);
-        $this->setMeta(__("{$this->lang}::c.contact_us"));
+        $this->setMeta(__("{$this->lang}::s.contact_us"));
         return view("{$this->viewPathModule}.{$this->c}_contact_us");
     }
 

@@ -89,7 +89,7 @@ class CategoryController extends AppController
             return view("{$this->viewPathModule}.filter", compact('products'))->render();
         }
 
-        $this->setMeta(__("{$this->lang}::sh.catalog"));
+        $this->setMeta(__("{$this->lang}::s.catalog"));
         return view("{$this->viewPathModule}.{$this->c}_index", compact('products'));
     }
 

@@ -4,10 +4,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Service message
+    | Site translations
     |--------------------------------------------------------------------------
     */
 
+    // Service
     'Close' => 'Close',
     'remember_me' => 'Remember me',
     'login' => 'Login',
@@ -79,13 +80,6 @@ return [
     'bottom' => 'Bottom',
     'clear' => 'Clear',
     'data_was_not_changed' => 'The data was not changed.',
-    'delivery' => 'Delivery',
-    'delivery_sum' => 'Delivery sum',
-    'discount' => 'Discount',
-    'discount_code' => 'Discount code',
-    'qty' => 'Quantity',
-    'sum' => 'Sum',
-    'price' => 'Price',
     'go' => 'Go',
     'choose' => 'Choose',
 
@@ -105,5 +99,78 @@ return [
     'now_on_the_site' => 'now on the site',
     'successfully_changed' => 'Successfully changed.',
     'change_personal_info' => 'Change your personal information',
+
+    'home' => 'Home',
+    'back' => 'Back',
+    'You_are_on_home' => 'You are on the home page',
+    'web_site' => 'Web-site',
+    'Edit' => 'Edit',
+    'View' => 'View',
+    'Date' => 'Date',
+    'contact_us' => 'Contact us',
+    'welcome' => ' welcome.',
+    'read_more' => 'Read more',
+    'reset' => 'Reset',
+    'nothing_found' => 'Nothing found, try again...',
+    'move_to_top' => 'Move to the top of the page',
+
+    'notes_for_developer' => 'Notes for the web developer',
+    'forum' => 'Forum',
+
+
+    // Date
+    'january' => 'January',
+    'february' => 'February',
+    'march' => 'March',
+    'april' => 'April',
+    'may' => 'May',
+    'june' => 'June',
+    'july' => 'July',
+    'august' => 'August',
+    'september' => 'September',
+    'october' => 'October',
+    'november' => 'November',
+    'december' => 'December',
+
+    'Mon' => 'Mon',
+    'Tue' => 'Tue',
+    'Wed' => 'Wed',
+    'Thu' => 'Thu',
+    'Fri' => 'Fri',
+    'Sat' => 'Sat',
+    'Sun' => 'Sun',
+
+    'from' => ' from ',
+    'to' => ' to ',
+
+    // Shop
+    'catalog' => 'Catalog',
+    'cart' => 'Cart',
+    'add_to_cart' => 'Add to cart',
+    'make_an_order' => 'Make an order',
+    'success_plus' => 'Successfully added',
+    'success_minus' => 'Successfully deleted',
+    'success_destroy' => 'Remove successfully',
+    'order_successfully' => 'The order was successfully placed',
+    'continue_shopping' => 'Continue shopping',
+
+    'id' => 'ID',
+    'image' => 'Image',
+    'title' => 'Title',
+    //'quantity' => 'Quantity',
+    'minus' => 'Minus',
+    'plus' => 'Plus',
+    'total' => 'Total',
+    'cart_empty' => 'The cart is still empty...',
+    'delivery' => 'Delivery',
+    'delivery_sum' => 'Delivery sum',
+    'discount' => 'Discount',
+    'discount_code' => 'Discount code',
+    'qty' => 'Quantity',
+    'sum' => 'Sum',
+    'price' => 'Price',
+
+
+
 
 ];

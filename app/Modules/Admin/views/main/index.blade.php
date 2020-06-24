@@ -15,7 +15,7 @@
     <section>
         <div class="row mt-4">
             <div class="col">
-                <h5 class="text-primary">{{ auth()->user()->name . __("{$lang}::c.welcome") }}</h5>
+                <h5 class="text-primary">{{ auth()->user()->name . __("{$lang}::s.welcome") }}</h5>
             </div>
         </div>
     </section>

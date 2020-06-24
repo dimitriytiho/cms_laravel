@@ -48,7 +48,7 @@ class CartController extends AppController
         $cartSession = session()->has('cart') ? session()->get('cart') : [];
         $noBtnModal = true;
 
-        $this->setMeta(__("{$this->lang}::sh.cart"));
+        $this->setMeta(__("{$this->lang}::s.cart"));
         return view("{$this->viewPathModule}.{$this->c}_index", compact('cartSession', 'noBtnModal'));
     }
 
@@ -85,7 +85,7 @@ class CartController extends AppController
             if ($request->ajax()) {
                 return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render(); //->with(compact('product'))
             }
-            return back(); // ->with('success', __("{$this->lang}::sh.success_plus"))
+            return back(); // ->with('success', __("{$this->lang}::s.success_plus"))
         }
         Main::getError("{$this->class} request", __METHOD__);
     }
@@ -111,7 +111,7 @@ class CartController extends AppController
             if ($request->ajax()) {
                 return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render(); //->with(compact('product'))
             }
-            return back(); // ->with('success', __("{$this->lang}::sh.success_minus"))
+            return back(); // ->with('success', __("{$this->lang}::s.success_minus"))
         }
         Main::getError("{$this->class} request", __METHOD__);
     }
@@ -136,7 +136,7 @@ class CartController extends AppController
             if ($request->ajax()) {
                 return view("{$this->viewPathModule}.{$this->c}_modal")->with(compact('product', 'cartSession'))->render();
             }
-            return back(); // ->with('success', __("{$this->lang}::sh.success_destroy"))
+            return back(); // ->with('success', __("{$this->lang}::s.success_destroy"))
         }
         Main::getError("{$this->class} request", __METHOD__);
     }

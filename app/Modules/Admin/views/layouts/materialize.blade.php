@@ -22,7 +22,7 @@ Materialize css шаблон
 </head>
 <body class="blue-grey lighten-1">
 <div id="app">
-    <a href="{{ route('index') }}" class="blue-grey-text tooltipped cur" data-position="right" data-tooltip="@lang("{$lang}::c.home")">
+    <a href="{{ route('index') }}" class="blue-grey-text tooltipped cur" data-position="right" data-tooltip="@lang("{$lang}::s.home")">
         <i class="material-icons">apps</i>
     </a>
     {{--

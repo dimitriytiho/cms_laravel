@@ -197,7 +197,7 @@ class OrderController extends AppController
 
 
                 // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::sh.order_successfully"));
+                session()->put('success', __("{$this->lang}::s.order_successfully"));
                 return redirect()->route('index');
             }
         }

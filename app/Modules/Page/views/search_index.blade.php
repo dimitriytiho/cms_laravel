@@ -50,7 +50,7 @@
             @else
                 <div class="row">
                     <div class="col my-4">
-                        <h5>@lang("{$lang}::c.nothing_found")</h5>
+                        <h5>@lang("{$lang}::s.nothing_found")</h5>
                     </div>
                 </div>
             @endif

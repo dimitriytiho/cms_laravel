@@ -53,11 +53,11 @@ function d($date, $format = null) {
                 if ($f) {
                     $month = $months[$number];
                     //$month = months()[$number];
-                    $format = str_replace('F', __("{$lang}::date.{$month}"), $format);
+                    $format = str_replace('F', __("{$lang}::s.{$month}"), $format);
 
                 // Заменяется M на название месяца
                 } elseif ($m) {
-                    $month = mb_substr( __("{$lang}::date.{$months[$number]}") , 0, 3, 'utf-8');
+                    $month = mb_substr( __("{$lang}::s.{$months[$number]}") , 0, 3, 'utf-8');
                     $format = str_replace('M', $month, $format);
                 }
             }

@@ -31,7 +31,7 @@
                     </li>
                 @endif
                 <li class="nav-item dropdown">
-                    <a href="{{ route('admin.user.edit', auth()->user()->id) }}" class="nav-link d-flex align-items-center dropdown-click" title="{{ auth()->user()->name  . __("{$lang}::c.welcome") }}">
+                    <a href="{{ route('admin.user.edit', auth()->user()->id) }}" class="nav-link d-flex align-items-center dropdown-click" title="{{ auth()->user()->name  . __("{$lang}::s.welcome") }}">
                         <img src="{{ asset(auth()->user()->img) }}" class="dropdown-click" id="avatar" alt="Avatar">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">

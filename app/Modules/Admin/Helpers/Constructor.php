@@ -286,7 +286,7 @@ S;
     {
         $lang = lang();
         $title = __("{$lang}::a.{$title}");
-        $bottom_title = $bottom_title ?: __("{$lang}::c.read_more");
+        $bottom_title = $bottom_title ?: __("{$lang}::s.read_more");
         $count = $count ?: '0';
         $mt = $mt ? "mt-$mt": null;
         $mb = $mb ? "mb-$mb": null;
@@ -330,7 +330,7 @@ S;
         $route = route('admin.main');
         $title = $title ? "<p class='font-weight-bold'><a href='$route/$link'>" . __("{$lang}::a.{$title}") . '</a></p>' : null;
         $icon = $icon ?: 'arrow_forward';
-        $bottom_title = $bottom_title ?: __("{$lang}::c.read_more");
+        $bottom_title = $bottom_title ?: __("{$lang}::s.read_more");
         $mt = $mt ? "mt-$mt": null;
         $mb = $mb ? "mb-$mb": null;
         $bg_dark = $bg_dark ? 'bg-primary text-white a-light' : null;

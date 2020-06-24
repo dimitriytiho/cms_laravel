@@ -6,6 +6,7 @@
 
 return [
 
+    'app/Modules/lang/vendor/backup',
     //'app/Modules/Page',
 
     //'app/Modules/Admin/Controllers/MainController.php',

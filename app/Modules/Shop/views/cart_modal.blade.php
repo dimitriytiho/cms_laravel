@@ -3,11 +3,11 @@
         <table class="table">
             <thead>
             <tr>
-                <th class="font-weight-light" scope="col">@lang("{$lang}::sh.id")</th>
-                <th class="font-weight-light" scope="col">@lang("{$lang}::sh.image")</th>
-                <th class="font-weight-light" scope="col">@lang("{$lang}::sh.title")</th>
-                <th class="font-weight-light" scope="col">@lang("{$lang}::sh.quantity")</th>
-                <th class="font-weight-light" scope="col">@lang("{$lang}::sh.price")</th>
+                <th class="font-weight-light" scope="col">@lang("{$lang}::s.id")</th>
+                <th class="font-weight-light" scope="col">@lang("{$lang}::s.image")</th>
+                <th class="font-weight-light" scope="col">@lang("{$lang}::s.title")</th>
+                <th class="font-weight-light" scope="col">@lang("{$lang}::s.qty")</th>
+                <th class="font-weight-light" scope="col">@lang("{$lang}::s.price")</th>
                 <th class="font-weight-light" scope="col"></th>
             </tr>
             </thead>
@@ -26,11 +26,11 @@
                         </td>
                         <td>
                             <a href="{{ route('cart_minus', $cartID) }}" class="btn cart_minus" data-id="{{ $cartID }}">
-                                <span>@lang("{$lang}::sh.minus")</span>
+                                <span>@lang("{$lang}::s.minus")</span>
                             </a>
                             <span class="cart_modal_product_qty">{{ $cartProduct['qty'] }}</span>
                             <a href="{{ route('cart_plus', $cartID) }}" class="btn cart_plus" data-id="{{ $cartID }}">
-                                <span>@lang("{$lang}::sh.plus")</span>
+                                <span>@lang("{$lang}::s.plus")</span>
                             </a>
                         </td>
                         <td>{{ $cartProduct['price'] }}</td>
@@ -41,12 +41,12 @@
                 @endif
             @endforeach
             <tr>
-                <th colspan="4">@lang("{$lang}::sh.total"):</th>
+                <th colspan="4">@lang("{$lang}::s.total"):</th>
                 <th id="cart_modal_qty">{{ $cartSession['qty'] ?? null }}</th>
                 <th></th>
             </tr>
             <tr>
-                <th colspan="4">@lang("{$lang}::sh.sum"):</th>
+                <th colspan="4">@lang("{$lang}::s.sum"):</th>
                 <th id="cart_modal_sum">{{ $cartSession['sum'] ?? null }}</th>
                 <th></th>
             </tr>
@@ -57,7 +57,7 @@
         {!! modalEnd() !!}
     @endif
 @else
-    <h4 class="font-weight-light my-3">@lang("{$lang}::sh.cart_empty")</h4>
+    <h4 class="font-weight-light my-3">@lang("{$lang}::s.cart_empty")</h4>
     @if (!isset($noBtnModal))
         {!! modalEnd(false) !!}
     @endif

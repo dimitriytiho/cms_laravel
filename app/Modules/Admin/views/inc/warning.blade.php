@@ -13,7 +13,7 @@
     <div class="container mt-4 mb-2">
         <div class="row">
             <div class="col">
-                <div class="alert alert-danger p-3">@lang("{$lang}::service.Please_enable_JavaScript")</div>
+                <div class="alert alert-danger p-3">@lang("{$lang}::s.Please_enable_JavaScript")</div>
             </div>
         </div>
     </div>

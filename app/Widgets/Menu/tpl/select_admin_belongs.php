@@ -12,7 +12,7 @@ $disabledIDs = Main::get('disabledIDs') ?? [];
 
 if (!empty($item)):
     $title = $item->title ?? null;
-    $title = $title && Lang::has($title) ? __("{$lang}::c.{$item->title}") : $title;
+    $title = $title && Lang::has("{$lang}::s.{$item->title}") ? __("{$lang}::s.{$item->title}") : $title;
 
     ?>
     <option data-title="<?= $title; ?>" data-title-lang="<?= Lang::has("{$lang}::t.{$title}") ? __("{$lang}::t.{$title}") : $title; ?>" value="<?= $id; ?>"<?php if (in_array($id, $disabledIDs)) echo ' disabled'; ?>><?= $tab ? "{$tab} " : null; ?><?= $title; ?></option>

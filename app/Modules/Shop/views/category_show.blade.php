@@ -53,7 +53,7 @@
                                                     </a>
                                                 </h5>
                                                 <p class="card-text">Some quick example text to build on the card title.</p>
-                                                <a href="{{ route('cart_plus', $product->id) }}" class="btn btn-outline-dark btn-sm cart_plus" data-id="{{ $product->id }}">@lang("{$lang}::sh.add_to_cart")</a>
+                                                <a href="{{ route('cart_plus', $product->id) }}" class="btn btn-outline-dark btn-sm cart_plus" data-id="{{ $product->id }}">@lang("{$lang}::s.add_to_cart")</a>
                                             </div>
                                         </div>
                                     </div>
