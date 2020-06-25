@@ -12,7 +12,7 @@ use App\Modules\Shop\Helpers\Filter as helpersFilter;
 class Filter
 {
     // Настройки виджета
-    private static $options = [
+    private $options = [
         'tpl' => 'default', // Передать название шаблона из папки tpl
         'cache' => true, // Если не нужно кэшировать, то передать false
         'cacheNameGroups' => 'filter_groups', // При кэшировании передать название кэша
@@ -21,39 +21,43 @@ class Filter
         'table_values' => 'filter_values', // Название таблицы с названиями фильтров
     ];
 
-    private static $groups;
-    private static $values;
+    private $groups;
+    private $values;
+
 
 
     // Входной основной метод
     public static function init($params = [])
     {
-        self::getParams($params);
-        self::run();
-        self::toTemplate();
+        $self = new self();
+
+        $self->getParams($params);
+        $self->run();
+        $self->toTemplate();
     }
 
 
+
     // Заполняем настройки
-    private static function getParams($params = [])
+    private function getParams($params = [])
     {
         $data = [];
-        foreach (self::$options as $propName => $value) {
+        foreach ($this->options as $propName => $value) {
             isset($params[$propName]) ? $data[$propName] = $params[$propName] : $data[$propName] = $value;
         }
 
         // Назначим шаблон html
         $data['tpl'] = is_file(__DIR__ . "/tpl/{$data['tpl']}.php") ? __DIR__ . "/tpl/{$data['tpl']}.php" : __DIR__ . '/tpl/default.php';
 
-        self::$options = $data;
+        $this->options= $data;
         return;
     }
 
 
     // Получаем данные
-    private static function run()
+    private function run()
     {
-        $params = self::$options;
+        $params = $this->options;
 
         // Если не существует таблица
         if (!Schema::hasTable($params['table_groups']) || !Schema::hasTable($params['table_values'])) {
@@ -61,7 +65,7 @@ class Filter
         }
 
         // Получаем все группы
-        self::$groups = self::getGroups();
+        $this->groups = self::getGroups();
 
         // Получаем все фильтры
         $values = self::getFilters();
@@ -70,7 +74,7 @@ class Filter
         // Формируем нужный массив с фильтрами
         if ($values) {
             foreach ($values as $key => $filter) {
-                self::$values[$filter->parent_id][$filter->id] = $filter->value;
+                $this->values[$filter->parent_id][$filter->id] = $filter->value;
             }
         }
 
@@ -78,9 +82,9 @@ class Filter
     }
 
 
-    public static function getGroups()
+    public function getGroups()
     {
-        $params = self::$options;
+        $params = $this->options;
 
         // Получаем из кэша для групп
         if ($params['cache'] && cache()->has($params['cacheNameGroups'])) {
@@ -93,16 +97,16 @@ class Filter
 
             // Кэшируется запрос
             if ($params['cache']) {
-                cache()->forever($params['cacheNameGroups'], self::$groups);
+                cache()->forever($params['cacheNameGroups'], $this->groups);
             }
         }
         return $groups;
     }
 
 
-    public static function getFilters()
+    public function getFilters()
     {
-        $params = self::$options;
+        $params = $this->options;
 
         // Получаем из кэша для фильтров
         if ($params['cache'] && cache()->has($params['cacheNameValues'])) {
@@ -115,7 +119,7 @@ class Filter
 
             // Кэшируется запрос
             if ($params['cache']) {
-                cache()->forever($params['cacheNameValues'], self::$groups);
+                cache()->forever($params['cacheNameValues'], $this->groups);
             }
         }
 
@@ -123,9 +127,9 @@ class Filter
     }
 
 
-    private static function toTemplate()
+    private function toTemplate()
     {
-        $params = self::$options;
+        $params = $this->options;
 
         // Получаем выбранные фильтры
         $filterActive = helpersFilter::getFilter();

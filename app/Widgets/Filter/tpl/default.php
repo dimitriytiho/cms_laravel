@@ -1,10 +1,8 @@
 <?php
 
-
-
 $lang = lang();
-$groups = self::$groups ?? null;
-$values = self::$values ?? null;
+$groups = $this->groups ?? null;
+$values = $this->values ?? null;
 
 
 if ($groups): ?>
@@ -12,14 +10,17 @@ if ($groups): ?>
         <?php foreach ($groups as $key => $group): ?>
             <?php
 
-            // Если чекбокс
-            if ($group->type === 'checkbox'): ?>
-                <div class="row">
-                    <div class="col-12">
-                        <h3 class="<?= $key ? 'mt-4' : null ?>"><?= Lang::has("{$lang}::t.{$group->title}") ? __("{$lang}::t.{$group->title}") : $group->title ?></h3>
-                    </div>
-                    <div class="col-12">
-                        <?php if ($values): ?>
+            // Если есть в группе элементы, то будем показывать группу
+            if (!empty($values[$group->id])): ?>
+                <?php
+
+                // Если чекбокс
+                if ($group->type === 'checkbox'): ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 class="<?= $key ? 'mt-4' : null ?>"><?= Lang::has("{$lang}::t.{$group->title}") ? __("{$lang}::t.{$group->title}") : $group->title ?></h3>
+                        </div>
+                        <div class="col-12">
                             <?php foreach ($values[$group->id] as $id => $filter):
 
                                 // Отмеченный чекбокс после перезагрузки страницы
@@ -31,13 +32,13 @@ if ($groups): ?>
                                     <label class="custom-control-label" for="<?= "{$filter}_{$id}" ?>"><?= Lang::has("{$lang}::t.{$filter}") ? __("{$lang}::t.{$filter}") : $filter ?></label>
                                 </div>
                             <?php endforeach; ?>
-                        <?php endif; ?>
+                        </div>
                     </div>
-                </div>
-                <?php
+                    <?php
 
-                // Если радиокнопка
-                /*elseif ($group->type === 'radio'):*/ ?>
+                    // Если радиокнопка
+                    /*elseif ($group->type === 'radio'):*/ ?>
+                <?php endif; ?>
             <?php endif; ?>
         <?php endforeach; ?>
         <div class="row">
