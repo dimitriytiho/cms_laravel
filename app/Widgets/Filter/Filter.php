@@ -82,9 +82,10 @@ class Filter
     }
 
 
-    public function getGroups()
+    public static function getGroups()
     {
-        $params = $this->options;
+        $self = new self();
+        $params = $self->options;
 
         // Получаем из кэша для групп
         if ($params['cache'] && cache()->has($params['cacheNameGroups'])) {
@@ -97,16 +98,17 @@ class Filter
 
             // Кэшируется запрос
             if ($params['cache']) {
-                cache()->forever($params['cacheNameGroups'], $this->groups);
+                cache()->forever($params['cacheNameGroups'], $self->groups);
             }
         }
         return $groups;
     }
 
 
-    public function getFilters()
+    public static function getFilters()
     {
-        $params = $this->options;
+        $self = new self();
+        $params = $self->options;
 
         // Получаем из кэша для фильтров
         if ($params['cache'] && cache()->has($params['cacheNameValues'])) {
@@ -119,7 +121,7 @@ class Filter
 
             // Кэшируется запрос
             if ($params['cache']) {
-                cache()->forever($params['cacheNameValues'], $this->groups);
+                cache()->forever($params['cacheNameValues'], $self->groups);
             }
         }
 
