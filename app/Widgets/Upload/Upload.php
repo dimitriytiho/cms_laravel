@@ -136,7 +136,7 @@ class Upload
         $pathCms = $file ? str_replace('/' . $file, '', $path) : null;
 
         if (!File::isDirectory($pathCms)) {
-            File::makeDirectory($pathCms, 0755, true);
+            File::makeDirectory($pathCms, 0755, true, true);
         }
     }
 

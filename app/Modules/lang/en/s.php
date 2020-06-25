@@ -170,7 +170,6 @@ return [
     'sum' => 'Sum',
     'price' => 'Price',
 
-
-
+    'res' => 'Result',
 
 ];

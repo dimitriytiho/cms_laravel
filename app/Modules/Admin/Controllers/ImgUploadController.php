@@ -32,12 +32,15 @@ class ImgUploadController extends AppController
                 $route = Str::lower($class);
                 $table = $request->input('table');
 
-                // Если нет папок по пути, то создадим их
+                // Если нет папки, то создадим её
+                $disk = Storage::disk('public_folder');
                 $dateDir = date('Y_m');
-                $directory = config('add.imgPath') . "/{$route}/{$dateDir}";
-                if (!File::isDirectory($directory)) {
-                    File::makeDirectory($directory, 0755, true);
+                $directory = config('add.img') . "/{$route}/{$dateDir}";
+                $pathDirectory = config('add.imgPath') . "/{$route}/{$dateDir}";
+                if (!File::isDirectory($pathDirectory)) {
+                    $disk->makeDirectory($directory);
                 }
+
 
                 // ID элемента, для которого картинка
                 $imgUploadID = (int)$request->input('imgUploadID');

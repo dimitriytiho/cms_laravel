@@ -64,6 +64,11 @@ class AppController extends Controller
 
         //cache()->flush(); // Удалить все кэши
 
+
+
+
+
+
         // Строка поиска
         $searchQuery = s(request()->query('s')) ?: Main::get('search_query');
 
