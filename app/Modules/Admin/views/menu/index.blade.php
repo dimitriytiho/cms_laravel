@@ -8,7 +8,7 @@
     @if ($parentValues)
         <div class="row mb-4">
             <div class="col">
-                {!! $constructor::select('current_menu', $parentValues, $currentParentId, true, null, ['id' => 'select-change', 'data-action' => route("admin.{$route}.index")], null, true) !!}
+                {!! $constructor::select('current_menu', $parentValues, $currentParentId, true, null, ['data-action' => route("admin.{$route}.index")], null, true, null, 'select-change') !!}
             </div>
         </div>
     @endif

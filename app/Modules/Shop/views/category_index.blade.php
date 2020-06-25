@@ -34,7 +34,7 @@
                             <span class="cart_count_qty">{{--@if (session()->has('cart.qty')){{ session()->get('cart.qty') }}@endif--}}</span>
                             <span class="cart_count_sum">@if (session()->has('cart.sum')){{ session()->get('cart.sum') }} ₽@endif</span>
                         </a>
-                        {!! modal('cart_modal', __("{$lang}::s.cart"), null, 'modal-lg') !!}
+                        {!! modal('cart_modal', __("{$lang}::s.cart"), 'modal-lg') !!}
                     </div>
                 </div>
             </div>
