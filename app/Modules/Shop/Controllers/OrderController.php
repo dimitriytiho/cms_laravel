@@ -180,9 +180,8 @@ class OrderController extends AppController
                     $email_admin = HelpersStr::strToArr(Main::site('admin_email') ?? null);
 
                     // Данные пользователя
-                    $body = null;
-                    if (!empty($dataUserMail)) {
-                        $body = view('mail.table_form')
+                    if (!empty($dataUserMail) && view()->exists("{$this->viewPath}.mail.table_form")) {
+                        $body = view("{$this->viewPath}.mail.table_form")
                             ->with(['values' => $dataUserMail])
                             ->render();
                     }

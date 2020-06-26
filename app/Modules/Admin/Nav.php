@@ -95,6 +95,7 @@ class Nav
                         'request' => 'filter',
                         'item' => 'tune',
                         'add' => 22, // Добавляется Filter_groups
+                        'count' => 'filter_values',
                     ],
                     21 => [
                         'title' => 'Create_item',

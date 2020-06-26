@@ -52,6 +52,7 @@ body {
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
+    overflow-x: hidden !important;
 }
 .no-wrap {
     overflow-wrap: normal;
