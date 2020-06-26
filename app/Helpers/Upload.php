@@ -189,6 +189,7 @@ class Upload
     {
         $index = config('add.not_index_website'); // Если не нужно индексировать сайт, то true, если нужно, то false
         $disallow = config('add.disallow');
+
         $disallow[] = 'not-found';
         $disallow[] = '*.php$';
         $disallow[] = 'js/*.js$';
@@ -202,8 +203,11 @@ class Upload
 
         // Если индексировать
         } else {
-            foreach ($disallow as $v) {
-                $r .= "Disallow: /{$v}" . PHP_EOL;
+
+            if ($disallow) {
+                foreach ($disallow as $v) {
+                    $r .= "Disallow: /{$v}" . PHP_EOL;
+                }
             }
 
             $r .= PHP_EOL . "Host: {$url}" . PHP_EOL;

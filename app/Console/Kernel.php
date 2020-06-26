@@ -41,7 +41,7 @@ class Kernel extends ConsoleKernel
         /*$schedule->call(function () {
 
             // Создайте файл /storage/test.log
-            $logFile = base_path('storage/test.log');
+            $logFile = storage_path('test.log');
             if (File::isFile($logFile)) {
 
                 // Каждый час в первую минуть запишем дату в файл
