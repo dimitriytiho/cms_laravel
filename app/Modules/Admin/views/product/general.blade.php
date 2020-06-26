@@ -128,13 +128,7 @@
                                             <select class="form-control custom-select" name="filter_value" id="select-product-filter">
                                                 <option value="0"> Выбрать </option>
                                                 @foreach ($filters as $v)
-                                                    @php
-
-                                                      $filterLang = Lang::has("{$lang}::t.{$v->value}") ? __("{$lang}::t.{$v->value}") : $v->value;
-                                                      $filterGroup = Lang::has("{$lang}::t.{$filterGroups[$v->parent_id]->title}") ? __("{$lang}::t.{$filterGroups[$v->parent_id]->title}") : $filterGroups[$v->parent_id]->title;
-
-                                                    @endphp
-                                                    <option data-title="{{ $v->value }}" data-title-lang="{{ $filterLang }}" value="{{ $v->id }}" @if ($filtersActive->filter_values->contains('value', $v->value))disabled @endif>{{ $filterGroup }} - {{ $filterLang }}</option>
+                                                    <option data-title="{{ $v->value }}" data-title-lang="{{ l($filterGroups[$v->parent_id]->title) }} - {{ l($v->value) }}" value="{{ $v->id }}" @if ($filtersActive->filter_values->contains('value', $v->value))disabled @endif>{{ l($filterGroups[$v->parent_id]->title) }} - {{ l($v->value) }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -144,7 +138,7 @@
                                         <div class="border mt-4 px-2 py-1" id="filter-many-elements">
                                             @foreach ($filtersActive->filter_values as $v)
                                                 <div class="mr-4 many-elements">
-                                                    <span class="many-elements__text">{{ Lang::has("{$lang}::t.{$v->value}") ? __("{$lang}::t.{$v->value}") : $v->value }}</span>
+                                                    <span class="many-elements__text">{{ l($filterGroups[$v->parent_id]->title) }} - {{ l($v->value) }}</span>
                                                     <a data-url="{{ route('admin.product_destroy_filter') }}" data-belongs-id="{{ $v->id }}" data-id="{{ $values->id }}" class="text-primary many-elements__close cur">&times;</a>
                                                 </div>
                                             @endforeach
