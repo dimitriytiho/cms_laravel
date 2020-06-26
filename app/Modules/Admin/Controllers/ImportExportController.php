@@ -37,9 +37,13 @@ class ImportExportController extends AppController
         // Массив возможных get запросов
         $queryArr = [
             'user',
-            'product',
-            'category'
         ];
+
+        // Если включен магазин, то добавим товары и категории
+        if (config('add.shop')) {
+            $queryArr = array_merge($queryArr, ['product', 'category']);
+        }
+        
         // Автоматически определим по какому ключу искать
         $requestQuery = request()->query() ?: [];
         $query = $requestQuery ? key($requestQuery) : null;

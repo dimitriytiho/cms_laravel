@@ -28,17 +28,17 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
     // Routes import export
     Route::get('import-export', 'ImportExportController@view')->name('import_export');
     // Route export User
-    Route::get('export-user', 'importExportController@exportUser')->name('export_user');
+    Route::get('export-user', 'ImportExportController@exportUser')->name('export_user');
 
     // Если включен shop
     if (config('add.shop')) {
 
         // Product
-        Route::get('export-product', 'importExportController@exportProduct')->name('export_product');
-        Route::post('import-product', 'importExportController@importProduct')->name('import_product');
+        Route::get('export-product', 'ImportExportController@exportProduct')->name('export_product');
+        Route::post('import-product', 'ImportExportController@importProduct')->name('import_product');
         // Category
-        Route::get('export-category', 'importExportController@exportCategory')->name('export_category');
-        Route::post('import-category', 'importExportController@importCategory')->name('import_category');
+        Route::get('export-category', 'ImportExportController@exportCategory')->name('export_category');
+        Route::post('import-category', 'ImportExportController@importCategory')->name('import_category');
 
 
         // Shop controllers

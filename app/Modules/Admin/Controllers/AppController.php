@@ -9,7 +9,6 @@ use App\Modules\Admin\Helpers\Routes;
 use App\Modules\Admin\Nav;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
 class AppController extends Controller
@@ -63,7 +62,7 @@ class AppController extends Controller
 
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
         $viewPath = $this->viewPath  = 'views';
-        View::getFinder()->setPaths("{$modulesPath}/{$this->viewPath}");
+        view()->getFinder()->setPaths("{$modulesPath}/{$this->viewPath}");
 
 
         // Добавляем namespace для переводов
@@ -85,7 +84,7 @@ class AppController extends Controller
                 Main::getError('Editor section Banned!', __METHOD__);
             }
 
-            View::share(compact('isAdmin'));
+            view()->share(compact('isAdmin'));
 
 
             // Сохраняем в сессию страницу с которой пользователь перешёл в админку
@@ -140,6 +139,6 @@ class AppController extends Controller
             $onlineUsers = OnlineUsers::getUsers();
         }
 
-        View::share(compact('viewPath', 'lang', 'currentRoute', 'controller', 'c', 'table', 'currentRoutesExclude', 'asideWidth', 'asideText', 'menuAsideChunk', 'menuAside', 'imgRequestName', 'imgUploadID', 'namespaceHelpers', 'modulesPath', 'constructor', 'onlineUsers'));
+        view()->share(compact('viewPath', 'lang', 'currentRoute', 'controller', 'c', 'table', 'currentRoutesExclude', 'asideWidth', 'asideText', 'menuAsideChunk', 'menuAside', 'imgRequestName', 'imgUploadID', 'namespaceHelpers', 'modulesPath', 'constructor', 'onlineUsers'));
     }
 }

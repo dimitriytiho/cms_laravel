@@ -1397,12 +1397,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (selectChange) {
     selectChange.addEventListener('change', function (e) {
-      var action = e.target.dataset.action,
-          val = e.target.value;
-
-      if (action && val) {
-        window.location = action + '?value=' + val;
-      }
+      window.location = e.target.dataset.action + '?value=' + e.target.value;
     });
   } // Сохраняем ранее открытую вкладку на странице редактирования
 

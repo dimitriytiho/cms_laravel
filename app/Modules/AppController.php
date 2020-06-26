@@ -5,7 +5,6 @@ namespace App\Modules;
 use App\Main;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 
 class AppController extends Controller
 {
@@ -40,7 +39,7 @@ class AppController extends Controller
         $this->perPage = config('add.pagination');
 
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
-        View::getFinder()->setPaths($modulesPath);
+        view()->getFinder()->setPaths($modulesPath);
 
 
         // Конструкция для получения auth() через middleware, auth() работает внутри этой конструкции
@@ -66,13 +65,10 @@ class AppController extends Controller
 
 
 
-
-
-
         // Строка поиска
         $searchQuery = s(request()->query('s')) ?: Main::get('search_query');
 
         // Передаём в вид путь к видам
-        View::share(compact('viewPath', 'statusActive', 'lang', 'searchQuery'));
+        view()->share(compact('viewPath', 'statusActive', 'lang', 'searchQuery'));
     }
 }

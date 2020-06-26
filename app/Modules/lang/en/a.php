@@ -144,6 +144,9 @@ return [
     'Forums' => 'Forum',
     'forum' => 'Forum',
     'update_cms_files' => 'Update CMS Files with GitHub',
-    'make_backup_first_if' => 'Make backup first! If something breaks, then replace the app folder from the /storage/app/site_name archive. This is a lengthy process, wait for completion.',
+    'make_backup_first_if' => 'Make backup first! If something breaks, then replace the app folder from the /storage/app/:name archive. This is a lengthy process, wait for completion.',
+    'updating_files_github_successfully' => 'Updating CMS Files from GitHub Successfully ',
+    'updated_count_files' => 'Updated :count files, below is a list of updated files:',
+    'if_something_breaks' => 'If something breaks, then replace back from the backup archive /storage/app/:name.',
 
 ];

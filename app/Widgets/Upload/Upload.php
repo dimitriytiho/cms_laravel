@@ -4,8 +4,11 @@
 namespace App\Widgets\Upload;
 
 use App\Helpers\Arr as helpersArr;
+use App\Mail\SendMail;
+use App\Main;
 use Illuminate\Support\Facades\File;
 use Curl\Curl;
+use Illuminate\Support\Facades\Mail;
 
 class Upload
 {
@@ -45,16 +48,24 @@ class Upload
     {
         $self = new self();
 
-        // Выключем сайт на время обновления
         $siteOffFile = config('add.site_off_file');
         if (File::isFile($siteOffFile)) {
+
+            // Получаем список файлов
+            $files = $self->getListFiles($all, $excludeFiles);
+
+            // Выключем сайт на время обновления
             File::replace($siteOffFile, '1');
 
             // Обновляем файлы
-            $self->run($all, $excludeFiles);
+            $self->run($files);
 
             // Включаем сайт
             File::replace($siteOffFile, '');
+
+            // Отправим письмо об успехе
+            $self->sendEmail($files);
+
             return true;
         }
         return false;
@@ -62,7 +73,30 @@ class Upload
 
 
 
-    private function run($all, $excludeFiles)
+    private function run($files)
+    {
+        if ($files) {
+
+            foreach ($files as $file) {
+                $path = base_path($file);
+
+                // Если нет папки по пути, то создадим её
+                $this->makeDirectory($path);
+
+                // Получим файл с GitHub
+                $fileGitHub = $this->curl($this->github . $file);
+
+                // Перезаписываем файлы
+                if ($fileGitHub) {
+                    File::put($path, $fileGitHub);
+                }
+            }
+        }
+    }
+
+
+    // Получить список файлов к обновления
+    private function getListFiles($all, $excludeFiles)
     {
         $files = $all ? $this->allFiles : $this->recommend;
         if ($files) {
@@ -88,7 +122,7 @@ class Upload
                 if (File::isFile($path)) {
                     $files = helpersArr::unsetValue($item, $files);
 
-                // Если папка
+                    // Если папка
                 } elseif (File::isDirectory($path)) {
 
                     $directories = File::allFiles($path);
@@ -105,24 +139,9 @@ class Upload
                 }
             }
 
-            //dump($files);
-            if ($files) {
-                foreach ($files as $file) {
-                    $path = base_path($file);
-
-                    // Если нет папки по пути, то создадим её
-                    $this->makeDirectory($path);
-
-                    // Получим файл с GitHub
-                    $fileGitHub = $this->curl($this->github . $file);
-
-                    // Перезаписываем файлы
-                    if ($fileGitHub) {
-                        File::put($path, $fileGitHub);
-                    }
-                }
-            }
+            return $files;
         }
+        return false;
     }
 
 
@@ -207,5 +226,35 @@ class Upload
 
         $part .= "\n];\n";
         return $part;
+    }
+
+
+    // Отправим письмо об успехе
+    private function sendEmail($files)
+    {
+        $email = config('add.app_email');
+        $siteName = config('add.name');
+        $lang = lang();
+        $title = __("{$lang}::a.updating_files_github_successfully") . config('add.domain');
+        $filesCount = count($files);
+        $body = '<h2>' . __("{$lang}::a.updated_count_files", ['count' => $filesCount]) . '</h2>';
+
+        if ($filesCount) {
+
+            $body .= "\n\n\n";
+            foreach ($files as $file) {
+                $body .= "{$file}\n\n";
+            }
+            $body .= "\n\n\n";
+            $body .= '<h2>' . __("{$lang}::a.if_something_breaks", ['name' => $siteName]) . '</h2>';
+        }
+
+        try {
+            Mail::to($email)
+                ->send(new SendMail($title, $body));
+
+        } catch (\Exception $e) {
+            Main::getError("Error sending email: $e", __METHOD__, false);
+        }
     }
 }

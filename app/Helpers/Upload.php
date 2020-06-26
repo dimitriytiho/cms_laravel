@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\View;
 
 class Upload
 {
@@ -242,7 +241,7 @@ class Upload
         if ($modulesPath) {
 
             // Определяем папку с видами в папке /app/Modules
-            View::getFinder()->setPaths($modulesPath);
+            view()->getFinder()->setPaths($modulesPath);
 
             if (view()->exists("{$viewPath}.errors.preventive")) {
                 $r = view('views.errors.preventive')
