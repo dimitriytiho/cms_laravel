@@ -66,7 +66,7 @@
 {{--
 
 Стрелка вверх --}}
-<div class="scale-out" id="btn-up" aria-controls="@lang("{$lang}::s.move_to_top")" title="@lang("{$lang}::s.move_to_top")">
+<div class="scale-out" id="btn-up" title="@lang("{$lang}::s.move_to_top")">
     {!! icon('arrow-up', 16, 16) !!}
 </div>
 {{--

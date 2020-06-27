@@ -119,7 +119,7 @@ function input($name, $idForm = false, $required = true, $type = false, $value =
     return <<<S
 <div class="form-group {$class}">
     <label for="{$id}" {$label}>$title $star</label>
-    <input type="{$type}" name="{$name}" id="{$id}" class="form-control" aria-describedby="{$name}" placeholder="{$placeholder}" value="{$value}" $part {$required}>
+    <input type="{$type}" name="{$name}" id="{$id}" class="form-control" placeholder="{$placeholder}" value="{$value}" $part {$required}>
     $_required
 </div>
 S;

@@ -3,7 +3,7 @@
 Если у пользователя устаревший браузер, то выведется сообщение --}}
 <!--[if lt IE 9]>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/reject.css') }}" media="all">
-<script type="text/javascript" src="{{ asset('js/reject.min.js') }}" data-text="@lang("{$lang}::s.browser_you_are_using_is_outdated")"></script>
+<script src="{{ asset('js/reject.min.js') }}" data-text="@lang("{$lang}::s.browser_you_are_using_is_outdated")"></script>
 <![endif]-->
 {{--
 
