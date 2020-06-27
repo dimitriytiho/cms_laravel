@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use App\Modules\Admin\Controllers\AppController as AppController;
@@ -57,9 +56,9 @@ class EnterController extends AppController
         $viewPath = $this->viewPath  = 'views';
 
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
-        View::getFinder()->setPaths("{$this->modulePath}/{$viewPath}");
+        view()->getFinder()->setPaths("{$this->modulePath}/{$viewPath}");
 
-        View::share(compact('module', 'm', 'class', 'c', 'route', 'view'));
+        view()->share(compact('module', 'm', 'class', 'c', 'route', 'view'));
     }
 
 

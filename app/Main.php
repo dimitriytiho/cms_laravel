@@ -55,7 +55,7 @@ class Main
 
 
     /*
-     * Подключает файл из /app/Modules/views/inc с название написаном в контенте ##!!!inc_name (название файла inc_name.php).
+     * Подключает файл из /app/Modules/views/inc с название написаном в контенте ##!!!inc_name (название файла inc_name.blade.php).
      * $content - если передаётся контент, то в нём будет искаться ##!!!inc_name и заменяется на файл из папки inc.
      * $values - $values5 - Можно передать данные в подключаемый файл.
      */
@@ -68,11 +68,24 @@ class Main
             preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
 
             if ($matches) {
+                $views = config('modules.views') . '.inc';
+
                 foreach ($matches as $v) {
-                    $inc = config('modules.path') . "/views/inc/{$v[0]}.php";
+                    $view = "{$views}.inc_{$v[0]}";
                     $pattern_inner = '/' . $search . $v[0] . '/';
 
-                    if (is_file($inc)) {
+                    if (view()->exists($view)) {
+
+                        $output = view($view, compact('values', 'values2', 'values3', 'values4', 'values5'))->render();
+                        $content = preg_replace($pattern_inner, $output, $content, 1);
+                    } else {
+                        $content = preg_replace($pattern_inner, '', $content);
+                    }
+
+                    /*$inc = config('modules.path') . "/views/inc/inc_{$v[0]}.blade.php";
+                    $pattern_inner = '/' . $search . $v[0] . '/';
+
+                    if (File::isFile($inc)) {
 
                         ob_start();
                         include_once $inc;
@@ -83,7 +96,7 @@ class Main
 
                     } else {
                         $content = preg_replace($pattern_inner, '', $content);
-                    }
+                    }*/
                 }
             }
         }
