@@ -14,10 +14,10 @@
         <meta name="robots" content="index, follow" />
     @endif
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <link rel="apple-touch-icon" href="{{ asset(config('add.img') . '/logo/touch-icon-iphone.png') }}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset(config('add.img') . '/logo/touch-icon-ipad.png') }}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset(config('add.img') . '/logo/touch-icon-iphone-retina.png') }}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset(config('add.img') . '/logo/touch-icon-ipad-retina.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('touch-icon-iphone.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('touch-icon-ipad.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('touch-icon-iphone-retina.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('touch-icon-ipad-retina.png') }}">
     <link rel="cononical" href="{{ $cononical }}">
     {{-- <link href="//fonts.googleapis.com/css?family=Roboto:300,400,700&amp;subset=cyrillic" rel="stylesheet"> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}" />

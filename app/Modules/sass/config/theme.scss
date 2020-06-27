@@ -16,6 +16,8 @@ $spacer: 1rem;
 $link-hover-decoration: none;
 
 // Font
+$enable-responsive-font-sizes: true; // Адаптивный шрифт
+
 //$font-family-base: 'Roboto', 'Arial', sans-serif;
 $font-size-base: .9rem; // 14.4px
 $h1-font-size: $font-size-base * 1.95;

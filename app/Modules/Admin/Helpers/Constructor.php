@@ -387,12 +387,13 @@ S;
     public static function stickyScript($idBtn = 'btn-sticky')
     {
         if ($idBtn) {
+
             ob_start(); ?>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
 
                     var sticky = document.getElementById('<?= $idBtn; ?>'),
-                        aside = document.querySelector('.aside'),
+                        aside = document.querySelector('aside.aside'),
                         //content = document.querySelector('.main-content'),
                         tabs = document.getElementById('tabs-edit-content'),
                         tabActive = null,
@@ -431,15 +432,21 @@ S;
 
 
                         function addButton() {
-                            /*var asideWidth = aside.offsetWidth, // Ширина сайдбара слева
-                                contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left')*/ // У контента получить padding-left в px
+                            var asideWidth = aside.offsetWidth // Ширина сайдбара слева
+                            //var contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left') // У контента получить padding-left в px
 
                             // Отрезать px в конце строки
                             //contentLeft = contentLeft.substring(0, contentLeft.length - 2)
 
                             //sticky.style.paddingLeft = '34px'
                             sticky.classList.add('bg-white', 'w-100', 'position-fixed', 'z-7')
-                            sticky.style.left = '82px'
+                            sticky.style.left = (asideWidth + 34) + 'px' // 82px
+                            // Получисть ширину aside
+
+
+
+
+
                             //sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
                             sticky.style.height = heightNewSticky + 'px'
                             sticky.style.top = (heightWindow - heightNewSticky) + 'px'
