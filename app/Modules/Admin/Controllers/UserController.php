@@ -4,6 +4,7 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
+use App\Modules\Admin\Helpers\DbSort;
 use App\Modules\Admin\Helpers\Img;
 use App\Modules\Admin\Helpers\Slug;
 use App\Modules\Admin\Models\User;
@@ -51,24 +52,14 @@ class UserController extends AppController
             'role_id',
             'ip',
         ];
-        $col = request()->query('col');
-        $cell = request()->query('cell');
 
-        // Автоматически определим по какому ключу искать
-        /*$requestQuery = request()->query() ?: [];
-        $query = $requestQuery ? key($requestQuery) : null;
+        // Параметры Get запроса
+        $get = request()->query();
+        $col = $get['col'] ?? null;
+        $cell = $get['cell'] ?? null;
 
-        // Определим строку для поиска
-        $search = in_array($query, $queryArr) && isset($requestQuery[$query]) ? $requestQuery[$query] : null;*/
-
-        // Если есть строка поиска
-        if ($col && in_array($col, $queryArr) && $cell) {
-            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->orderBy('id', 'desc')->paginate($this->perPage);
-
-            // Иначе выборка всех элементов из БД
-        } else {
-            $values = $this->model::orderBy('id', 'desc')->paginate($this->perPage);
-        }
+        // Метод для поиска и сортировки запроса БД
+        $values = DbSort::getSearchSort($queryArr, $get, $this->table, $this->model, $this->view, $this->perPage);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
         return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));

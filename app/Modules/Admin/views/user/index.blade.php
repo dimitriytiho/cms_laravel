@@ -15,13 +15,33 @@
                         <tr>
                             <th scope="col" class="font-weight-light">@lang("{$lang}::a.action")</th>
                             <th scope="col" class="font-weight-light">@lang("{$lang}::f.img")</th>
-                            <th scope="col" class="font-weight-light">ID</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.name")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.email")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.tel")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.role_id")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.role")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.ip")</th>
+                            <th scope="col" class="font-weight-light">
+                                <span>ID</span>
+                                {!! $dbSort::viewIcons('id', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.name")</span>
+                                {!! $dbSort::viewIcons('name', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.email")</span>
+                                {!! $dbSort::viewIcons('email', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.tel")</span>
+                                {!! $dbSort::viewIcons('tel', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.role_id")</span>
+                                {!! $dbSort::viewIcons('role_id', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.role")</span>
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.ip")</span>
+                                {!! $dbSort::viewIcons('ip', $view, $route) !!}
+                            </th>
                         </tr>
                         </thead>
                         <tbody>

@@ -21,10 +21,26 @@
                         <thead>
                         <tr>
                             <th scope="col" class="font-weight-light">@lang("{$lang}::a.action")</th>
-                            <th scope="col" class="font-weight-light">ID</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::a.title")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::a.slug")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.status")</th>
+                            <th scope="col" class="font-weight-light">
+                                <span>ID</span>
+                                {!! $dbSort::viewIcons('id', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::a.title")</span>
+                                {!! $dbSort::viewIcons('title', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::a.slug")</span>
+                                {!! $dbSort::viewIcons('slug', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.status")</span>
+                                {!! $dbSort::viewIcons('status', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.sort")</span>
+                                {!! $dbSort::viewIcons('sort', $view, $route) !!}
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -39,6 +55,7 @@
                                 <td>{{ Lang::has("{$lang}::t.{$v->title}") ? __("{$lang}::t.{$v->title}") : $v->title }}</td>
                                 <td class="font-weight-light">{{ $v->slug }}</td>
                                 <td class="font-weight-light">@lang("{$lang}::s.{$v->status}")</td>
+                                <td class="font-weight-light">{{ $v->sort }}</td>
                             </tr>
                         @endforeach
                         </tbody>

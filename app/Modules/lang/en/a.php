@@ -149,4 +149,7 @@ return [
     'updated_count_files' => 'Updated :count files, below is a list of updated files:',
     'if_something_breaks' => 'If something breaks, then replace back from the backup archive /storage/app/:name.',
 
+    'asc' => 'Ascending',
+    'desc' => 'Descending',
+
 ];

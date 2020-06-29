@@ -4,6 +4,7 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
+use App\Modules\Admin\Helpers\DbSort;
 use App\Modules\Admin\Models\FilterGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,10 +45,25 @@ class FilterGroupController extends AppController
         $f = __FUNCTION__;
         Main::viewExists("{$this->view}.{$f}", __METHOD__);
 
-        $values = DB::table($this->table)->orderBy('id', 'desc')->paginate($this->perPage);
+        // Поиск. Массив гет ключей для поиска
+        $queryArr = [
+            'id',
+            'title',
+            'sort',
+        ];
+
+        // Параметры Get запроса
+        $get = request()->query();
+        $col = $get['col'] ?? null;
+        $cell = $get['cell'] ?? null;
+
+        // Метод для поиска и сортировки запроса БД
+        $values = DbSort::getSearchSort($queryArr, $get, $this->table, $this->model, $this->view, $this->perPage);
+
+        //$values = DB::table($this->table)->orderBy('id', 'desc')->paginate($this->perPage);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->view)));
-        return view("{$this->view}.{$f}", compact('values'));
+        return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
     }
 
     /**

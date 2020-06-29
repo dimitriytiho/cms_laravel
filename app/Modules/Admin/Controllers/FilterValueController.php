@@ -5,6 +5,7 @@ namespace App\Modules\Admin\Controllers;
 use App\Helpers\Add;
 use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
+use App\Modules\Admin\Helpers\DbSort;
 use App\Modules\Admin\Models\FilterValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -69,11 +70,25 @@ class FilterValueController extends AppController
 
         if ($parentCount > 0) {
             $parentValues = DB::table($this->parentTable)->select('id', 'title')->get();
-            $values = DB::table($this->table)->where('parent_id', $currentParentId)->orderBy('id', 'desc')->paginate($this->perPage);
+
+            // Поиск. Массив гет ключей для поиска
+            $queryArr = [
+                'id',
+                'title',
+                'sort',
+            ];
+
+            // Параметры Get запроса
+            $get = request()->query();
+            $col = $get['col'] ?? null;
+            $cell = $get['cell'] ?? null;
+
+            // Метод для поиска и сортировки запроса БД
+            $values = DbSort::getSearchSort($queryArr, $get, $this->table, $this->model, $this->view, $this->perPage, 'parent_id', $currentParentId);
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->view)));
-        return view("{$this->view}.{$f}", compact('parentValues', 'values', 'currentParentId', 'parentCount'));
+        return view("{$this->view}.{$f}", compact('parentValues', 'values', 'queryArr', 'col', 'cell', 'currentParentId', 'parentCount'));
     }
 
     /**

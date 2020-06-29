@@ -14,14 +14,38 @@
                         <thead>
                         <tr>
                             <th scope="col" class="font-weight-light">@lang("{$lang}::a.action")</th>
-                            <th scope="col" class="font-weight-light">ID</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.user_id")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.name")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.email")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.tel")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::s.qty")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::s.sum")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.status")</th>
+                            <th scope="col" class="font-weight-light">
+                                <span>ID</span>
+                                {!! $dbSort::viewIcons('id', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.user_id")</span>
+                                {!! $dbSort::viewIcons('user_id', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.name")</span>
+                                {!! $dbSort::viewIcons('name', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.email")</span>
+                                {!! $dbSort::viewIcons('email', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.tel")</span>
+                                {!! $dbSort::viewIcons('tel', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::s.qty")</span>
+                                {!! $dbSort::viewIcons('qty', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::s.sum")</span>
+                                {!! $dbSort::viewIcons('sum', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.status")</span>
+                                {!! $dbSort::viewIcons('status', $view, $route) !!}
+                            </th>
                         </tr>
                         </thead>
                         <tbody>

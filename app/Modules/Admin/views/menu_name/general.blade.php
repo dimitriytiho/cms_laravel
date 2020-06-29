@@ -13,6 +13,7 @@
                 @endif
                 @csrf
                 {!! $constructor::input('title', $values->title ?? null) !!}
+                {!! $constructor::input('sort', $values->sort ?? null, null) !!}
 
                 @if (isset($values->id) && isset($values->updated_at) && isset($values->created_at))
                     <div class="row">

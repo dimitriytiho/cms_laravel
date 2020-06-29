@@ -14,11 +14,26 @@
                         <thead>
                         <tr>
                             <th scope="col" class="font-weight-light">@lang("{$lang}::a.action")</th>
-                            <th scope="col" class="font-weight-light">ID</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.title")</th>
-                            {{--<th scope="col" class="font-weight-light">@lang("{$lang}::f.type")</th>--}}
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.value")</th>
-                            <th scope="col" class="font-weight-light">@lang("{$lang}::f.section")</th>
+                            <th scope="col" class="font-weight-light">
+                                <span>ID</span>
+                                {!! $dbSort::viewIcons('id', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.title")</span>
+                                {!! $dbSort::viewIcons('title', $view, $route) !!}
+                            </th>
+                            {{--<th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.type")</span>
+                                {!! $dbSort::viewIcons('type', $view, $route) !!}
+                            </th>--}}
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.value")</span>
+                                {!! $dbSort::viewIcons('value', $view, $route) !!}
+                            </th>
+                            <th scope="col" class="font-weight-light">
+                                <span>@lang("{$lang}::f.section")</span>
+                                {!! $dbSort::viewIcons('section', $view, $route) !!}
+                            </th>
                         </tr>
                         </thead>
                         <tbody>

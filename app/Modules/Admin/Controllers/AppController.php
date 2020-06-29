@@ -19,7 +19,9 @@ class AppController extends Controller
     protected $namespace;
     protected $namespaceHelpers;
     protected $modulePath;
+
     protected $constructor;
+    protected $dbSort;
 
     protected $currentRoute;
     protected $controller;
@@ -55,9 +57,10 @@ class AppController extends Controller
 
         $this->m = Str::lower($this->module);
         $namespaceHelpers = $this->namespaceHelpers = "{$this->namespace}\\{$this->module}\\Helpers";
-        $constructor = $this->constructor = "{$namespaceHelpers}\\Constructor";
         $modulesPath = $this->modulePath = "{$modulesPath}/{$this->module}";
 
+        $constructor = $this->constructor = "{$namespaceHelpers}\\Constructor";
+        $dbSort = $this->dbSort = "{$namespaceHelpers}\\DbSort";
         $this->perPage = config('admin.settings.pagination');
 
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
@@ -69,13 +72,16 @@ class AppController extends Controller
         $lang = $this->lang = "{$this->namespace}\\{$modulesLang}";
 
 
-        Locale::setLocaleFromCookie($request);
         $currentRoute = $this->currentRoute = Routes::currentRoute($request->path());
         $controller = $this->controller = $currentRoute['controller'] ?? null;
         $c = $this->c = strtolower($controller);
 
         // Конструкция для получения auth() через middleware, auth() работает внутри этой конструкции
         $this->middleware(function ($request, $next) {
+
+            // Устанавливаем локаль
+            Locale::setLocaleFromCookie($request);
+
             $this->user = auth()->check() ? auth()->user() : null;
             $this->isAdmin = $isAdmin = auth()->check() ? auth()->user()->isAdmin() : null;
 
@@ -139,6 +145,6 @@ class AppController extends Controller
             $onlineUsers = OnlineUsers::getUsers();
         }
 
-        view()->share(compact('viewPath', 'lang', 'currentRoute', 'controller', 'c', 'table', 'currentRoutesExclude', 'asideWidth', 'asideText', 'menuAsideChunk', 'menuAside', 'imgRequestName', 'imgUploadID', 'namespaceHelpers', 'modulesPath', 'constructor', 'onlineUsers'));
+        view()->share(compact('viewPath', 'lang', 'currentRoute', 'controller', 'c', 'table', 'currentRoutesExclude', 'asideWidth', 'asideText', 'menuAsideChunk', 'menuAside', 'imgRequestName', 'imgUploadID', 'namespaceHelpers', 'modulesPath', 'constructor', 'dbSort', 'onlineUsers'));
     }
 }

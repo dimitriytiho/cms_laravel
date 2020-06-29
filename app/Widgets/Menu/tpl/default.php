@@ -8,7 +8,7 @@ if (!empty($item)):
     $title = $item->title ?? null;
     $langTitle = Lang::has("{$lang}::t.{$title}") ? __("{$lang}::t.{$title}") : $title;
     $slug = $item->slug ?? null;
-    $target = !empty($item->target ) ? " target=\"{$item->target}\"" : null;
+    $target = !empty($item->target) ? " target=\"{$item->target}\"" : null;
     $activeColor = Str::contains(request()->path(), trim($slug, '/')) ? ' active_color' : null;
 
     ?>

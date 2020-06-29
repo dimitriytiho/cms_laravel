@@ -2,6 +2,26 @@
 @import "config/mixins";
 @import "config/blocks";
 
+.filter-icons {
+    position: relative;
+    width: 20px;
+    height: 100%;
+    background-color: #ccc;
+    a {
+        position: absolute;
+        line-height: .5;
+        font-size: $font-size-base * 2;
+        &:nth-child(1) {
+            top: -3px;
+        }
+        &:nth-child(2) {
+            bottom: -3px;
+        }
+        &.active {
+            color: $black;
+        }
+    }
+}
 
 #spinner {
     display: none;

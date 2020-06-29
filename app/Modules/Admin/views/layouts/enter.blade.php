@@ -25,6 +25,9 @@
             </div>
         </div>
     </noscript>
+    @if (config('add.recaptcha_secret_key'))
+        <script src="//www.google.com/recaptcha/api.js"></script>
+    @endif
 </head>
 <body class="bg-light">
 <div class="d-block app" id="app">

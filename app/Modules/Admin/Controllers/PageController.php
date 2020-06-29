@@ -4,10 +4,12 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
+use App\Modules\Admin\Helpers\DbSort;
 use App\Modules\Admin\Helpers\Slug;
 use App\Modules\Admin\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
@@ -43,17 +45,54 @@ class PageController extends AppController
             'status',
             'sort',
         ];
-        $col = request()->query('col');
+
+        // Параметры Get запроса
+        $get = request()->query();
+        $col = $get['col'] ?? null;
+        $cell = $get['cell'] ?? null;
+
+        // Метод для поиска и сортировки запроса БД
+        $values = DbSort::getSearchSort($queryArr, $get, $this->table, $this->model, $this->view, $this->perPage);
+
+        /*$col = request()->query('col');
         $cell = request()->query('cell');
+
+
+        // Значения по-умолчанию для сортировки
+        $columnSort = 'id';
+        $order = 'desc';
+
+        // Если сессия сортировки не существует, то сохраним значения по-умолчанию
+        if (!session()->exists("admin_sort.{$this->view}")) {
+            session()->put("admin_sort.{$this->view}.{$columnSort}", $order);
+        }
+
+        // Если передаётся через Get сортировка, то проверим есть ли такая колонка в таблице
+        $get = request()->query();
+        if ($get) {
+            $columnSort = key($get);
+            if (Schema::hasColumn($this->table, $columnSort)) {
+                $order = $get[$columnSort];
+                if ($order === 'asc' || $order === 'desc') {
+
+                    // Удалим прошлое значение
+                    session()->forget("admin_sort.{$this->view}");
+
+                    // Сохраним новое
+                    session()->put("admin_sort.{$this->view}.{$columnSort}", $order);
+                }
+            }
+        }
+
 
         // Если есть строка поиска
         if ($col && in_array($col, $queryArr) && $cell) {
-            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->orderBy('id', 'desc')->paginate($this->perPage);
+            $values = $this->model::where($col, 'LIKE', "%{$cell}%")->orderBy($columnSort, $order)->paginate($this->perPage);
 
         // Иначе выборка всех элементов из БД
         } else {
-            $values = $this->model::orderBy('id', 'desc')->paginate($this->perPage);
-        }
+            $values = $this->model::orderBy($columnSort, $order)->paginate($this->perPage);
+        }*/
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
         return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));

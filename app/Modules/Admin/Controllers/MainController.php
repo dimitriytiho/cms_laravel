@@ -68,10 +68,8 @@ class MainController extends AppController
         return view("{$this->view}.{$f}", compact('count_forms', 'count_pages', 'count_users', 'key', 'count_orders'));
     }
 
-    /*
-     * Записывает в куку локаль.
-     * Не будет работать если установлен домен с портом localhost:8888.
-     */
+
+    // Записывает в куку локаль
     public function locale($locale)
     {
         $locales = config('admin.locales');
@@ -83,9 +81,7 @@ class MainController extends AppController
                 Main::getError('Error Crypt::encryptString', __METHOD__, false);
             }
 
-            setcookie('loc', $locale, time() + config('admin.cookie'), '/', config('add.domain'), config('add.protocol') === 'https', true);
-            return redirect()->back();
-            //return redirect()->back()->withCookie('locale', $locale, config('admin.cookie'));
+            return redirect()->back()->withCookie('loc', $locale);
         }
         Main::getError("Invalid locale $locale", __METHOD__);
     }
