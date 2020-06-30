@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\Breadcrumbs;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use App\Main;
@@ -68,8 +69,14 @@ class Handler extends ExceptionHandler
             // Переопределим путь к видам
             view()->getFinder()->setPaths($modulesPath);
 
+            // Хлебные крошки
+            $breadcrumbs = new Breadcrumbs();
+            $breadcrumbs = $breadcrumbs
+                ->end(['not_found' => $title])
+                ->get();
+
             if (view()->exists($view)) {
-                return response()->view('views.errors.404', compact('title', 'message', 'viewPath', 'lang'), $status);
+                return response()->view('views.errors.404', compact('title', 'message', 'viewPath', 'lang', 'breadcrumbs'), $status);
 
             } else {
                 return redirect('/error.php');

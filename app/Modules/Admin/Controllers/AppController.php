@@ -76,7 +76,7 @@ class AppController extends Controller
         $controller = $this->controller = $currentRoute['controller'] ?? null;
         $c = $this->c = strtolower($controller);
 
-        // Конструкция для получения auth() через middleware, auth() работает внутри этой конструкции
+        // Только внутри этой конструкции работают некоторые методы
         $this->middleware(function ($request, $next) {
 
             // Устанавливаем локаль

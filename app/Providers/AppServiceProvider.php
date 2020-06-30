@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Main;
@@ -34,6 +35,19 @@ class AppServiceProvider extends ServiceProvider
 
 
         // ЗДЕСЬ ПИСАТЬ КОД, КОТОРЫЙ ЗАПУСКАЕТСЯ ПОСЛЕ ЗАГРУЗКИ ВСЕХ СЕРВИС-ПРОВАЙДЕРОВ
+
+        // Подключаем вспомогательные библиотеки из /app/Lib
+        $lib = app_path('Lib');
+        $functionFile = "{$lib}/function.php";
+        $constructorFile = "{$lib}/constructor.php";
+
+        if (File::isFile($functionFile)) {
+            require_once $functionFile;
+        }
+        if (File::isFile($constructorFile)) {
+            require_once $constructorFile;
+        }
+
 
         // Добавляем Google ReCaptcha в валидатор
         Validator::extend('recaptcha', function ($attribute, $value, $parameters, $validator) {

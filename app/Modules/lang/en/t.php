@@ -2,6 +2,7 @@
 
 return [
 
+    'home' => 'Home',
 	'Labels' => 'Labels',
 	'New' => 'New',
 	'Sale' => 'Sale',

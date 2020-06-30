@@ -89,8 +89,15 @@ class CategoryController extends AppController
             return view("{$this->viewPathModule}.filter", compact('products'))->render();
         }
 
-        $this->setMeta(__("{$this->lang}::s.catalog"));
-        return view("{$this->viewPathModule}.{$this->c}_index", compact('products'));
+        $title = __("{$this->lang}::s.catalog");
+
+        // Хлебные крошки
+        $breadcrumbs = $this->breadcrumbs
+            ->end(['catalog' => $title])
+            ->get();
+
+        $this->setMeta($title);
+        return view("{$this->viewPathModule}.{$this->c}_index", compact('products', 'breadcrumbs'));
     }
 
 
@@ -169,7 +176,13 @@ class CategoryController extends AppController
         // Передаём id элемента
         Main::set('id', $values->id);
 
+
+        // Хлебные крошки
+        $breadcrumbs = $this->breadcrumbs
+            ->values($this->table)
+            ->get($values->id);
+
         $this->setMeta($values->title ?? null, $values->description ?? null);
-        return view("{$this->viewPathModule}.{$this->c}_show", compact('values', 'products'));
+        return view("{$this->viewPathModule}.{$this->c}_show", compact('values', 'products', 'breadcrumbs'));
     }
 }

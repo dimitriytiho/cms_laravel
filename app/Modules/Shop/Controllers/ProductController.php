@@ -61,7 +61,16 @@ class ProductController extends AppController
         // Передаём id элемента
         Main::set('id', $values->id);
 
+
+        // Хлебные крошки
+        $breadcrumbs = $this->breadcrumbs
+            ->values('categories')
+            ->end([
+                route($this->route, $values->slug) => $values->title
+            ])
+            ->get($values->category[0]->id, 'category');
+
         $this->setMeta($values->title ?? null, $values->description ?? null);
-        return view("{$this->viewPathModule}.{$this->c}_show", compact('values'));
+        return view("{$this->viewPathModule}.{$this->c}_show", compact('values', 'breadcrumbs'));
     }
 }

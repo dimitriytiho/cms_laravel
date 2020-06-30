@@ -54,6 +54,31 @@
         @include("{$viewPath}.inc.message")
 
         <div class="content" id="content">
+            {{--
+
+            Хлебные крошки --}}
+            @isset ($breadcrumbs)
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    @foreach($breadcrumbs as $item)
+                                        @if ($item['end'])
+                                            <li class="breadcrumb-item active" aria-current="page">{{ $item['title'] }}</li>
+                                        @else
+                                            <li class="breadcrumb-item">
+                                                <a href="{{ $item['link'] }}">{{ $item['title'] }}</a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            @endisset
+
             @yield('content')
         </div>
         <div id="bottom-block"></div>

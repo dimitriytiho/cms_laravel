@@ -34,8 +34,14 @@ class PageController extends AppController
 
 
         Main::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
-        $this->setMeta(__("{$this->lang}::s.home"), __("{$this->lang}::s.You_are_on_home"));
-        return view("{$this->viewPathModule}.{$this->c}_index");
+        $title = __("{$this->lang}::s." . config('add.title_main'));
+
+        // Хлебные крошки
+        $breadcrumbs = $this->breadcrumbs
+            ->get();
+
+        $this->setMeta($title, __("{$this->lang}::s.You_are_on_home"));
+        return view("{$this->viewPathModule}.{$this->c}_index", compact('breadcrumbs'));
     }
 
 
@@ -76,16 +82,28 @@ class PageController extends AppController
         // Передаём в контейнер id элемента
         Main::set('id', $values->id);
 
+        // Хлебные крошки
+        $breadcrumbs = $this->breadcrumbs
+            ->values($this->table)
+            ->get($values->id);
+
         $this->setMeta($values->title ?? null, $values->description ?? null);
-        return view("{$this->viewPathModule}.{$this->c}_show", compact('values'));
+        return view("{$this->viewPathModule}.{$this->c}_show", compact('values', 'breadcrumbs'));
     }
 
 
     public function contactUs(Request $request)
     {
         Main::viewExists("{$this->viewPathModule}.{$this->c}_contact_us", __METHOD__);
-        $this->setMeta(__("{$this->lang}::s.contact_us"));
-        return view("{$this->viewPathModule}.{$this->c}_contact_us");
+        $title = __("{$this->lang}::s.contact_us");
+
+        // Хлебные крошки
+        $breadcrumbs = $this->breadcrumbs
+            ->end(['contact_us' => $title])
+            ->get();
+
+        $this->setMeta($title);
+        return view("{$this->viewPathModule}.{$this->c}_contact_us", compact('breadcrumbs'));
     }
 
 
@@ -96,8 +114,13 @@ class PageController extends AppController
         $title = __("{$this->lang}::s.page_not_found");
         $message = __("{$this->lang}::s.whoops_no_page");
 
+        // Хлебные крошки
+        $breadcrumbs = $this->breadcrumbs
+            ->end(['not_found' => $title])
+            ->get();
+
         Main::getError($title, __METHOD__, null, 'info');
         $this->setMeta($title);
-        return response()->view("{$this->viewPath}.errors.404", compact('title', 'message'), 404);
+        return response()->view("{$this->viewPath}.errors.404", compact('title', 'message', 'breadcrumbs'), 404);
     }
 }

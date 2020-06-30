@@ -2,6 +2,7 @@
 
 namespace App\Modules;
 
+use App\Helpers\Breadcrumbs;
 use App\Main;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ class AppController extends Controller
     public $lang;
     public $statusActive;
     public $perPage;
+    public $breadcrumbs;
     public $userTable = 'users';
     public $userModel = '\App\User';
 
@@ -37,12 +39,14 @@ class AppController extends Controller
         }
 
         $this->perPage = config('add.pagination');
+        $this->breadcrumbs = new Breadcrumbs();
+
 
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
         view()->getFinder()->setPaths($modulesPath);
 
 
-        // Конструкция для получения auth() через middleware, auth() работает внутри этой конструкции
+        // Только внутри этой конструкции работают некоторые методы
         /*$this->middleware(function ($request, $next) {
 
             $lang = lang();
@@ -62,6 +66,8 @@ class AppController extends Controller
         @lang("{$lang}::a.Home")*/
 
         //cache()->flush(); // Удалить все кэши
+
+
 
 
 
