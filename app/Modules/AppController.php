@@ -71,6 +71,8 @@ class AppController extends Controller
 
 
 
+
+
         // Строка поиска
         $searchQuery = s(request()->query('s')) ?: Main::get('search_query');
 

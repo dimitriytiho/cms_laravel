@@ -9,6 +9,67 @@ use Illuminate\Support\Facades\Schema;
 
 class Img
 {
+    private $acceptedImages = [];
+
+    private function __construct()
+    {
+        $this->acceptedImages = config('admin.acceptedImagesExt');
+    }
+
+
+    // Возвращает разрешенные разрешения картинок строкой '.jpg, .jpeg, .png, .gif'
+    public static function acceptedImagesExt()
+    {
+        $self = new self();
+        return $self->acceptedImages ? '.' . implode(', .', $self->acceptedImages) : false;
+    }
+
+
+    // Поддерживает браузер картинки Webp, возвращает true или false.
+    public static function supportWebp()
+    {
+        $httpAccept = request()->server('HTTP_ACCEPT');
+        return strpos($httpAccept, 'image/webp') !== false;
+    }
+
+
+    public static function getWebp($imagePublicPath)
+    {
+        if ($imagePublicPath) {
+
+            // Полный путь к картинке
+            $pathImg = public_path($imagePublicPath);
+            if (File::isFile($pathImg)) {
+
+                // Название картинки
+                $name = class_basename($imagePublicPath);
+
+                // Вырезаем из пути название картинки
+                $path = str_replace($name, '', $imagePublicPath);
+
+                // Получаем разрешение картинки
+                $ext = pathinfo($name)['extension'] ?? null;
+
+                // Вырезаем разрешение картинки
+                $name = str_replace(".{$ext}", '', $name);
+
+                // Название картинки webp
+                $webp = "{$name}.webp";
+
+                // Добавляем к пути название webp
+                $pathWebp = public_path($path . $webp);
+
+                // Если есть webp, то возвращаем её
+                if (File::isFile($pathWebp)) {
+                    return $path . $webp;
+                }
+                return $imagePublicPath;
+            }
+        }
+        return false;
+    }
+
+
     /*
      * Удалим картинку с сервера, возвращает true или false.
      * $img - название картинки, как в БД, например /img/product/tovar_1_10-03-2020_21-28.jpeg.

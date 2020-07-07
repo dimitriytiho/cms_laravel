@@ -1,5 +1,8 @@
 @php
 
+    use App\Modules\Admin\Helpers\Img;
+
+
     $cookie_locale = Cookie::get('locale');
     if ($cookie_locale) {
         app()->setLocale($cookie_locale);
@@ -144,6 +147,7 @@
         {{--
 
         Dropzone --}}
+        acceptedImagesExt = '{{ \App\Modules\Admin\Helpers\Img::acceptedImagesExt() }}',
         imgMaxSizeHD = {{ config('admin.imgMaxSizeHD') }},
         imgMaxSize = {{ config('admin.imgMaxSize') }},
         imgMaxSizeSM = {{ config('admin.imgMaxSizeSM') }},

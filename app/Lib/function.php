@@ -2,6 +2,7 @@
 
 use App\Main;
 use App\Helpers\Date;
+use App\Modules\Admin\Helpers\Img;
 
 
 function du($arr, $die = false) {
@@ -98,6 +99,20 @@ function s($str, $only_strip_tags = null, $email = null)
         }
     }
     return trim(strip_tags($str, '<br>'));
+}
+
+
+/*
+ * Возвращает картинку Webp, если она есть и браузер поддерживает Webp.
+ * Если нет картинки Webp, то вернёт переданную картинку или false.
+ * $imagePublicPath - путь к картинке от папки public.
+ */
+function webp($imagePublicPath)
+{
+    if ($imagePublicPath && Img::supportWebp()) {
+        return Img::getWebp($imagePublicPath);
+    }
+    return false;
 }
 
 

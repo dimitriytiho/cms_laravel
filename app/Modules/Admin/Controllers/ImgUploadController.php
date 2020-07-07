@@ -62,9 +62,9 @@ class ImgUploadController extends AppController
 
                 $img = $request->file('file');
                 $size = $img->getSize();
-                $ext = '.' . $img->extension();
-                $extValidText = '.jpg, .jpeg, .png, .gif';
-                $extValid = explode(', ', $extValidText);
+                $ext = $img->extension();
+                $extValidText = Img::acceptedImagesExt();
+                $extValid = config('admin.acceptedImagesExt');
                 //$path = $img->path();
                 //$originName = $img->getClientOriginalName();
 
@@ -87,12 +87,17 @@ class ImgUploadController extends AppController
                 $date = Slug::exceptionsName(d(time(), config('admin.date_format')));
 
                 // Имя картинки
-                //$imgName = "{$requestName}_" . Str::lower(Str::random(3)) . "_{$date}{$ext}";
+                //$imgName = "{$requestName}_" . Str::lower(Str::random(3)) . "_{$date}.{$ext}";
                 $imgName = helpersFile::nameCount($imgSavePath, $requestName, $ext, $date);
 
 
                 // Перемещаем картинку в нужное место
                 $img->move($imgSavePath, $imgName);
+                //$webp = \Buglinjo\LaravelWebp\Webp::make($img)->save($imgSavePath);
+
+
+
+
 
                 // Путь URL для новой картинки
                 $imgNewPaht = config("admin.img{$class}") . "/{$dateDir}/{$imgName}";

@@ -118,7 +118,7 @@ class File
             $nameCount = "{$name}_{$count}";
 
             // Если есть файл с этим же именем, то рекурсивно вызываем этот метод пока имя не станет уникальным, прибавляя 1 к названию
-            if (is_file($path . $nameCount . $dateIsset . $extension)) {
+            if (is_file($path . $nameCount . $dateIsset . '.' . $extension)) {
 
                 $count = $count + 1;
                 return self::nameCount($path, $name, $extension, $date, $count);
@@ -126,7 +126,7 @@ class File
             // Если нет файла с этим именем, то запишем в название уникальное число
             } else {
 
-                return $nameCount . $dateIsset . $extension;
+                return $nameCount . $dateIsset . '.' . $extension;
             }
         }
         return false;

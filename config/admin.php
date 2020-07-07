@@ -78,6 +78,15 @@ return [
         'make:migration',
     ],
 
+
+    // Разрешённые для загрузки картинки
+    'acceptedImagesExt' => [
+        'jpg',
+        'jpeg',
+        'png',
+        'gif',
+    ],
+
     // Настройки для SCSS, при изменении настроек необходимо запустить метод \App\Helpers\Upload::resourceInit(); и перекомпилировать стили
     'scss' => [
         'primary-admin' => '#78909c',

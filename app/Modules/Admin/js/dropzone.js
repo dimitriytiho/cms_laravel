@@ -53,8 +53,7 @@ if (dzManySelector) {
 */
 function dropzone(dropzoneElement, maxFiles, resizeMax) {
 
-    const acceptedFiles = '.jpg, .jpeg, .png, .gif',
-        imgURL = main.url + '/img-upload',
+    const imgURL = main.url + '/img-upload',
         dzImages = document.getElementById('dropzone-images'),
         dzGallery = document.getElementById('dropzone-gallery'),
         avatar = document.getElementById('avatar')
@@ -76,8 +75,8 @@ function dropzone(dropzoneElement, maxFiles, resizeMax) {
 
         dictDefaultMessage: `<div class="dz-message">${translations['select_file_or_drag_here']}</div>`,
         dictMaxFilesExceeded: translations['you_have_reached_maximum_file_upload_allowed'] + '{{maxFiles}}',
-        acceptedFiles: acceptedFiles,
-        dictInvalidFileType: translations['allowed_to_upload_files'] + acceptedFiles,
+        acceptedFiles: acceptedImagesExt,
+        dictInvalidFileType: translations['allowed_to_upload_files'] + acceptedImagesExt,
         init: function() {
 
             // Формируем данные, которые передаём в контроллер
