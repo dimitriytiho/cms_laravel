@@ -114,7 +114,7 @@ return [
     'nothing_found' => 'Ничего не найдено, попробуйте ещё...',
     'move_to_top' => 'Передвижение к верху страницы',
 
-    'notes_for_developer' => 'Notes for the web developer',
+    'notes_for_developer' => 'Заметки для разработчика',
     'forum' => 'Форум',
 
     'january' => 'Января',
