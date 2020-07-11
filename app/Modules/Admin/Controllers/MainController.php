@@ -81,7 +81,7 @@ class MainController extends AppController
                 Main::getError('Error Crypt::encryptString', __METHOD__, false);
             }
 
-            return redirect()->back()->withCookie('loc', $locale);
+            return redirect()->back()->withCookie(config('add.name') . '_loc', $locale);
         }
         Main::getError("Invalid locale $locale", __METHOD__);
     }

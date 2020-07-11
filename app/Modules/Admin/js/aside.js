@@ -26,15 +26,15 @@ document.addEventListener('DOMContentLoaded', function() {
         let asideWidth = true,
             asideWidthChange = document.querySelectorAll('.aside-width-change'),
             asideMarginChange = document.querySelectorAll('.aside-margin-change'),
-            asideWidthSave = cookie.getCookie('asideWidth'),
+            asideWidthSave = cookie.getCookie(main.siteName + '_asideWidth'),
             //asideWidthSave = localStorage.getItem('asideWidth'),
             asideText = document.querySelectorAll('.aside-text'),
             asideIconSelector = document.querySelector('.aside-width'),
             url = location.href,
             closeMenu = true
 
-        // cookie.setCookie('asideWidth', main.asideWidthIcon)
-        // cookie.getCookie('asideWidth')
+        // cookie.setCookie(main.siteName + '_asideWidth', main.asideWidthIcon)
+        // cookie.getCookie(main.siteName + '_asideWidth')
 
         // Если есть сохранённое значение
         if (asideWidthSave) {
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         asideText.forEach(function (el) {
                             el.style.display = 'none'
                         })
-                        cookie.setCookie('asideWidth', main.asideWidthIcon)
+                        cookie.setCookie(main.siteName + '_asideWidth', main.asideWidthIcon)
                         //localStorage.setItem('asideWidth', main.asideWidthIcon)
 
 
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 el.style.marginLeft = main.asideWidthText
                             })
                         }
-                        cookie.setCookie('asideWidth', main.asideWidthText)
+                        cookie.setCookie(main.siteName + '_asideWidth', main.asideWidthText)
                         //localStorage.setItem('asideWidth', main.asideWidthText)
                         setTimeout(function () {
                             asideText.forEach(function (el) {

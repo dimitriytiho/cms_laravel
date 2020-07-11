@@ -28,7 +28,7 @@ class TranslateController extends AppController
         parent::__construct($request);
 
         $locale = $this->locale = App::getLocale();
-        $locales = $this->locales = config('add.locales');
+        $locales = $this->locales = config('admin.locales');
         $storagePath = $this->storagePath = config('modules.folder') . '/lang';
         $filePath = $this->filePath = config('modules.path') . '/lang';
         $fileTranslate = $this->fileTranslate = 't.php';
@@ -222,7 +222,7 @@ class TranslateController extends AppController
 
                     if (File::exists(($file))) {
                         $translation = include $file;
-                        
+
                         if (isset($translation[$id])) {
                             $values[$locale] = $translation[$id];
                         }

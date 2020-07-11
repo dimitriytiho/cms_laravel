@@ -36,7 +36,7 @@ class Locale
         $self = new self();
         $currentLocale = $self->currentLocale;
         $locales = $self->locales;
-        $locale = $request->cookie('loc');
+        $locale = $request->cookie(config('add.name') . '_loc');
         if ($locale) {
 
             try {
