@@ -110,23 +110,23 @@ class File
      * $date - если в конце названия нужна дата, то передайте её, необязательный параметр.
      * $count - кол-во файлов с этим названием, меняется рекурсивно, необязательный параметр.
      */
-    public static function nameCount($path, $name, $extension, $date = null, $count = 1)
+    public static function nameCount($path, $name, $date = null, $count = 1)
     {
-        if ($path && $name && $extension) {
+        if ($path && $name) {
 
             $dateIsset = $date ? "_{$date}" : null;
             $nameCount = "{$name}_{$count}";
 
             // Если есть файл с этим же именем, то рекурсивно вызываем этот метод пока имя не станет уникальным, прибавляя 1 к названию
-            if (is_file($path . $nameCount . $dateIsset . '.' . $extension)) {
+            if (is_file($path . $nameCount . $dateIsset)) {
 
                 $count = $count + 1;
-                return self::nameCount($path, $name, $extension, $date, $count);
+                return self::nameCount($path, $name, $date, $count);
 
             // Если нет файла с этим именем, то запишем в название уникальное число
             } else {
 
-                return $nameCount . $dateIsset . '.' . $extension;
+                return $nameCount . $dateIsset;
             }
         }
         return false;

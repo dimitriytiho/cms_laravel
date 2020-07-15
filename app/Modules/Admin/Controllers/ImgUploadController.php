@@ -92,15 +92,37 @@ class ImgUploadController extends AppController
 
 
                 // Перемещаем картинку в нужное место
-                $img->move($imgSavePath, $imgName);
-                //$webp = \Buglinjo\LaravelWebp\Webp::make($img)->save($imgSavePath);
+                $img->move($imgSavePath, "{$imgName}.{$ext}");
 
 
+                // Делаем копию в Webp формате
+                if (config('admin.webp')) {
 
+                    // Определяем разрешение
+                    if ($ext === 'jpeg' || $ext === 'jpg') {
+                        $webp = imagecreatefromjpeg("{$imgSavePath}{$imgName}.{$ext}");
+
+                    } elseif ($ext === 'png') {
+                        $webp = imagecreatefrompng("{$imgSavePath}{$imgName}.{$ext}");
+
+                    } elseif ($ext === 'gif') {
+                        $webp = imagecreatefromgif("{$imgSavePath}{$imgName}.{$ext}");
+                    }
+
+                    // Копируем
+                    if (isset($webp)) {
+                        $webpName = "{$imgName}.webp";
+                        imagepalettetotruecolor($webp);
+                        imagealphablending($webp, true);
+                        imagesavealpha($webp, true);
+                        imagewebp($webp, $imgSavePath . $webpName, config('admin.webpQuality'));
+                        imagedestroy($webp);
+                    }
+                }
 
 
                 // Путь URL для новой картинки
-                $imgNewPaht = config("admin.img{$class}") . "/{$dateDir}/{$imgName}";
+                $imgNewPaht = config("admin.img{$class}") . "/{$dateDir}/{$imgName}.{$ext}";
 
                 // Одиночная загрузка
                 if ($maxFiles <= 1) {
@@ -114,6 +136,13 @@ class ImgUploadController extends AppController
 
                     // Сохраняем картинку в БД для одиночной загрузки
                     $sql = DB::table($table)->where('id', $imgUploadID)->update(['img' => $imgNewPaht]);
+
+                    /*$res = [
+                        'answer' => 'success',
+                        'name' => $sql,
+                        'href' => '',
+                    ];
+                    return response()->json($res);*/
 
                 // Множественная загрузка
                 } else {
@@ -130,18 +159,17 @@ class ImgUploadController extends AppController
                     // Ответ для JS
                     $res = [
                         'answer' => 'success',
-                        'name' => $imgName,
+                        'name' => "{$imgName}.{$ext}",
                         'href' => $imgNewPaht,
-                        //'test' => $imgName,
+                        //'test' => "{$imgName}.{$ext}",
                     ];
                     return response()->json($res);
                 }
 
 
                 // Если не сохранено в БД, то удалим файл
-                if (File::isFile($imgSavePath . $imgName)) {
-                    File::delete(($imgSavePath . $imgName));
-                }
+                Img::deleteImg("{$imgSavePath}{$imgName}.{$ext}");
+
             }
             return response()->json(['answer' => __("{$this->lang}::s.whoops")]);
         }

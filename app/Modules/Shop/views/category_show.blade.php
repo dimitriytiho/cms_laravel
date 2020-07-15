@@ -44,7 +44,7 @@
                                     <div class="col-md-4 mb-4">
                                         <div class="card">
                                             <a href="{{ route('product', $product->slug) }}">
-                                                <img src="{{ asset($product->img) }}" class="card-img-top" alt="{{ $product->title }}">
+                                                <img src="{{ asset(webp($product->img)) }}" class="card-img-top" alt="{{ $product->title }}">
                                             </a>
                                             <div class="card-body">
                                                 <h5 class="card-title">

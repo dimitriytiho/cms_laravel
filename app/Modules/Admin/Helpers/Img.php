@@ -33,6 +33,11 @@ class Img
     }
 
 
+    /*
+     * Возвращает название картинки Webp, если она есть, если её нет, то возвращает обычную картинку.
+     * $imagePublicPath - путь с название обычной картинки.
+     * Название картинки Webp должно быть одинаково с обычной картинкой.
+     */
     public static function getWebp($imagePublicPath)
     {
         if ($imagePublicPath) {
@@ -82,6 +87,14 @@ class Img
             $ifDefault = $imgDefault && $imgDefault === $img;
 
             if (!$ifDefault && File::isFile($path)) {
+
+                // Удалим картинку Webp
+                $webp = self::getWebp($img);
+                if ($webp !== $img) {
+                    File::delete(public_path() . $webp);
+                }
+
+                // Удалим обычную картинку
                 File::delete($path);
                 return true;
             }

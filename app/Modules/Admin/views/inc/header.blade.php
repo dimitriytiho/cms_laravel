@@ -27,7 +27,7 @@
 
                 @if ($excludeCurrentLocale)
                     <li class="nav-item d-flex align-items-center">
-                        <a href="{{ route('admin.locale', $excludeCurrentLocale[0] ?? null) }}" class="nav-link d-flex align-items-center" title="@lang("{$lang}::s.language")">{{ !empty($excludeCurrentLocale[0]) ? \Illuminate\Support\Str::ucfirst($excludeCurrentLocale[0]) : null }}</a>
+                        <a href="{{ route('admin.locale', $excludeCurrentLocale[0] ?? null) }}" class="nav-link d-flex align-items-center" title="@lang("{$lang}::s.language")">{{ !empty($excludeCurrentLocale[0]) ? Str::ucfirst($excludeCurrentLocale[0]) : null }}</a>
                     </li>
                 @endif
                 <li class="nav-item dropdown">

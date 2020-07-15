@@ -34,7 +34,11 @@
                             <span class="cart_count_qty">{{--@if (session()->has('cart.qty')){{ session()->get('cart.qty') }}@endif--}}</span>
                             <span class="cart_count_sum">@if (session()->has('cart.sum')){{ session()->get('cart.sum') }} ₽@endif</span>
                         </a>
+                        {{--
+
+                        Корзина в модальном окне --}}
                         {!! modal('cart_modal', __("{$lang}::s.cart"), 'modal-lg') !!}
+                        {!! modalEnd() !!}
                     </div>
                 </div>
             </div>
@@ -51,7 +55,7 @@
                                 <div class="col-md-4 mb-4">
                                     <div class="card">
                                         <a href="{{ route('product', $product->slug) }}">
-                                            <img src="{{ asset($product->img) }}" class="card-img-top" alt="{{ $product->title }}">
+                                            <img src="{{ asset(webp($product->img)) }}" class="card-img-top" alt="{{ $product->title }}">
                                         </a>
                                         <div class="card-body">
                                             <h5 class="card-title">
@@ -59,7 +63,6 @@
                                                     {{ $product->title }}
                                                 </a>
                                             </h5>
-                                            <p class="card-text">Some quick example text to build on the card title.</p>
                                             <a href="{{ route('cart_plus', $product->id) }}" class="btn btn-outline-dark btn-sm cart_plus" data-id="{{ $product->id }}">@lang("{$lang}::s.add_to_cart")</a>
                                         </div>
                                     </div>
