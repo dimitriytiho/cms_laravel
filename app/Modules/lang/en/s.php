@@ -45,6 +45,7 @@ return [
 
     'active' => 'Active',
     'inactive' => 'Inactive',
+    'denied' => 'Denied',
     'created_successfully' => 'ID :id created successfully.',
     'add_successfully' => 'ID :id added successfully.',
     'saved_successfully' => 'ID :id saved successfully.',

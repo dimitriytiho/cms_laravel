@@ -45,6 +45,7 @@ return [
 
     'active' => 'Активно',
     'inactive' => 'Черновик',
+    'denied' => 'Отказано',
     'created_successfully' => 'ID :id успешно создано.',
     'add_successfully' => 'ID :id успешно добавлено.',
     'saved_successfully' => 'ID :id успешно сохранено.',
