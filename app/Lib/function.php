@@ -103,6 +103,20 @@ function s($str, $only_strip_tags = null, $email = null)
 
 
 /*
+ * Возвращает цену в нужном формате (с пробелами после 3 символов, в конце знак валюты).
+ * $price - цена, число или строка.
+ * $currency - знак валюты, необязательный параметр, по-умолчанию рубль.
+ */
+function priceFormat($price, $currency = '&#8381;') {
+    if ($price) {
+        $currency = "&nbsp;<small>{$currency}</small>";
+        return number_format(intval($price), 0, ',', '&nbsp;') . $currency;
+    }
+    return false;
+}
+
+
+/*
  * Возвращает картинку Webp, если она есть и браузер поддерживает Webp.
  * Если нет картинки Webp, то вернёт переданную картинку или false.
  * $imagePublicPath - путь к картинке от папки public.
