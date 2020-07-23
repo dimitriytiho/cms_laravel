@@ -81,35 +81,6 @@
     flex-wrap: nowrap;
 }*/
 
-.aside {
-    z-index: 1;
-    &__header {
-        position: relative;
-        z-index: 1;
-        height: 48px;
-        img {
-            height: 1.5rem;
-        }
-    }
-    .active {
-        color: darken($primary-admin, 20%);
-    }
-    .material-icons {
-        font-size: 1.5rem;
-    }
-
-    // Тень
-    &:after {
-        content: '';
-        position: fixed;
-        top: 0;
-        width: inherit;
-        bottom: 0;
-        box-shadow: $box-shadow;
-        z-index: 0;
-    }
-}
-
 .top-panel {
     .material-icons {
         font-size: 1.26rem;

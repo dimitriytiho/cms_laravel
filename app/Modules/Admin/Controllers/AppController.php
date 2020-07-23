@@ -114,7 +114,7 @@ class AppController extends Controller
         $this->template = 'general';
 
         $asideWidth = $request->cookie('asideWidth');
-        $asideText = $asideWidth === config('admin.scss.aside-width-icon') ? ' style="display: none;"' : null;
+        //$asideText = $asideWidth === config('admin.scss.aside-width-icon') ? ' style="display: none;"' : null;
 
         // Левое меню для мобильных
         $menuAsideChunk = null;
@@ -145,6 +145,6 @@ class AppController extends Controller
             $onlineUsers = OnlineUsers::getUsers();
         }
 
-        view()->share(compact('viewPath', 'lang', 'currentRoute', 'controller', 'c', 'table', 'currentRoutesExclude', 'asideWidth', 'asideText', 'menuAsideChunk', 'menuAside', 'imgRequestName', 'imgUploadID', 'namespaceHelpers', 'modulesPath', 'constructor', 'dbSort', 'onlineUsers'));
+        view()->share(compact('viewPath', 'lang', 'currentRoute', 'controller', 'c', 'table', 'currentRoutesExclude', 'asideWidth', 'menuAsideChunk', 'menuAside', 'imgRequestName', 'imgUploadID', 'namespaceHelpers', 'modulesPath', 'constructor', 'dbSort', 'onlineUsers'));
     }
 }
