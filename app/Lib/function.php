@@ -5,9 +5,29 @@ use App\Helpers\Date;
 use App\Modules\Admin\Helpers\Img;
 
 
-function du($arr, $die = false) {
-    echo '<pre>' . PHP_EOL . print_r($arr, true) . PHP_EOL . '</pre>';
-    if ($die) die;
+/*
+ * Возвращает распечатку массива.
+ * $admin - передать true, для показа только админам.
+ * $die - передать true, чтобы завершить работу скрипта.
+ */
+function du($arr, $admin = false, $die = false) {
+
+    if ($admin && admin()) {
+        echo '<pre>' . PHP_EOL . print_r($arr, true) . PHP_EOL . '</pre>';
+        if ($die) die;
+
+    } elseif (!$admin) {
+
+        echo '<pre>' . PHP_EOL . print_r($arr, true) . PHP_EOL . '</pre>';
+        if ($die) die;
+    }
+}
+
+
+// Проверяет роль Админ, возвращает true или false
+function admin()
+{
+    return auth()->check() && auth()->user()->Admin();
 }
 
 

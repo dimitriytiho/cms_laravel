@@ -33,6 +33,7 @@ class PageController extends AppController
         dump($mobileDetect->isTablet());*/
 
 
+
         Main::viewExists("{$this->viewPathModule}.{$this->c}_index", __METHOD__);
         $title = __("{$this->lang}::s." . config('add.title_main'));
 
