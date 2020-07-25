@@ -102,6 +102,7 @@ class PageController extends AppController
         $breadcrumbs = $this->breadcrumbs
             ->end(['contact_us' => $title])
             ->get();
+        du($breadcrumbs);
 
         $this->setMeta($title);
         return view("{$this->viewPathModule}.{$this->c}_contact_us", compact('breadcrumbs'));

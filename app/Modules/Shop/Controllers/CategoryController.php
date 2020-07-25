@@ -180,7 +180,10 @@ class CategoryController extends AppController
         // Хлебные крошки
         $breadcrumbs = $this->breadcrumbs
             ->values($this->table)
-            ->get($values->id);
+            ->dynamic($values->id, 'category')
+            ->add([[route('catalog') => 'catalog']])
+            ->get();
+
 
         $this->setMeta($values->title ?? null, $values->description ?? null);
         return view("{$this->viewPathModule}.{$this->c}_show", compact('values', 'products', 'breadcrumbs'));

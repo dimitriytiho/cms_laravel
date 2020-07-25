@@ -68,7 +68,9 @@ class ProductController extends AppController
             ->end([
                 route($this->route, $values->slug) => $values->title
             ])
-            ->get($categoryId, 'category');
+            ->dynamic($categoryId, 'category')
+            ->add([[route('catalog') => 'catalog']])
+            ->get();
 
         $this->setMeta($values->title ?? null, $values->description ?? null);
         return view("{$this->viewPathModule}.{$this->c}_show", compact('values', 'breadcrumbs'));

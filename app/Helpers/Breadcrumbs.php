@@ -11,16 +11,18 @@ class Breadcrumbs
 {
     /*
 
-     // Пример использования для метода в контроллере:
+     // Пример использования для метода в контроллере (обратите внимание на очерёдность методов):
      $breadcrumbs = $this->breadcrumbs
             ->start(['url1' => 'title1']) // или null
-            ->end(['url9' => 'title9'])
+            ->end(['url4' => 'title4'])
+            ->add([['url3' => 'title3'], ['url2' => 'title2']])
             ->get();
 
     // Для метода show(), т.е. для динамических элементов:
     $breadcrumbs = $this->breadcrumbs
             ->values($this->table)
-            ->get($values->id, 'note');
+            ->dynamic($values->id, 'note')
+            ->get();
 
     // Для товаров, когда используются категории, должна быть связь в модели:
     $breadcrumbs = $this->breadcrumbs
@@ -28,7 +30,9 @@ class Breadcrumbs
             ->end([
                 route($this->route, $values->slug) => $values->title
             ])
-            ->get($values->category[0]->id, 'category');
+            ->dynamic($values->category[0]->id, 'category')
+            ->add([[route('catalog') => 'catalog']]) // Добавить раздел каталог
+            ->get();
      */
 
 
@@ -42,35 +46,16 @@ class Breadcrumbs
     private $values;
 
 
-    //public function __construct(){}
+    public function __construct() {
+        $this->start['title'] = l($this->start['title'] );
+    }
 
 
-    /*
-     * Возвращаем массив хлебных крошек.
-     * $id - текущего элемента, для динамических элементов, необязательный параметр.
-     * $route - названия роута для элементов, по-умолчанию page, необязательный параметр.
-     * $parentColumn - колонка в базе данных для родителя, по-умолчанию parent_id, необязательный параметр.
-     */
-    public function get($id = null, string $route = 'page', string $parentColumn = 'parent_id')
+
+
+    // Возвращаем массив хлебных крошек, использовать последним.
+    public function get()
     {
-        if ($id && $parentColumn && $route && $this->values) {
-            foreach ($this->values as $keyId => $item) {
-                if (isset($this->values[$id])) {
-
-                    $this->breadcrumbs[] = [
-                        'link' => Route::has($route) ? route($route, $this->values[$id]->slug) : '/',
-                        'title' => $this->values[$id]->title,
-                        'end' => false,
-                    ];
-
-                    if ($id != $this->values[$id]->$parentColumn) {
-                        $id = $this->values[$id]->$parentColumn;
-
-                    } else break;
-                } else break;
-            }
-        }
-
         // Первый элемент
         if ($this->start) {
             array_push($this->breadcrumbs, $this->start);
@@ -84,7 +69,39 @@ class Breadcrumbs
         // Перевернём массив
         $this->breadcrumbs = $this->breadcrumbs ? array_reverse($this->breadcrumbs) : [];
 
-        return $this->breadcrumbs;
+        // Сбрасываем данные
+        $breadcrumbs = $this->breadcrumbs;
+        $this->breadcrumbs = [];
+        return $breadcrumbs;
+    }
+
+
+    /*
+     * Для динамических элементов.
+     * $id - текущего элемента, необязательный параметр.
+     * $route - названия роута для элементов, по-умолчанию page, необязательный параметр.
+     * $parentColumn - колонка в базе данных для родителя, по-умолчанию parent_id, необязательный параметр.
+     */
+    public function dynamic($id = null, string $route = 'page', string $parentColumn = 'parent_id')
+    {
+        if ($id && $parentColumn && $route && $this->values) {
+            foreach ($this->values as $keyId => $item) {
+                if (isset($this->values[$id])) {
+
+                    $this->breadcrumbs[] = [
+                        'link' => r($route, $this->values[$id]->slug),
+                        'title' => l($this->values[$id]->title),
+                        'end' => false,
+                    ];
+
+                    if ($id != $this->values[$id]->$parentColumn) {
+                        $id = $this->values[$id]->$parentColumn;
+
+                    } else break;
+                } else break;
+            }
+        }
+        return $this;
     }
 
 
@@ -94,7 +111,7 @@ class Breadcrumbs
         if ($endItem) {
             $end = [
                 'link' => key($endItem),
-                'title' => head($endItem),
+                'title' => l(head($endItem)),
                 'end' => true,
             ];
             array_push($this->breadcrumbs, $end);
@@ -103,7 +120,24 @@ class Breadcrumbs
     }
 
 
-    // Первый элемент хлебных крошек, передать в массиве или null, если не нужено, например ['url' => 'title']
+    // Добавляем элементы в хлебные крошки, передать в массиве, например [['url1' => 'title1'], ['url2' => 'title2']]
+    public function add(array $addItems)
+    {
+        if ($addItems) {
+            foreach ($addItems as $item) {
+                $add = [
+                    'link' => key($item),
+                    'title' => l(head($item)),
+                    'end' => false,
+                ];
+                array_push($this->breadcrumbs, $add);
+            }
+        }
+        return $this;
+    }
+
+
+    // Первый элемент хлебных крошек, передать в массиве или null, если не нужно, например ['url' => 'title']
     public function start($startItem = true)
     {
         if (!$startItem) {
@@ -112,7 +146,7 @@ class Breadcrumbs
         } elseif ($startItem && is_array($startItem)) {
             $this->start = [
                 'link' => key($startItem),
-                'title' => head($startItem),
+                'title' => l(head($startItem)),
                 'end' => false,
             ];
         }

@@ -63,7 +63,7 @@
                         <div class="col">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    @foreach($breadcrumbs as $item)
+                                    @foreach ($breadcrumbs as $item)
                                         @if ($item['end'])
                                             <li class="breadcrumb-item active" aria-current="page">{{ $item['title'] }}</li>
                                         @else

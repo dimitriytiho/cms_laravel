@@ -59,6 +59,22 @@ function l($str, $fileLang = 't')
 
 
 /*
+ * Возвращается маршрут, если он есть, иначе ссылка на главную.
+ * $routeName - название маршрута.
+ * $parameter - параметр в маршруте, необязательный параметр (если передаваемый параметр не существует, то маршрут всё равно будет возвращён).
+ */
+function r($routeName, $parameter = null)
+{
+    if ($routeName) {
+        if ($parameter)
+        $route = $parameter ? route($routeName, $parameter) : route($routeName);
+        return \Route::has($routeName) ? $route : '/';
+    }
+    return false;
+}
+
+
+/*
  * Возвращает дату в нужном формате.
  * $date - дата в формате: 1544636288 или 2019-07-18 13:00:00.
  * $format - формат для отображения, по-умолчанию j M Y, необязательный параметр.
