@@ -86,7 +86,8 @@ class PageController extends AppController
         // Хлебные крошки
         $breadcrumbs = $this->breadcrumbs
             ->values($this->table)
-            ->get($values->id);
+            ->dynamic($values->id)
+            ->get();
 
         $this->setMeta($values->title ?? null, $values->description ?? null);
         return view("{$this->viewPathModule}.{$this->c}_show", compact('values', 'breadcrumbs'));
@@ -102,7 +103,6 @@ class PageController extends AppController
         $breadcrumbs = $this->breadcrumbs
             ->end(['contact_us' => $title])
             ->get();
-        du($breadcrumbs);
 
         $this->setMeta($title);
         return view("{$this->viewPathModule}.{$this->c}_contact_us", compact('breadcrumbs'));

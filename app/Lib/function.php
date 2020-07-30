@@ -162,7 +162,7 @@ function webp($imagePublicPath)
     if ($imagePublicPath && Img::supportWebp()) {
         return Img::getWebp($imagePublicPath);
     }
-    return false;
+    return $imagePublicPath;
 }
 
 

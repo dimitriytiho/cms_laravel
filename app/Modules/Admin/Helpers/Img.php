@@ -68,10 +68,9 @@ class Img
                 if (File::isFile($pathWebp)) {
                     return $path . $webp;
                 }
-                return $imagePublicPath;
             }
         }
-        return false;
+        return $imagePublicPath;
     }
 
 
