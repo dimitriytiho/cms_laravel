@@ -181,5 +181,7 @@ return [
     'price' => 'Price',
 
     'res' => 'Result',
+    'date' => 'Date',
+    'time' => 'Time',
 
 ];
