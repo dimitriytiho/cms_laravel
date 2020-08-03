@@ -116,7 +116,12 @@
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
 
 --}}
+<script src="{{ asset('js/svg4everybody.min.js') }}"></script>
 <script>
+    svg4everybody()
+    {{-- Поддержка Svg из sprite во всех браузерах
+    https://github.com/jonathantneal/svg4everybody --}}
+
     var body = $('body'),
         _token = document.querySelector('meta[name="csrf-token"]'),
         path = '{{ route('index') }}',
