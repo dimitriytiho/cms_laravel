@@ -183,5 +183,6 @@ return [
     'res' => 'Result',
     'date' => 'Date',
     'time' => 'Time',
+    'city' => 'City',
 
 ];
