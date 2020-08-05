@@ -38,20 +38,4 @@ class Add
         }
         return false;
     }
-
-
-    /*
-     * Возвращает город пользователя.
-     */
-    public static function getCity()
-    {
-        $curl = new Curl();
-        $curl->get('http://ipinfo.io/json');
-        $response = $curl->response;
-
-        if (!$curl->isCurlError() && $response !== '404: Not Found' && !empty($response->city)) {
-            return $response->city;
-        }
-        return false;
-    }
 }
