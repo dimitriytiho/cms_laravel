@@ -154,12 +154,15 @@ function priceFormat($price, $currency = '&#8381;') {
 
 /*
  * Возвращает картинку Webp, если она есть и браузер поддерживает Webp.
+ * На мобильных отключаем, т.к. не все поддерживают Webp.
  * Если нет картинки Webp, то вернёт переданную картинку или false.
  * $imagePublicPath - путь к картинке от папки public.
  */
 function webp($imagePublicPath)
 {
-    if ($imagePublicPath && Img::supportWebp()) {
+    $isMobile = Main::get('isMobile');
+
+    if (!$isMobile && $imagePublicPath && Img::supportWebp()) {
         return Img::getWebp($imagePublicPath);
     }
     return $imagePublicPath;

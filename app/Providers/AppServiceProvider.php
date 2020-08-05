@@ -36,6 +36,28 @@ class AppServiceProvider extends ServiceProvider
 
         // ЗДЕСЬ ПИСАТЬ КОД, КОТОРЫЙ ЗАПУСКАЕТСЯ ПОСЛЕ ЗАГРУЗКИ ВСЕХ СЕРВИС-ПРОВАЙДЕРОВ
 
+        // Паттерн реестр
+        Main::$registry = Registry::instance();
+
+
+        // Добавление настроек в контейнет сайта
+        $this->setting();
+
+
+        // Дополнительное приложение Debugbar
+        if (!config('add.debugbar')) {
+            \Debugbar::disable();
+        }
+
+
+        // Мобильный или планшет
+        $detect = new \Mobile_Detect();
+        $isMobile = $detect->isMobile();
+        $isTablet = $detect->isTablet();
+        Main::set('isMobile', $isMobile);
+        Main::set('isTablet', $isTablet);
+
+
         // Подключаем вспомогательные библиотеки из /app/Lib
         $lib = app_path('Lib');
         $functionFile = "{$lib}/function.php";
@@ -65,28 +87,11 @@ class AppServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom("{$modulesPath}/{$modulesLang}", "{$modulesNamespace}\\{$modulesLang}");
 
 
-        // Паттерн реестр
-        Main::$registry = Registry::instance();
-
         // Если индексирование сайта выключено
         if (config('add.not_index_website')) {
             header('X-Robots-Tag: noindex,nofollow'); // Заголовок запрещающий индексацию сайта
         }
 
-        // Дополнительное приложение Debugbar
-        if (!config('add.debugbar')) {
-            \Debugbar::disable();
-        }
-
-        // Мобильный или планшет
-        $detect = new \Mobile_Detect();
-        $isMobile = $detect->isMobile();
-        $isTablet = $detect->isTablet();
-        Main::set('isMobile', $isMobile);
-        Main::set('isTablet', $isTablet);
-
-        // Добавление настроек в контейнет сайта
-        $this->setting();
 
         // Глобальные переменные для видов
         $this->views();
