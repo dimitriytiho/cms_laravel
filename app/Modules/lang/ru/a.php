@@ -25,6 +25,7 @@ return [
     'Products' => 'Товары',
     'product_many' => 'Товары',
     'Files' => 'Файлы',
+    'db_builder' => 'Строитель БД',
     'File_manager' => 'Файловый менеджер',
     'Users' => 'Пользователи',
     'user_many' => 'Пользователи',

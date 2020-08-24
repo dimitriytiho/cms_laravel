@@ -121,7 +121,18 @@ class AdditionallyController extends AppController
         $t = $request->segment(2);
         Main::viewExists("{$t}.{$f}", __METHOD__);
 
-        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($t)));
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
         return view("{$t}.{$f}");
     }
+
+
+    /*public function dbBuilder(Request $request) {
+        $f = __FUNCTION__;
+        $t = $request->segment(2);
+        $view = Str::snake("{$t}.{$f}");
+        Main::viewExists($view, __METHOD__);
+
+        $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($t)));
+        return view($view);
+    }*/
 }

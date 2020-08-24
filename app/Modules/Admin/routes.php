@@ -76,6 +76,7 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::match(['get','post'],'additionally', 'AdditionallyController@index')->name('additionally');
     Route::get('/additionally/files', 'AdditionallyController@files')->name('files');
+    //Route::get('/additionally/db-builder', 'AdditionallyController@dbBuilder')->name('db_builder');
 
     // Online users
     if (config('add.online_users')) {

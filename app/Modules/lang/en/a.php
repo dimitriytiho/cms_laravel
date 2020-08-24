@@ -25,6 +25,7 @@ return [
     'Products' => 'Products',
     'product_many' => 'Products',
     'Files' => 'Files',
+    'db_builder' => 'Db builder',
     'File_manager' => 'File manager',
     'Users' => 'Users',
     'user_many' => 'Users',

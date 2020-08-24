@@ -227,6 +227,14 @@ class Nav
                     'request' => 'additionally',
                     'item' => 'tab',
                 ],
+                /*26 => [
+                    'title' => 'db_builder',
+                    'controller' => 'Additionally',
+                    'parent_id' => 16,
+                    'slug' => '/additionally/db-builder',
+                    'request' => 'db-builder',
+                    'item' => 'tab',
+                ],*/
                 18 => [
                     'title' => 'Logs',
                     'controller' => null,
