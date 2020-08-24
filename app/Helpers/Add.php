@@ -3,12 +3,14 @@
 
 namespace App\Helpers;
 
-use Curl\Curl;
 use Illuminate\Support\Facades\File;
 
 class Add
 {
-    /*
+    /**
+     *
+     * @return boolean
+     *
      * Возвращает включен сайт или выключен, false или true.
      * Чтобы выключить сайт запишите в /storage/site_off.php что-нибудь, например: 1.
      */
@@ -23,8 +25,11 @@ class Add
     }
 
 
-    /*
-     * Если в строке запроса содержится строка.
+    /**
+     *
+     * @return string
+     *
+     * Возвращает строку, которая содержится в строке запроса.
      * Возвращает true или false.
      * $str - строка.
      */
@@ -36,6 +41,6 @@ class Add
                 return true;
             }
         }
-        return false;
+        return '';
     }
 }

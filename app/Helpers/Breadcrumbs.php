@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 class Breadcrumbs
 {
-    /*
+    /**
+     *
+     * @return array массив с хлебными крошками
+     *
 
-     // Пример использования для метода в контроллере (обратите внимание на очерёдность методов):
+    // Пример использования для метода в контроллере (обратите внимание на очерёдность методов):
      $breadcrumbs = $this->breadcrumbs
             ->start(['url1' => 'title1']) // или null
             ->end(['url4' => 'title4'])

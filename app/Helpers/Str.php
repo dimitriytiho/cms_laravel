@@ -6,7 +6,10 @@ namespace App\Helpers;
 
 class Str
 {
-    /*
+    /**
+     *
+     * @return string
+     *
      * Возвращается массив.
      * $str - строка, в которой через запятую написаны слова. Эти слова разбиваются по запятой или другому делителю.
      * $delimiter - делитель, необязательный параметр, , по-умолчанию.
@@ -17,11 +20,17 @@ class Str
             $str = str_replace(' ', '', $str);
             return explode($delimiter, $str);
         }
-        return false;
+        return '';
     }
 
 
-    // Принимает массив, далее он собирается в строку по запятой и возвращается строка
+    /**
+     *
+     * @return string
+     *
+     * Возвращает строку.
+     * Принимает массив, далее он собирается в строку по запятой.
+     */
     public static function arrToStr($arr)
     {
         if ($arr && is_array($arr)) {
@@ -32,30 +41,46 @@ class Str
     }
 
 
-    /*
+    /**
+     *
+     * @return string
+     *
      * Сегмент от строки.
      * $str - строка, которая разбивается по делителю на сегменты.
-     * $delimiter - делитель, необязательный параметр, , по-умолчанию.
-     * $segment - номер сегмента, который нужно вернуть, необязательный параметр.
+     * $segment - номер сегмента, который нужно вернуть, по-умолчанию 0, необязательный параметр.
+     * $delimiter - делитель, по-умолчанию /, необязательный параметр.
      */
     public static function strToSegment($str, $segment = 0, $delimiter = '/')
     {
         if ($str) {
             $arr = explode($delimiter, $str);
-            return $arr[(int)$segment] ?? false;
+            return $arr[(int)$segment] ?? '';
         }
-        return false;
+        return '';
     }
 
 
-    // Заменяет html сущности тире и пробел на эти знаки
+    /**
+     *
+     * @return string
+     *
+     * Возвращает строку.
+     * Заменяет html сущности тире и пробел на эти знаки (&#8209; на -, &nbsp; на пробел).
+     * $str - строка.
+     */
     public static function removeTag($str)
     {
         return str_replace(['&#8209;', '&nbsp;'], ['-', ' '], $str);
     }
 
 
-    // Преобразовать строку в snake_case из snake-case
+    /**
+     *
+     * @return string
+     *
+     * Возвращает строку.
+     * Преобразовать строку в snake_case из snake-case, заменяет в строке - на _.
+     */
     public static function snakeCase($str)
     {
         return str_replace('-', '_', $str);

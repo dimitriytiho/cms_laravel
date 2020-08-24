@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Schema;
 
 class Children
 {
-    /*
+    /**
+     *
+     * @return array
+     *
      * Возвращает массив из БД, где ключи это id элементов, запрос кэшируется.
      * $model - название модели в формате \App\Page.
      *
@@ -39,7 +42,10 @@ class Children
     }
 
 
-    /*
+    /**
+     *
+     * @return array
+     *
      * Возвращает дерево элементов в БД, если есть вложеннсть.
      * $model - название модели в формате \App\Page.
      * $column - название колонки родителя, по-умолчанию parent_id, необязательный параметр.
@@ -70,7 +76,10 @@ class Children
     }
 
 
-    /*
+    /**
+     *
+     * @return array
+     *
      * Возвращает массив родителя из дерева.
      * $id = id элемента.
      * $model - название модели в формате \App\Page.
@@ -83,7 +92,7 @@ class Children
             $parentId = $data[(int)$id][$column] ?: '0';
             return self::getFindParent($data, (int)$id, $parentId, $column);
         }
-        return false;
+        return [];
     }
     private static function getFindParent($data, $id, $parentId, $column = 'parent_id')
     {
@@ -96,11 +105,14 @@ class Children
                 }
             }
         }
-        return false;
+        return [];
     }
 
 
-    /*
+    /**
+     *
+     * @return string или false
+     *
      * В тексте ищется текст обрамлённый с 2-х сторон такими символами ###!!, к примеру: ###!!Мета для вывода у вложенных элементов###!!.
      * $text - текст, с этими символами или без них.
      * $symbol - можно изменить искомые символы, необязательный параметр.
@@ -126,7 +138,10 @@ class Children
 
 
 
-    /*
+    /**
+     *
+     * @return string или false
+     *
      * Ищет у родителей спец. символы по-умолчанию в description.
      * $parentId - parent_id элемента.
      * $model - название модели в формате \App\Page.
@@ -177,7 +192,10 @@ class Children
 
 
 
-    /*
+    /**
+     *
+     * @return array
+     *
      * Возвращает всех потомков, учитывая всю вложенность.
      * $id - id, для которого вернуть потомков.
      * $model - название модели в формате \App\Page.

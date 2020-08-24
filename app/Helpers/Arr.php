@@ -6,7 +6,10 @@ namespace App\Helpers;
 
 class Arr
 {
-    /*
+    /**
+     *
+     * @return boolean
+     *
      * Если входящие данные ассоциативный массив или объект Laravel и нужно проверить на пустоту.
      * $arr - массив или объект.
      */
@@ -16,7 +19,10 @@ class Arr
     }
 
 
-    /*
+    /**
+     *
+     * @return array
+     *
      * Безопасное удаление значения из массива.
      * $value - значение, которое удалить.
      * $arr - массив.
@@ -29,12 +35,15 @@ class Arr
             }
             return $arr;
         }
-        return false;
+        return [];
     }
 
 
-    /*
-     * Возвращает объект для JS из вложенного массива php.
+    /**
+     *
+     * @return string
+     *
+     * Возвращает строку, т.е. объект для JS из вложенного массива php.
      * $arr - вложенный массив.
      */
     public static function doubleArrToObjJS($arr, $var_name = null)
@@ -47,12 +56,15 @@ class Arr
             $JS = rtrim($JS, ',') . "}\n";
             return $JS;
         }
-        return false;
+        return '';
     }
 
 
-    /*
-     * Возвращает массив для JS из массива php.
+    /**
+     *
+     * @return string
+     *
+     * Возвращает строку, т.е. массив для JS из массива php.
      * $arr - массив.
      * $var_name - название переменной для JS, необязательный параметр.
      * $obj - передайте true, если надо получить объект.
@@ -74,6 +86,6 @@ class Arr
             $part = rtrim($part, ',') . $r;
             return $part;
         }
-        return false;
+        return '';
     }
 }

@@ -18,7 +18,10 @@ class ImportExport
     }
 
 
-    /*
+    /**
+     *
+     * @return array
+     *
      * Возвращает массив названий колонок из таблицы.
      * $arrColumns - массив в таком формате:
         $arrColumns = [
@@ -92,7 +95,10 @@ class ImportExport
     }
 
 
-    /*
+    /**
+     *
+     * @return string
+     *
      * Возвращает строку с названиями колонок.
      * $arrColumns - массив в таком формате:
         $arrColumns = [

@@ -7,8 +7,13 @@ use App\Lib\SMSRU;
 
 class Sms
 {
-    // Возвращает телефонный номер без лишних символов, с 7 в начале и кол-во 11 символо, в противном случае вернёт false. Принимает телефонный номер.
-    public static function sendOneSMS($phoneNumber, $textMessage)
+    /*
+     * Отправить одно СМС.
+     * $phoneNumber - принимает телефонный номер.
+     * $textMessage - текст сообщения, максимально 70 знаков.
+     * $from - Если у вас уже одобрен буквенный отправитель, его можно указать здесь, в противном случае будет использоваться ваш отправитель по умолчанию (например OmegaKontur).
+     */
+    public static function sendOneSMS($phoneNumber, $textMessage, $from = '')
     {
         $tel = self::onlyPhoneNumber($phoneNumber);
         if ($tel) {
@@ -16,13 +21,15 @@ class Sms
 
             $data = new \stdClass();
             $data->to = $tel;
-            $data->text = $textMessage; // Текст сообщения
-            $data->from = 'OmegaKontur'; // Если у вас уже одобрен буквенный отправитель, его можно указать здесь, в противном случае будет использоваться ваш отправитель по умолчанию
+            $data->text = $textMessage;
+            $data->from = $from;
 // $data->time = time() + 7*60*60; // Отложить отправку на 7 часов
 // $data->translit = 1; // Перевести все русские символы в латиницу (позволяет сэкономить на длине СМС)
 // $data->test = 1; // Позволяет выполнить запрос в тестовом режиме без реальной отправки сообщения
 // $data->partner_id = '1'; // Можно указать ваш ID партнера, если вы интегрируете код в чужую систему
             $sms = $smsru->send_one($data); // Отправка сообщения и возврат данных в переменную
+
+            return $sms;
 
             /*if ($sms->status == "OK") { // Запрос выполнен успешно
                 echo "Сообщение отправлено успешно. ";
@@ -34,13 +41,16 @@ class Sms
                 echo "Текст ошибки: $sms->status_text.";
             }*/
         }
+        return false;
     }
 
 
-    /*
-     * Отправить одно СМС.
-     * $phoneNumber - в формате '79631223344'.
-     * $textMessage - текст сообщения, максимально 70 знаков.
+    /**
+     *
+     * @return int
+     *
+     * Возвращает телефонный номер без лишних символов, с 7 в начале и кол-во 11 символов (74951112233).
+     * $phoneNumber - принимает телефонный номер (8 (495) 111-22-33).
      */
 
     public static function onlyPhoneNumber($phoneNumber)
@@ -53,6 +63,6 @@ class Sms
         if (strlen($tel) === 11) {
             return (int)$tel;
         }
-        return false;
+        return $phoneNumber;
     }
 }

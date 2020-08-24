@@ -6,7 +6,12 @@ namespace App\Helpers;
 
 class Date
 {
-    // Возвращает массив месяцев
+    /**
+     *
+     * @return array
+     *
+     * Возвращает массив месяцев.
+     */
     public static function months() {
         return [
             1 => 'January',
@@ -25,27 +30,40 @@ class Date
     }
 
 
-    // Возвращает время в метке Unix: 1544636288, принимает дату: 2017-09-01 00:00:00
+    /**
+     *
+     * @return string
+     *
+     * Возвращает время в метке Unix: 1544636288, принимает дату: 2017-09-01 00:00:00
+     */
     public static function timestampToTime($date)
     {
         if ($date && $date != '0000-00-00 00:00:00') {
             return strtotime($date);
         }
-        return false;
+        return '';
     }
 
 
-    // Возвращает время в формате: 2017-09-01 00:00:00, принимает дату в метке Unix: 1544636288
+    /**
+     *
+     * @return string
+     *
+     * Возвращает время в формате: 2017-09-01 00:00:00, принимает дату в метке Unix: 1544636288
+     */
     public static function timeToTimestamp(int $date)
     {
         if ($date) {
             return date('Y-m-d H:i:s', $date);
         }
-        return false;
+        return '';
     }
 
 
-    /*
+    /**
+     *
+     * @return int
+     *
      * Возвращает время даты на конец месяца (формат метки Unix: 1544636288).
      * $month -  передать null, будет дата на конец недели.
      */
@@ -73,7 +91,10 @@ class Date
     }
 
 
-    /*
+    /**
+     *
+     * @return array
+     *
      * Возвращает в массиве года, от минимального до текущего.
      * $min_year - от какого года начинать.
      * $max_year - необязательный параметр, каким годом заканчивать, по-умолчанию текущий.
@@ -85,7 +106,7 @@ class Date
             $max_year = $max_year ?: date('Y');
             $max_year = substr((int)$max_year, 0, 4);
             if ($min_year > $max_year) {
-                return false;
+                return [];
             }
 
             while ($min_year <= $max_year) {
@@ -94,6 +115,6 @@ class Date
             }
             return array_reverse($year);
         }
-        return false;
+        return [];
     }
 }

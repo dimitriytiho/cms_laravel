@@ -4,7 +4,6 @@
 namespace App\Helpers;
 
 
-
 class Locale
 {
     private $currentLocale;
@@ -24,6 +23,14 @@ class Locale
     }
 
 
+    /**
+     *
+     * @return string
+     *
+     * Возвращает строку, в формате json c переводами.
+     * $varName - название переменной для JS, по-умолчанию translations, необязательный параметр.
+     * $fileName - имя файла из lang папки (например app/Modules/lang/en/js.php), по-умолчанию js, необязательный параметр.
+     */
     public static function translationsJson($varName = 'translations', $fileName = 'js')
     {
         $self = new self();
