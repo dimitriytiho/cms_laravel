@@ -58,25 +58,25 @@ class MenuController extends AppController
         $parentValues = null;
         $values = null;
 
+        // Поиск. Массив гет ключей для поиска
+        $queryArr = [
+            'id',
+            'title',
+            'slug',
+            'status',
+            'sort',
+        ];
+
+        // Параметры Get запроса
+        $get = request()->query();
+        $col = $get['col'] ?? null;
+        $cell = $get['cell'] ?? null;
+
         // Если в родительской таблице нет элементов, то ничего нельзя добавить
         $parentCount = DB::table($this->parentTable)->count();
 
         if ($parentCount > 0) {
             $parentValues = DB::table($this->parentTable)->select('id', 'title')->get();
-
-            // Поиск. Массив гет ключей для поиска
-            $queryArr = [
-                'id',
-                'title',
-                'slug',
-                'status',
-                'sort',
-            ];
-
-            // Параметры Get запроса
-            $get = request()->query();
-            $col = $get['col'] ?? null;
-            $cell = $get['cell'] ?? null;
 
             // Метод для поиска и сортировки запроса БД
             $values = DbSort::getSearchSort($queryArr, $get, $this->table, $this->model, $this->view, $this->perPage, 'belong_id', $currentParentId);

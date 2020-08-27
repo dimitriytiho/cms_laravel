@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\File;
 use App\Main;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\Services\Registry;

@@ -36,6 +36,7 @@ class AppController extends Controller
 
     protected $user;
     protected $isAdmin;
+    protected $adminLimited;
     protected $imgRequestName;
     protected $imgUploadID;
 
@@ -84,13 +85,19 @@ class AppController extends Controller
 
             $this->user = auth()->check() ? auth()->user() : null;
             $this->isAdmin = $isAdmin = auth()->check() ? auth()->user()->isAdmin() : null;
+            $this->adminLimited = $adminLimited = $this->user ? auth()->user()->adminLimited() : null;
 
             // Если Редактор откроет запрещённый раздел, выбросится исключение
             if (in_array($this->controller, config('admin.editor_section_banned')) && !$isAdmin) {
                 Main::getError('Editor section Banned!', __METHOD__);
             }
 
-            view()->share(compact('isAdmin'));
+            // Если Кассир откроет запрещённый раздел, выбросится исключение
+            if (!in_array($this->controller, config('admin.cashier_section_allow')) && !$isAdmin) {
+                Main::getError('Cashier section Banned!', __METHOD__);
+            }
+
+            view()->share(compact('isAdmin', 'adminLimited'));
 
 
             // Сохраняем в сессию страницу с которой пользователь перешёл в админку

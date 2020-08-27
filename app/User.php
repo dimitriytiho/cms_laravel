@@ -19,10 +19,9 @@ class User extends Authenticatable
      *
      * @var array
      */
-    /*protected $fillable = [
+    protected $fillable = [
         'name', 'email', 'password',
-    ];*/
-    protected $guarded = ['email_verified_at', 'remember_token', 'created_at', 'updated_at'];
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -49,6 +48,7 @@ class User extends Authenticatable
     protected $table;
     protected $view;
     protected $lang;
+
 
 
     // Расширяем модель
@@ -89,24 +89,43 @@ class User extends Authenticatable
 
 
     // Проверить роли пользователей, которым разрешена админка. Возвращает true или false.
+    /**
+     * @return bool
+     *
+     * Проверяет переданного пользователя, является ли он админом или редактором.
+     */
     public function Admin() {
         return $this->role->area === config('admin.user_areas')[2];
     }
 
 
     // Проверить пользователя с ролью админ. Возвращает true или false.
+    /**
+     * @return bool
+     *
+     * Проверяет переданного пользователя, является ли он админом или редактором.
+     */
     public function isAdmin() {
         return $this->role->name === config('admin.user_roles')[3];
     }
 
 
     // Возвращает id роли администратора.
+    /**
+     * @return int
+     *
+     * Проверяет переданного пользователя, является ли он админом или редактором.
+     */
     public function getRoleIdAdmin() {
         return 3;
     }
 
-
-    // Возвращает объект пользователя. Принимает email пользователя.
+    
+    /**
+     * @return object
+     *
+     * Возвращает объект пользователя. Принимает email пользователя.
+     */
     public function getUser($email)
     {
         //return DB::table($this->table)->where('email', $email)->first();
@@ -114,15 +133,35 @@ class User extends Authenticatable
     }
 
 
-    // Проверяет переданного пользователя, является ли он админом или редактором.
+    /**
+     * @return bool
+     *
+     * Проверяет переданного пользователя, является ли он админом или редактором.
+     */
     public function getAdmin($user)
     {
         return $user->role->area === config('admin.user_roles')[3];
     }
 
 
+    /**
+     * @return bool
+     * 
+     * Проверяет администратора с ограниченными правами.
+     */
+    public function adminLimited()
+    {
+        // Id ролей админстраторов в config('admin.user_roles')
+        $idAdmin = [
+            3,
+            4
+        ];
+        return $this->Admin() && !in_array($this->role->id, $idAdmin);
+    }
 
-    // Записать IP пользователя.
+
+
+    // Записать IP текущего пользователя.
     public function saveIp()
     {
         $this->ip = request()->ip();

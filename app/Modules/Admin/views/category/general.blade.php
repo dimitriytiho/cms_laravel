@@ -12,6 +12,28 @@
                     @method('put')
                 @endif
                 @csrf
+                {{--
+
+                Картинка  Dropzone --}}
+                @if (isset($values->id))
+                    {!! $constructor::hidden('img', $values->img) !!}
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-center align-items-center img-view" id="dropzone-images">
+                            <a href="{{ asset($values->img) }}" class="ml-3 mt-3" target="_blank">
+                                @if ($values->img !== config("admin.img{$class}Default"))
+                                    <i class="material-icons" id="img-remove" data-img="{{ $values->img }}" data-max-files="{{ config('admin.maxFilesOne') }}">clear</i>
+                                @endif
+                                <img src="{{ asset($values->img) }}" alt="@lang("{$lang}::f.img")">
+                            </a>
+                        </div>
+                        {{--
+
+                        Dropzone JS --}}
+                        <div class="col-md-6">
+                            <div id="dzOne" class="dropzone"></div>
+                        </div>
+                    </div>
+                @endif
                 {!! $constructor::input('title', $values->title ?? null) !!}
 
                 <div class="d-flex justify-content-between w-100">

@@ -22,10 +22,17 @@ return [
     'cookie' => 5184000, // 60 дней
     'date_format' => 'd.m.Y H:i',
 
+
     // Разделы запрещённые для Редакторов
     'editor_section_banned' => [
         'Additionally',
     ],
+
+    // Разделы разрешенный для Кассиров, остальные запрещены
+    'cashier_section_allow' => [
+        'Order',
+    ],
+
 
     // Зоны доступа для пользователей
     'user_areas' => [
@@ -103,6 +110,11 @@ return [
     'imgUser' => '/' . env('APP_IMG', 'img') . '/users-photo',
     'imgPathUser' => public_path() . '/' . env('APP_IMG', 'img') . '/users-photo',
     'imgUserDefault' => '/' . env('APP_IMG', 'img') . '/default/no_user.png',
+
+    // Категории
+    'imgCategory' => '/' . env('APP_IMG', 'img') . '/category',
+    'imgPathCategory' => public_path() . '/' . env('APP_IMG', 'img') . '/category',
+    'imgCategoryDefault' => '/' . env('APP_IMG', 'img') . '/default/no_image.jpg',
 
     // Товары
     'imgProduct' => '/' . env('APP_IMG', 'img') . '/product',

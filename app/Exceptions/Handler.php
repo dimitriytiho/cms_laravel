@@ -2,10 +2,10 @@
 
 namespace App\Exceptions;
 
-use App\Helpers\Breadcrumbs;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use App\Main;
+use App\Helpers\Breadcrumbs;
 
 class Handler extends ExceptionHandler
 {

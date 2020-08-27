@@ -16,7 +16,7 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32)->unique();
-            $table->string('area', 32)->default(config('add.user_areas')[1]);
+            $table->string('area', 32)->default(config('admin.user_areas')[1]);
             $table->timestamps();
         });
     }

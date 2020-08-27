@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->smallInteger('sort')->unsigned()->default('500');
             $table->text('description')->nullable();
             $table->text('body')->nullable();
-            $table->string('img')->nullable()->default(config('add.img') . config('admin.imgProductDefault'));
+            $table->string('img')->nullable()->default(config('admin.imgProductDefault'));
             $table->timestamps();
         });
     }

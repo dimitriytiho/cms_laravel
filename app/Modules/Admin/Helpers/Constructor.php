@@ -432,24 +432,26 @@ S;
 
 
                         function addButton() {
-                            var asideWidth = aside.offsetWidth // Ширина сайдбара слева
-                            //var contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left') // У контента получить padding-left в px
+                            setTimeout(function () {
+                                var asideWidth = aside.offsetWidth // Ширина сайдбара слева
+                                //var contentLeft = window.getComputedStyle(content, null).getPropertyValue('padding-left') // У контента получить padding-left в px
 
-                            // Отрезать px в конце строки
-                            //contentLeft = contentLeft.substring(0, contentLeft.length - 2)
+                                // Отрезать px в конце строки
+                                //contentLeft = contentLeft.substring(0, contentLeft.length - 2)
 
-                            //sticky.style.paddingLeft = '34px'
-                            sticky.classList.add('bg-white', 'w-100', 'position-fixed', 'z-7')
-                            sticky.style.left = (asideWidth + 34) + 'px' // 82px
-                            // Получисть ширину aside
-
-
-
+                                //sticky.style.paddingLeft = '34px'
+                                sticky.classList.add('bg-white', 'w-100', 'position-fixed', 'z-7')
+                                sticky.style.left = (asideWidth + 34) + 'px' // 82px
+                                // Получисть ширину aside
 
 
-                            //sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
-                            sticky.style.height = heightNewSticky + 'px'
-                            sticky.style.top = (heightWindow - heightNewSticky) + 'px'
+
+
+
+                                //sticky.style.left = (Number(asideWidth) + Number(contentLeft)) + 'px'
+                                sticky.style.height = heightNewSticky + 'px'
+                                sticky.style.top = (heightWindow - heightNewSticky) + 'px'
+                            }, 10)
                         }
 
                         function remove() {

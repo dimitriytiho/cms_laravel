@@ -68,6 +68,7 @@ return [
     'editor' => 'Editor',
     'checked' => 'Checked',
     'moderator' => 'Moderator',
+    'cashier' => 'Cashier',
 
     'new' => 'New',
     'strange' => 'Strange',

@@ -4,6 +4,7 @@ namespace App\Modules\Admin\Controllers;
 
 use App\Main;
 use App\Modules\Admin\Helpers\DbSort;
+use App\Modules\Admin\Helpers\Img;
 use App\Modules\Admin\Models\Category;
 use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Models\CategoryProduct;
@@ -91,6 +92,11 @@ class CategoryController extends AppController
             $data = $request->all();
             //$data['slug'] = Slug::checkRecursion($this->table, $data['slug']);
 
+            // Если нет картинки
+            if (empty($data['img'])) {
+                $data['img'] = config("admin.img{$this->class}Default");
+            }
+
             $values = new Category();
             $values->fill($data);
 
@@ -148,8 +154,16 @@ class CategoryController extends AppController
             $getIdProducts = Category::with('products')->where('id', (int)$id)->get();
             $issetGetIdProducts = $getIdProducts[0]->products->toArray();
 
+
+            // DROPZONE DATA
+            // Передаём начальную часть названия для передаваемой картинки Dropzone JS
+            $imgRequestName = $this->imgRequestName = Slug::cyrillicToLatin($values->title, 32);
+
+            // ID элемента, для которого картинка Dropzone JS
+            $imgUploadID = $this->imgUploadID = $values->id;
+
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'getIdProducts', 'issetGetIdProducts'));
+            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'getIdProducts', 'issetGetIdProducts', 'imgRequestName', 'imgUploadID'));
         }
 
         // Сообщение об ошибке
@@ -174,6 +188,11 @@ class CategoryController extends AppController
             ];
             $this->validate($request, $rules);
             $data = $request->all();
+
+            // Если нет картинки
+            if (empty($data['img'])) {
+                $data['img'] = config("admin.img{$this->class}Default");
+            }
 
             $values = $this->model::find((int)$id);
             if ($values) {
@@ -227,6 +246,7 @@ class CategoryController extends AppController
             $values = $this->model::find((int)$id);
 
             if ($values) {
+                $img = $values->img ?? null;
 
                 // Если есть потомки или товары, то ошибка
                 // Потомки категорий
@@ -244,6 +264,9 @@ class CategoryController extends AppController
 
                     // Удалить все кэши
                     cache()->flush();
+
+                    // Удалим картинку с сервера, кроме картинки по-умолчанию
+                    Img::deleteImg($img, config("admin.img{$this->class}Default"));
 
                     // Сообщение об успехе
                     session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));

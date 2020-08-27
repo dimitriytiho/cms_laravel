@@ -10,7 +10,8 @@ use App\Modules\Admin\Helpers\Routes;
 $modulesPath = config('modules.path');
 View::getFinder()->setPaths("{$modulesPath}/Admin/views");
 
-$isAdmin = auth()->user()->isAdmin() ?? null;
+$isAdmin = auth()->check() ? auth()->user()->isAdmin() : null;
+$adminLimited = auth()->check() ? auth()->user()->adminLimited() : null;
 
 $asideWidth = $_COOKIE['asideWidth'] ?? null;
 $asideText = $asideWidth === config('admin.scss.aside-width-icon') ? ' style="display: none;"' : null;
