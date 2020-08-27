@@ -148,7 +148,7 @@
         {{--
 
         Dropzone --}}
-        acceptedImagesExt = '{{ \App\Modules\Admin\Helpers\Img::acceptedImagesExt() }}',
+        acceptedImagesExt = '{{ Img::acceptedImagesExt() }}',
         imgMaxSizeHD = {{ config('admin.imgMaxSizeHD') }},
         imgMaxSize = {{ config('admin.imgMaxSize') }},
         imgMaxSizeSM = {{ config('admin.imgMaxSizeSM') }},

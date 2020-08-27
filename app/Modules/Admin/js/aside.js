@@ -49,11 +49,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         } else {
             asideWidthChange.forEach(function (el) {
-                el.style.width = main.asideWidthText
+                el.style.width = main.asideWidthIcon
             })
             if (asideIconSelector) {
-                aside.classList.add('open')
-                asideIconSelector.classList.add('open')
+                aside.classList.remove('open')
+                asideIconSelector.classList.remove('open')
             }
         }
 
