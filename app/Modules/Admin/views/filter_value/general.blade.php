@@ -25,7 +25,7 @@
                     @csrf
                     {!! $constructor::hidden('parent_id', $values->parent_id ?? $currentParentId) !!}
                     {!! $constructor::input('value', $values->value ?? null) !!}
-                    {!! $constructor::input('sort', $values->sort ?? null) !!}
+                    {!! $constructor::input('sort', $values->sort ?? null, null) !!}
 
                     @if (isset($values->id) && isset($values->updated_at) && isset($values->created_at))
                         <div class="row">

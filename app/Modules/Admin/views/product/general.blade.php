@@ -53,7 +53,7 @@
 
 
                             Тело таба с контентом --}}
-                            {!! $constructor::textarea('body', $values->body ?? null, null, true, null, 'codemirror', null, 20) !!}
+                            {!! $constructor::textarea('body', $values->body ?? null, null, true, null, config('admin.editor'), null, 20) !!}
                         </div>
                         <div class="tab-pane fade pt-4" id="tab-main-link" role="tabpanel" aria-labelledby="tab-main">
                 @endif
@@ -87,7 +87,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="category_id">@lang("{$lang}::f.category_id")</label>
+                                        <label for="select-product-category">@lang("{$lang}::f.category_id")</label>
                                         {{--
 
                                         Виджет меню--}}
@@ -120,11 +120,11 @@
                                 </div>
                             </div>
 
-                            @if ($filters)
+                            @if ($$filters->isNotEmpty())
                                 <div class="row mb-2">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="filter_value">@lang("{$lang}::a.Filter_value")</label>
+                                            <label for="select-product-filter">@lang("{$lang}::a.Filter_value")</label>
                                             <select class="form-control custom-select" name="filter_value" id="select-product-filter">
                                                 <option value="0"> Выбрать </option>
                                                 @foreach ($filters as $v)

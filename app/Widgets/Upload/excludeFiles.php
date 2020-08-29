@@ -13,10 +13,6 @@
 
 return [
 
-	// Modules
-    'app/Modules/lang/vendor/backup',
-    'app/Modules/Page',
-
     //'app/Modules/Admin/Controllers/MainController.php',
     //'app/Modules/Admin/views/main/index.blade.php',
 

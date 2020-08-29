@@ -112,7 +112,7 @@ class FilterValueController extends AppController
         $currentParentId = $request->cookie("{$this->view}_id");
         if (!$currentParentId) {
             $current_menu = DB::table($this->parentTable)->first();
-            $currentParentId = $current_menu->count() > 0 ? $current_menu->id : null;
+            $currentParentId = $current_menu && $current_menu->count() > 0 ? $current_menu->id : null;
         }
         $parentValues = DB::table($this->parentTable)->find($currentParentId);
 

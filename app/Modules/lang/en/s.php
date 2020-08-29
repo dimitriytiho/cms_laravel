@@ -118,6 +118,8 @@ return [
 
     'notes_for_developer' => 'Notes for the web developer',
     'forum' => 'Forum',
+    'no' => 'No required',
+    'required' => 'required',
 
 
     // Date

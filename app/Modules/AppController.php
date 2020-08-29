@@ -43,7 +43,7 @@ class AppController extends Controller
 
 
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
-        view()->getFinder()->setPaths($modulesPath);
+        //view()->getFinder()->setPaths($modulesPath);
 
 
         // Только внутри этой конструкции работают некоторые методы

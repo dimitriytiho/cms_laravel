@@ -81,5 +81,7 @@ return [
     'reply' => 'Reply',
     'write' => 'To write',
     'text' => 'Text',
+    'function' => 'Function',
+    'weight' => 'Weight',
 
 ];
