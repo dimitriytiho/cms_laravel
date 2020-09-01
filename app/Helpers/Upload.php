@@ -74,7 +74,8 @@ class Upload
         }
 
         // Перезапишем файл webpack.mix.js js('resources/js/app.js', 'public/js')
-        $webpackPart = "const mix = require('laravel-mix');\n\n\n";
+        $webpackPart = "// При изменении настроек в config/modules.php modules необходимо запустить метод \App\Helpers\Upload::resourceInit();\n\n";
+        $webpackPart .= "const mix = require('laravel-mix');\n\n";
         $webpackPart .= "mix\n";
         $modulesPathFile = config('modules.path_file');
         $modules = config('modules.modules');
@@ -92,7 +93,10 @@ class Upload
             // Файл модулей sass
             $sassPath = "{$modulesPath}/sass/index.scss";
             if (is_file($sassPath)) {
-                $webpackPart .= ".sass('{$modulesPathFile}/sass/index.scss', '{$cssPublic}/app.css')\n\n";
+                $webpackPart .= ".sass('{$modulesPathFile}/sass/index.scss', '{$cssPublic}/app.css')\n";
+                $webpackPart .= "\t.options({\n";
+                $webpackPart .= "\t\tprocessCssUrls: false,\n";
+                $webpackPart .= "\t})\n\n";
             }
 
             // Выводим в цикле для модулей

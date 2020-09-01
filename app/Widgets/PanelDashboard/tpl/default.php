@@ -13,6 +13,13 @@ $img = config('add.img', 'img');
 ?>
 <div class="panel-dashboard">
     <a href="<?= session()->get('back_link_admin', route('admin.main')); ?>" class="panel-dashboard__icons" title="<?= __("{$lang}::a.Dashboard"); ?>">
+        <?php
+
+            /*
+             <i class="fas fa-tachometer-alt"></i>
+             */
+            
+            ?>
         <svg class="panel-dashboard__tachometer">
             <use xlink:href="<?= asset("{$img}/svg/dashboard_sprite.svg#tachometer-alt"); ?>"></use>
         </svg>
@@ -22,6 +29,13 @@ $img = config('add.img', 'img');
 
     if ($editLink): ?>
         <a href="<?= $editLink; ?>" class="panel-dashboard__icons" target="_blank" title="<?= __("{$lang}::a.edit"); ?>">
+            <?php
+
+            /*
+             <i class="fas fa-edit"></i>
+             */
+            
+            ?>
             <svg class="panel-dashboard__edit">
                 <use xlink:href="<?= asset("{$img}/svg/dashboard_sprite.svg#edit"); ?>"></use>
             </svg>

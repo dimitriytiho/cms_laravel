@@ -88,12 +88,12 @@ class AppController extends Controller
             $this->adminLimited = $adminLimited = $this->user ? auth()->user()->adminLimited() : null;
 
             // Если Редактор откроет запрещённый раздел, выбросится исключение
-            if (in_array($this->controller, config('admin.editor_section_banned')) && !$isAdmin) {
+            if ($this->controller && in_array($this->controller, config('admin.editor_section_banned')) && !$isAdmin) {
                 Main::getError('Editor section Banned!', __METHOD__);
             }
 
             // Если Кассир откроет запрещённый раздел, выбросится исключение
-            if (!in_array($this->controller, config('admin.cashier_section_allow')) && !$isAdmin) {
+            if ($this->controller && !in_array($this->controller, config('admin.cashier_section_allow')) && !$isAdmin) {
                 Main::getError('Cashier section Banned!', __METHOD__);
             }
 

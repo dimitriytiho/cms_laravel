@@ -28,6 +28,10 @@ class Img
     // Поддерживает браузер картинки Webp, возвращает true или false.
     public static function supportWebp()
     {
+        // https://github.com/pcosta94/laravel-check-webp-support/blob/master/src/helpers.php
+        /*$httpAccept = request()->server('HTTP_USER_AGENT');
+        return strpos($httpAccept, 'Trident') === false || strpos($httpAccept, 'Safari') === false;*/
+
         $httpAccept = request()->server('HTTP_ACCEPT');
         return strpos($httpAccept, 'image/webp') !== false;
     }

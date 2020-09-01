@@ -15,12 +15,6 @@ return [
     'app/Mail',
     'app/Modules/Admin',
     'app/Modules/AppController.php',
-    'app/Modules/lang/en/a.php',
-    'app/Modules/lang/en/s.php',
-    'app/Modules/lang/en/f.php'
-    'app/Modules/lang/ru/a.php',
-    'app/Modules/lang/ru/s.php',
-    'app/Modules/lang/ru/f.php',
     'app/Modules/stubs',
     'app/Widgets',
     'app/Main.php',

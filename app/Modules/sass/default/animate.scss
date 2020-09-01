@@ -2,6 +2,16 @@
 @import "../config/mixins";
 @import "../config/blocks";
 
+// Уменьшение и увеличение в 0
+.scale-in {
+  transform: scale(1) !important;
+  @include transition();
+}
+.scale-out {
+  transform: scale(0) !important;
+  @include transition();
+}
+
 // Крутящийся спинер
 .animate-spin {
   animation: spin 2s infinite linear;

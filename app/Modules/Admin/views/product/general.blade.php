@@ -128,7 +128,7 @@
                                             <select class="form-control custom-select" name="filter_value" id="select-product-filter">
                                                 <option value="0"> Выбрать </option>
                                                 @foreach ($filters as $v)
-                                                    <option data-title="{{ $v->value }}" data-title-lang="{{ l($filterGroups[$v->parent_id]->title) }} - {{ l($v->value) }}" value="{{ $v->id }}" @if ($filtersActive->filter_values->contains('value', $v->value))disabled @endif>{{ l($filterGroups[$v->parent_id]->title) }} - {{ l($v->value) }}</option>
+                                                    <option data-title="{{ $v->value }}" data-title-lang="{{ l($filterGroups[$v->parent_id]->title ?? null) }} - {{ l($v->value) }}" value="{{ $v->id }}" @if ($filtersActive->filter_values->contains('value', $v->value))disabled @endif>{{ l($filterGroups[$v->parent_id]->title ?? null) }} - {{ l($v->value) }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

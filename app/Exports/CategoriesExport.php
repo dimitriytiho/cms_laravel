@@ -16,7 +16,7 @@ class CategoriesExport  implements FromQuery, WithHeadings // FromCollection
     // Перечислить колонки для работы экспорта и импорта, где 1 - это обязательное поле.
     public $columns = [
         'id' => 0,
-        'parent_id' => 1,
+        'parent_id' => 0,
         'title' => 1,
         'slug' => 1,
         'status' => 0,

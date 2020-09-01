@@ -15,7 +15,7 @@ class Sms
      */
     public static function sendOneSMS($phoneNumber, $textMessage, $from = '')
     {
-        $tel = self::onlyPhoneNumber($phoneNumber);
+        $tel = onlyPhoneNumber($phoneNumber);
         if ($tel) {
             $smsru = new SMSRU(config('add.smsru')); // Ваш уникальный программный ключ, который можно получить на главной странице
 
@@ -42,27 +42,5 @@ class Sms
             }*/
         }
         return false;
-    }
-
-
-    /**
-     *
-     * @return int
-     *
-     * Возвращает телефонный номер без лишних символов, с 7 в начале и кол-во 11 символов (74951112233).
-     * $phoneNumber - принимает телефонный номер (8 (495) 111-22-33).
-     */
-
-    public static function onlyPhoneNumber($phoneNumber)
-    {
-        $one = substr($phoneNumber, 0, 1);
-        if ($one == 8) {
-            $phoneNumber = 7 . substr($phoneNumber, 1);
-        }
-        $tel = str_replace(['+', '(', ')', '-', '_', ' '], '', $phoneNumber);
-        if (strlen($tel) === 11) {
-            return (int)$tel;
-        }
-        return $phoneNumber;
     }
 }

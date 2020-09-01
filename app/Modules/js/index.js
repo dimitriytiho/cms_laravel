@@ -1,13 +1,26 @@
 // require('./bootstrap');
 // window.Vue = require('vue');
 
-window.BSN = require('bootstrap.native/dist/bootstrap-native.min')
+// Замена Bootstrap JS
+// npm install bootstrap.native
+//window.BSN = require('bootstrap.native/dist/bootstrap-native.min')
 
-window.AOS = require('aos')
+// Animate On Scroll
+// npm install aos
+/*window.AOS = require('aos')
 // data-aos="fade-up" fade-down-right flip-left zoom-in
 AOS.init({
     duration: 500
-})
+})*/
+
+// Parallax
+// npm install simple-parallax-js
+/*window.simpleParallax = require('simple-parallax-js')
+var simpleParallax6 = document.getElementsByClassName('simple_parallax_6');
+new simpleParallax(simpleParallax6, {
+    delay: .6,
+    transition: 'cubic-bezier(0,0,0,1)'
+})*/
 
 import './components'
 import './validate'

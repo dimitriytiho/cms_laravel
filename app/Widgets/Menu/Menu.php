@@ -22,7 +22,7 @@ class Menu
         'table' => 'menu', // Название таблицы
         'where' => [], // [['id', 7]] К примеру где id = 7 или множественно [['id', '7'], ['accept', '1'],]
         'orderBy' => 'sort',
-        'sort' => 'desc',
+        'sort' => 'asc',
         'sql' => '', // Передать частный sql запрос, так делается дополнительный цикл, при этом не будут работать настройки: table, where, orderBy, sort ('SELECT * FROM menus ORDER BY id DESC')
 
         // Вывод для Html
