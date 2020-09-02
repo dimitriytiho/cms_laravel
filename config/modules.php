@@ -37,11 +37,11 @@ return [
         ],
         'Shop' => [
             'routes' => true,
-            'webpack' => true,
+            'webpack' => false,
         ],
         'Auth' => [
             'routes' => true,
-            'webpack' => true,
+            'webpack' => false,
         ],
     ],
 
