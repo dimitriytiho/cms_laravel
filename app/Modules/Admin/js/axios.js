@@ -214,6 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (table && e.target && e.target.classList.contains(removeClass)) {
 
             e.preventDefault()
+            e.stopPropagation()
 
             // Вызов модального окна
             if (e.target && modal && btnOk) {
