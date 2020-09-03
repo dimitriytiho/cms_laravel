@@ -9,6 +9,10 @@
   background-color: $primary !important;
 }
 
+.text-sm {
+    font-size: $font-size-base-sm !important;
+}
+
 // Цвет ссылок .a-color
 @each $color, $value in $colors {
   .a-#{$color} {

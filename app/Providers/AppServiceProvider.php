@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Helpers\Services\Registry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
 use ReCaptcha\ReCaptcha;
 
 class AppServiceProvider extends ServiceProvider
@@ -69,6 +70,15 @@ class AppServiceProvider extends ServiceProvider
         if (File::isFile($constructorFile)) {
             require_once $constructorFile;
         }
+
+
+        // Возвращает Webp картинку в видах (если браузер поддерживает webp) с помощью коданды @webp($imagePublicPath)
+        Blade::directive('webp', function ($imagePublicPath) {
+            if ($imagePublicPath && \App\Modules\Admin\Helpers\Img::supportWebp()) {
+                return "<?php echo \App\Modules\Admin\Helpers\Img::getWebp($imagePublicPath); ?>";
+            }
+            return "<?php echo $imagePublicPath; ?>";
+        });
 
 
         // Добавляем Google ReCaptcha в валидатор

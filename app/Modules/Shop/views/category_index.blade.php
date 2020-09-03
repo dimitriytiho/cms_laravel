@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            @if ($products)
+            @if ($products->isNotEmpty())
                 <div class="row my-3">
                     <div class="col-md-3">
                         {!! Filter::init([

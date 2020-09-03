@@ -31,7 +31,7 @@
                         <h1 class="font-weight-light text-secondary mt-5">{{ $values->title }}</h1>
                     </div>
                 </div>
-                @if ($products)
+                @if ($products->isNotEmpty())
                     <div class="row my-3">
                         <div class="col-md-3">
                             {!! Filter::init([
