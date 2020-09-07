@@ -91,7 +91,7 @@ S;
 function input($name, $idForm = false, $required = true, $type = false, $value = false, $label = false, $placeholder = false, $class = false, $attrs = false)
 {
     $lang = lang();
-    $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $title = l($name, 'f');
     $id = $idForm ? "{$idForm}_{$name}" : $name;
 
     $required = $required ? 'required' : null;
@@ -142,7 +142,7 @@ S;
 function textarea($name, $idForm = false, $required = true, $value = false, $label = false, $placeholder = false, $class = false, $attrs = false, $rows = 3, $htmlspecialchars = true)
 {
     $lang = lang();
-    $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $title = l($name, 'f');
     $id = $idForm ? "{$idForm}_{$name}" : $name;
     $required = $required ? 'required' : null;
     $star = $required ? '<sup>*</sup>' : null;
@@ -193,7 +193,7 @@ S;
 function select($name, $options, $idForm = null, $value = null, $label = false, $class = null, $attrs = false, $disabledValue = null, $option_id_value = null, $langFile = 't')
 {
     $lang = lang();
-    $title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $title = l($name, 'f');
     $id = $idForm ? "{$idForm}_{$name}" : $name;
     $value = $value ?: old($name);
     $label = $label ? null : 'class="sr-only"';
@@ -245,7 +245,7 @@ S;
 function checkbox($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
 {
     $lang = lang();
-    $_title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $_title = l($name, 'f');
     $title = $title ?: $_title;
     $id = $idForm ? "{$idForm}_{$name}" : $name;
 
@@ -268,7 +268,7 @@ S;
 function checkboxSimple($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
 {
     $lang = lang();
-    $_title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $_title = l($name, 'f');
     $title = $title ?: $_title;
     $id = $idForm ? "{$idForm}_{$name}" : $name;
 
@@ -291,7 +291,7 @@ S;
 function checkboxSwitch($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
 {
     $lang = lang();
-    $_title = Lang::has("{$lang}::f.{$name}") ? __("{$lang}::f.{$name}") : $name;
+    $_title = l($name, 'f');
     $title = $title ?: $_title;
     $id = $idForm ? "{$idForm}_{$name}" : $name;
 
@@ -377,7 +377,7 @@ S;
 function modal($id, $title = null, $class = null, $attrs = null)
 {
     $lang = lang();
-    $titleLang = Lang::has("{$lang}::t.{$title}") ? __("{$lang}::t.{$title}") : $title;
+    $titleLang = l($title);
     $title = $titleLang ? "<h4 class=\"modal-title mb-2\">{$titleLang}</h4>" : null;
 
     return <<<S

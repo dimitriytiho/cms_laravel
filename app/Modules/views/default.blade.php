@@ -105,6 +105,18 @@
     </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{--
+
+
+CDN ленивой загрузки картинок
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script> --}}
+{{--
+
+
+Google ReCaptcha, если есть в настройках указан секретный ключ --}}
+@if (config('add.recaptcha_secret_key'))
+    <script src="//www.google.com/recaptcha/api.js"></script>
+@endif
 @if (config('add.recaptcha_secret_key'))
     <script src="//www.google.com/recaptcha/api.js"></script>
 @endif

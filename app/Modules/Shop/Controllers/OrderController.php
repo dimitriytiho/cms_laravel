@@ -176,7 +176,7 @@ class OrderController extends AppController
 
                 // Письмо администратору
                 try {
-                    $title = __("{$this->lang}::s.An_order_has_been_placed", ['order_id' => __("{$this->lang}::{$orderId}")]) . config('add.domain');
+                    $title = __("{$this->lang}::s.An_order_has_been_placed", ['order_id' => $orderId]) . config('add.domain');
                     $email_admin = HelpersStr::strToArr(Main::site('admin_email') ?? null);
 
                     // Данные пользователя
