@@ -68,13 +68,13 @@
 <body>
 <div class="content-block">
     <div class="app" id="app">
-        @include('inc.aside')
+        @include("{$viewPath}.inc.aside")
         <div class="px-0 w-100 main-content">
-            @include('inc.header')
+            @include("{$viewPath}.inc.header")
             <div class="row body-block mr-2 ml-3">
                 <div class="col transition {{--aside-margin-change--}}" {{--style="margin-left: {{ $asideWidth }};"--}}>
-                    @include('inc.message')
-                    @include('inc.top_panel')
+                    @include("{$viewPath}.inc.message")
+                    @include("{$viewPath}.inc.top_panel")
                     <div class="row" id="content">
                         <div class="col mt-1 content">
                             <div class="py-4 px-1">
@@ -86,7 +86,7 @@
             </div>
         </div>
     </div>
-    @include('inc.footer')
+    @include("{$viewPath}.inc.footer")
 </div>
 {{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script> --}}

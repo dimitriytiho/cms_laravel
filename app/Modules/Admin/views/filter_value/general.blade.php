@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends("{$viewPath}.layouts.admin")
 {{--
 
 Вывод контента
@@ -25,7 +25,7 @@
                     @csrf
                     {!! $constructor::hidden('parent_id', $values->parent_id ?? $currentParentId) !!}
                     {!! $constructor::input('value', $values->value ?? null) !!}
-                    
+
                     @if (isset($values->id))
                         {!! $constructor::input('sort', $values->sort ?? null, null) !!}
                     @endif

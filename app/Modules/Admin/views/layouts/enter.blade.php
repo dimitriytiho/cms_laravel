@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="container">
-        @include("inc.message")
+        @include("{$viewPath}.inc.message")
     </div>
     <div class="content" id="content">
         @yield('content')

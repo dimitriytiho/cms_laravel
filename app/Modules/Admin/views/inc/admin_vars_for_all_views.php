@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Request;
 use App\Modules\Admin\Helpers\Routes;
 
 
-$modulesPath = config('modules.path');
-View::getFinder()->setPaths("{$modulesPath}/Admin/views");
+/*$modulesPath = config('modules.path');
+View::getFinder()->setPaths("{$modulesPath}/Admin/views");*/
+
+$admin = config('modules.admin');
+$viewPath = "{$admin}.views";
 
 $isAdmin = auth()->check() ? auth()->user()->isAdmin() : null;
 $adminLimited = auth()->check() ? auth()->user()->adminLimited() : null;

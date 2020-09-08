@@ -53,7 +53,7 @@ class MenuController extends AppController
         }
 
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.$f", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.$f", __METHOD__);
 
         $parentValues = null;
         $values = null;
@@ -83,7 +83,7 @@ class MenuController extends AppController
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.{$f}", compact('parentValues', 'values', 'queryArr', 'col', 'cell', 'currentParentId', 'parentCount'));
+        return view("{$this->viewPath}.{$this->view}.{$f}", compact('parentValues', 'values', 'queryArr', 'col', 'cell', 'currentParentId', 'parentCount'));
     }
 
     /**
@@ -94,7 +94,7 @@ class MenuController extends AppController
     public function create(Request $request)
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
         $countParent = DB::table($this->parentTable)->count();
         $queryCookie = $request->cookie("{$this->view}_id");
@@ -115,7 +115,7 @@ class MenuController extends AppController
         $values = DB::table($this->parentTable)->count();
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}", compact('currentParentId', 'values', 'parentValues'));
+        return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('currentParentId', 'values', 'parentValues'));
     }
 
     /**
@@ -175,7 +175,7 @@ class MenuController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
             $currentParentId = null;
             $values = null;
@@ -199,7 +199,7 @@ class MenuController extends AppController
             $getIdParents = appHelpers::getIdParents($values->id ?? null, $this->table);
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'currentParentId', 'parentValues'));
+            return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('values', 'getIdParents', 'currentParentId', 'parentValues'));
         }
 
         // Сообщение об ошибке

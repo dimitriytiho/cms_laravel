@@ -47,7 +47,7 @@ class TranslateController extends AppController
     public function index(Request $request)
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
 
         // Поиск. Массив гет ключей для поиска
         $queryArr = [
@@ -107,7 +107,7 @@ class TranslateController extends AppController
         }
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->view)));
-        return view("{$this->view}.{$f}", compact('values', 'translation', 'queryArr', 'col', 'cell'));
+        return view("{$this->viewPath}.{$this->view}.{$f}", compact('values', 'translation', 'queryArr', 'col', 'cell'));
     }
 
     /**
@@ -118,10 +118,10 @@ class TranslateController extends AppController
     public function create()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}");
+        return view("{$this->viewPath}.{$this->view}.{$this->template}");
     }
 
     /**
@@ -213,7 +213,7 @@ class TranslateController extends AppController
     {
         if ($id) {
             $f = __FUNCTION__;
-            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
             $values = [];
 
             if (!empty($this->locales)) {
@@ -236,7 +236,7 @@ class TranslateController extends AppController
             }
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('id', 'values'));
+            return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('id', 'values'));
         }
 
         // Сообщение об ошибке

@@ -74,9 +74,9 @@ class EnterController extends AppController
         // Сообщение об открытой странице входа
         Main::getError('Open the Admin login page', __METHOD__, false, 'warning');
 
-        Main::viewExists("{$this->view}.index", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.index", __METHOD__);
         $this->setMeta(__("{$this->lang}::s.login"));
-        return view("{$this->view}.index");
+        return view("{$this->viewPath}.{$this->view}.index");
     }
 
     public function enterPost(Request $request)

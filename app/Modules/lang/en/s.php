@@ -177,6 +177,7 @@ return [
     'cart_empty' => 'The cart is still empty...',
     'delivery' => 'Delivery',
     'delivery_sum' => 'Delivery sum',
+    'pickup' => 'Pickup',
     'discount' => 'Discount',
     'discount_code' => 'Discount code',
     'qty' => 'Quantity',

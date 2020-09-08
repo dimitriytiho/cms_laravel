@@ -1,12 +1,12 @@
 @php
 
-    $admin_vars_for_all_views = config('modules.path') . '/Admin/views/inc/admin_vars_for_all_views.php';
-    if (is_file($admin_vars_for_all_views)) {
+    $admin_vars_for_all_views = config('modules.path') . '/' . config('modules.admin') . '/views/inc/admin_vars_for_all_views.php';
+    if (File::exists($admin_vars_for_all_views)) {
         require_once $admin_vars_for_all_views;
     }
 
 @endphp
-@extends('layouts.admin')
+@extends('Admin.views.layouts.admin')
 {{--
 
 Вывод контента

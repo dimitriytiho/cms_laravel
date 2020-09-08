@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends("{$viewPath}.layouts.admin")
 {{--
 
 Вывод контента
@@ -15,7 +15,7 @@
     @if ($values && $values->isNotEmpty())
         <div class="row">
             <div class="col">
-                @include('inc.search')
+                @include("{$viewPath}.inc.search")
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>

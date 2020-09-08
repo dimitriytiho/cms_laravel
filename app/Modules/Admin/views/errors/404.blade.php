@@ -1,4 +1,4 @@
-@extends("{$viewPath}.default")
+@extends('views.default')
 {{--
 
 Подключается блок header --}}

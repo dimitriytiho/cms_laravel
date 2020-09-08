@@ -177,6 +177,7 @@ return [
     'cart_empty' => 'Корзина пока пуста...',
     'delivery' => 'Доставка',
     'delivery_sum' => 'Сумма доставки',
+    'pickup' => 'Самовывоз',
     'discount' => 'Скидка',
     'discount_code' => 'Код скидки',
     'qty' => 'Кол-во',

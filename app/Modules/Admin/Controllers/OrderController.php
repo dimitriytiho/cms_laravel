@@ -33,7 +33,7 @@ class OrderController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
         //$values = $this->model::orderBy('id', 'desc')->paginate($this->perPage); // Такой запрос, если используется связь к таблице пользователей
 
 
@@ -54,7 +54,7 @@ class OrderController extends AppController
         $values = DbSort::getSearchSort($queryArr, $get, $this->table, $this->model, $this->view, $this->perPage);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
+        return view("{$this->viewPath}.{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
     }
 
     /**
@@ -88,7 +88,7 @@ class OrderController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            Main::viewExists("{$this->view}.{$f}", __METHOD__);
+            Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
 
             // Статусы пользователей
             $statuses = config('admin.order_statuses');
@@ -107,7 +107,7 @@ class OrderController extends AppController
             //dump($orderProducts); //->product->id
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$f}", compact('values', 'statuses', 'orderProducts'));
+            return view("{$this->viewPath}.{$this->view}.{$f}", compact('values', 'statuses', 'orderProducts'));
         }
 
         // Сообщение об ошибке

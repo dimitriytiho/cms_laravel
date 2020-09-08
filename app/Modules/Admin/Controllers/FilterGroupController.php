@@ -43,7 +43,7 @@ class FilterGroupController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
 
         // Поиск. Массив гет ключей для поиска
         $queryArr = [
@@ -63,7 +63,7 @@ class FilterGroupController extends AppController
         //$values = DB::table($this->table)->orderBy('id', 'desc')->paginate($this->perPage);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->view)));
-        return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
+        return view("{$this->viewPath}.{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
     }
 
     /**
@@ -74,13 +74,13 @@ class FilterGroupController extends AppController
     public function create()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
         // Типы фильтров
         $filterType = config('shop.filter_type');
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}", compact('filterType'));
+        return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('filterType'));
     }
 
     /**
@@ -139,7 +139,7 @@ class FilterGroupController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
             $values = DB::table($this->table)->find((int)$id);
 
@@ -150,7 +150,7 @@ class FilterGroupController extends AppController
             $filterType = config('shop.filter_type');
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents', 'filterType'));
+            return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('values', 'getIdParents', 'filterType'));
         }
 
         // Сообщение об ошибке

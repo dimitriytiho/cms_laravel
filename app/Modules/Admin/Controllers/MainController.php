@@ -30,7 +30,7 @@ class MainController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->c}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
         $count_forms = DB::table('forms')->count();
         $count_pages = DB::table('pages')->count();
 
@@ -65,7 +65,7 @@ class MainController extends AppController
         }
 
         $this->setMeta(__("{$this->lang}::a.Dashboard"));
-        return view("{$this->view}.{$f}", compact('count_forms', 'count_pages', 'count_users', 'key', 'count_orders'));
+        return view("{$this->viewPath}.{$this->view}.{$f}", compact('count_forms', 'count_pages', 'count_users', 'key', 'count_orders'));
     }
 
 
@@ -150,6 +150,6 @@ class MainController extends AppController
         ];
 
         $this->setMeta(__("{$this->lang}::s.{$f}"));
-        return view("{$this->view}.{$f}", compact('currentRoute'));
+        return view("{$this->viewPath}.{$this->view}.{$f}", compact('currentRoute'));
     }
 }

@@ -34,7 +34,7 @@ class PageController extends AppController
     public function index(Request $request)
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
 
         // Поиск. Массив гет ключей для поиска
         $queryArr = [
@@ -95,7 +95,7 @@ class PageController extends AppController
         }*/
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
+        return view("{$this->viewPath}.{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
     }
 
     /**
@@ -106,10 +106,10 @@ class PageController extends AppController
     public function create()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}");
+        return view("{$this->viewPath}.{$this->view}.{$this->template}");
     }
 
     /**
@@ -177,7 +177,7 @@ class PageController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
             $values = DB::table($this->table)->find((int)$id);
 
@@ -190,7 +190,7 @@ class PageController extends AppController
             $getIdParents = appHelpers::getIdParents($values->id ?? null, $this->table);
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents'));
+            return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('values', 'getIdParents'));
         }
 
         // Сообщение об ошибке

@@ -41,7 +41,7 @@ class MenuNameController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
 
         // Поиск. Массив гет ключей для поиска
         $queryArr = [
@@ -61,7 +61,7 @@ class MenuNameController extends AppController
         /*$values = DB::table($this->table)->orderBy('id', 'desc')->paginate($this->perPage);*/
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
+        return view("{$this->viewPath}.{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
     }
 
     /**
@@ -72,10 +72,10 @@ class MenuNameController extends AppController
     public function create()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}");
+        return view("{$this->viewPath}.{$this->view}.{$this->template}");
     }
 
     /**
@@ -134,7 +134,7 @@ class MenuNameController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
             $values = DB::table($this->table)->find((int)$id);
 
@@ -142,7 +142,7 @@ class MenuNameController extends AppController
             $getIdParents = appHelpers::getIdParents((int)$id, $this->belongsTable, 'belong_id');
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'getIdParents'));
+            return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('values', 'getIdParents'));
         }
 
         // Сообщение об ошибке

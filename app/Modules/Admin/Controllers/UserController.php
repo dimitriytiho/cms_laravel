@@ -40,7 +40,7 @@ class UserController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
         //$values = $this->model::with('role')->orderBy('id', 'desc')->paginate($this->perPage);
 
         // Поиск. Массив гет ключей для поиска
@@ -62,7 +62,7 @@ class UserController extends AppController
         $values = DbSort::getSearchSort($queryArr, $get, $this->table, $this->model, $this->view, $this->perPage);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
+        return view("{$this->viewPath}.{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
     }
 
     /**
@@ -73,7 +73,7 @@ class UserController extends AppController
     public function create()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
         // Статусы пользователей
         $statuses = config('admin.user_statuses');
@@ -91,7 +91,7 @@ class UserController extends AppController
         $roleIdAdmin = !auth()->user()->isAdmin() ? auth()->user()->getRoleIdAdmin() : null;
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}", compact('roles', 'statuses', 'roleIdAdmin'));
+        return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('roles', 'statuses', 'roleIdAdmin'));
     }
 
     /**
@@ -172,7 +172,7 @@ class UserController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
             $values = $this->model::with('role')->find((int)$id);
             if (!$values) {
@@ -207,7 +207,7 @@ class UserController extends AppController
             $roleIdAdmin = !auth()->user()->isAdmin() ? auth()->user()->getRoleIdAdmin() : null;
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'roles', 'statuses', 'imgRequestName', 'imgUploadID', 'roleIdAdmin'));
+            return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('values', 'roles', 'statuses', 'imgRequestName', 'imgUploadID', 'roleIdAdmin'));
         }
 
         // Сообщение об ошибке

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends("{$viewPath}.layouts.admin")
 {{--
 
 Вывод контента
@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col">
                 <div class="table-responsive">
-                    @include('inc.search')
+                    @include("{$viewPath}.inc.search")
                     <table class="table table-striped">
                         <thead>
                         <tr>

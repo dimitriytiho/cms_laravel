@@ -18,7 +18,7 @@ Materialize css шаблон
     {!! $getMeta !!}
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"   media="screen,projection">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/enter.css') }}" media="all">
-    @include('components.warning')
+    @include("{$viewPath}.components.warning")
 </head>
 <body class="blue-grey lighten-1">
 <div id="app">

@@ -36,7 +36,7 @@ class SettingController extends AppController
     public function index()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
         //$values = DB::table($this->table)->orderBy('id', 'desc')->paginate($this->perPage);
 
 
@@ -57,7 +57,7 @@ class SettingController extends AppController
         $values = DbSort::getSearchSort($queryArr, $get, $this->table, $this->model, $this->view, $this->perPage);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($this->table)));
-        return view("{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
+        return view("{$this->viewPath}.{$this->view}.{$f}", compact('values', 'queryArr', 'col', 'cell'));
     }
 
     /**
@@ -68,11 +68,11 @@ class SettingController extends AppController
     public function create()
     {
         $f = __FUNCTION__;
-        Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
         $disabled = null;
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$this->view}.{$this->template}", compact('disabled'));
+        return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('disabled'));
     }
 
     /**
@@ -131,14 +131,14 @@ class SettingController extends AppController
     {
         if ((int)$id) {
             $f = __FUNCTION__;
-            Main::viewExists("{$this->view}.{$this->template}", __METHOD__);
+            Main::viewExists("{$this->viewPath}.{$this->view}.{$this->template}", __METHOD__);
 
             $values = DB::table($this->table)->find((int)$id);
             $title = $values->title;
             $disabled = in_array($title, $this->titleNoEditArr) ? 'disabled' : null;
 
             $this->setMeta(__("{$this->lang}::a.{$f}"));
-            return view("{$this->view}.{$this->template}", compact('values', 'disabled'));
+            return view("{$this->viewPath}.{$this->view}.{$this->template}", compact('values', 'disabled'));
         }
 
         // Сообщение об ошибке

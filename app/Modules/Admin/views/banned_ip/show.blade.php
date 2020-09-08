@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends("{$viewPath}.layouts.admin")
 {{--
 
 Вывод контента --}}

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends("{$viewPath}.layouts.admin")
 {{--
 
 Вывод контента
@@ -13,7 +13,7 @@
                 @endif
                 @csrf
                 {!! $constructor::input('title', $values->title ?? null) !!}
-                
+
                 @if (isset($values->id))
                     {!! $constructor::input('sort', $values->sort ?? null, null) !!}
                 @endif

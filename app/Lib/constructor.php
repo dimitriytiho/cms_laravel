@@ -138,11 +138,12 @@ S;
  * $attrs - передайте атрибуты строкой или в массиве ['id' => 'test', 'data-id' => 'dataTest', 'novalidate' => ''], необязательный параметр.
  * $rows - кол-во рядов, по-умолчанию 3, необязательный параметр.
  * $htmlspecialchars - $value обёртываем в функцию htmlspecialchars, передайте false, если не надо.
+ * $lang - передать свой перевод для label и placeholder, необязательный параметр.
  */
-function textarea($name, $idForm = false, $required = true, $value = false, $label = false, $placeholder = false, $class = false, $attrs = false, $rows = 3, $htmlspecialchars = true)
+function textarea($name, $idForm = false, $required = true, $value = false, $label = false, $placeholder = false, $class = false, $attrs = false, $rows = 3, $htmlspecialchars = true, $lang = null)
 {
+    $title = $lang ?: l($name, 'f');
     $lang = lang();
-    $title = l($name, 'f');
     $id = $idForm ? "{$idForm}_{$name}" : $name;
     $required = $required ? 'required' : null;
     $star = $required ? '<sup>*</sup>' : null;
@@ -311,6 +312,29 @@ function checkboxSwitch($name, $idForm = false, $required = true, $checked = fal
 S;
 }
 
+function radio($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
+{
+    $lang = lang();
+    $_title = l($name, 'f');
+    $title = $title ?: $_title;
+    $id = $idForm ? "{$idForm}_{$name}" : $name;
+
+    $checked = $checked || old($name) ? 'checked' : null;
+    $required = $required ? 'required' : null;
+    $_required = __("{$lang}::f.must_accept");
+    $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
+
+    return <<<S
+<div class="{$class}">
+    <div class="custom-control custom-radio">
+        <input type="radio" class="custom-control-input" id="{$id}" name="{$name}" $checked {$required}>
+        <label class="custom-control-label" for="{$id}">{$title}</label>
+        $_required
+    </div>
+</div>
+S;
+}
+
 
 /*
  * Возвращает скрытый input для формы.
@@ -376,7 +400,6 @@ S;
  */
 function modal($id, $title = null, $class = null, $attrs = null)
 {
-    $lang = lang();
     $titleLang = l($title);
     $title = $titleLang ? "<h4 class=\"modal-title mb-2\">{$titleLang}</h4>" : null;
 

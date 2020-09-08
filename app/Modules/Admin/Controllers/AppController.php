@@ -64,9 +64,11 @@ class AppController extends Controller
         $dbSort = $this->dbSort = "{$namespaceHelpers}\\DbSort";
         $this->perPage = config('admin.settings.pagination');
 
+        // Путь к видам для видов
+        $viewPath = $this->viewPath = "{$this->module}.views";
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
-        $viewPath = $this->viewPath  = 'views';
-        view()->getFinder()->setPaths("{$modulesPath}/{$this->viewPath}");
+        /*$viewPath = $this->viewPath  = 'views';
+        view()->getFinder()->setPaths("{$modulesPath}/{$this->viewPath}");*/
 
 
         // Добавляем namespace для переводов

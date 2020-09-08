@@ -110,19 +110,19 @@ class AdditionallyController extends AppController
             return redirect()->route("admin.{$t}");
         }
 
-        Main::viewExists("{$t}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$t}.{$f}", __METHOD__);
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($t)));
-        return view("{$t}.{$f}", compact('backupDisabled', 'updateDisabled'));
+        return view("{$this->viewPath}.{$t}.{$f}", compact('backupDisabled', 'updateDisabled'));
     }
 
 
     public function files(Request $request) {
         $f = __FUNCTION__;
         $t = $request->segment(2);
-        Main::viewExists("{$t}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$t}.{$f}", __METHOD__);
 
         $this->setMeta(__("{$this->lang}::a." . Str::ucfirst($f)));
-        return view("{$t}.{$f}");
+        return view("{$this->viewPath}.{$t}.{$f}");
     }
 
 

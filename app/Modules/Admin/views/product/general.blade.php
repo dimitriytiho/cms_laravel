@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends("{$viewPath}.layouts.admin")
 {{--
 
 Вывод контента
@@ -120,7 +120,7 @@
                                 </div>
                             </div>
 
-                            @if ($$filters->isNotEmpty())
+                            @if ($filters->isNotEmpty())
                                 <div class="row mb-2">
                                     <div class="col-md-6">
                                         <div class="form-group">

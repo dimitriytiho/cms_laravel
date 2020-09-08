@@ -43,7 +43,7 @@ class ImportExportController extends AppController
         if (config('add.shop')) {
             $queryArr = array_merge($queryArr, ['product', 'category']);
         }
-        
+
         // Автоматически определим по какому ключу искать
         $requestQuery = request()->query() ?: [];
         $query = $requestQuery ? key($requestQuery) : null;
@@ -63,7 +63,7 @@ class ImportExportController extends AppController
         }
 
         $this->setMeta(__("{$this->lang}::a.{$this->class}"));
-        return view("{$this->view}.{$method}", compact('queryArr', 'query', 'routeExport', 'routeImport'));
+        return view("{$this->viewPath}.{$this->view}.{$method}", compact('queryArr', 'query', 'routeExport', 'routeImport'));
     }
 
 
