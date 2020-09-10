@@ -48,7 +48,9 @@
                             {!! $constructor::input('slug', $values->slug ?? null) !!}
                         </div>
                         <div class="mt-4">
-                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="@lang("{$lang}::a.generate_link")">autorenew</button>
+                            <button class="btn btn-outline-primary mt-1" id="slug-edit" title="@lang("{$lang}::a.generate_link")">
+                                <i class="fas fa-sync"></i>
+                            </button>
                         </div>
                     </div>
 

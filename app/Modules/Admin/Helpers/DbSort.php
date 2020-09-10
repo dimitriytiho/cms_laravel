@@ -98,13 +98,15 @@ class DbSort
         $langDesc = __("{$lang}::a.desc");
         $routeAsc = route("admin.{$route}.index", "{$columnSort}=asc");
         $routeDesc = route("admin.{$route}.index", "{$columnSort}=desc");
-        $activeAsc = session()->get("admin_sort.{$view}.{$columnSort}") === 'asc' ? ' active' : null;
-        $activeDesc = session()->get("admin_sort.{$view}.{$columnSort}") === 'desc' ? ' active' : null;
+        $activeAsc = session()->get("admin_sort.{$view}.{$columnSort}") === 'asc' ? 'active' : null;
+        $activeDesc = session()->get("admin_sort.{$view}.{$columnSort}") === 'desc' ? 'active' : null;
 
         return <<<S
 <span class="filter-icons">
-    <a href="{$routeAsc}" class="material-icons{$activeAsc}" title="{$langAsc}">arrow_drop_up</a>
-    <a href="{$routeDesc}" class="material-icons{$activeDesc}" title="{$langDesc}">arrow_drop_down</a>
+    <a href="{$routeAsc}" class="fa-sort-up {$activeAsc}" title="{$langAsc}">
+    </a>
+    <a href="{$routeDesc}" class="fa-sort-down {$activeDesc}" title="{$langDesc}">
+    </a>
 </span>
 S;
     }

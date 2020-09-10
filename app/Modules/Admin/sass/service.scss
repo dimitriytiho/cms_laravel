@@ -4,18 +4,20 @@
 
 .filter-icons {
     position: relative;
-    width: 20px;
-    height: 100%;
-    background-color: #ccc;
     a {
         position: absolute;
-        line-height: .5;
-        font-size: $font-size-base * 2;
+        left: 7px;
+        font-size: 1.3rem;
+        height: 12px;
+        line-height: 12px;
+        &:before {
+            font-family: 'FontAwesome';
+        }
         &:nth-child(1) {
-            top: -3px;
+            top: -1px;
         }
         &:nth-child(2) {
-            bottom: -3px;
+            bottom: -1px;
         }
         &.active {
             color: $black;

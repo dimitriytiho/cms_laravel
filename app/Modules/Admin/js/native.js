@@ -11,19 +11,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Собыите открытие collapse
             collapseEl.addEventListener('show.bs.collapse', function(event) {
-                const icon = event.target.closest('.row').querySelector('i.material-icons')
+                const icon = event.target.closest('.row').querySelector('i.fas')
 
                 // Меняем иконку
-                icon.textContent = 'keyboard_arrow_up'
+                icon.textContent = 'fa-angle-up'
 
             }, false)
 
             // Собыите закрытие collapse
             collapseEl.addEventListener('hide.bs.collapse', function(event) {
-                const icon = event.target.closest('.row').querySelector('i.material-icons')
+                const icon = event.target.closest('.row').querySelector('i.fas')
 
                 // Меняем иконку
-                icon.textContent = 'keyboard_arrow_down'
+                icon.textContent = 'fa-angle-down'
 
             }, false)
         })

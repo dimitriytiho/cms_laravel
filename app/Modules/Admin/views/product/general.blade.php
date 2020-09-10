@@ -68,7 +68,9 @@
                                 {!! $constructor::input('slug', $values->slug ?? null) !!}
                             </div>
                             <div class="mt-4">
-                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="slug-edit" title="@lang("{$lang}::a.generate_link")">autorenew</button>
+                                <button class="btn btn-outline-primary mt-1" id="slug-edit" title="@lang("{$lang}::a.generate_link")">
+                                    <i class="fas fa-sync"></i>
+                                </button>
                             </div>
                         </div>
 
@@ -160,7 +162,7 @@
                                 <div class="col-md-6 d-flex justify-content-center align-items-center img-view" id="dropzone-images">
                                     <a href="{{ asset($values->img) }}" class="ml-3 mt-3" target="_blank">
                                         @if ($values->img !== config("admin.img{$class}Default"))
-                                            <i class="material-icons img-remove" data-img="{{ $values->img }}" data-max-files="{{ config('admin.maxFilesOne') }}">clear</i>
+                                            <i class="fas fa-times img-remove" data-img="{{ $values->img }}" data-max-files="{{ config('admin.maxFilesOne') }}"></i>
                                         @endif
                                         <img src="{{ asset($values->img) }}" alt="@lang("{$lang}::f.img")">
                                     </a>
@@ -184,7 +186,7 @@
                                     @if (!empty($gallery))
                                         @foreach ($gallery as $img)
                                             <a href="{{ asset($img->img) }}" target="_blank">
-                                                <i class="material-icons img-remove" data-img="{{ $img->img }}" data-max-files="{{ config('admin.maxFilesMany') }}">clear</i>
+                                                <i class="fas fa-times img-remove" data-img="{{ $img->img }}" data-max-files="{{ config('admin.maxFilesMany') }}"></i>
                                                 <img src="{{ asset($img->img) }}" alt="@lang("{$lang}::f.img")">
                                             </a>
                                         @endforeach

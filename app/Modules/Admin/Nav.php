@@ -17,7 +17,7 @@ class Nav
                     'parent_id' => null,
                     'slug' => '/',
                     'request' => 'main',
-                    'item' => 'dashboard',
+                    'item' => 'fas fa-tachometer-alt', // fas fa-tachometer-alt dashboard
                 ],
             ];
 
@@ -30,7 +30,7 @@ class Nav
                         'parent_id' => null,
                         'slug' => '/order',
                         'request' => 'order',
-                        'item' => 'shopping_cart',
+                        'item' => 'fas fa-shopping-cart', // fas fa-shopping-cart shopping_cart
                         'count' => 'orders',
                     ],
                 ];
@@ -43,7 +43,7 @@ class Nav
                     'parent_id' => null,
                     'slug' => '/form',
                     'request' => 'form',
-                    'item' => 'insert_comment',
+                    'item' => 'far fa-comment-alt', // far fa-comment-alt insert_comment
                     'count' => 'forms',
                 ],
             ];
@@ -57,7 +57,7 @@ class Nav
                         'parent_id' => null,
                         'slug' => '/category',
                         'request' => 'category',
-                        'item' => 'account_tree',
+                        'item' => 'fas fa-sitemap', // fas fa-sitemap account_tree
                         'count' => 'categories', // Название таблицы
                     ],
                     41 => [
@@ -66,7 +66,7 @@ class Nav
                         'parent_id' => 4,
                         'slug' => '/category/create',
                         'request' => 'category',
-                        'item' => 'add',
+                        'item' => 'fas fa-plus', // fas fa-plus add
                     ],
                     5 => [
                         'title' => 'Products',
@@ -74,7 +74,7 @@ class Nav
                         'parent_id' => null,
                         'slug' => '/product',
                         'request' => 'product',
-                        'item' => 'all_inbox',
+                        'item' => 'fas fa-boxes', // fas fa-boxes all_inbox
                         'count' => 'products', // Название таблицы
                     ],
                     51 => [
@@ -83,7 +83,7 @@ class Nav
                         'parent_id' => 5,
                         'slug' => '/product/create',
                         'request' => 'product',
-                        'item' => 'add',
+                        'item' => 'fas fa-plus', // fas fa-plus add
                     ],
 
                     // Filters
@@ -93,7 +93,7 @@ class Nav
                         'parent_id' => null,
                         'slug' => '/filter-value',
                         'request' => 'filter',
-                        'item' => 'tune',
+                        'item' => 'fas fa-filter', // fas fa-filter tune
                         'add' => 22, // Добавляется Filter_groups
                         'count' => 'filter_values',
                     ],
@@ -103,7 +103,7 @@ class Nav
                         'parent_id' => 20,
                         'slug' => '/filter-value/create',
                         'request' => 'filter',
-                        'item' => 'add',
+                        'item' => 'fas fa-plus', // fas fa-plus add
                     ],
                     22 => [
                         'title' => 'Filter_group',
@@ -111,7 +111,7 @@ class Nav
                         'parent_id' => 20,
                         'slug' => '/filter-group',
                         'request' => 'filter',
-                        'item' => 'tune',
+                        'item' => 'fas fa-filter', // fas fa-filter tune
                         'add' => 20, // Добавляется Filter_value
                     ],
                     23 => [
@@ -120,7 +120,7 @@ class Nav
                         'parent_id' => 22,
                         'slug' => '/filter-group/create',
                         'request' => 'filter',
-                        'item' => 'add',
+                        'item' => 'fas fa-plus', // fas fa-plus add
                     ],
                 ];
         }
@@ -132,7 +132,7 @@ class Nav
                     'parent_id' => null,
                     'slug' => '/page',
                     'request' => 'page',
-                    'item' => 'web',
+                    'item' => 'fas fa-columns', // fas fa-columns web
                     'count' => 'pages', // Название таблицы
                 ],
                 7 => [
@@ -141,7 +141,7 @@ class Nav
                     'parent_id' => 6,
                     'slug' => '/page/create',
                     'request' => 'page',
-                    'item' => 'add',
+                    'item' => 'fas fa-plus', // fas fa-plus add
                 ],
                 8 => [
                     'title' => 'Users',
@@ -149,7 +149,7 @@ class Nav
                     'parent_id' => null,
                     'slug' => '/user',
                     'request' => 'user',
-                    'item' => 'supervisor_account',
+                    'item' => 'fas fa-user-friends', // fas fa-user-friends supervisor_account
                     'count' => 'users', // Название таблицы
                 ],
                 9 => [
@@ -158,7 +158,7 @@ class Nav
                     'parent_id' => 8,
                     'slug' => '/user/create',
                     'request' => 'user',
-                    'item' => 'add',
+                    'item' => 'fas fa-plus', // fas fa-plus add
                 ],
             ];
 
@@ -171,7 +171,7 @@ class Nav
                         'parent_id' => 8,
                         'slug' => '/user-banned-ip',
                         'request' => 'user',
-                        'item' => 'remove_circle_outline',
+                        'item' => 'fas fa-user-times', // fas fa-user-times remove_circle_outline
                     ],
                 ];
         }
@@ -183,7 +183,7 @@ class Nav
                     'parent_id' => null,
                     'slug' => '/menu',
                     'request' => 'menu',
-                    'item' => 'menu',
+                    'item' => 'fas fa-bars', // fas fa-bars menu
                     'add' => 12, // Добавляется Menu_name
                 ],
                 11 => [
@@ -192,14 +192,14 @@ class Nav
                     'parent_id' => 10,
                     'slug' => '/menu/create',
                     'request' => 'menu',
-                    'item' => 'add',
+                    'item' => 'fas fa-plus', // fas fa-plus add
                 ],
                 12 => [
                     'title' => 'Menu_name',
                     'controller' => 'MenuName',
                     'parent_id' => 10,
                     'slug' => '/menu-name',
-                    'request' => 'menu',
+                    'request' => 'fas fa-bars', // fas fa-bars menu
                     'item' => 'subject',
                     'add' => 10, // Добавляется Menu
                 ],
@@ -209,7 +209,7 @@ class Nav
                     'parent_id' => 12,
                     'slug' => '/menu-name/create',
                     'request' => 'menu',
-                    'item' => 'add',
+                    'fas fa-plus' => 'add', // fas fa-plus add
                 ],
                 16 => [
                     'title' => 'Additionally',
@@ -217,7 +217,7 @@ class Nav
                     'parent_id' => null,
                     'slug' => '/additionally',
                     'request' => 'additionally',
-                    'item' => 'settings_ethernet',
+                    'item' => 'fas fa-terminal', // fas fa-terminal settings_ethernet
                 ],
                 17 => [
                     'title' => 'Files',
@@ -225,7 +225,7 @@ class Nav
                     'parent_id' => 16,
                     'slug' => '/additionally/files',
                     'request' => 'additionally',
-                    'item' => 'tab',
+                    'item' => 'far fa-file-code', // far fa-file-code tab
                 ],
                 /*26 => [
                     'title' => 'db_builder',
@@ -233,7 +233,7 @@ class Nav
                     'parent_id' => 16,
                     'slug' => '/additionally/db-builder',
                     'request' => 'db-builder',
-                    'item' => 'tab',
+                    'item' => 'far fa-file-code', // far fa-file-code tab
                 ],*/
                 18 => [
                     'title' => 'Logs',
@@ -241,7 +241,7 @@ class Nav
                     'parent_id' => null,
                     'slug' => '/logs',
                     'request' => 'logs',
-                    'item' => 'event_note',
+                    'item' => 'far fa-list-alt', // far fa-list-alt event_note
                 ],
                 19 => [
                     'title' => 'ImportExport',
@@ -249,7 +249,7 @@ class Nav
                     'parent_id' => null,
                     'slug' => '/import-export',
                     'request' => 'import-export',
-                    'item' => 'import_export',
+                    'item' => 'fas fa-exchange-alt', // fas fa-exchange-alt import_export
                 ],
                 14 => [
                     'title' => 'Settings',
@@ -257,7 +257,7 @@ class Nav
                     'parent_id' => null,
                     'slug' => '/setting',
                     'request' => 'setting',
-                    'item' => 'settings',
+                    'item' => 'fas fa-cog', // fas fa-cog settings
                 ],
                 15 => [
                     'title' => 'Create',
@@ -265,7 +265,7 @@ class Nav
                     'parent_id' => 14,
                     'slug' => '/setting/create',
                     'request' => 'setting',
-                    'item' => 'add',
+                    'item' => 'fas fa-plus', // fas fa-plus add
                 ],
                 24 => [
                     'title' => 'Translate',
@@ -273,7 +273,7 @@ class Nav
                     'parent_id' => null,
                     'slug' => '/translate',
                     'request' => 'translate',
-                    'item' => 'translate',
+                    'item' => 'fas fa-language', // fas fa-language translate
                 ],
                 25 => [
                     'title' => 'Create',
@@ -281,7 +281,7 @@ class Nav
                     'parent_id' => 24,
                     'slug' => '/translate/create',
                     'request' => 'translate',
-                    'item' => 'add',
+                    'item' => 'fas fa-plus', // fas fa-plus add
                 ],
             ];
 

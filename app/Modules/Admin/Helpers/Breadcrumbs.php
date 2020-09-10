@@ -40,7 +40,7 @@ class Breadcrumbs
             $lang = lang();
             $end = end($breadcrumbs_array);
             array_pop($breadcrumbs_array);
-            $breadcrumbs = "<a href='" . route('admin.main') . "' class='btn btn-outline-primary btn-pulse'><i aria-hidden='true' class='material-icons'>dashboard</i></a>";
+            $breadcrumbs = "<a href='" . route('admin.main') . "' class='btn btn-outline-primary btn-pulse'><i class='fas fa-tachometer-alt'></i></a>";
 
             if ($breadcrumbs_array) {
                 foreach ($breadcrumbs_array as $slug => $title) {

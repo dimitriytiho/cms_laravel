@@ -17,14 +17,14 @@
             </div>
             <div class="col-1 d-flex">
                 <div>
-                    <button type="submit" class="btn btn-primary btn-icons">
-                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.search")">search</i>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search" title="@lang("{$lang}::a.search")"></i>
                     </button>
                 </div>
                 @if ($cell)
                     <div>
-                        <a href="{{ route("admin.{$route}.index") }}" class="btn btn-outline-primary ml-2 btn-icons">
-                            <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::s.reset")">clear</i>
+                        <a href="{{ route("admin.{$route}.index") }}" class="btn btn-outline-primary ml-2">
+                            <i class="fas fa-times" title="@lang("{$lang}::s.reset")"></i>
                         </a>
                     </div>
                 @endif

@@ -49,7 +49,7 @@
                             <tr>
                                 <th scope="row">
                                     <a href="{{ route("admin.{$route}.edit", $v->id) }}" class="font-weight-light">
-                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.edit")">visibility</i>
+                                        <i class="fas fa-eye" title="@lang("{$lang}::a.edit")"></i>
                                     </a>
                                 </th>
                                 <td>

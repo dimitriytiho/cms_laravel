@@ -65,7 +65,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <button class="btn btn-link pl-0 change-icon" type="button" data-toggle="collapse" data-target="#collapse-slide" aria-expanded="false" aria-controls="collapse-slide">{{ __("{$lang}::a.example_commands") }} <i aria-hidden="true" class="material-icons position-relative t-04" data-target="example-command">keyboard_arrow_down</i></button>
+            <button class="btn btn-link pl-0 change-icon" type="button" data-toggle="collapse" data-target="#collapse-slide" aria-expanded="false" aria-controls="collapse-slide">{{ __("{$lang}::a.example_commands") }} <i class="fas fa-angle-down position-relative" data-target="example-command"></i></button>
             <div class="collapse border rounded my-2 p-4" id="collapse-slide">
                 <p>php artisan make:module Name --all <span class="font-weight-light text-secondary">({{ __("{$lang}::a.make:module") . __("{$lang}::a.module_add_text") }})</span></p>
                 <p>php artisan make:controller NameController <span class="font-weight-light text-secondary">({{ __("{$lang}::a.make:controller") }} Name)</span></p>

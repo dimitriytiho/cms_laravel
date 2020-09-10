@@ -4,7 +4,7 @@
             <ul class="nav">
                 <li class="nav-item d-flex align-items-center">
                     <a class="nav-link d-flex align-items-center">
-                        <i aria-hidden="true" class="material-icons cur aside-width">menu</i>
+                        <i class="fas fa-bars cur aside-width"></i>
                     </a>
                 </li>
             </ul>
@@ -12,14 +12,14 @@
             <ul class="nav justify-content-end header__right">
                  {{--<li class="nav-item d-flex align-items-center">
                    <a href="#" class="nav-link d-flex align-items-center">
-                       <i aria-hidden="true" class="material-icons">notifications</i>
+                       <i class="fas fa-bell"></i>
                    </a>
                 </li>--}}
 
                 @if (config('add.online_users'))
                     <li class="nav-item d-flex align-items-center online-users">
                         <a href="{{ route('admin.online_users') }}" class="nav-link d-flex align-items-center position-relative" title="@lang("{$lang}::s.online_users")">
-                            <span class="material-icons">people_alt</span>
+                            <i class="fas fa-user-friends"></i>
                             <span class="counter-small text-white online-users-count">{{ $onlineUsers ? count($onlineUsers) : '0' }}</span>
                         </a>
                     </li>

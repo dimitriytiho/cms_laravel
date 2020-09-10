@@ -96,7 +96,7 @@
                             <tr>
                                 <th scope="row">
                                     <a href="{{ route("admin.product.edit", $v->product->id) }}" class="font-weight-light">
-                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.edit")">edit</i>
+                                        <i class="fas fa-edit" title="@lang("{$lang}::a.edit")"></i>
                                     </a>
                                 </th>
                                 <th class="font-weight-light">

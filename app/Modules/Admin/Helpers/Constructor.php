@@ -300,12 +300,13 @@ S;
                 <h4 class="font-weight-bold">{$count}</h4>
                 <p class="text-uppercase position-relative mb-0 z">{$title}</p>
             </div>
-            <i aria-hidden="true" class="material-icons">{$icon}</i>
+            <i class="{$icon}"></i>
         </div>
         <div class="card-footer small p-1">
             <a href="{$route}/{$link}" class="d-flex justify-content-center align-items-center font-weight-light text-white">
-            <span>{$bottom_title}</span>
-            <i aria-hidden="true" class="material-icons ml-1">arrow_forward</i></a>
+                <span>{$bottom_title}</span>
+                <i class="fas fa-arrow-right ml-1"></i>
+            </a>
         </div>
     </div>
 </div>
@@ -343,7 +344,7 @@ S;
             <div>{$text}</div>
         </div>
         <div class="card-footer text-center small p-1">
-            <a href="{$route}/{$link}" class="d-flex justify-content-center align-items-center  font-weight-bold">{$bottom_title} <i aria-hidden="true" class="material-icons ml-1">{$icon}</i></a>
+            <a href="{$route}/{$link}" class="d-flex justify-content-center align-items-center  font-weight-bold">{$bottom_title} <i class="{$icon} ml-1"></i></a>
         </div>
     </div>
 </div>

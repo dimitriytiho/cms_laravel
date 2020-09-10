@@ -18,7 +18,7 @@
                         <div class="col-md-6 d-flex justify-content-center align-items-center img-view" id="dropzone-images">
                             <a href="{{ asset($values->img) }}" class="ml-3 mt-3" target="_blank">
                                 @if ($values->img !== config("admin.img{$class}Default"))
-                                    <i class="material-icons" id="img-remove" data-img="{{ $values->img }}" data-max-files="{{ config('admin.maxFilesOne') }}">clear</i>
+                                    <i class="fas fa-times" id="img-remove" data-img="{{ $values->img }}" data-max-files="{{ config('admin.maxFilesOne') }}"></i>
                                 @endif
                                 <img src="{{ asset($values->img) }}" alt="@lang("{$lang}::f.img")">
                             </a>

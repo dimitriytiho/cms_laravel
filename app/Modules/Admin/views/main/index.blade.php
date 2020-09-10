@@ -4,11 +4,11 @@
     <section>
         <div class="row">
             @if (config('add.shop'))
-                {!! $constructor::adminMainBlock('Orders', $count_orders ?? '0', 'shopping_cart', 'order') !!}
+                {!! $constructor::adminMainBlock('Orders', $count_orders ?? '0', 'fas fa-shopping-cart', 'order') !!}
             @endif
-            {!! $constructor::adminMainBlock('Forms', $count_forms ?? '0', 'insert_comment', 'form') !!}
-            {!! $constructor::adminMainBlock('Pages', $count_pages ?? '0', 'web', 'page') !!}
-            {!! $constructor::adminMainBlock('Users', $count_users ?? '0', 'supervisor_account', 'user') !!}
+            {!! $constructor::adminMainBlock('Forms', $count_forms ?? '0', 'far fa-comment-alt', 'form') !!}
+            {!! $constructor::adminMainBlock('Pages', $count_pages ?? '0', 'fas fa-columns', 'page') !!}
+            {!! $constructor::adminMainBlock('Users', $count_users ?? '0', 'fas fa-user-friends', 'user') !!}
         </div>
     </section>
 
@@ -33,7 +33,9 @@
                         {!! $constructor::input('cyrillic') !!}
                     </div>
                     <div class="mt-4">
-                        <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="transliterator" title="{{ __("{$lang}::a.generate") }}">autorenew</button>
+                        <button class="btn btn-outline-primary mt-1" id="transliterator" title="@lang("{$lang}::a.generate")">
+                            <i class="fas fa-sync"></i>
+                        </button>
                     </div>
                 </div>
                 {!! $constructor::input('latin') !!}
@@ -44,6 +46,7 @@
     {{--
 
     Если не включена авторизация на сайте, то можно сформировать slug для входа --}}
+
     @if (!config('add.auth'))
         <section class="key-to-enter">
             <div class="row mt-5 mb-3">
@@ -58,7 +61,9 @@
                             {!! $constructor::input('to_change_key', $key->key) !!}
                         </div>
                         <div class="mt-4">
-                            <button class="btn btn-outline-primary btn-sm d-flex align-items-center mt-1 btn-pulse p-icons material-icons" id="key-to-enter" title="@lang("{$lang}::f.save")">save_alt</button>
+                            <button class="btn btn-outline-primary mt-1" id="key-to-enter" title="@lang("{$lang}::f.save")">
+                                <i class="fas fa-upload"></i>
+                            </button>
                         </div>
                     </div>
                     <p class="text-secondary"><sup>*</sup> @lang("{$lang}::a.key_description")</p>

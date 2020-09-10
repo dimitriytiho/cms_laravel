@@ -8,7 +8,7 @@
 
 <div class="position-fixed" id="btn-up">
     <div class="d-flex justify-content-center align-items-center bg-primary text-white rounded-circle cur btn-up-click">
-        <i aria-hidden="true" class="material-icons btn-up-click">keyboard_arrow_up</i>
+        <i class="fas fa-chevron-up btn-up-click"></i>
     </div>
 </div>
 

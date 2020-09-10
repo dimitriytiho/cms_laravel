@@ -69,7 +69,7 @@
                             <tr class="{{ $trClass }}">
                                 <th scope="row" class="d-flex align-items-center">
                                     <a href="{{ route("admin.{$route}.show", $v->id) }}" class="font-weight-light">
-                                        <i aria-hidden="true" class="material-icons" title="@lang("{$lang}::a.edit")">visibility</i>
+                                        <i class="fas fa-eye" title="@lang("{$lang}::a.edit")"></i>
                                     </a>
                                     {{--<form action="{{ route("admin.{$route}.destroy", $v->id) }}" method="post" class="confirm-form">
                                         @method('delete')

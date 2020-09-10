@@ -35,8 +35,9 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/omegakontur/admin/touch-icon-ipad.png') }}">
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset(config('add.img') . '/omegakontur/admin/touch-icon-iphone-retina.png') }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset(config('add.img') . '/omegakontur/admin/touch-icon-ipad-retina.png') }}">
-    {{-- <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,700|Material+Icons"> --}}
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Material+Icons">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.13/css/all.css">
+    {{--<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,700|Material+Icons">--}}
+    {{--<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Material+Icons">--}}
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
     <link rel="stylesheet" href="{{ asset('css/append.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
@@ -44,7 +45,7 @@
 
     Для файлового менеджера --}}
     @if ($path_segment === 'files')
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+        {{--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">--}}
         <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
     @endif
 
@@ -88,8 +89,8 @@
     </div>
     @include("{$viewPath}.inc.footer")
 </div>
-{{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
-<script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script> --}}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 {{--
 
 Вывод js кода из видов --}}

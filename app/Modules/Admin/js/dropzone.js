@@ -123,7 +123,7 @@ function dropzone(dropzoneElement, maxFiles, resizeMax) {
 
                     // Вставим картинку
                     if (dzImages) {
-                        dzImages.innerHTML = `<a href="${res.href}" target="_blank"><i class="material-icons img-remove" data-img="${res.href}" data-max-files="${maxFiles}">clear</i><img src="${res.href}" alt=""></a>`
+                        dzImages.innerHTML = `<a href="${res.href}" target="_blank"><i class="fas fa-times img-remove" data-img="${res.href}" data-max-files="${maxFiles}"></i><img src="${res.href}" alt=""></a>`
                     }
 
                 } else {
@@ -134,7 +134,7 @@ function dropzone(dropzoneElement, maxFiles, resizeMax) {
 
                         appendImg.setAttribute('href', res.href)
                         appendImg.setAttribute('target', '_blank')
-                        appendImg.innerHTML = `<i class="material-icons img-remove" data-img="${res.href}" data-max-files="${maxFiles}">clear</i><img src="${res.href}" alt="">`
+                        appendImg.innerHTML = `<i class="fas fa-times img-remove" data-img="${res.href}" data-max-files="${maxFiles}"></i><img src="${res.href}" alt="">`
 
                         dzGallery.appendChild(appendImg)
                     }
