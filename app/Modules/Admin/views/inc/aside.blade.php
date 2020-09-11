@@ -1,9 +1,9 @@
-<aside class="aside a-primary-light aside-width-change" style="width: {{ $asideWidth }};">
+<aside class="aside a-primary-light aside-width-change">
 
-    <div class="d-flex align-items-center py-1 a-secondary aside-width-change aside__header" id="header__icon" style="width: {{ $asideWidth }};">
+    <div class="py-1 a-secondary aside-width-change aside__header" id="header__icon" {{--style="width: {{ $asideWidth }};"--}}>
         <a href="{{ session()->get('back_link_site', route('index')) }}" title="@lang("{$lang}::a.Website")">
             <img src="{{ asset(config('add.img') . '/omegakontur/admin/touch-icon-iphone-retina.png') }}" alt="{{ config('add.name') }}">
-            <span class="aside-text fadein">@lang("{$lang}::a.Website")</span>
+            {{--<span class="aside-text fadein">@lang("{$lang}::a.Website")</span>--}}
         </a>
     </div>
 
@@ -15,7 +15,7 @@
                         <a href="{{ route('admin.main') . $v['slug'] }}" class="d-flex align-items-center py-1 px-2 aside__a @if ($v['request'] === 'main' && request()->url() === route('admin.main') || HelpersAdd::inRequestStr($v['request']))active @endif" data-title="{{ $v['controller'] ?: $v['title'] }}">
                             <i class="{{ $v['item'] }}" title="@lang("{$lang}::a.{$v['title']}")"></i>
                             {{--<i aria-hidden="true" class="material-icons pr-3" title="@lang("{$lang}::a.{$v['title']}")">{{ $v['item'] }}</i>--}}
-                            <span class="aside-text fadein">@lang("{$lang}::a.{$v['title']}")</span>
+                            {{--<span class="aside-text fadein">@lang("{$lang}::a.{$v['title']}")</span>--}}
                         </a>
                         @if (isset($v['count']) && Schema::hasTable($v['count']))
                             <span class="counter-small">{{ DB::table($v['count'])->count() }}</span>

@@ -142,9 +142,9 @@
     var main = {
             siteName: '{{ config('add.name') ?: 'Site' }}',
             url: '{{ route('admin.main') }}',
-            cookie: {{ (int)config('admin.cookie') * 1000 }},
-            asideWidthIcon: '{{ config("admin.scss.aside-width-icon") }}',
-            asideWidthText: '{{ config("admin.scss.aside-width-text") }}'
+            cookie: {{ (int)config('admin.cookie') * 1000 }}
+            {{--asideWidthIcon: '{{ config("admin.scss.aside-width-icon") }}',
+            asideWidthText: '{{ config("admin.scss.aside-width-text") }}'--}}
         },
         {{--
 

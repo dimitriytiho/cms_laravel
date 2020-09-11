@@ -3,7 +3,7 @@
 
 Вывод контента --}}
 @section('content')
-    @if (!empty($values))
+    @if ($values->count() > 0)
         <div class="row">
             <div class="col">
                 {!!

@@ -312,7 +312,18 @@ function checkboxSwitch($name, $idForm = false, $required = true, $checked = fal
 S;
 }
 
-function radio($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
+
+/*
+ * Возвращает checkbox для формы.
+ * $name - передать название, перевод будет взять из /app/Modules/lang/en/f.php.
+ * $value - значение radio элемента.
+ * $idForm - если используется форма несколько раз на странице, то передайте id формы, чтобы у id у чекбоксова были оригинальные id.
+ * $required - если необязательный, то передайте null, необязательный параметр.
+ * $checked - Если checkbox должен быть нажат, то передайте true, необязательный параметр.
+ * $class - Передайте свой класс, необязательный параметр.
+ * $title - Можно передать свой заголовок, например с ссылкой, необязательный параметр.
+ */
+function radio($name, $value, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
 {
     $lang = lang();
     $_title = l($name, 'f');
@@ -325,12 +336,10 @@ function radio($name, $idForm = false, $required = true, $checked = false, $clas
     $_required = $required ? "<div class=\"invalid-feedback\">{$_required}</div>" : null;
 
     return <<<S
-<div class="{$class}">
-    <div class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" id="{$id}" name="{$name}" $checked {$required}>
-        <label class="custom-control-label" for="{$id}">{$title}</label>
-        $_required
-    </div>
+<div class="custom-control custom-radio {$class}">
+    <input type="radio" class="custom-control-input" id="{$id}" name="{$name}" value="{$value}" $checked {$required}>
+    <label class="custom-control-label" for="{$id}">{$title}</label>
+    $_required
 </div>
 S;
 }

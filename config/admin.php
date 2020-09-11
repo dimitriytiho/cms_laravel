@@ -101,8 +101,6 @@ return [
         'light-admin' => '#eceff1',
         'gray-blue' => '#78909c',
         'transition-admin' => '.5',
-        'aside-width-icon' => '3rem',
-        'aside-width-text' => '15rem',
     ],
 
     // Картинки - для новых, используйте название как написаны, в конце подставляя свои, например imgBrand

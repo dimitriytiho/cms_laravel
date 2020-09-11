@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col bg-primary d-flex justify-content-between shadow py-1 a-white header__left transition {{--aside-margin-change--}}" {{--style="margin-left: {{ $asideWidth }};"--}}>
             <ul class="nav">
-                <li class="nav-item d-flex align-items-center">
+                {{--<li class="nav-item d-flex align-items-center">
                     <a class="nav-link d-flex align-items-center">
                         <i class="fas fa-bars cur aside-width"></i>
                     </a>
-                </li>
+                </li>--}}
             </ul>
 
             <ul class="nav justify-content-end header__right">

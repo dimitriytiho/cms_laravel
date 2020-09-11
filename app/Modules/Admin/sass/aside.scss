@@ -3,11 +3,13 @@
 @import "config/blocks";
 
 .aside {
+    width: 3rem;
     z-index: 1;
     &__header {
         position: relative;
         z-index: 1;
         height: 48px;
+        @include flex-c();
         img {
             padding-left: 10px;
             padding-right: 10px;
@@ -20,7 +22,7 @@
     .fas,
     .far {
         display: block;
-        //margin: 0 auto;
+        margin: 0 auto;
         padding-left: 5px;
         padding-right: 5px;
         font-size: 17px;

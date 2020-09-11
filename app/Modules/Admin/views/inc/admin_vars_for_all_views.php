@@ -16,10 +16,6 @@ $viewPath = "{$admin}.views";
 $isAdmin = auth()->check() ? auth()->user()->isAdmin() : null;
 $adminLimited = auth()->check() ? auth()->user()->adminLimited() : null;
 
-$asideWidth = $_COOKIE['asideWidth'] ?? null;
-$asideText = $asideWidth === config('admin.scss.aside-width-icon') ? ' style="display: none;"' : null;
-$asideWidth = $asideWidth ? " style='width: $asideWidth;'" : null;
-
 // Левое меню для мобильных
 $menuAsideChunk = null;
 $menuAside = Nav::menuLeft();

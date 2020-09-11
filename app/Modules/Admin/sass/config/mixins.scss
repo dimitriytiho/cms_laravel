@@ -14,6 +14,11 @@ $value - какое свойство анимировать, по-умолчан
   font-size: $font-size-base * .8;
 }
 
+@mixin flex-c() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @mixin flex-center($dir: row) {
   display: flex;
   flex-direction: $dir;
