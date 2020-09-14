@@ -4,11 +4,10 @@ import message from './message'
 // Функция после загрузки страницы
 document.addEventListener('DOMContentLoaded', function() {
 
-    const modal = document.getElementById('modal-confirm'),
+    var modal = document.getElementById('modal-confirm'),
         content = document.querySelector('.content'),
-        spinner = document.getElementById('spinner')
-
-    let btnOk = null
+        spinner = document.getElementById('spinner'),
+        btnOk = null
 
     if (modal) {
         btnOk = modal.querySelector('.btn-outline-primary')
@@ -17,11 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // При клике на #slug-edit генерируется ссылка
-    const slugEdit = document.getElementById('slug-edit')
+    var slugEdit = document.getElementById('slug-edit')
     if (slugEdit) {
         slugEdit.addEventListener('click', function (e) {
             e.preventDefault()
-            const title = document.querySelector('form input[name=title]')
+            var title = document.querySelector('form input[name=title]')
 
             if (title) {
 
@@ -51,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // При клике на #transliterator транлитерируется текст
-    const transliterator = document.getElementById('transliterator')
+    var transliterator = document.getElementById('transliterator')
     if (transliterator) {
         transliterator.addEventListener('click', function (e) {
             const cyrillic = document.querySelector('.transliterator input[name=cyrillic]')
@@ -83,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // При клике на #key-to-enter меняем ключ в БД
-    const keyToEnter = document.getElementById('key-to-enter')
+    var keyToEnter = document.getElementById('key-to-enter')
     if (keyToEnter) {
 
         // Значени input, которое было изначально
@@ -93,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         keyToEnter.addEventListener('click', function (e) {
-            const keyToEnter = document.querySelector('.key-to-enter input[name=to_change_key]')
+            var keyToEnter = document.querySelector('.key-to-enter input[name=to_change_key]')
 
             if (keyToEnterInputOld && keyToEnter) {
                 let keyToEnterValue = keyToEnter.value
@@ -133,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // При клике на #change-password-btn меняем пароль у пользователя
-    const changePassword = document.getElementById('change-password-btn')
+    var changePassword = document.getElementById('change-password-btn')
     if (changePassword) {
 
         changePassword.addEventListener('click', function(e) {
@@ -208,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Удаление картинки по клику
     content.addEventListener('click', function(e) {
 
-        const removeClass = 'img-remove'
+        var removeClass = 'img-remove'
 
         // Делегируем событие клик
         if (table && e.target && e.target.classList.contains(removeClass)) {
@@ -282,6 +281,59 @@ document.addEventListener('DOMContentLoaded', function() {
 
         }
     })
+
+
+    // Каждые 30 секунд обновляем счётчик онлайн пользователей на сайте
+    var onlineUsersCount = document.querySelectorAll('.online-users-count')
+    if (onlineUsersCount[0]) {
+
+        setInterval(function () {
+
+            axios.post(main.url + '/online-users')
+                .then(function (res) {
+                    const onlineUsers = res.data,
+                        listUsers = document.querySelector('.online-users-list')
+                    let list = ''
+
+                    if (onlineUsers) {
+
+                        // Вставляем кол-во в счётчик
+                        onlineUsersCount.forEach(function (el) {
+                            el.innerHTML = Object.keys(onlineUsers).length
+                        })
+
+                        // Обновим список
+                        if (listUsers) {
+                            Object.keys(onlineUsers).forEach(function (key) {
+
+                                if (onlineUsers[key]['id']) {
+                                    list += `<div>${key} - <a href="${main.url}/user/${onlineUsers[key]['id']}/edit">${onlineUsers[key]['name']}</a></div>`
+                                } else {
+                                    list += `<div>${key}</div>`
+                                }
+
+                            })
+                            listUsers.innerHTML = list
+                        }
+
+                    } else {
+
+                        // Вставляем кол-во в счётчик
+                        onlineUsersCount.forEach(function (el) {
+                            el.innerHTML = '0'
+                        })
+
+                        // Обновим список
+                        if (listUsers) {
+                            listUsers.innerHTML = list
+                        }
+                    }
+
+                })
+                .catch()
+
+        }, 30000)
+    }
 
 
 
@@ -453,59 +505,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
         }
-    }
-
-
-    // Каждые 30 секунд обновляем счётчик онлайн пользователей на сайте
-    const onlineUsersCount = document.querySelectorAll('.online-users-count')
-    if (onlineUsersCount[0]) {
-
-        setInterval(function () {
-
-            axios.post(main.url + '/online-users')
-                .then(function (res) {
-                    const onlineUsers = res.data,
-                        listUsers = document.querySelector('.online-users-list')
-                    let list = ''
-
-                    if (onlineUsers) {
-
-                        // Вставляем кол-во в счётчик
-                        onlineUsersCount.forEach(function (el) {
-                            el.innerHTML = Object.keys(onlineUsers).length
-                        })
-
-                        // Обновим список
-                        if (listUsers) {
-                            Object.keys(onlineUsers).forEach(function (key) {
-
-                                if (onlineUsers[key]['id']) {
-                                    list += `<div>${key} - <a href="${main.url}/user/${onlineUsers[key]['id']}/edit">${onlineUsers[key]['name']}</a></div>`
-                                } else {
-                                    list += `<div>${key}</div>`
-                                }
-
-                            })
-                            listUsers.innerHTML = list
-                        }
-
-                    } else {
-
-                        // Вставляем кол-во в счётчик
-                        onlineUsersCount.forEach(function (el) {
-                            el.innerHTML = '0'
-                        })
-
-                        // Обновим список
-                        if (listUsers) {
-                            listUsers.innerHTML = list
-                        }
-                    }
-
-                })
-                .catch()
-
-        }, 30000)
     }
 
 

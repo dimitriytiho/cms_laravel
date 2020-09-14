@@ -179,7 +179,7 @@ class ImgUploadController extends AppController
 
     public function remove(Request $request)
     {
-        if ($request->isMethod('post') && $request->wantsJson()) {
+        if ($request->ajax()) {
             $table = $request->table ?? null;
             $class = $request->class ?? null;
             $route = Str::lower($class);

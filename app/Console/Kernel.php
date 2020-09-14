@@ -50,14 +50,15 @@ class Kernel extends ConsoleKernel
         })->hourlyAt(1);*/
 
 
+        // Резервное копирование веб-сайта
+        //$schedule->command('backup:clean')->monthlyOn(1, '02:01');
+        //$schedule->command('backup:run')->monthlyOn(1, '03:01');
+
+
         // Обновление веб-сайта (в первый день месяца)
         $schedule->call(function () {
             Upload::getUpload();
-        })->monthlyOn(1, '02:01');
-
-        // Резервное копирование веб-сайта
-        //$schedule->command('backup:clean')->monthlyOn(1, '03:01');
-        //$schedule->command('backup:run')->monthlyOn(1, '04:01');
+        })->monthlyOn(1, '04:01');
 
         // Обновление файлов CMS
         // Внимание, замолните файл исключений app/Widgets/Upload/excludeFiles.php

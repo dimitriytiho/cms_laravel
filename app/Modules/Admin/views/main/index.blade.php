@@ -19,30 +19,6 @@
             </div>
         </div>
     </section>
-
-    <section class="transliterator">
-        <div class="row mt-5 mb-3">
-            <div class="col">
-                {!! $constructor::adminH2(__("{$lang}::a.transliterator")) !!}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="d-flex justify-content-between w-100">
-                    <div class="w-96">
-                        {!! $constructor::input('cyrillic') !!}
-                    </div>
-                    <div class="mt-4">
-                        <button class="btn btn-outline-primary mt-1" id="transliterator" title="@lang("{$lang}::a.generate")">
-                            <i class="fas fa-sync"></i>
-                        </button>
-                    </div>
-                </div>
-                {!! $constructor::input('latin') !!}
-                {{--{!! $constructor::input('latin', null, null, 'text', null, null, null, ['disabled' => null]) !!}--}}
-            </div>
-        </div>
-    </section>
     {{--
 
     Если не включена авторизация на сайте, то можно сформировать slug для входа --}}

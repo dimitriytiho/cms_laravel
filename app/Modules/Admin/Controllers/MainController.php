@@ -89,8 +89,8 @@ class MainController extends AppController
 
     public function cyrillicToLatin(Request $request)
     {
-        if ($request->isMethod('post') && $request->wantsJson()) {
-            return $request->title ? Slug::cyrillicToLatin($request->title ?? null) : '';
+        if ($request->ajax()) {
+            return empty($request->title) ? '' : Slug::cyrillicToLatin($request->title);
         }
         Main::getError('Request No Ajax', __METHOD__);
     }
@@ -98,7 +98,7 @@ class MainController extends AppController
 
     public function toChangeKey(Request $request)
     {
-        if ($request->isMethod('post') && $request->wantsJson()) {
+        if ($request->ajax()) {
             $key = $request->key ?? null;
             if ($key) {
                 Upload::getNewKey($key);
@@ -111,8 +111,8 @@ class MainController extends AppController
 
     public function userChangePassword(Request $request)
     {
-        if ($request->isMethod('post') && $request->wantsJson()) {
-            $userId = $request->userID ?? null;
+        if ($request->ajax()) {
+            $userId = $request->userId ?? null;
             $password = $request->password ?? null;
 
             if ($userId && $password) {
@@ -133,15 +133,15 @@ class MainController extends AppController
 
     public function OnlineUsers(Request $request)
     {
-        // Для пост запроса
-        if ($request->isMethod('post') && $request->wantsJson()) {
+        // Для Ajax запроса
+        if ($request->ajax()) {
             $onlineUsers = OnlineUsers::getUsers();
-            return $onlineUsers ? response()->json($onlineUsers) : null;
+            return $onlineUsers ? response()->json($onlineUsers) : '';
         }
 
 
         $f = Str::snake(__FUNCTION__);
-        Main::viewExists("{$this->c}.{$f}", __METHOD__);
+        Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
 
         $currentRoute = [
             'single' => true,

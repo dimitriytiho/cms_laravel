@@ -242,13 +242,15 @@ S;
  * $checked - Если checkbox должен быть нажат, то передайте true, необязательный параметр.
  * $class - Передайте свой класс, необязательный параметр.
  * $title - Можно передать свой заголовок, например с ссылкой, необязательный параметр.
+ * $value - значение элемента, необязательный параметр.
  */
-function checkbox($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
+function checkbox($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false, $value = false)
 {
     $lang = lang();
     $_title = l($name, 'f');
     $title = $title ?: $_title;
     $id = $idForm ? "{$idForm}_{$name}" : $name;
+    $value = $value ? "value=\"{$value}\"" : null;
 
     $checked = $checked || old($name) ? 'checked' : null;
     $required = $required ? 'required' : null;
@@ -258,7 +260,7 @@ function checkbox($name, $idForm = false, $required = true, $checked = false, $c
     return <<<S
 <div class="{$class}">
     <div class="custom-control custom-checkbox my-3">
-        <input type="checkbox" class="custom-control-input" name="{$name}" id="{$id}" $checked {$required}>
+        <input type="checkbox" class="custom-control-input" name="{$name}" id="{$id}" $value $checked {$required}>
         <label class="custom-control-label" for="{$id}">{$title}</label>
         $_required
     </div>
@@ -266,12 +268,13 @@ function checkbox($name, $idForm = false, $required = true, $checked = false, $c
 S;
 }
 
-function checkboxSimple($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
+function checkboxSimple($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false, $value = false)
 {
     $lang = lang();
     $_title = l($name, 'f');
     $title = $title ?: $_title;
     $id = $idForm ? "{$idForm}_{$name}" : $name;
+    $value = $value ? "value=\"{$value}\"" : null;
 
     $checked = $checked || old($name) ? 'checked' : null;
     $required = $required ? 'required' : null;
@@ -281,7 +284,7 @@ function checkboxSimple($name, $idForm = false, $required = true, $checked = fal
     return <<<S
 <div class="form-group {$class}">
     <div class="form-check mt-3 mb-2">
-        <input class="form-check-input" type="checkbox" name="{$name}" id="{$id}" $checked {$required}>
+        <input class="form-check-input" type="checkbox" name="{$name}" id="{$id}" $value $checked {$required}>
         <label class="form-check-label" for="{$id}">{$title}</label>
         $_required
     </div>
@@ -289,12 +292,13 @@ function checkboxSimple($name, $idForm = false, $required = true, $checked = fal
 S;
 }
 
-function checkboxSwitch($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false)
+function checkboxSwitch($name, $idForm = false, $required = true, $checked = false, $class = false, $title = false, $value = false)
 {
     $lang = lang();
     $_title = l($name, 'f');
     $title = $title ?: $_title;
     $id = $idForm ? "{$idForm}_{$name}" : $name;
+    $value = $value ? "value=\"{$value}\"" : null;
 
     $checked = $checked || old($name) ? 'checked' : null;
     $required = $required ? 'required' : null;
@@ -304,7 +308,7 @@ function checkboxSwitch($name, $idForm = false, $required = true, $checked = fal
     return <<<S
 <div class="{$class}">
     <div class="custom-control custom-switch my-3">
-        <input type="checkbox" class="custom-control-input" name="{$name}" id="{$id}" $checked {$required}>
+        <input type="checkbox" class="custom-control-input" name="{$name}" id="{$id}" $value $checked {$required}>
         <label class="custom-control-label" for="{$id}">{$title}</label>
         $_required
     </div>
@@ -328,7 +332,7 @@ function radio($name, $value, $idForm = false, $required = true, $checked = fals
     $lang = lang();
     $_title = l($name, 'f');
     $title = $title ?: $_title;
-    $id = $idForm ? "{$idForm}_{$name}" : $name;
+    $id = $idForm ? "{$idForm}_{$name}_{$value}" : $name;
 
     $checked = $checked || old($name) ? 'checked' : null;
     $required = $required ? 'required' : null;

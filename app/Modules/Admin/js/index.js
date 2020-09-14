@@ -1,10 +1,11 @@
 /*import bsn from 'bootstrap.native/dist/bootstrap-native-v4'
 export default bsn*/
-window.Bootstrap = require('bootstrap.native/dist/bootstrap-native.min')
+//window.Bootstrap = require('bootstrap.native/dist/bootstrap-native.min')
 
 import IMask from 'imask'
-import './axios'
-import './native'
+import './addRemoveElement'
+import './ajax'
+//import './native'
 import './dropzone'
 import './pulse'
 import './forms'
@@ -18,7 +19,7 @@ import './dropdown'
 import './scripts'
 
 // Маска ввода телефона
-const tel = document.querySelectorAll('form input[name=tel]'),
+var tel = document.querySelectorAll('form input[name=tel]'),
     maskOptions = {
     mask: '+{7}(000)000-00-00'
     // lazy: false // Чтобы маска была сразу видна

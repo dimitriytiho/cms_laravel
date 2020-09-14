@@ -116,7 +116,7 @@
         {{-- CKEDITOR.config.filebrowserImageBrowseUrl = '/file-manager/ckeditor'
 
         --}}
-    @elseif(config('admin.editor') === 'codemirror')
+    @elseif (config('admin.editor') === 'codemirror')
         <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
         <script>
@@ -139,7 +139,8 @@
     @endif
 @endif
 <script>
-    var main = {
+    var _token = $('meta[name=csrf-token]').attr('content'),
+        main = {
             siteName: '{{ config('add.name') ?: 'Site' }}',
             url: '{{ route('admin.main') }}',
             cookie: {{ (int)config('admin.cookie') * 1000 }}

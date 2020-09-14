@@ -18,6 +18,7 @@ class CreateFilterGroupsTable extends Migration
             $table->string('title', 64)->unique();
             $table->index('title');
             $table->string('type', 64)->default(config('shop.filter_type')[0]);
+            $table->string('status', 32)->default(config('add.page_statuses')[0]);
             $table->smallInteger('sort')->unsigned()->default('500');
             $table->timestamps();
         });

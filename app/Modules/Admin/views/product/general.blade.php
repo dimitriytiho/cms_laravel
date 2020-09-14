@@ -149,6 +149,15 @@
                                 </div>
                             @endif
                         @endif
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+
+                                    // Запускаем функцию добавления и удаления
+                                    //addBelongs('select-product-category', 'product-add-category', 'category-many-elements')
+                                    //addBelongs('select-product-filter', 'product-add-filter', 'filter-many-elements')
+
+                                }, false)
+                            </script>
                         {{-- На странице создания элемента табы не показываем  --}}
                 @if (isset($values->id))
                         </div>

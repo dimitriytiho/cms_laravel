@@ -4,17 +4,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // При отправки формы с .confirm-form будет подтвержение отправки
     document.addEventListener('submit', function(e) {
-        const spinner = document.getElementById('spinner')
+        var spinner = document.getElementById('spinner')
 
         if (e.target.classList.contains('confirm-form')) {
             e.preventDefault()
 
-            const modal = document.getElementById('modal-confirm'),
-                modalInstance = new Bootstrap.Modal(modal),
+            var modal = document.getElementById('modal-confirm')
                 btnOk = modal.querySelector('.btn-outline-primary')
 
             // Открыть модальное окно
-            modalInstance.show()
+            $('#modal-confirm').modal()
+            /*var modalInstance = new Bootstrap.Modal(modal)
+            modalInstance.show()*/
 
             btnOk.addEventListener('click', function() {
                 e.target.submit()
@@ -30,8 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.classList.contains('confirm-link')) {
             e.preventDefault()
 
-            const modal = document.getElementById('modal-confirm'),
-                modalInstance = new Bootstrap.Modal(modal),
+            var modal = document.getElementById('modal-confirm'),
                 btnOk = modal.querySelector('.btn-outline-primary'),
                 href = e.target.href,
                 spinner = document.getElementById('spinner')
@@ -42,7 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
             btnOk.addEventListener('click', function() {
 
                 // Закрыть модальное окно
-                modalInstance.hide()
+                $('#modal-confirm').modal('hide')
+                /*var modalInstance = new Bootstrap.Modal(modal)
+                modalInstance.hide()*/
 
                 // Включить спинер
                 if (spinner) {

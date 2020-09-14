@@ -20,10 +20,10 @@ class CategoryProductController extends AppController
         $this->table = with(new $model)->getTable(); // Получаем название таблицы
     }
 
-    // Добавить категорию к товару
+    // Добавить к товару
     public function productAdd(Request $request)
     {
-        if ($request->isMethod('post') && $request->wantsJson()) {
+        if ($request->ajax()) {
             $productId = $request->productId ?? null;
             $belongsId = $request->belongsId ?? null;
 
@@ -37,19 +37,20 @@ class CategoryProductController extends AppController
     }
 
 
-    // Удалить категорию у товару
+    // Удалить
     public function productDestroy(Request $request)
     {
-        if ($request->isMethod('post') && $request->wantsJson()) {
+        if ($request->ajax()) {
             $productId = $request->productId ?? null;
             $belongsId = $request->belongsId ?? null;
 
             if ((int)$productId && (int)$belongsId) {
-                if (DB::table($this->table)->where($this->belongsId, (int)$belongsId)->where('product_id', (int)$productId)->delete()) {
-                    return __("{$this->lang}::s.removed_successfully", ['id' => (int)$productId]);
-                }
+                DB::table($this->table)
+                    ->where($this->belongsId, (int)$belongsId)
+                    ->where('product_id', (int)$productId)
+                    ->delete();
+                return __("{$this->lang}::s.removed_successfully", ['id' => (int)$belongsId]);
             }
-            return 1;
         }
         Main::getError('Request No Ajax', __METHOD__);
     }
