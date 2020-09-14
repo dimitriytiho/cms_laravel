@@ -7,7 +7,7 @@
         </a>
     </div>
 
-    <ul class="list-unstyled py-2 sticky-top">
+    <ul class="list-unstyled pb-2 sticky-top">
         @if (!empty($menuAside))
             @foreach ($menuAside as $v)
                 @if (!$v['parent_id'] && !(in_array($v['controller'], config('admin.editor_section_banned')) && !$isAdmin) && !(!in_array($v['controller'], config('admin.cashier_section_allow')) && !$isAdmin))
