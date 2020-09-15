@@ -35,7 +35,7 @@
             @if ($cartSession)
                 <div class="row">
                     <div class="col-md-6 mt-3 mb-5">
-                        <form method="post" action="{{ route('make_order') }}" class="needs-validation loader-submit" novalidate>
+                        <form method="post" action="{{ route('make_order') }}" class="needs-validation spinner_submit" novalidate>
                         @csrf
                         {!! input('name', null, true, null, null) !!}
                         {!! input('tel', null, true, 'tel', null) !!}

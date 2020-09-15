@@ -134,22 +134,18 @@ Google ReCaptcha, если есть в настройках указан сек�
     {{-- Поддержка Svg из sprite во всех браузерах
     https://github.com/jonathantneal/svg4everybody --}}
 
-    var body = $('body'),
-        _token = document.querySelector('meta[name="csrf-token"]'),
+    var _token = $('meta[name=csrf-token]').attr('content'),
         path = '{{ route('index') }}',
         slug = '{{ str_replace('-', '_', request()->path()) }}',
         site_title = '{{ Main::site('name') ?: ' ' }}',
         site_tel = '{{ Main::site('tel') ?: ' ' }}',
         site_email = '{{ Main::site('email') ?: ' ' }}',
         main_color = '{{ config('add.scss')['primary'] ?? '#ccc' }}',
-        height = '{{ config('add.height') ?? 600 }}',
+        {{--height = '{{ config('add.height') ?? 600 }}',
         cookieTime = '{{ config('admin.cookie') ?: 5184000 }}',
-        cookieUrl = '{{ route('set_cookie') }}',
-        spinner = $('#spinner')
-
-    if (_token) {
-        _token = _token.content
-    }
+        cookieUrl = '{{ route('set_cookie') }}',--}}
+        spinner = $('#spinner'),
+        spinnerBtn = '<span class="spinner-grow spinner-grow-sm mr-2"></span>'
 
     {!! HelpersLocale::translationsJson() !!}
 </script>

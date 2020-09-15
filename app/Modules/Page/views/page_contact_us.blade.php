@@ -32,7 +32,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6 my-4">
-                    <form method="post" action="{{ route('post_contact_us') }}" class="needs-validation loader-submit" novalidate>
+                    <form method="post" action="{{ route('post_contact_us') }}" class="needs-validation spinner_submit" novalidate>
                         @csrf
                         {!! input('name', null, true, null, null) !!}
                         {!! input('tel', null, true, null, null) !!}
@@ -69,7 +69,7 @@
                         </div>--}}
                         <button type="submit" class="btn btn-primary mt-3">@lang("{$lang}::f.submit")</button>
                     </form>
-                    {{-- {!! Form::open()->route('post_contact_us')->locale('forms')->attrs(['class' => 'needs-validation loader-submit']) !!}
+                    {{-- {!! Form::open()->route('post_contact_us')->locale('forms')->attrs(['class' => 'needs-validation spinner_submit']) !!}
                         {!! Form::text('name', 'Name')->label(null)->placeholder(__("{$lang}::f.name") . '...')->required() !!}
                         {!! Form::text('tel', 'Phone')->label(null)->placeholder(__("{$lang}::f.tel") . '...')
                         ->required() !!}

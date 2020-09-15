@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    const url = '/search-js',
+    var url = '/search-js',
         searchClass = '.search_js',
         searchInput = searchClass + '__input',
         searchChild = searchClass + '__child'
 
-    body.on('keyup', searchInput, function () {
-        const self = $(this),
+    $(document).on('keyup', searchInput, function () {
+        var self = $(this),
             query = self.val(),
             length = query.length,
             child = self.closest(searchClass).find(searchChild)

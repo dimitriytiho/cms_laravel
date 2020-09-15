@@ -67,7 +67,7 @@ class Handler extends ExceptionHandler
             $view = 'views.errors.404';
 
             // Переопределим путь к видам
-            view()->getFinder()->setPaths($modulesPath);
+            //view()->getFinder()->setPaths($modulesPath);
 
             // Хлебные крошки
             $breadcrumbs = new Breadcrumbs();
