@@ -160,7 +160,9 @@ class Menu
 
                 } else {
 
-                    $data[$parent_id]->childs->$id = &$node;
+                    if (!empty($data[$parent_id]->childs->$id)) {
+                        $data[$parent_id]->childs->$id = &$node;
+                    }
                 }
             }
         }

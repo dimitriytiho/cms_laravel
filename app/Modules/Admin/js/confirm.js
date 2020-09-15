@@ -3,59 +3,51 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // При отправки формы с .confirm-form будет подтвержение отправки
-    document.addEventListener('submit', function(e) {
-        var spinner = document.getElementById('spinner')
+    $(document).on('submit', '.confirm-link', function(e) {
+        e.preventDefault()
+        var modal = $('#modal-confirm'),
+            btnOk = modal.find('.btn-outline-primary')
 
-        if (e.target.classList.contains('confirm-form')) {
-            e.preventDefault()
+        // Открыть модальное окно
+        modal.show()
 
-            var modal = document.getElementById('modal-confirm')
-                btnOk = modal.querySelector('.btn-outline-primary')
+        // Отлеживаем клик по кнопке Ок
+        btnOk.click(function () {
 
-            // Открыть модальное окно
-            $('#modal-confirm').modal()
-            /*var modalInstance = new Bootstrap.Modal(modal)
-            modalInstance.show()*/
+            // Закрыть модальное окно
+            modal.modal('hide')
 
-            btnOk.addEventListener('click', function() {
-                e.target.submit()
-                spinner.style.display = 'block'
-                modalInstance.hide()
-            }.bind(e))
-        }
+            // Включить спинер
+            spinner.style.display = 'block'
+
+            // Отправить форму
+            e.target.submit()
+        }.bind(e))
     })
 
 
     // При клике по ссылке .confirm-link будет подтвержение отправки (добавить атрибуты data-toggle="modal" data-target="#modal-confirm")
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('confirm-link')) {
-            e.preventDefault()
+    $(document).on('click', '.confirm-link', function(e) { // Событие двойной клик dblclick
+        e.preventDefault()
+        var modal = $('#modal-confirm'),
+            btnOk = modal.find('.btn-outline-primary'),
+            href = e.target.href
 
-            var modal = document.getElementById('modal-confirm'),
-                btnOk = modal.querySelector('.btn-outline-primary'),
-                href = e.target.href,
-                spinner = document.getElementById('spinner')
+        // Открыть модальное окно
+        modal.show()
 
-            // Открыть модальное окно
-            modalInstance.show()
+        // Отлеживаем клик по кнопке Ок
+        btnOk.click(function () {
 
-            btnOk.addEventListener('click', function() {
+            // Закрыть модальное окно
+            modal.modal('hide')
 
-                // Закрыть модальное окно
-                $('#modal-confirm').modal('hide')
-                /*var modalInstance = new Bootstrap.Modal(modal)
-                modalInstance.hide()*/
+            // Включить спинер
+            spinner.style.display = 'block'
 
-                // Включить спинер
-                if (spinner) {
-                    spinner.style.display = 'block'
-                }
-
-
-                // Переход по ссылке
-                document.location.href = href
-            })
-        }
+            // Переход по ссылке
+            document.location.href = href
+        })
     })
 
 }, false)

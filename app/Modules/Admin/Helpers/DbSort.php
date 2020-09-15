@@ -103,9 +103,11 @@ class DbSort
 
         return <<<S
 <span class="filter-icons">
-    <a href="{$routeAsc}" class="fa-sort-up {$activeAsc}" title="{$langAsc}">
+    <a href="{$routeAsc}" class="{$activeAsc}" title="{$langAsc}">
+        <i class="fas fa-sort-up"></i>
     </a>
-    <a href="{$routeDesc}" class="fa-sort-down {$activeDesc}" title="{$langDesc}">
+    <a href="{$routeDesc}" class="{$activeDesc}" title="{$langDesc}">
+        <i class="fas fa-sort-down"></i>
     </a>
 </span>
 S;

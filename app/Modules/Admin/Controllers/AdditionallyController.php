@@ -84,7 +84,7 @@ class AdditionallyController extends AppController
             if ($update === 'run') {
 
                 // Обновляем файлы CMS, кроме данного файла
-                Upload::init(null, 'app/Modules/Admin/Controllers/AdditionallyController.php');
+                Upload::init(false);
 
                 session()->put('success', __("{$this->lang}::a.completed_successfully"));
                 return redirect()->route('admin.additionally', 'update=disabled');

@@ -42,7 +42,6 @@ class OrderController extends AppController
             'id',
             'user_id',
             'status',
-            'ip',
         ];
 
         // Параметры Get запроса

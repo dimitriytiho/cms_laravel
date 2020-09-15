@@ -237,7 +237,7 @@ class Nav
                 ],*/
                 18 => [
                     'title' => 'Logs',
-                    'controller' => null,
+                    'controller' => 'Logs',
                     'parent_id' => null,
                     'slug' => '/logs',
                     'request' => 'logs',
