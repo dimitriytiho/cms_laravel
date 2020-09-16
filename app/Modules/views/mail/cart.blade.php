@@ -12,15 +12,15 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($values as $k => $v)
-            @if (is_int($k))
+        @foreach ($values as $productId => $product)
+            @if (is_int($productId))
                 <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">{{ $k }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">{{ $productId }}</td>
                     <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">
-                        <a href="{{ route('product', $v['slug']) }}" style="text-decoration: none; color: {{ config('add.scss.primary', '#ccc') }};">{{ $v['title'] }}</a>
+                        <a href="{{ route('product', $product['slug']) }}" style="text-decoration: none; color: {{ config('add.scss.primary', '#ccc') }};">{{ $product['title'] }}</a>
                     </td>
-                    <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">{{ $v['qty'] }}</td>
-                    <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">{{ $v['price'] }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">{{ $product['qty'] }}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd; text-align: left;">{{ $product['price'] }}</td>
                 </tr>
             @endif
         @endforeach

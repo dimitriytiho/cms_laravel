@@ -179,19 +179,28 @@ class OrderController extends AppController
                     $title = __("{$this->lang}::s.An_order_has_been_placed", ['order_id' => $orderId]) . config('add.domain');
                     $email_admin = HelpersStr::strToArr(Main::site('admin_email') ?? null);
 
-                    // Данные пользователя
+                    // Данные заказа
                     if (!empty($dataUserMail) && view()->exists("{$this->viewPath}.mail.table_form")) {
-                        $body = view("{$this->viewPath}.mail.table_form")
+                        $bodyOrder = view("{$this->viewPath}.mail.table_form")
                             ->with(['values' => $dataUserMail])
                             ->render();
                     }
+
+                    // Данные о товарах
+                    if (!empty($cart) && view()->exists("{$this->viewPath}.mail.cart")) {
+                        $bodyProducts = view("{$this->viewPath}.mail.cart")
+                            ->with(['values' => $cart])
+                            ->render();
+                    }
+
+                    $body = ($bodyOrder ?? null) . "<br><br><br>" . ($bodyProducts ?? null);
 
                     // Отправить письмо
                     Mail::to($email_admin)->
                     send(new SendMail($title, $body, $cart, $this->c));
 
                 } catch (\Exception $e) {
-                    Main::getError("Error sending email admin: $e", __METHOD__, false);
+                    Main::getError("Error sending email admin: {$e}", __METHOD__, false);
                 }
 
 

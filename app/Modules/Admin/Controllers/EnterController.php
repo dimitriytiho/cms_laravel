@@ -53,10 +53,10 @@ class EnterController extends AppController
 
         $route = $this->route = $request->segment(1);
         $view = $this->view  = Str::snake($this->class);
-        $viewPath = $this->viewPath  = 'views';
 
         // Определяем папку с видами, как корневую, чтобы виды были доступны во всех вложенных модулях
-        view()->getFinder()->setPaths("{$this->modulePath}/{$viewPath}");
+        //$viewPath = $this->viewPath  = 'views';
+        //view()->getFinder()->setPaths("{$this->modulePath}/{$viewPath}");
 
         view()->share(compact('module', 'm', 'class', 'c', 'route', 'view'));
     }

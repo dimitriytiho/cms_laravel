@@ -12,7 +12,8 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/omegakontur/admin/touch-icon-ipad.png') }}">
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset(config('add.img') . '/omegakontur/admin/touch-icon-iphone-retina.png') }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset(config('add.img') . '/omegakontur/admin/touch-icon-ipad-retina.png') }}">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Material+Icons">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.13/css/all.css">
+    {{--<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Material+Icons">--}}
     <link rel="stylesheet" href="{{ asset('css/append.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {!! $getMeta !!}
