@@ -65,6 +65,7 @@ class Handler extends ExceptionHandler
             $modulesPath = config('modules.path');
             $viewPath = config('modules.views');
             $view = 'views.errors.404';
+            $statusActive = config('add.page_statuses')[1] ?: 'active';
 
             // Переопределим путь к видам
             //view()->getFinder()->setPaths($modulesPath);
@@ -76,7 +77,7 @@ class Handler extends ExceptionHandler
                 ->get();
 
             if (view()->exists($view)) {
-                return response()->view('views.errors.404', compact('title', 'message', 'viewPath', 'lang', 'breadcrumbs'), $status);
+                return response()->view('views.errors.404', compact('title', 'message', 'viewPath', 'lang', 'breadcrumbs', 'statusActive'), $status);
 
             } else {
                 return redirect('/error.php');

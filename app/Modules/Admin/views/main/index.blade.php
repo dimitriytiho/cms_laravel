@@ -38,7 +38,7 @@
                         </div>
                         <div class="mt-4">
                             <button class="btn btn-outline-primary mt-1" id="key-to-enter" title="@lang("{$lang}::f.save")">
-                                <i class="fas fa-upload"></i>
+                                <i class="fas fa-download"></i>
                             </button>
                         </div>
                     </div>

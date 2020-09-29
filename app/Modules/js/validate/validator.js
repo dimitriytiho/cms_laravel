@@ -73,7 +73,9 @@ export default function validator(form, settings) {
         const formGroup = input.closest('.form-group')
         if (formGroup) {
             const errorTag = formGroup.querySelector('.invalid-feedback')
-            errorTag.textContent = error
+            if (errorTag) {
+                errorTag.textContent = error
+            }
         }
 
         if (error) {

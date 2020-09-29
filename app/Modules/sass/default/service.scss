@@ -2,6 +2,17 @@
 @import "../config/mixins";
 @import "../config/blocks";
 
+// Затемнение всего
+.backdrop-kd {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: $backdrop;
+    z-index: $z-index-min - 8;
+}
+
 #spinner {
     display: none;
     .spinner-block {
@@ -32,4 +43,8 @@
     cursor: pointer;
     @include flex-center();
     @include hover(rgba($black, .5), $black, background);
+}
+
+.grecaptcha-badge {
+    visibility: hidden;
 }

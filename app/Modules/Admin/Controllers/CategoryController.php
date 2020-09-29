@@ -151,7 +151,7 @@ class CategoryController extends AppController
             $getIdParents = appHelpers::getIdParents($values->id ?? null, $this->table);
 
             // Потомки товаров в массиве
-            $getIdProducts = Category::with('products')->where('id', (int)$id)->get();
+            $getIdProducts = $this->model::with('products')->where('id', (int)$id)->get();
             $issetGetIdProducts = $getIdProducts[0]->products->toArray();
 
 
@@ -253,7 +253,7 @@ class CategoryController extends AppController
                 $getIdParents = appHelpers::getIdParents((int)$id, $this->table);
 
                 // Товаров
-                $getIdProducts = DB::table('category_product')->where('category_id', (int)$id)->count();
+                $getIdProducts = DB::table("{$this->view}_product")->where("{$this->view}_id", (int)$id)->count();
 
                 if ($getIdParents || $getIdProducts) {
                     session()->put('error', __('s.remove_not_possible') . ', ' . __('s.there_are_nested') . ' #');

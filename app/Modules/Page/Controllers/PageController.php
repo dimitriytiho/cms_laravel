@@ -111,7 +111,7 @@ class PageController extends AppController
 
     public function notFound()
     {
-        Main::viewExists('views.errors.404', __METHOD__);
+        Main::viewExists("{$this->viewPath}.errors.404", __METHOD__);
 
         $title = __("{$this->lang}::s.page_not_found");
         $message = __("{$this->lang}::s.whoops_no_page");
@@ -121,7 +121,7 @@ class PageController extends AppController
             ->end(['not_found' => $title])
             ->get();
 
-        Main::getError($title, __METHOD__, null, 'info');
+        //Main::getError($title, __METHOD__, null, 'info');
         $this->setMeta($title);
         return response()->view("{$this->viewPath}.errors.404", compact('title', 'message', 'breadcrumbs'), 404);
     }
