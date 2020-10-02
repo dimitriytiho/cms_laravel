@@ -133,4 +133,9 @@ return [
     'recaptcha_secret_key' => env('RECAPTCHA_SECRET_KEY'),
     'smsru' => env('SMSRU'),
 
+    'sberbank_url' => env('SBERBANK_URL'),
+    'sberbank_url_check' => env('SBERBANK_URL_CHECK'),
+    'sberbank_login' => env('SBERBANK_LOGIN'),
+    'sberbank_password' => env('SBERBANK_PASSWORD'),
+
 ];
