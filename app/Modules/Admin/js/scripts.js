@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // При изменении .select-change select делается запрос
     const selectChange = document.getElementById('select-change')
     if (selectChange) {
-        
+
         selectChange.addEventListener('change', function(e) {
             var action = e.target.dataset.action,
                 val = e.target.value
@@ -18,6 +18,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
     }
+
+
+    // При collapse с классом .change-icon изменение иконки вверх вниз
+    $('.change-icon').click(function () {
+        var self = $(this),
+            arrowUp = 'fa-angle-up',
+            arrowDown = 'fa-angle-down'
+
+        // Собыите открытие collapse
+        self.addEventListener('show.bs.collapse', function(event) {
+            self.children('i').removeClass(arrowDown).addClass(arrowUp)
+        }, false)
+
+        // Собыите закрытие collapse
+        self.addEventListener('hide.bs.collapse', function(event) {
+            self.children('i').removeClass(arrowUp).addClass(arrowDown)
+        }, false)
+    })
+
 
     // Сохраняем ранее открытую вкладку на странице редактирования
     tabSave('tabs-edit')

@@ -171,7 +171,7 @@ class OrderController extends AppController
                         ->send(new SendMail($title, $body, $cart, $this->c));
 
                 } catch (\Exception $e) {
-                    Main::getError("Error sending email admin: $e", __METHOD__, false);
+                    Main::getError("Error sending email User: $e", __METHOD__, false);
                 }
 
                 // Письмо администратору
@@ -200,8 +200,36 @@ class OrderController extends AppController
                     send(new SendMail($title, $body, $cart, $this->c));
 
                 } catch (\Exception $e) {
-                    Main::getError("Error sending email admin: {$e}", __METHOD__, false);
+                    Main::getError("Error sending email Admin: {$e}", __METHOD__, false);
                 }
+
+
+                // ЕСЛИ ПОЛЬЗОВАТЕЛЬ ВЫБРАЛ ОПЛАТУ ОНЛАЙН ПЛАСТИКОВОЙ КАРТОЙ (подробно описано в моделе app/Modules/Shop/Models/Order.php)
+                /*if (!empty($data['payment']) && !empty(config('shop.payment')[2]['title']) && config('shop.payment')[2]['title'] === $data['payment']) {
+                    $url = config('add.url');
+                    $resPayment = Order::getPaymentSberbank($order);
+
+                    // Если банк передал Url
+                    if (!empty($resPayment['url']) && $resPayment['url'] !== $url) {
+
+                        // Редирект на страницу банка для оплаты
+                        return redirect($resPayment['url']);
+                    }
+
+                    // В любых других случаях ошибка
+                    if (!empty($resPayment['error'])) {
+
+                        // Возникла ошибка на стороне банка, то покажем её
+                        session()->put('error', $resPayment['error']);
+                    }
+
+                    return redirect()->route('error_payment');
+                }
+
+
+                // Сообщение об успехе
+                session()->put('success', __("{$this->lang}::s.order_successfully"));
+                return redirect()->route('index');*/
 
 
                 // Сообщение об успехе

@@ -28,12 +28,12 @@
         </div>
     </div>
 
-    {!! $constructor::adminH2(__("{$lang}::a.update_cms_files"), 'mt-5') !!}
+    {{--{!! $constructor::adminH2(__("{$lang}::a.update_cms_files"), 'mt-5') !!}
     <div class="row">
         <div class="col">
             {!! $constructor::adminBlockLink(__("{$lang}::a.make_backup_first_if"), __("{$lang}::a.run"), route('admin.additionally', 'update=run'), 'confirm-link' . $updateDisabled, 'data-toggle="modal" data-target="#modal-confirm"') !!}
         </div>
-    </div>
+    </div>--}}
 
     {!! $constructor::adminH2(__("{$lang}::a.Commands"), 'mt-5') !!}
     <div class="row mb-3 command">
