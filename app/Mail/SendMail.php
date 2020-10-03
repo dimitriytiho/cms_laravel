@@ -36,8 +36,8 @@ class SendMail extends Mailable
     MAIL_DRIVER=smtp
     MAIL_HOST=smtp.yandex.ru
     MAIL_PORT=587 // Возможно 25, 465
-    MAIL_USERNAME=drovaivan@yandex.ru
-    MAIL_PASSWORD=prostoy
+    MAIL_USERNAME=mail@yandex.ru
+    MAIL_PASSWORD=password
     MAIL_ENCRYPTION=tls
     MAIL_FROM_ADDRESS="${MAIL_USERNAME}"
     MAIL_FROM_NAME="${APP_NAME}"
@@ -84,6 +84,11 @@ class SendMail extends Mailable
 
         if ($this->template && view()->exists("{$this->viewPath}.mail.{$this->template}")) {
             $view = view("{$this->viewPath}.mail.{$this->template}", compact('title', 'values', 'body', 'color', 'site_name'))->render();
+        }
+
+        // Если передаём вид $template, то $body используем только в этом $template, а в основном шаблоне не используем
+        if ($view) {
+            $body = null;
         }
 
         $email = Main::site('email');

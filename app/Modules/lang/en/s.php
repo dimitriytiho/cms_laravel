@@ -33,7 +33,7 @@ return [
     'You_have_filled_out_form' => 'You have filled out the form on the website ',
     'You_placed_order' => 'You placed an order on the site ',
     'Completed_form' => 'Completed form :name on the website ',
-    'An_order_has_been_placed' => 'An order :order_id has been placed on the website ',
+    'An_order_has_been_placed' => 'An order #:order_id has been placed on the website ',
     'Your_form_has_been_received' => 'Your form has been received. Thank you for your attention and time!<br>We will get acquainted and contact you if necessary.',
     'Your_order_was_successfully_received' => 'Your order was successfully received.<br>We will contact you during business hours. Thank you for your attention and time!',
     'Your_form_successfully' => 'Your form has been submitted successfully.',

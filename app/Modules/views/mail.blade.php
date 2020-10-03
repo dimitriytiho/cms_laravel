@@ -14,7 +14,7 @@
 	<br>
 @endif
 
-<div{!! $view ? '' : ' style="font-size: 16px;"' !!}>{!! $view ?: $body !!}</div>
+<div{!! $view ? '' : ' style="font-size: 18px;"' !!}>{!! $view ?: $body !!}</div>
 <br>
 <br>
 <p style="font-size: 14px; font-weight: lighter">@lang("{$lang}::s.Please_do_not_reply_to_this_email")@if ($email) @lang("{$lang}::s.Please_contact_us")<a href="mailto:{{ $email }}" style="color: {{ $color }}; text-decoration: none;">{{ $email }}</a>@endif{{ $tel }}</p>
