@@ -72,13 +72,13 @@
         @include("{$viewPath}.inc.aside")
         <div class="px-0 w-100 main-content">
             @include("{$viewPath}.inc.header")
-            <div class="row body-block mr-2 ml-3">
+            <div class="row body-block mr-2 ml-0 ml-sm-3">
                 <div class="col transition {{--aside-margin-change--}}" {{--style="margin-left: {{ $asideWidth }};"--}}>
                     @include("{$viewPath}.inc.message")
                     @include("{$viewPath}.inc.top_panel")
                     <div class="row" id="content">
                         <div class="col mt-1 content">
-                            <div class="py-4 px-1">
+                            <div class="py-2 py-sm-4 px-1 px-sm-1">
                                 @yield('content')
                             </div>
                         </div>
