@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         productsClass = 'products'
 
 
-    body.on('change', '.' + filterClass + ' input', function () {
+    $(document).on('change', '.' + filterClass + ' input', function () {
         const checked = $('.' + filterClass + ' input:checked')
         let data = ''
 
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
 
-    body.on('click', '.' + filterClass + ' .reset', function () {
+    $(document).on('click', '.' + filterClass + ' .reset', function () {
         window.location = location.pathname
     })
 

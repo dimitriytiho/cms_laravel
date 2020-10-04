@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Main;
+use App\Models\Main;
 
 
 $lang = lang();
@@ -18,7 +18,7 @@ $img = config('add.img', 'img');
             /*
              <i class="fas fa-tachometer-alt"></i>
              */
-            
+
             ?>
         <svg class="panel-dashboard__tachometer">
             <use xlink:href="<?= asset("{$img}/svg/dashboard_sprite.svg#tachometer-alt"); ?>"></use>
@@ -34,7 +34,7 @@ $img = config('add.img', 'img');
             /*
              <i class="fas fa-edit"></i>
              */
-            
+
             ?>
             <svg class="panel-dashboard__edit">
                 <use xlink:href="<?= asset("{$img}/svg/dashboard_sprite.svg#edit"); ?>"></use>

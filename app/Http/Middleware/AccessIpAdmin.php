@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Main;
 use Closure;
+use App\Models\Main;
 
 class AccessIpAdmin
 {

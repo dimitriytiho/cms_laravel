@@ -4,7 +4,7 @@
 namespace App\Widgets\PanelDashboard;
 
 
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 

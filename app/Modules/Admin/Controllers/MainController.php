@@ -2,11 +2,10 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\Main;
+use App\Models\{Main, User};
 use App\Modules\Admin\Helpers\OnlineUsers;
 use App\Modules\Admin\Helpers\Slug;
 use App\Helpers\Upload;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;

@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\Main;
+use App\Models\Main;
 use App\Exports\CategoriesExport;
 use App\Exports\UsersExport;
 use App\Helpers\ImportExport;

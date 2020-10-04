@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Main;
 use Closure;
 
 class Admin
@@ -30,7 +29,7 @@ class Admin
 
         // Запишем в логи и показажем страницу 404
         //Main::getError('Request Admin', __METHOD__, false);
-        
+
         return redirect()->route('not_found');
     }
 }

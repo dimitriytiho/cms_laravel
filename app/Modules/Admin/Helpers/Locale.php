@@ -3,7 +3,7 @@
 
 namespace App\Modules\Admin\Helpers;
 
-use App\Main;
+use App\Models\Main;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
 

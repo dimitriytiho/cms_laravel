@@ -2,29 +2,28 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    
         <link rel="icon" type="image/x-icon" href="http://localhost:8000/favicon.ico">
     <link rel="apple-touch-icon" href="http://localhost:8000/img/logo/touch-icon-iphone.png">
     <link rel="apple-touch-icon" sizes="76x76" href="http://localhost:8000/img/logo/touch-icon-ipad.png">
     <link rel="apple-touch-icon" sizes="120x120" href="http://localhost:8000/img/logo/touch-icon-iphone-retina.png">
     <link rel="apple-touch-icon" sizes="152x152" href="http://localhost:8000/img/logo/touch-icon-ipad-retina.png">
     <link rel="cononical" href="http://localhost:8000">
-    
+
     <meta name="csrf-token" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>ОмегаКонтур</title>
 	<meta name='description' content=''>
 
-    
+
     <!--[if lt IE 9]>
 <link rel="stylesheet" type="text/css" href="http://localhost:8000/css/reject.css" media="all">
 <script type="text/javascript" src="http://localhost:8000/js/reject.min.js" data-text="К сожалению, браузер, которым вы пользуетесь, устарел и не может корректно отображать сайт. Загрузите любой из следующих браузеров:"></script>
 <![endif]-->
 
 
-    
-        
-    
+
+
+
     <link rel="stylesheet" type="text/css" href="http://localhost:8000/css/app.css">
     <link rel="stylesheet" type="text/css" href="http://localhost:8000/css/add.css">
 </head>
@@ -106,7 +105,7 @@
     <div class="row bg-dark py-4 px-5 footer__content">
         <div class="col-xl-2 col-lg-4 col-sm-6">
             <a href="http://localhost:8000" class="d-block mt-2">
-                
+
             </a>
             <p class="mt-3">ОмегаКонтур</p>
         </div>

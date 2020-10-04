@@ -2,10 +2,9 @@
 
 namespace App\Modules\Shop\Controllers;
 
-use App\Main;
+use App\Models\{Main, User};
 use App\Mail\SendMail;
 use App\Modules\Shop\Models\Order;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;

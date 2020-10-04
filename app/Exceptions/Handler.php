@@ -2,10 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\Breadcrumbs;
+use App\Models\Main;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-use App\Main;
-use App\Helpers\Breadcrumbs;
 
 class Handler extends ExceptionHandler
 {
@@ -29,17 +29,15 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
+     * Register the exception handling callbacks for the application.
      *
-     * @param  \Throwable  $exception
      * @return void
-     *
-     * @throws \Exception
      */
-    public function report(Throwable $exception)
+    public function register()
     {
-        parent::report($exception);
+
     }
+
 
     /**
      * Render an exception into an HTTP response.
@@ -55,14 +53,14 @@ class Handler extends ExceptionHandler
         // Добавляем код
         $lang = lang();
         if ($this->isHttpException($exception)) {
-            $code = $exception->getStatusCode();
+            //$code = $exception->getStatusCode();
 
             $title = __("{$lang}::s.page_not_found");
             $message = __("{$lang}::s.whoops_no_page");
             $status = 404; // HTTP/1.1 404 Not Found
 
             Main::setMeta($title);
-            $modulesPath = config('modules.path');
+            //$modulesPath = config('modules.path');
             $viewPath = config('modules.views');
             $view = 'views.errors.404';
             $statusActive = config('add.page_statuses')[1] ?: 'active';
@@ -79,9 +77,9 @@ class Handler extends ExceptionHandler
             if (view()->exists($view)) {
                 return response()->view('views.errors.404', compact('title', 'message', 'viewPath', 'lang', 'breadcrumbs', 'statusActive'), $status);
 
-            } else {
+            } /*else {
                 return redirect('/error.php');
-            }
+            }*/
         }
 
         return parent::render($request, $exception);

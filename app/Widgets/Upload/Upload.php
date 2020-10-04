@@ -5,7 +5,7 @@ namespace App\Widgets\Upload;
 
 use App\Helpers\Arr as helpersArr;
 use App\Mail\SendMail;
-use App\Main;
+use App\Models\Main;
 use Illuminate\Support\Facades\File;
 use Curl\Curl;
 use Illuminate\Support\Facades\Mail;

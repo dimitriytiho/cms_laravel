@@ -4,9 +4,9 @@
 namespace App\Helpers;
 
 
-use App\Main;
 use App\Mail\SendMail;
-use App\User;
+use App\Models\Main;
+use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;

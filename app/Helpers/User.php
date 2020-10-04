@@ -4,7 +4,7 @@
 namespace App\Helpers;
 
 
-use App\Main;
+use App\Models\Main;
 use App\Modules\Admin\Models\BannedIp;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;

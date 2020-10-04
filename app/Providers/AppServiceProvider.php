@@ -4,12 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Main;
 use Illuminate\Support\Facades\File;
-use App\Main;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\Services\Registry;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
 use ReCaptcha\ReCaptcha;
 
@@ -22,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // ЗДЕСЬ ПИСАТЬ КОД, КОТОРЫЙ ЗАПУСКАЕТСЯ ПЕРЕД ЗАГРУЗКОЙ ПРИЛОЖЕНИЙ
+        //
     }
 
     /**
@@ -157,6 +156,6 @@ class AppServiceProvider extends ServiceProvider
         // Название папки для картинок в public
         $img = config('add.img', 'img');
 
-        View::share(compact('siteName', 'getMeta', 'cononical', 'isMobile', 'isTablet', 'img'));
+        view()->share(compact('siteName', 'getMeta', 'cononical', 'isMobile', 'isTablet', 'img'));
     }
 }

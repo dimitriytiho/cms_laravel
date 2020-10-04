@@ -2,9 +2,8 @@
 
 namespace App\Modules\Auth\Controllers;
 
-use App\Main;
+use App\Models\{Main, User};
 use App\Providers\RouteServiceProvider;
-use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;

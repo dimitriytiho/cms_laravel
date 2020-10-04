@@ -1,6 +1,6 @@
 <?php
 
-use App\Main;
+use App\Models\Main;
 use Illuminate\Support\Facades\Lang;
 
 

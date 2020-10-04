@@ -2,7 +2,7 @@
 
 namespace App\Modules\Form\Controllers;
 
-use App\Main;
+use App\Models\Main;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;

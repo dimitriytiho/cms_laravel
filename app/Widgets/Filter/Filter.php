@@ -4,7 +4,7 @@
 namespace App\Widgets\Filter;
 
 
-use App\Main;
+use App\Models\Main;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use App\Modules\Shop\Helpers\Filter as helpersFilter;

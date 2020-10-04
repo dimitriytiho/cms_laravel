@@ -4,8 +4,7 @@ namespace App\Modules\Shop\Models;
 
 use App\Helpers\Str as HelpersStr;
 use App\Mail\SendMail;
-use App\Main;
-use App\User;
+use App\Models\{Main, User};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 

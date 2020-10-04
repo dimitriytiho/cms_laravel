@@ -2,7 +2,7 @@
 
 namespace App\Modules\Shop\Controllers;
 
-use App\Main;
+use App\Models\Main;
 use App\Modules\Shop\Helpers\Filter;
 use App\Modules\Shop\Models\Product;
 use Illuminate\Http\Request;

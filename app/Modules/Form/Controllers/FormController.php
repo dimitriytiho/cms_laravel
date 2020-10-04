@@ -2,7 +2,7 @@
 
 namespace App\Modules\Form\Controllers;
 
-use App\Main;
+use App\Models\Main;
 use App\Modules\Form\Models\Form;
 use App\Mail\SendMail;
 use Illuminate\Http\Request;
@@ -87,7 +87,7 @@ class FormController extends AppController
                     $template = 'table_form'; // Все данные в таблице
                     $title = __("{$this->lang}::s.Completed_form", ['name' => $formName]) . config('add.domain');
                     $email_admin = HelpersStr::strToArr(Main::site('admin_email'));
-                    
+
                     if ($email_admin) {
                         Mail::to($email_admin)
                             ->send(new SendMail($title, null, $data, $template));

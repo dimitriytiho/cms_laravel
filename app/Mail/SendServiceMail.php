@@ -4,7 +4,7 @@
 namespace App\Mail;
 
 
-use App\Main;
+use App\Models\Main;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -3,7 +3,7 @@
 namespace App\Modules;
 
 use App\Helpers\Breadcrumbs;
-use App\Main;
+use App\Models\Main;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

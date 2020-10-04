@@ -228,7 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         // Добавляем алиасы
-        'Main' => App\Main::class,
+        'Main' => App\Models\Main::class,
         'PanelDashboard' => App\Widgets\PanelDashboard\PanelDashboard::class,
         'HelpersAdd' => App\Helpers\Add::class,
         'HelpersArr' => App\Helpers\Arr::class,

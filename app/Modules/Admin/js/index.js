@@ -3,7 +3,7 @@ export default bsn*/
 //window.Bootstrap = require('bootstrap.native/dist/bootstrap-native.min')
 
 import IMask from 'imask'
-import './addRemoveElement'
+import './add_remove_element'
 import './ajax'
 //import './native'
 import './dropzone'

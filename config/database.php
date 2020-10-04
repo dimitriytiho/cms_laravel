@@ -64,11 +64,11 @@ return [
 
             'dump' => [
                 'dump_binary_path' => env('DB_BINARY_PATH'), // only the path, so without `mysqldump` or `pg_dump`
-                //'dump_binary_path' => '/path/to/the/binary', // only the path, so without `mysqldump` or `pg_dump`
+//'dump_binary_path' => '/path/to/the/binary', // only the path, so without `mysqldump` or `pg_dump`
                 'use_single_transaction',
                 'timeout' => 300, // 5 minute timeout
-                //'exclude_tables' => ['table1', 'table2'],
-                //'add_extra_option' => '--optionname=optionvalue',
+//'exclude_tables' => ['table1', 'table2'],
+//'add_extra_option' => '--optionname=optionvalue',
             ],
         ],
 

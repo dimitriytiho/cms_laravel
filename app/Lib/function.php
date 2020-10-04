@@ -1,6 +1,6 @@
 <?php
 
-use App\Main;
+use App\Models\Main;
 use App\Helpers\Date;
 use App\Modules\Admin\Helpers\Img;
 

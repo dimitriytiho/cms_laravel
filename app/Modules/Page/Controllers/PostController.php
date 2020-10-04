@@ -3,13 +3,12 @@
 
 namespace App\Modules\Page\Controllers;
 
-use App\Main;
+use App\Models\Main;
 use App\Modules\Admin\Helpers\Slug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use Stichoza\GoogleTranslate\GoogleTranslate;
 use Illuminate\Support\Facades\Cookie;
 
 class PostController extends AppController
@@ -18,8 +17,8 @@ class PostController extends AppController
     {
         parent::__construct($request);
 
-        $class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
-        $c = $this->c = Str::lower($this->class);
+        //$class = $this->class = str_replace('Controller', '', class_basename(__CLASS__));
+        //$c = $this->c = Str::lower($this->class);
         //$view = $this->view = Str::snake($this->class);
         //Main::set('c', $c);
         //View::share(compact('class', 'c', 'view'));

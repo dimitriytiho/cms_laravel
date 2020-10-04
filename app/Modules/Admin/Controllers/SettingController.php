@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\Main;
+use App\Models\Main;
 use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Helpers\DbSort;
 use App\Modules\Admin\Models\Setting;

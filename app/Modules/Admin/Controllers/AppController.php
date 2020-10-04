@@ -2,7 +2,7 @@
 
 namespace App\Modules\Admin\Controllers;
 
-use App\Main;
+use App\Models\Main;
 use App\Modules\Admin\Helpers\Locale;
 use App\Modules\Admin\Helpers\OnlineUsers;
 use App\Modules\Admin\Helpers\Routes;
