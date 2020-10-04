@@ -225,12 +225,13 @@ S;
 
     /*
      * Возвращает скрытый input для формы.
-     * $name - передать имя input.
-     * $value - значение.
+     * $name - Передать имя input.
+     * $value - Значение.
+     * $attrs - передайте атрибуты строкой, необязательный параметр.
      */
-    public static function hidden($name, $value)
+    public static function hidden($name, $value, $attrs = null)
     {
-        return "<input type=\"hidden\" name=\"{$name}\" value='{$value}'>";
+        return "<input type=\"hidden\" name=\"{$name}\" value='{$value}' {$attrs}>";
     }
 
 

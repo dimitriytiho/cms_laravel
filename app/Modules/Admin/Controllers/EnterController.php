@@ -89,6 +89,7 @@ class EnterController extends AppController
             $rules = [
                 'email' => 'required|string|email',
                 'password' => 'required|string',
+                //'g-recaptcha-response' => 'required|recaptcha',
             ];
             $this->validate($request, $rules);
 

@@ -54,9 +54,10 @@
         </div>
     </div>
 </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@include('views.inc.recaptcha')
 <script>
-    var body = document.body,
-        height = '{{ config('add.height', 600) }}',
+    var height = '{{ config('add.height', 600) }}',
         main = {
             url: '{{ config('add.url', '/') }}'
         },

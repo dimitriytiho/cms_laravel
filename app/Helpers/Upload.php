@@ -56,7 +56,7 @@ class Upload
             foreach ($sassParams as $k => $v) {
                 $partSassInit .= "\${$k}: {$v};\n";
             }
-            $partSassInit .= "\$path-img: '/" . config('add.img', 'img') . "';\n";
+            $partSassInit .= "\$path-img: '" . config('add.img', 'img') . "';\n";
 
             // Записываем файл _init.scss
             $fileSassInit = "{$modulesPath}/sass/config/_init.scss";
