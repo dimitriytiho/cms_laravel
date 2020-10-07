@@ -9,7 +9,7 @@ if (!empty($item)):
     $langTitle = Lang::has("{$lang}::t.{$title}") ? __("{$lang}::t.{$title}") : $title;
     $slug = $item->slug ?? null;
     $target = !empty($item->target) ? " target=\"{$item->target}\"" : null;
-    $activeColor = request()->path() === $slug || Str::contains(request()->path(), trim($slug, '/')) ? ' active_color' : null;
+    $activeColor = request()->path() === $slug || Str::contains(request()->path(), trim($slug, '/')) ? " {$params['classActive']}" : null;
 
     ?>
     <li class="<?= $params['classLi'] ?>">

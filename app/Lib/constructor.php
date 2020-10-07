@@ -53,7 +53,7 @@ S;
  * $classPicture - класс для тега picture, необязательный параметр.
  */
 function svg($img, $alt = null, $width = null, $img_svg = null, $class = null, $id = null, $classPicture = null) {
-    $width = $width ? "width='{$width}'" : null;
+    $width = $width ? "style='width: {$width};'" : null;
     $path = pathinfo($img);
     $path_dir = $path['dirname'] === '.' ? null : "{$path['dirname']}/";
     $img_svg = $img_svg ?: "$path_dir{$path['filename']}.svg";
@@ -68,7 +68,7 @@ function svg($img, $alt = null, $width = null, $img_svg = null, $class = null, $
         return <<<S
 <picture {$classPicture}>
     <source srcset="{$img}" type="image/svg+xml">
-    <img src="{$img_svg}" class="responsive-img {$class}" $id alt="{$alt}" {$width}>
+    <img src="{$img_svg}" class="img-fluid {$class}" $id alt="{$alt}" {$width}>
 </picture>
 S;
     }

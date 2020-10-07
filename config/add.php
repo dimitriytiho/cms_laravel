@@ -66,7 +66,7 @@ return [
 
     // Папка для картинок
     'img' => '/' . env('APP_IMG', 'img'),
-    'imgPath' => public_path() . '/' . env('APP_IMG', public_path() . '/' . 'img'),
+    'imgPath' => public_path() . '/' . env('APP_IMG', 'img'),
 
     // Протокол и домен
     'protocol' => Str::before(env('APP_URL'), '://'),

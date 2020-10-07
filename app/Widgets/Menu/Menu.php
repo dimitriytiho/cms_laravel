@@ -30,6 +30,7 @@ class Menu
         'class' => null,
         'classLi' => null,
         'classLink' => null,
+        'classActive' => 'active',
         'attrs' => null, // Передать строкой или массив атрибутов html, например ['id' => 'menu_mobile'], будет id="menu_mobile"
         'before' => '', // Добавить первый пункт, к примеру для select можно передать перевый option
         'after' => '', // Добавить последний пункт

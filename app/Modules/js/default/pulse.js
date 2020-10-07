@@ -11,8 +11,8 @@ document.addEventListener('click', function(e) {
             px = 'px',
             color = window.getComputedStyle(e.target).backgroundColor,
             textBtn = e.target.textContent,
-            spanBtn = e.target.querySelector('span')
-        timeDeleteDiv = 300
+            spanBtn = e.target.querySelector('span'),
+            timeDeleteDiv = 300
 
         div.classList.add('pulse_js')
         style.width = style.height = max + px
