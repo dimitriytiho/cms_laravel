@@ -77,6 +77,7 @@ class Upload
         $webpackPart = "// При изменении настроек в config/modules.php modules необходимо запустить метод \App\Helpers\Upload::resourceInit();\n\n";
         $webpackPart .= "const mix = require('laravel-mix');\n\n";
         $webpackPart .= "mix\n";
+        $webpackPart .= ".js('app/Modules/js/before/index.js', 'public/js/before.js')\n"; // Подключает кампиляцию before.js
         $modulesPathFile = config('modules.path_file');
         $modules = config('modules.modules');
 

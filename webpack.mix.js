@@ -3,6 +3,7 @@
 const mix = require('laravel-mix');
 
 mix
+.js('app/Modules/js/before/index.js', 'public/js/before.js')
 .js('app/Modules/js/index.js', 'public/js/app.js')
 .sass('app/Modules/sass/index.scss', 'public/css/app.css')
 	.options({

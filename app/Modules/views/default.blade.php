@@ -4,7 +4,7 @@
 
 --}}
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" class="no-js">
 <head>
     <meta charset="utf-8">
     {{--
@@ -19,6 +19,7 @@
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('touch-icon-iphone-retina.png') }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('touch-icon-ipad-retina.png') }}">
     <link rel="cononical" href="{{ $cononical }}">
+    <script src="{{ asset('js/modernizr3.6.0.webp.js') }}"></script>
     {{-- <link href="//fonts.googleapis.com/css?family=Roboto:300,400,700&amp;subset=cyrillic" rel="stylesheet"> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -104,6 +105,7 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('js/before.js') }}"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{--
 
