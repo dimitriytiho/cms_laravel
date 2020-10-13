@@ -80,7 +80,7 @@
     </div>
     <div class="row">
         <div class="col font-weight-light bg-dark text-center py-2">
-            <small>&copy; {{ date('Y') . ' ' . Main::site('name') }}</small>
+            <small>&copy;&nbsp;{{ date('Y') }}&nbsp;{{ Main::site('name') }}</small>
         </div>
     </div>
 </footer>

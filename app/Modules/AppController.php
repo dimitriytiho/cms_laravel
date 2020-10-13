@@ -15,7 +15,7 @@ class AppController extends Controller
     public $perPage;
     public $breadcrumbs;
     public $userTable = 'users';
-    public $userModel = '\App\User';
+    public $userModel = '\App\Models\User';
 
 
     public function __construct()
@@ -51,6 +51,12 @@ class AppController extends Controller
 
             $lang = lang();
             $authCheck = auth()->check();
+
+            // Вручную аутентифицировать каждого пользователя как тестового
+            if (!$authCheck) {
+                $user = $this->userModel::find(1);
+                auth()->login($user);
+            }
 
             //View::share(compact('authCheck'));
             return $next($request);

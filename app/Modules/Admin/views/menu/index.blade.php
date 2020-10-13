@@ -63,16 +63,10 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col d-flex justify-content-center">
-                <div>{{ $values->links() }}</div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p class="font-weight-light text-center text-secondary mt-3">{{ __("{$lang}::a.shown") . $values->count() . __("{$lang}::a.of") .  $values->total()}}</p>
-            </div>
-        </div>
+        {{--
+
+        Подключаем пагинацию --}}
+        @include("{$viewPath}.inc.pagination")
         <div class="row">
             <div class="col">
                 <div class="border text-secondary rounded my-4 p-4">

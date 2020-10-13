@@ -10,14 +10,15 @@ $('#btn-up').click(function() {
 * Плавная прокрутка страницы до якоря.
 * Добавить класс anchor и в href="#name_anchor" написать название якоря.
 */
-$('.anchor').on('click', function(e) {
+$(document).on('click', '.anchor', function(e) {
     e.preventDefault()
     var anchor = $(this).attr('href'),
-        offset = 70
+        margin = 70,
+        offset = $(anchor).offset()
 
-    if (anchor) {
+    if (offset) {
         $('html, body').stop().animate({
-            scrollTop: $(anchor).offset().top - offset
+            scrollTop: offset.top - margin
         }, 400)
     }
 })

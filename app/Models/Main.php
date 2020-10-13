@@ -68,7 +68,7 @@ class Main
             preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
 
             if ($matches) {
-                $views = config('modules.views') . '.inc';
+                $views = 'views.inc';
 
                 foreach ($matches as $v) {
                     $view = "{$views}.inc_{$v[0]}";
