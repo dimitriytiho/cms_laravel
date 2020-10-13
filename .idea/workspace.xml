@@ -1,45 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0a436d68-3eec-4db5-9476-1df7c9a52a7f" name="Default Changelist" comment="В классе меню добавлен возможность назначить класс active, плюс небольшие правки по коду.">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_04_10_2020__17_41.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/laravel.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/PreventRequestsDuringMaintenance.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Main.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Modules/js/before/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Modules/js/before/modernizr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Modules/views/inc/recaptcha.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/before.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/modernizr3.6.0.webp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/css/app.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/vendor/backup/ja/notifications.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/vendor/backup/pt/notifications.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/test.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stubs/export.model.stub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stubs/export.plain.stub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stubs/export.query-model.stub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stubs/export.query.stub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stubs/import.collection.stub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/stubs/import.model.stub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Helpers/Upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/Upload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/sass/config/_init.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/sass/config/_init.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/sass/config/_init.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/sass/config/_init.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/views/default.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/views/default.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/append.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/append.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
+    <list default="true" id="0a436d68-3eec-4db5-9476-1df7c9a52a7f" name="Default Changelist" comment="Исправленая пагинация для Laravel8.">
+      <change afterPath="$PROJECT_DIR$/app/Modules/js/components/lazy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Modules/sass/components/lazy.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/js/components/fancybox.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/js/components/fancybox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/js/components/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/js/components/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/sass/components/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/sass/components/index.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
@@ -206,6 +175,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -268,7 +238,15 @@
       <workItem from="1601914528837" duration="123000" />
       <workItem from="1602084650771" duration="128000" />
       <workItem from="1602086967384" duration="129000" />
-      <workItem from="1602134001318" duration="1291000" />
+      <workItem from="1602134001318" duration="1457000" />
+      <workItem from="1602328866636" duration="43000" />
+      <workItem from="1602429719586" duration="96000" />
+      <workItem from="1602561260095" duration="36000" />
+      <workItem from="1602562710202" duration="345000" />
+      <workItem from="1602563608012" duration="818000" />
+      <workItem from="1602573895166" duration="76000" />
+      <workItem from="1602582813790" duration="82000" />
+      <workItem from="1602582968615" duration="401000" />
     </task>
     <task id="LOCAL-00001" summary="Обновления до Laravel 8.8.0">
       <created>1601823777989</created>
@@ -291,7 +269,21 @@
       <option name="project" value="LOCAL" />
       <updated>1602084764249</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Добавлен файл before.js, который запускается перед js кодом. Добавлена библиотека modernizr, для определения поддержки картинок webp в браузере.">
+      <created>1602135468677</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1602135468677</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Исправленая пагинация для Laravel8.">
+      <created>1602564450725</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1602564450725</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,36 +293,42 @@
     <MESSAGE value="Обновления до Laravel 8.8.0" />
     <MESSAGE value="Добавлена Рекапча при авторизации в админский раздел." />
     <MESSAGE value="В классе меню добавлен возможность назначить класс active, плюс небольшие правки по коду." />
-    <option name="LAST_COMMIT_MESSAGE" value="В классе меню добавлен возможность назначить класс active, плюс небольшие правки по коду." />
+    <MESSAGE value="Добавлен файл before.js, который запускается перед js кодом. Добавлена библиотека modernizr, для определения поддержки картинок webp в браузере." />
+    <MESSAGE value="Исправленая пагинация для Laravel8." />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправленая пагинация для Laravel8." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="365" y="89" key="CommitChangelistDialog2" timestamp="1602086998776">
+    <state x="733" y="277" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602561266888">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state x="365" y="89" key="CommitChangelistDialog2/0.23.1680.985@0.23.1680.985" timestamp="1602086998776" />
-    <state width="1328" height="108" key="GridCell.Tab.0.bottom" timestamp="1602134999838">
+    <state x="733" y="277" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1680.985@0.23.1680.985" timestamp="1602561266888" />
+    <state x="386" y="61" width="1024" height="851" key="CommitChangelistDialog2" timestamp="1602564450393">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state width="1328" height="108" key="GridCell.Tab.0.bottom/0.23.1680.985@0.23.1680.985" timestamp="1602134999838" />
-    <state width="1328" height="108" key="GridCell.Tab.0.center" timestamp="1602134999838">
+    <state x="386" y="61" width="1024" height="851" key="CommitChangelistDialog2/0.23.1680.985@0.23.1680.985" timestamp="1602564450393" />
+    <state width="1328" height="108" key="GridCell.Tab.0.bottom" timestamp="1602135496466">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state width="1328" height="108" key="GridCell.Tab.0.center/0.23.1680.985@0.23.1680.985" timestamp="1602134999838" />
-    <state width="1328" height="108" key="GridCell.Tab.0.left" timestamp="1602134999837">
+    <state width="1328" height="108" key="GridCell.Tab.0.bottom/0.23.1680.985@0.23.1680.985" timestamp="1602135496466" />
+    <state width="1328" height="108" key="GridCell.Tab.0.center" timestamp="1602135496465">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state width="1328" height="108" key="GridCell.Tab.0.left/0.23.1680.985@0.23.1680.985" timestamp="1602134999837" />
-    <state width="1328" height="108" key="GridCell.Tab.0.right" timestamp="1602134999838">
+    <state width="1328" height="108" key="GridCell.Tab.0.center/0.23.1680.985@0.23.1680.985" timestamp="1602135496465" />
+    <state width="1328" height="108" key="GridCell.Tab.0.left" timestamp="1602135496465">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state width="1328" height="108" key="GridCell.Tab.0.right/0.23.1680.985@0.23.1680.985" timestamp="1602134999838" />
-    <state x="595" y="255" key="Vcs.Push.Dialog.v2" timestamp="1602084767225">
+    <state width="1328" height="108" key="GridCell.Tab.0.left/0.23.1680.985@0.23.1680.985" timestamp="1602135496465" />
+    <state width="1328" height="108" key="GridCell.Tab.0.right" timestamp="1602135496465">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state x="595" y="255" key="Vcs.Push.Dialog.v2/0.23.1680.985@0.23.1680.985" timestamp="1602084767225" />
-    <state x="693" y="270" width="604" height="490" key="find.popup" timestamp="1601823420295">
+    <state width="1328" height="108" key="GridCell.Tab.0.right/0.23.1680.985@0.23.1680.985" timestamp="1602135496465" />
+    <state x="595" y="255" key="Vcs.Push.Dialog.v2" timestamp="1602564453785">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state x="693" y="270" width="604" height="490" key="find.popup/0.23.1680.985@0.23.1680.985" timestamp="1601823420295" />
+    <state x="595" y="255" key="Vcs.Push.Dialog.v2/0.23.1680.985@0.23.1680.985" timestamp="1602564453785" />
+    <state x="693" y="270" width="604" height="490" key="find.popup" timestamp="1602582883385">
+      <screen x="0" y="23" width="1680" height="985" />
+    </state>
+    <state x="693" y="270" width="604" height="490" key="find.popup/0.23.1680.985@0.23.1680.985" timestamp="1602582883385" />
   </component>
 </project>

@@ -1,10 +1,10 @@
-$(function () {
+document.addEventListener('DOMContentLoaded', function() {
 
     var fancybox = $('.fancybox')
     //var fancybox = $('[data-fancybox]')
 
     if (fancybox.length) {
-        
+
         fancybox.fancybox({
             lang: 'ru',
             i18n: {
@@ -25,4 +25,4 @@ $(function () {
         })
     }
 
-})
+}, false)
