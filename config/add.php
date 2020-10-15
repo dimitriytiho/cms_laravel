@@ -120,6 +120,7 @@ return [
     // Настройки из файла /.env, т.к. после кэширования они будут возращать null
     'name' => env('APP_NAME', 'OmegaKontur'),
     'url' => env('APP_URL', '/'),
+    'env' => env('APP_ENV', 'local'),
     'not_index_website' => env('NOT_INDEX_WEBSITE'), // Если не нужно индексировать сайт, то true, если нужно, то false
 
     'dev' => env('APP_DEV', 'OmegaKontur'),

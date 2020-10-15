@@ -138,12 +138,13 @@ Google ReCaptcha, если есть в настройках указан сек�
 
     var _token = '{{ session()->token() }}',
         path = '{{ route('index') }}',
-        slug = '{{ str_replace('-', '_', request()->path()) }}',
         site_title = '{{ Main::site('name') ?: ' ' }}',
         site_tel = '{{ Main::site('tel') ?: ' ' }}',
         site_email = '{{ Main::site('email') ?: ' ' }}',
+        img_path = '{{ $img }}',
         main_color = '{{ config('add.scss')['primary'] ?? '#ccc' }}',
-        {{--height = '{{ config('add.height') ?? 600 }}',
+        {{--slug = '{{ str_replace('-', '_', request()->path()) }}',
+        height = '{{ config('add.height') ?? 600 }}',
         cookieTime = '{{ config('admin.cookie') ?? 5184000 }}',
         cookieUrl = '{{ route('set_cookie') }}',--}}
         spinner = $('#spinner'),
