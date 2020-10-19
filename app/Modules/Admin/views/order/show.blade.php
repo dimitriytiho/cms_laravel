@@ -137,6 +137,10 @@
                             <th class="font-weight-light" scope="row">@lang("{$lang}::f.tel")</th>
                             <td>{{ $values->user->tel }}</td>
                         </tr>
+                        <tr>
+                            <th class="font-weight-light" scope="row">@lang("{$lang}::f.address")</th>
+                            <td>{{ $values->user->address }}</td>
+                        </tr>
                         </tbody>
                     </table>
                     <form action="{{ route("admin.{$route}.destroy", $values->id) }}" method="post" class="text-right mb-5 confirm-form">

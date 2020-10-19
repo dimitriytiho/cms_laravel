@@ -42,7 +42,7 @@ class OrderController extends AppController
             // Валидация
             $rules = [
                 'name' => 'required|string|max:190',
-                'tel' => 'required|string|max:190',
+                'tel' => 'required|string|max:30|tel',
                 'email' => 'required|string|email|max:190',
                 'address' => 'required|string|max:190',
                 'accept' => 'accepted',

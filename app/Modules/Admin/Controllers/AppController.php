@@ -85,8 +85,10 @@ class AppController extends Controller
             // Устанавливаем локаль
             Locale::setLocaleFromCookie($request);
 
-            $this->user = auth()->check() ? auth()->user() : null;
-            $this->isAdmin = $isAdmin = auth()->check() ? auth()->user()->isAdmin() : null;
+            $authCheck = auth()->check();
+            $this->user = $authCheck ? auth()->user() : null;
+            $isCashier = $authCheck && auth()->user()->cashier();
+            $this->isAdmin = $isAdmin = $authCheck ? auth()->user()->isAdmin() : null;
             $this->adminLimited = $adminLimited = $this->user ? auth()->user()->adminLimited() : null;
 
             // Если Редактор откроет запрещённый раздел, выбросится исключение
@@ -95,7 +97,7 @@ class AppController extends Controller
             }
 
             // Если Кассир откроет запрещённый раздел, выбросится исключение
-            if ($this->controller && !in_array($this->controller, config('admin.cashier_section_allow')) && !$isAdmin) {
+            if ($isCashier && $this->controller && !in_array($this->controller, config('admin.cashier_section_allow')) && !$isAdmin) {
                 Main::getError('Cashier section Banned!', __METHOD__);
             }
 

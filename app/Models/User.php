@@ -15,16 +15,18 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
+    /*protected $fillable = [
         'name',
         'email',
         'password',
-    ];
+    ];*/
 
     /**
      * The attributes that should be hidden for arrays.
@@ -110,6 +112,19 @@ class User extends Authenticatable
      */
     public function isAdmin() {
         return $this->role->name === config('admin.user_roles')[3];
+    }
+
+
+    // Проверить пользователя с ролью кассир. Возвращает true или false.
+    /**
+     * @return bool
+     *
+     * Проверяет переданного пользователя, является ли он админом или редактором.
+     */
+    public function cashier() {
+        $roles = config('admin.user_roles');
+        $cashier = $roles[5] ?? null;
+        return $this->role->name === $cashier;
     }
 
 

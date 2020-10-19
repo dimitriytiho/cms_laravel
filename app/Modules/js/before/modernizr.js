@@ -19,7 +19,7 @@ if (webpLazy) {
     webpLazy.forEach(function (el) {
         var img = el.dataset.webpSrc
         if (img) {
-            el.dataset.src = img
+            el.src = img
         }
     })
 }

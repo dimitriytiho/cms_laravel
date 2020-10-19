@@ -192,4 +192,5 @@ return [
 
 
     'recaptcha' => ':attribute ответ неверен.',
+    'tel' => ':attribute должен быть в формате телефона',
 ];

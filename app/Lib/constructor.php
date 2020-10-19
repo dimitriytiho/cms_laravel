@@ -101,7 +101,7 @@ function input($name, $idForm = false, $required = true, $type = false, $value =
 
     $placeholderStar = !$label && $required ? '*' : null;
     $placeholderLabel = !$label && !$required || $label ? '...' : null;
-    $placeholder = $placeholder ?: $title . $placeholderStar . $placeholderLabel;
+    $placeholder = ($placeholder ?: $title) . $placeholderStar . $placeholderLabel;
     $label = $label ? null : 'class="sr-only"';
 
     $_required = __("{$lang}::f.required");
@@ -152,7 +152,7 @@ function textarea($name, $idForm = false, $required = true, $value = false, $lab
 
     $placeholderStar = !$label && $required ? '*' : null;
     $placeholderLabel = !$label && !$required || $label ? '...' : null;
-    $placeholder = $placeholder ?: $title . $placeholderStar . $placeholderLabel;
+    $placeholder = ($placeholder ?: $title) . $placeholderStar . $placeholderLabel;
 
     $label = $label ? null : 'class="sr-only"';
     $rows = (int)$rows;
@@ -353,10 +353,11 @@ S;
  * Возвращает скрытый input для формы.
  * $name - Передать имя input.
  * $value - Значение.
+ * $attrs - передайте атрибуты строкой, необязательный параметр.
  */
-function hidden($name, $value)
+function hidden($name, $value, $attrs = null)
 {
-    return "<input type=\"hidden\" name=\"{$name}\" value='{$value}'>";
+    return "<input type=\"hidden\" name=\"{$name}\" value='{$value}' {$attrs}>";
 }
 
 

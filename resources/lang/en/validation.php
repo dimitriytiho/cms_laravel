@@ -149,5 +149,6 @@ return [
 
 
     'recaptcha' => 'The :attribute answer is invalid.',
+    'tel' => 'The :attribute must be in phone format',
 
 ];

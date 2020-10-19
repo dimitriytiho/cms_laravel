@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0a436d68-3eec-4db5-9476-1df7c9a52a7f" name="Default Changelist" comment="" />
+    <list default="true" id="0a436d68-3eec-4db5-9476-1df7c9a52a7f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Lib/constructor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Lib/constructor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/AppController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/AppController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/views/order/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/views/order/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Shop/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Shop/Controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Shop/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Shop/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/js/before/modernizr.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/js/before/modernizr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/js/default/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/js/default/functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/js/validate/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/js/validate/validator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/admin.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -240,6 +253,9 @@
       <workItem from="1602573895166" duration="76000" />
       <workItem from="1602582813790" duration="82000" />
       <workItem from="1602582968615" duration="448000" />
+      <workItem from="1602762349751" duration="90000" />
+      <workItem from="1603078426457" duration="1454000" />
+      <workItem from="1603086226004" duration="87000" />
     </task>
     <task id="LOCAL-00001" summary="Обновления до Laravel 8.8.0">
       <created>1601823777989</created>
@@ -283,7 +299,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602583392288</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Исправленая функция соединения файлов.">
+      <created>1602762421735</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1602762421735</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,17 +319,18 @@
     <MESSAGE value="Добавлен файл before.js, который запускается перед js кодом. Добавлена библиотека modernizr, для определения поддержки картинок webp в браузере." />
     <MESSAGE value="Исправленая пагинация для Laravel8." />
     <MESSAGE value="Добавлено Lazy." />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлено Lazy." />
+    <MESSAGE value="Исправленая функция соединения файлов." />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправленая функция соединения файлов." />
   </component>
   <component name="WindowStateProjectService">
     <state x="733" y="277" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602561266888">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
     <state x="733" y="277" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1680.985@0.23.1680.985" timestamp="1602561266888" />
-    <state x="386" y="61" width="1024" height="851" key="CommitChangelistDialog2" timestamp="1602583392118">
+    <state x="386" y="61" width="1024" height="851" key="CommitChangelistDialog2" timestamp="1602762421591">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state x="386" y="61" width="1024" height="851" key="CommitChangelistDialog2/0.23.1680.985@0.23.1680.985" timestamp="1602583392118" />
+    <state x="386" y="61" width="1024" height="851" key="CommitChangelistDialog2/0.23.1680.985@0.23.1680.985" timestamp="1602762421591" />
     <state width="1328" height="108" key="GridCell.Tab.0.bottom" timestamp="1602135496466">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
@@ -323,10 +347,10 @@
       <screen x="0" y="23" width="1680" height="985" />
     </state>
     <state width="1328" height="108" key="GridCell.Tab.0.right/0.23.1680.985@0.23.1680.985" timestamp="1602135496465" />
-    <state x="595" y="255" key="Vcs.Push.Dialog.v2" timestamp="1602583393721">
+    <state x="595" y="255" key="Vcs.Push.Dialog.v2" timestamp="1602762424249">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state x="595" y="255" key="Vcs.Push.Dialog.v2/0.23.1680.985@0.23.1680.985" timestamp="1602583393721" />
+    <state x="595" y="255" key="Vcs.Push.Dialog.v2/0.23.1680.985@0.23.1680.985" timestamp="1602762424249" />
     <state x="693" y="270" width="604" height="490" key="find.popup" timestamp="1602582883385">
       <screen x="0" y="23" width="1680" height="985" />
     </state>

@@ -92,6 +92,11 @@ class AppServiceProvider extends ServiceProvider
             return $resp->isSuccess();
         });
 
+        // Валидатор номера телефона (допускаются +()- и цифры)
+        Validator::extend('tel', function($attribute, $value, $parameters) {
+            return preg_match('#^[\+\(\)\- 0-9]+$#', $value) && strlen($value) > 10;
+        });
+
 
         // Добавляем папку для переводов, т.е. namespace для переводов
         $modulesPath = config('modules.path');

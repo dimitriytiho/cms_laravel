@@ -130,6 +130,11 @@ class CategoryController extends AppController
         if (auth()->check() && auth()->user()->Admin()) {
             $values = $this->model::with('products')->where('slug', $slug)->first();
 
+            // Если нет категории
+            if (empty($values->id)) {
+                Main::getError("{$this->class} not found or category", __METHOD__);
+            }
+
             $productsArr = DB::select("SELECT * FROM products WHERE id IN (SELECT product_id FROM category_product WHERE category_id = :category_id) $part ORDER BY sort DESC, id DESC LIMIT {$this->limit}", ['category_id' => $values->id]);
 
             //$products = Product::with($this->c)->paginate($this->perPage);
@@ -137,6 +142,11 @@ class CategoryController extends AppController
         } else {
 
             $values = $this->model::with('products')->where('slug', $slug)->where('status', $this->statusActive)->first();
+
+            // Если нет категории
+            if (empty($values->id)) {
+                Main::getError("{$this->class} not found or category", __METHOD__);
+            }
 
             $productsArr = DB::select("SELECT * FROM products WHERE id IN (SELECT product_id FROM category_product WHERE category_id = :category_id) AND status = :status $part ORDER BY sort DESC, id DESC LIMIT {$this->limit}", ['category_id' => $values->id, 'status' => $this->statusActive]);
 

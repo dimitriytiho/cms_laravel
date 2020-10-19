@@ -5,7 +5,7 @@ export default function validator(form, settings) {
     // btn.disabled = true
 
     // При убирании фокуса с input
-    const inputs = form.querySelectorAll('input[type=text], input[type=email], input[type=password], textarea')
+    const inputs = form.querySelectorAll('input[type=text], input[type=tel], input[type=email], input[type=password], textarea')
     if (inputs[0]) {
         inputs.forEach(function (el) {
             el.addEventListener('blur', function() {

@@ -25,6 +25,7 @@ return [
 
     // Разделы запрещённые для Редакторов
     'editor_section_banned' => [
+        'Logs',
         'Additionally',
     ],
 

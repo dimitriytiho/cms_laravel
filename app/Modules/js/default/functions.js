@@ -83,6 +83,15 @@ export default {
     // Заменяет в строке все _ на -
     snake_case: function (str) {
         return str.replace(/-/g, '_')
+    },
+    
+
+    // Возвращает случайное значение из массива, принимает массив
+    array_rand: function (arr) {
+        if (arr) {
+            return arr[Math.floor(Math.random() * arr.length)]
+        }
+        return false
     }
 
 }
