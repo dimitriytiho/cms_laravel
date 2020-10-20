@@ -51,12 +51,19 @@ export default function validator(form, settings) {
         const values = validate.collectFormValues(form),
             errors = validate(values, settings)
 
-        // Если нет ошибок, блокируется кнопка и отправка формы
+        // Если нет ошибок
         if (!errors) {
+
+            // Блокируется кнопка и отправка формы
             btn.disabled = true
-            if (btn.querySelector('.js-none')) {
+            
+            // Включаем спинер
+            btn.innerHTML = spinnerBtn + btn.innerText
+            /*if (btn.querySelector('.js-none')) {
                 btn.querySelector('.js-none').style.display = 'inline-block'
-            }
+            }*/
+
+            // Отправил форму
             form.submit()
         }
         showErrors(form, errors || {})

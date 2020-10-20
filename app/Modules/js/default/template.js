@@ -17,23 +17,25 @@ $('.prevent-default').click(function() {
 })
 
 
-// Открыть модальное окно по клику на класс .modal-show, при этом нужно указать здесь же атрибут data-modal-id="" и в него вписать id модального окна
+/*
+ * Открыть модальное окно по клику на класс .modal_show, при этом нужно указать здесь же атрибут data-modal-id="" и в него вписать id модального окна.
+ * Можно задать data-modal-title="" и в него вписать заголовок модального окна.
+ */
 document.addEventListener('click', function(e) {
 
-    var modalShowClass = 'modal-show',
+    var modalShowClass = 'modal_show',
         block = e.target.classList.contains(modalShowClass) || e.target.closest('.' + modalShowClass) && e.target.closest('.' + modalShowClass).classList.contains(modalShowClass)
 
     if (block) {
-        var modalId = e.target.dataset.modalId || e.target.closest('.' + modalShowClass).dataset.modalId
+        var modalId = e.target.dataset.modalId || e.target.closest('.' + modalShowClass).dataset.modalId,
+            modalTitle = e.target.dataset.modalTitle || e.target.closest('.' + modalShowClass).dataset.modalTitle
 
         if (modalId) {
             e.preventDefault()
-            var modal = document.getElementById(modalId)
-
-            if (modal) {
-                var modalInit = new BSN.Modal(modal)
-                modalInit.show()
+            if (modalTitle) {
+                $('#' + modalId + ' .modal-title').text(modalTitle)
             }
+            $('#' + modalId).modal('show')
         }
     }
 })

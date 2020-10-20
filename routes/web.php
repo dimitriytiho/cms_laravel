@@ -28,7 +28,7 @@ $url = request()->url();
 $public = '/public';
 if (stripos($url, $public) !== false) {
     $url = str_replace($public, '', $url);
-    header("Location: $url");
+    header("Location: {$url}");
     die;
 }
 

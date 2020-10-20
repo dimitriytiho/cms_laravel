@@ -130,6 +130,9 @@ return [
     'area_admin' => env('AREA_ADMIN', 'admin'),
     'app_email' => env('APP_EMAIL'),
 
+    'youtube_api_key' => env('YOUTUBE_API_KEY'),
+    'youtube_channel_id' => env('YOUTUBE_CHANNEL_ID'),
+
     'recaptcha_public_key' => env('RECAPTCHA_PUBLIC_KEY'),
     'recaptcha_secret_key' => env('RECAPTCHA_SECRET_KEY'),
     'smsru' => env('SMSRU'),

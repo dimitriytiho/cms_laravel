@@ -78,7 +78,7 @@ class FormController extends AppController
                         ->send(new SendMail($title, $body));
 
                 } catch (\Exception $e) {
-                    Main::getError("Error sending email admin: $e", __METHOD__, false);
+                    Main::getError("Error sending email User: {$e}", __METHOD__, false);
                 }
 
                 // Письмо администратору
@@ -94,7 +94,7 @@ class FormController extends AppController
                     }
 
                 } catch (\Exception $e) {
-                    Main::getError("Error sending email admin: $e", __METHOD__, false);
+                    Main::getError("Error sending email Admin: {$e}", __METHOD__, false);
                 }
 
                 // Сообщение об успехе

@@ -138,7 +138,7 @@ Google ReCaptcha, если есть в настройках указан сек�
 
     var _token = '{{ session()->token() }}',
         path = '{{ route('index') }}',
-        site_title = '{{ Main::site('name') ?: ' ' }}',
+        site_name = '{{ Main::site('name') ?: ' ' }}',
         site_tel = '{{ Main::site('tel') ?: ' ' }}',
         site_email = '{{ Main::site('email') ?: ' ' }}',
         img_path = '{{ $img }}',
@@ -175,11 +175,11 @@ Google ReCaptcha, если есть в настройках указан сек�
     'js/main.js'
 ) }}
 <script src="{{ asset('js/main.js') }}" defer></script>--}}
-<script src="{{ asset('js/app.js') }}" defer></script>
 {{--
 
 Здесь можно добавить файлы js --}}
 @yield('js')
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{ asset('js/add.js') }}" defer></script>
 </body>
 </html>

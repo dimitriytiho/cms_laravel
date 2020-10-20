@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 
-    const forms = document.querySelectorAll('form.form-post')
+    // К форме добавить класс .form_post
+    const forms = document.querySelectorAll('form.form_post')
     if (forms[0]) {
         forms.forEach(function (form) {
             let name = form.getAttribute('name'), // Имя в теге form
