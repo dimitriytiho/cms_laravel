@@ -20,7 +20,7 @@ class User extends Authenticatable
     /*protected $fillable = [
         'name', 'email', 'password',
     ];*/
-    protected $guarded = ['email_verified_at', 'remember_token', 'created_at', 'updated_at'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * The attributes that should be hidden for arrays.

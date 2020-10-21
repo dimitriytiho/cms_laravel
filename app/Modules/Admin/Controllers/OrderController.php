@@ -111,7 +111,7 @@ class OrderController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -149,14 +149,14 @@ class OrderController extends AppController
                 if (!appHelpers::arrayDiff($lastData, $current)) {
 
                     // Сообщение об ошибке
-                    session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
+                    session()->flash('error', __("{$this->lang}::s.data_was_not_changed"));
                     return redirect()->route("admin.{$this->route}.show", $values->id);
                 }
 
                 if ($values->save()) {
 
                     // Сообщение об успехе
-                    session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
+                    session()->flash('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
                     return redirect()->route("admin.{$this->route}.show", $values->id);
                 }
             }
@@ -164,7 +164,7 @@ class OrderController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -187,7 +187,7 @@ class OrderController extends AppController
                 if ($values->delete() && $orderProduct) {
 
                     // Сообщение об успехе
-                    session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
+                    session()->flash('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
                     return redirect()->route("admin.{$this->route}.index");
                 }
             }
@@ -195,7 +195,7 @@ class OrderController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 }

@@ -250,7 +250,7 @@ class EnterController extends AppController
                     // Увеличение попыток входа
                     $this->incrementLoginAttempts($request);
 
-                    session()->put('error', __("{$this->lang}::auth.email_failed"));
+                    session()->flash('error', __("{$this->lang}::auth.email_failed"));
                     $request->flashOnly('email');
                     return redirect()->route('enter');
                 }
@@ -287,7 +287,7 @@ class EnterController extends AppController
                     // Увеличение попыток входа
                     $this->incrementLoginAttempts($request);
 
-                    $request->session()->put('error', __("{$this->lang}::auth.code_incorrect"));
+                    $request->session()->flash('error', __("{$this->lang}::auth.code_incorrect"));
                     $request->flashOnly('confirm');
                 }
                 return redirect()->route('enter');

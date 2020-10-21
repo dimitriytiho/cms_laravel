@@ -32,22 +32,22 @@ class AdditionallyController extends AppController
             switch ($cache) {
                 case 'db':
                     cache()->flush();
-                    session()->put('success', __("{$this->lang}::a.cache_deleted"));
+                    session()->flash('success', __("{$this->lang}::a.cache_deleted"));
                     return redirect()->route("admin.{$t}");
 
                 case 'views':
                     $res = Commands::getCommand('view:clear');
-                    $res ? session()->put('success', $res) : session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                    $res ? session()->flash('success', $res) : session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
                     return redirect()->route("admin.{$t}");
 
                 case 'routes':
                     $res1 = Commands::getCommand('route:clear');
-                    $res1 ? session()->put('success', $res1) : session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                    $res1 ? session()->flash('success', $res1) : session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
                     return redirect()->route("admin.{$t}");
 
                 case 'config':
                     $res1 = Commands::getCommand('config:clear');
-                    $res1 ? session()->put('success', $res1) : session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                    $res1 ? session()->flash('success', $res1) : session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
                     return redirect()->route("admin.{$t}");
             }
         }
@@ -66,7 +66,7 @@ class AdditionallyController extends AppController
                 Artisan::call('backup:clean');
                 Artisan::call('backup:run');
 
-                session()->put('success', __("{$this->lang}::a.completed_successfully"));
+                session()->flash('success', __("{$this->lang}::a.completed_successfully"));
                 return redirect()->route('admin.additionally', 'backup=disabled');
             }
         }
@@ -86,7 +86,7 @@ class AdditionallyController extends AppController
                 // Обновляем файлы CMS, кроме данного файла
                 Upload::init(false);
 
-                session()->put('success', __("{$this->lang}::a.completed_successfully"));
+                session()->flash('success', __("{$this->lang}::a.completed_successfully"));
                 return redirect()->route('admin.additionally', 'update=disabled');
             }
         }
@@ -99,14 +99,14 @@ class AdditionallyController extends AppController
                 $command = trim($command);
                 $res = Commands::getCommand($command);
                 if ($res) {
-                    session()->put('success', $res);
+                    session()->flash('success', $res);
                     return redirect()->route("admin.{$t}");
                 }
             }
 
             // Сообщение об ошибке
             Main::getError('Request', __METHOD__, null);
-            session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+            session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
             return redirect()->route("admin.{$t}");
         }
 

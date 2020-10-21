@@ -2,13 +2,12 @@
 
 namespace App\Modules\Auth\Controllers;
 
-use App\Main;
-use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Providers\RouteServiceProvider;;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use App\Models\{Main, User};
 
 class RegisterController extends AppController
 {

@@ -313,7 +313,7 @@ class Order extends Model
 
                     // Покажем статус от Сбербанка
                     if (!empty($orderStatus[$res['orderStatus']])) {
-                        session()->put('error', $orderStatus[$res['orderStatus']]);
+                        session()->flash('error', $orderStatus[$res['orderStatus']]);
                     }
                 }
             }

@@ -98,7 +98,7 @@ class FormController extends AppController
                 }
 
                 // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::s.Your_form_successfully"));
+                session()->flash('success', __("{$this->lang}::s.Your_form_successfully"));
                 return redirect()->route('index');
             }
         }

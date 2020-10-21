@@ -8,7 +8,6 @@ class Category extends Model
 {
     protected $table = 'categories';
     protected $guarded = ['id', 'created_at', 'updated_at']; // Запрещается редактировать
-    //protected $fillable = ['title', 'description']; // Разрешается редактировать
 
 
     public function parentId()

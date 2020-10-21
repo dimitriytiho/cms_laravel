@@ -198,7 +198,7 @@ str_replace('', '', '');
             // Сообщение ошибки, если были пропущены ряды, в которых не заполнены обязательные поля
             if ($validateRow) {
                 $validateRow = rtrim($validateRow, ', ');
-                session()->put('error', __("{$this->lang}::a.rows_were_skipped") . $validateRow);
+                session()->flash('error', __("{$this->lang}::a.rows_were_skipped") . $validateRow);
             }
             return back()->with('success', __("{$this->lang}::a.upload_success") . $messageUpdate . $messageInsert);
         }
@@ -318,7 +318,7 @@ str_replace('', '', '');
             // Сообщение ошибки, если были пропущены ряды, в которых не заполнены обязательные поля
             if ($validateRow) {
                 $validateRow = rtrim($validateRow, ', ');
-                session()->put('error', __("{$this->lang}::a.rows_were_skipped") . $validateRow);
+                session()->flash('error', __("{$this->lang}::a.rows_were_skipped") . $validateRow);
             }
             return back()->with('success', __("{$this->lang}::a.upload_success") . $messageUpdate . $messageInsert);
         }

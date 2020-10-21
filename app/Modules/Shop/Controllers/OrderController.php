@@ -219,7 +219,7 @@ class OrderController extends AppController
                     if (!empty($resPayment['error'])) {
 
                         // Возникла ошибка на стороне банка, то покажем её
-                        session()->put('error', $resPayment['error']);
+                        session()->flash('error', $resPayment['error']);
                     }
 
                     return redirect()->route('error_payment');
@@ -227,12 +227,12 @@ class OrderController extends AppController
 
 
                 // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::s.order_successfully"));
+                session()->flash('success', __("{$this->lang}::s.order_successfully"));
                 return redirect()->route('index');*/
 
 
                 // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::s.order_successfully"));
+                session()->flash('success', __("{$this->lang}::s.order_successfully"));
                 return redirect()->route('index');
             }
         }

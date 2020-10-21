@@ -168,12 +168,12 @@ class TranslateController extends AppController
                     } else {
 
                         // Сообщение об ошибке: такой перевод уже есть
-                        session()->put('error', __("{$this->lang}::s.translation_already"));
+                        session()->flash('error', __("{$this->lang}::s.translation_already"));
                         return redirect()->back();
                     }
 
                 } else {
-                    session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                    session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
                     return redirect()->back();
                 }
             }
@@ -182,13 +182,13 @@ class TranslateController extends AppController
             sleep(3);
 
             // Сообщение об успехе
-            session()->put('success', __("{$this->lang}::s.created_successfully", ['id' => $id]));
+            session()->flash('success', __("{$this->lang}::s.created_successfully", ['id' => $id]));
             return redirect()->route("admin.{$this->route}.edit", $id);
         }
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -231,7 +231,7 @@ class TranslateController extends AppController
             }
 
             if (!$values) {
-                session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
                 return redirect()->back();
             }
 
@@ -241,7 +241,7 @@ class TranslateController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -290,13 +290,13 @@ class TranslateController extends AppController
             sleep(3);
 
             // Сообщение об успехе
-            session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $id]));
+            session()->flash('success', __("{$this->lang}::s.saved_successfully", ['id' => $id]));
             return redirect()->route("admin.{$this->route}.edit", $id);
         }
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -325,13 +325,13 @@ class TranslateController extends AppController
             sleep(3);
 
             // Сообщение об успехе
-            session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $id]));
+            session()->flash('success', __("{$this->lang}::s.removed_successfully", ['id' => $id]));
             return redirect()->route("admin.{$this->route}.index");
         }
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 }

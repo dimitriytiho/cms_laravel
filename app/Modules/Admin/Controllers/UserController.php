@@ -117,7 +117,7 @@ class UserController extends AppController
             if (!auth()->user()->isAdmin() && $data['role_id'] == auth()->user()->getRoleIdAdmin()) {
 
                 // Сообщение об ошибке
-                session()->put('error', __("{$this->lang}::s.admin_choose_admin"));
+                session()->flash('error', __("{$this->lang}::s.admin_choose_admin"));
                 return redirect()->back();
             }
 
@@ -140,14 +140,14 @@ class UserController extends AppController
             if ($values->save()) {
 
                 // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::s.created_successfully", ['id' => $values->id]));
+                session()->flash('success', __("{$this->lang}::s.created_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
         }
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -179,7 +179,7 @@ class UserController extends AppController
 
                 // Сообщение об ошибке
                 Main::getError('Request', __METHOD__, null);
-                session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
                 return redirect()->route("admin.{$this->route}.index");
             }
 
@@ -212,7 +212,7 @@ class UserController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -262,7 +262,7 @@ class UserController extends AppController
                 if (!auth()->user()->isAdmin() && $data['role_id'] == auth()->user()->getRoleIdAdmin()) {
 
                     // Сообщение об ошибке
-                    session()->put('error', __("{$this->lang}::s.admin_choose_admin"));
+                    session()->flash('error', __("{$this->lang}::s.admin_choose_admin"));
                     return redirect()->back();
                 }
 
@@ -299,7 +299,7 @@ class UserController extends AppController
                 } else {
 
                     // Сообщение об ошибке
-                    session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
+                    session()->flash('error', __("{$this->lang}::s.data_was_not_changed"));
                     return redirect()->route("admin.{$this->route}.edit", $values->id);
                 }
 
@@ -319,7 +319,7 @@ class UserController extends AppController
                     }
 
                     // Сообщение об успехе
-                    session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
+                    session()->flash('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
                     return redirect()->route("admin.{$this->route}.edit", $values->id);
                 }
             }
@@ -327,7 +327,7 @@ class UserController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -357,7 +357,7 @@ class UserController extends AppController
                         }
                         $ordersPart = rtrim($ordersPart, ' ,');
 
-                        session()->put('error', __("{$this->lang}::s.user_has") . Str::lower(__("{$this->lang}::a.Orders")) . " {$ordersPart}");
+                        session()->flash('error', __("{$this->lang}::s.user_has") . Str::lower(__("{$this->lang}::a.Orders")) . " {$ordersPart}");
                         return redirect()->back();
                     }
                 }
@@ -368,7 +368,7 @@ class UserController extends AppController
                     Img::deleteImg($img, config("admin.img{$this->class}Default"));
 
                     // Сообщение об успехе
-                    session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
+                    session()->flash('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
                     return redirect()->route("admin.{$this->route}.index");
                 }
             }
@@ -376,7 +376,7 @@ class UserController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 

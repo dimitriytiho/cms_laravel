@@ -96,7 +96,7 @@ class BannedIpController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -135,14 +135,14 @@ class BannedIpController extends AppController
             if (DB::table($this->table)->where('id', $id)->update(['count' => '0', 'banned' => '0'])) {
 
                 // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::s.cleared_successfully", ['id' => $id]));
+                session()->flash('success', __("{$this->lang}::s.cleared_successfully", ['id' => $id]));
                 return redirect()->route("admin.{$this->route}.index");
             }
         }
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 }

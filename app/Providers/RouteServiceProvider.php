@@ -35,6 +35,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Правила для slug в маршрутах, допустаются латинские буквы в нижнем регистре, цифры и тире
+        Route::pattern('slug', '[a-z0-9-]+');
+
+
         $this->configureRateLimiting();
 
         $this->routes(function () {

@@ -4,14 +4,35 @@
     <list default="true" id="0a436d68-3eec-4db5-9476-1df7c9a52a7f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/views/enter/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/views/enter/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/views/inc/enter.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/views/inc/enter.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/AdditionallyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/AdditionallyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/BannedIpController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/BannedIpController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/EnterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/EnterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/FilterGroupController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/FilterGroupController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/FilterValueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/FilterValueController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/FormController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/ImportExportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/ImportExportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/MenuController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/MenuController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/MenuNameController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/MenuNameController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/PageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/SettingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/SettingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/TranslateController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/TranslateController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Models/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Models/Category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Models/Setting.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Models/Setting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Admin/views/inc/message.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Admin/views/inc/message.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/AppController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/AppController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Auth/Controllers/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Auth/Controllers/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Auth/Controllers/ResetPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Auth/Controllers/ResetPasswordController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Modules/Form/Controllers/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Form/Controllers/FormController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/js/default/template.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/js/default/template.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/js/validate/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/js/validate/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/js/validate/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/js/validate/validator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/views/default.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/views/default.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Shop/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Shop/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Shop/Models/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Shop/Models/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/views/inc/message.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/views/inc/message.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_10_284521_change_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_10_284521_change_users_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,6 +282,15 @@
       <workItem from="1603098225229" duration="36000" />
       <workItem from="1603168391643" duration="31000" />
       <workItem from="1603181008797" duration="43000" />
+      <workItem from="1603181072765" duration="176000" />
+      <workItem from="1603182530380" duration="188000" />
+      <workItem from="1603182811341" duration="223000" />
+      <workItem from="1603189378279" duration="1079000" />
+      <workItem from="1603194831935" duration="2055000" />
+      <workItem from="1603254143479" duration="274000" />
+      <workItem from="1603254480004" duration="978000" />
+      <workItem from="1603268610323" duration="101000" />
+      <workItem from="1603292779291" duration="1929000" />
     </task>
     <task id="LOCAL-00001" summary="Обновления до Laravel 8.8.0">
       <created>1601823777989</created>
@@ -318,7 +348,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603086559921</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Добавлен класс для получения видео с Ютуб канала.">
+      <created>1603181225004</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1603181225004</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,17 +370,18 @@
     <MESSAGE value="Добавлено Lazy." />
     <MESSAGE value="Исправленая функция соединения файлов." />
     <MESSAGE value="Добавлена валидация телефона. Исправлена ошибка при сохранении адреса пользователя." />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлена валидация телефона. Исправлена ошибка при сохранении адреса пользователя." />
+    <MESSAGE value="Добавлен класс для получения видео с Ютуб канала." />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлен класс для получения видео с Ютуб канала." />
   </component>
   <component name="WindowStateProjectService">
     <state x="733" y="277" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602561266888">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
     <state x="733" y="277" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1680.985@0.23.1680.985" timestamp="1602561266888" />
-    <state x="386" y="61" width="1024" height="851" key="CommitChangelistDialog2" timestamp="1603086559646">
+    <state x="386" y="61" width="1024" height="851" key="CommitChangelistDialog2" timestamp="1603181224743">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state x="386" y="61" width="1024" height="851" key="CommitChangelistDialog2/0.23.1680.985@0.23.1680.985" timestamp="1603086559646" />
+    <state x="386" y="61" width="1024" height="851" key="CommitChangelistDialog2/0.23.1680.985@0.23.1680.985" timestamp="1603181224743" />
     <state width="1328" height="108" key="GridCell.Tab.0.bottom" timestamp="1602135496466">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
@@ -360,13 +398,13 @@
       <screen x="0" y="23" width="1680" height="985" />
     </state>
     <state width="1328" height="108" key="GridCell.Tab.0.right/0.23.1680.985@0.23.1680.985" timestamp="1602135496465" />
-    <state x="595" y="255" key="Vcs.Push.Dialog.v2" timestamp="1603086561941">
+    <state x="595" y="255" key="Vcs.Push.Dialog.v2" timestamp="1603181236748">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state x="595" y="255" key="Vcs.Push.Dialog.v2/0.23.1680.985@0.23.1680.985" timestamp="1603086561941" />
-    <state x="693" y="270" width="604" height="490" key="find.popup" timestamp="1603168419105">
+    <state x="595" y="255" key="Vcs.Push.Dialog.v2/0.23.1680.985@0.23.1680.985" timestamp="1603181236748" />
+    <state x="693" y="270" width="604" height="490" key="find.popup" timestamp="1603294859095">
       <screen x="0" y="23" width="1680" height="985" />
     </state>
-    <state x="693" y="270" width="604" height="490" key="find.popup/0.23.1680.985@0.23.1680.985" timestamp="1603168419105" />
+    <state x="693" y="270" width="604" height="490" key="find.popup/0.23.1680.985@0.23.1680.985" timestamp="1603294859095" />
   </component>
 </project>

@@ -1,21 +1,5 @@
 <div id="get-alert"></div>
 {{--
-<div class="row alert-js">
-    <div class="col-md-10 offset-md-1">
-        <div class="alert alert-danger py-4 px-5" role="alert">
-            <span>Test</span>
-        </div>
-    </div>
-</div>
-<div class="row alert-js">
-    <div class="col-md-10 offset-md-1">
-        <div class="alert alert-success py-4 px-5" role="alert">
-            <span>Test</span>
-        </div>
-    </div>
-</div>
---}}
-{{--
 
 Сообщения об ошибках --}}
 @if (session()->has('error') || isset($errors) && $errors->any())
@@ -35,9 +19,6 @@
                     @endif
                     @if (session()->has('error'))
                         <span>{{ session('error') }}</span>
-                        @php
-                            session()->forget('error')
-                        @endphp
                     @endif
                     <button type="button" class="close" data-dismiss="alert" aria-label="@lang("{$lang}::s.Close")">
                         <span aria-hidden="true">&times;</span>
@@ -63,9 +44,6 @@
                     @endif
                     @if (session()->has('success'))
                         <span>{{ session('success') }}</span>
-                        @php
-                            session()->forget('success')
-                        @endphp
                     @endif
                     <button type="button" class="close" data-dismiss="alert" aria-label="@lang("{$lang}::s.Close")">
                         <span aria-hidden="true">&times;</span>
@@ -84,9 +62,6 @@
             <div class="col">
                 <div class="alert alert-info alert-dismissible fade show py-3 px-4" role="alert">
                     <span>{{ session('info') }}</span>
-                    @php
-                        session()->forget('info')
-                    @endphp
                     <button type="button" class="close" data-dismiss="alert" aria-label="@lang("{$lang}::s.Close")">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -104,9 +79,6 @@
             <div class="col">
                 <div class="alert alert-info alert-dismissible fade show py-3 px-4" role="alert">
                     <span>{{ session('status') }}</span>
-                    @php
-                        session()->forget('status')
-                    @endphp
                     <button type="button" class="close" data-dismiss="alert" aria-label="@lang("{$lang}::s.Close")">
                         <span aria-hidden="true">&times;</span>
                     </button>

@@ -117,14 +117,14 @@ class ProductController extends AppController
                 cache()->flush();
 
                 // Сообщение об успехе
-                session()->put('success', __("{$this->lang}::s.created_successfully", ['id' => $values->id]));
+                session()->flash('success', __("{$this->lang}::s.created_successfully", ['id' => $values->id]));
                 return redirect()->route("admin.{$this->route}.edit", $values->id);
             }
         }
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -156,7 +156,7 @@ class ProductController extends AppController
 
                 // Сообщение об ошибке
                 Main::getError('Request', __METHOD__, null);
-                session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+                session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
                 return redirect()->route("admin.{$this->route}.index");
             }
 
@@ -190,7 +190,7 @@ class ProductController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -243,7 +243,7 @@ class ProductController extends AppController
                 if (!appHelpers::arrayDiff($lastData, $current)) {
 
                     // Сообщение об ошибке
-                    session()->put('error', __("{$this->lang}::s.data_was_not_changed"));
+                    session()->flash('error', __("{$this->lang}::s.data_was_not_changed"));
                     return redirect()->route("admin.{$this->route}.edit", $values->id);
                 }
 
@@ -253,7 +253,7 @@ class ProductController extends AppController
                     cache()->flush();
 
                     // Сообщение об успехе
-                    session()->put('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
+                    session()->flash('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
                     return redirect()->route("admin.{$this->route}.edit", $values->id);
                 }
             }
@@ -261,7 +261,7 @@ class ProductController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 
@@ -289,7 +289,7 @@ class ProductController extends AppController
                     }
                     $ordersPart = rtrim($ordersPart, ' ,');
 
-                    session()->put('error', __("{$this->lang}::s.product_is_present_in_order") . $ordersPart);
+                    session()->flash('error', __("{$this->lang}::s.product_is_present_in_order") . $ordersPart);
                     return redirect()->back();
                 }
 
@@ -313,7 +313,7 @@ class ProductController extends AppController
                     cache()->flush();
 
                     // Сообщение об успехе
-                    session()->put('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
+                    session()->flash('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
                     return redirect()->route("admin.{$this->route}.index");
                 }
             }
@@ -321,7 +321,7 @@ class ProductController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->put('error', __("{$this->lang}::s.something_went_wrong"));
+        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
         return redirect()->route("admin.{$this->route}.index");
     }
 }

@@ -26,6 +26,8 @@ class ChangeUsersTable extends Migration
             $table->string('ip', 32)->nullable()->after('note');
             $table->string('img')->default(config('admin.imgUserDefault'))->after('ip');
             $table->enum('accept', ['0', '1'])->default('0')->after('ip');
+            //$table->string('name', 50)->change(); // Если нужно изменить поле, для этого необходимо установить зависимость composer require doctrine/dbal
+            //$table->renameColumn('from', 'to'); // Если нужно переименовать колонку
         });
     }
 
@@ -37,7 +39,17 @@ class ChangeUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('tel'); // Удалить колонку
+            $table->dropIndex('tel'); // Удалить индекс
+            $table->dropColumn('address');
+            $table->dropColumn('role_id');
+            $table->dropForeign('role_id'); // Удалить связующий ключ
+            $table->dropColumn('status');
+            $table->dropColumn('note');
+            $table->dropColumn('ip');
+            $table->dropColumn('img');
+            $table->dropColumn('accept');
+            //$table->string('name')->change(); // Если поле было изменено, то его откатить к первоначальному
         });
     }
 }
