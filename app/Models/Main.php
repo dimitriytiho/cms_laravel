@@ -127,11 +127,19 @@ class Main
 
 
     /*
-     * Метод вывода мета тегов в head.
+     * Метод вывода мета тегов в head, для использования в шаблоне.
+     * Вызовите вместо html тегов title, description и keywords, для этого в /app/Http/Controllers/Controller.php создате:
+     protected function setMeta($title, $description = '', $titleSeo = null, $keywords = null)
+    {
+        Main::setMeta($title, $description, $titleSeo, $keywords);
+    }
+     *
      * $title - строка для вывода title.
-     * $description - строка для вывода description, необязательный параметр.
+     * $description - строка для вывода description, по-умолчанию пустая строка, необязательный параметр.
+     * $titleSeo - если title для окна браузера отличается от title передаваемого в шаблон, то передать его здесь, по-умолчанию берётся title, необязательный параметр.
+     * $keywords - ключевые слова для страницы, по-умолчанию не выводятся, необязательный параметр.
      */
-    public static function setMeta($title, $description = '', $titleSeo = '', $keywords = null)
+    public static function setMeta($title, $description = '', $titleSeo = null, $keywords = null)
     {
         $siteName = self::site('name') ?: ' ';
 
@@ -193,7 +201,7 @@ class Main
      * $message - текст сообщения.
      * $method - передать __METHOD__.
      * $abort - выбросывать исключение, по-умолчанию true, необязательный параметр.
-     * $error - в каком виде записать ошибку, может быть: emergency, alert, critical, error, warning, notice, info, debug. По-умолчанию error.
+     * $error - в каком виде записать ошибку, может быть: emergency, alert, critical, error, warning, notice, info, debug. По-умолчанию error, необязательный параметр.
      */
     public static function getError(string $message, $method, $abort = true, $error = 'error')
     {

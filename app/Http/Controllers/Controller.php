@@ -28,8 +28,8 @@ class Controller extends BaseController
 
 
     // Метод вывода мета тегов в head
-    protected function setMeta($title, $description = '')
+    protected function setMeta($title, $description = '', $titleSeo = null, $keywords = null)
     {
-        Main::setMeta($title, $description);
+        Main::setMeta($title, $description, $titleSeo, $keywords);
     }
 }

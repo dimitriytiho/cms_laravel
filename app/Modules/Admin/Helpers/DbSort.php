@@ -65,6 +65,7 @@ class DbSort
 
             // Иначе выборка всех элементов из БД
             } else {
+
                 $values = $model::where($whereColumn, $whereValue)->orderBy($columnSort, $order)->paginate($perPage);
             }
 

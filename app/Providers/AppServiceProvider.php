@@ -48,12 +48,6 @@ class AppServiceProvider extends ServiceProvider
         $this->setting();
 
 
-        // Дополнительное приложение Debugbar
-        if (!config('add.debugbar')) {
-            \Debugbar::disable();
-        }
-
-
         // Мобильный или планшет
         $detect = new \Mobile_Detect();
         $isMobile = $detect->isMobile();
@@ -76,12 +70,12 @@ class AppServiceProvider extends ServiceProvider
 
 
         // Возвращает Webp картинку в видах (если браузер поддерживает webp) с помощью коданды @webp($imagePublicPath)
-        Blade::directive('webp', function ($imagePublicPath) {
+        /*Blade::directive('webp', function ($imagePublicPath) {
             if ($imagePublicPath && \App\Modules\Admin\Helpers\Img::supportWebp()) {
                 return "<?php echo \App\Modules\Admin\Helpers\Img::getWebp($imagePublicPath); ?>";
             }
             return "<?php echo $imagePublicPath; ?>";
-        });
+        });*/
 
 
         // Добавляем Google ReCaptcha в валидатор
@@ -122,7 +116,7 @@ class AppServiceProvider extends ServiceProvider
          * Использовать: echo Main::site('name');
          *
          * Дополнительные варианты:
-         * echo Main::get('settings')['site_name'];
+         * echo Main::get('settings')['name'];
          * echo Main::$registry->get('settings')['name'];
          */
         if (cache()->has('settings_for_site')) {
