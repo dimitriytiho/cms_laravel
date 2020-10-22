@@ -66,8 +66,9 @@ class AdditionallyController extends AppController
                 Artisan::call('backup:clean');
                 Artisan::call('backup:run');
 
-                session()->flash('success', __("{$this->lang}::a.completed_successfully"));
-                return redirect()->route('admin.additionally', 'backup=disabled');
+                return redirect()
+                    ->route('admin.additionally', 'backup=disabled')
+                    ->with('success', __("{$this->lang}::a.completed_successfully"));
             }
         }
 
@@ -86,8 +87,9 @@ class AdditionallyController extends AppController
                 // Обновляем файлы CMS, кроме данного файла
                 Upload::init(false);
 
-                session()->flash('success', __("{$this->lang}::a.completed_successfully"));
-                return redirect()->route('admin.additionally', 'update=disabled');
+                return redirect()
+                    ->route('admin.additionally', 'update=disabled')
+                    ->with('success', __("{$this->lang}::a.completed_successfully"));
             }
         }
 
@@ -99,15 +101,17 @@ class AdditionallyController extends AppController
                 $command = trim($command);
                 $res = Commands::getCommand($command);
                 if ($res) {
-                    session()->flash('success', $res);
-                    return redirect()->route("admin.{$t}");
+                    return redirect()
+                        ->route("admin.{$t}")
+                        ->with('success', $res);
                 }
             }
 
             // Сообщение об ошибке
             Main::getError('Request', __METHOD__, null);
-            session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
-            return redirect()->route("admin.{$t}");
+            return redirect()
+                ->route("admin.{$t}")
+                ->with('error', __("{$this->lang}::s.something_went_wrong"));
         }
 
         Main::viewExists("{$this->viewPath}.{$t}.{$f}", __METHOD__);

@@ -16,15 +16,6 @@
                    </a>
                 </li>--}}
 
-                @if (config('add.online_users'))
-                    <li class="nav-item d-flex align-items-center online-users">
-                        <a href="{{ route('admin.online_users') }}" class="nav-link d-flex align-items-center position-relative" title="@lang("{$lang}::s.online_users")">
-                            <i class="fas fa-user-friends"></i>
-                            <span class="counter-small text-white online-users-count">{{ $onlineUsers ? count($onlineUsers) : '0' }}</span>
-                        </a>
-                    </li>
-                @endif
-
                 @if ($excludeCurrentLocale)
                     <li class="nav-item d-flex align-items-center">
                         <a href="{{ route('admin.locale', $excludeCurrentLocale[0] ?? null) }}" class="nav-link d-flex align-items-center" title="@lang("{$lang}::s.language")">{{ !empty($excludeCurrentLocale[0]) ? Str::ucfirst($excludeCurrentLocale[0]) : null }}</a>

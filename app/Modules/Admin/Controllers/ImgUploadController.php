@@ -109,7 +109,7 @@ class ImgUploadController extends AppController
                         $webp = imagecreatefromgif("{$imgSavePath}{$imgName}.{$ext}");
                     }
 
-                    // Копируем
+                    // Копируем webp картинку
                     if (isset($webp)) {
                         $webpName = "{$imgName}.webp";
                         imagepalettetotruecolor($webp);

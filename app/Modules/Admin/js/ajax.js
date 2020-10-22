@@ -1,6 +1,6 @@
 import message from './message'
 
-// Функция после загрузки страницы
+
 document.addEventListener('DOMContentLoaded', function() {
 
     var modal = $('#modal-confirm'),
@@ -212,59 +212,5 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         }
     })
-
-
-    // Каждые 30 секунд обновляем счётчик онлайн пользователей на сайте
-    var onlineUsersCount = document.querySelectorAll('.online-users-count')
-    if (onlineUsersCount[0]) {
-
-        setInterval(function () {
-
-            $.ajax({
-                type: 'POST',
-                url: main.url + '/online-users',
-                data: {_token: _token},
-                success: function(response) {
-                    var onlineUsers = response,
-                        listUsers = document.querySelector('.online-users-list'),
-                        list = ''
-
-                    if (onlineUsers) {
-
-                        // Вставляем кол-во в счётчик
-                        onlineUsersCount.forEach(function (el) {
-                            el.innerHTML = Object.keys(onlineUsers).length
-                        })
-
-                        // Обновим список
-                        if (listUsers) {
-                            Object.keys(onlineUsers).forEach(function (key) {
-
-                                if (onlineUsers[key]['id']) {
-                                    list += `<div>${key} - <a href="${main.url}/user/${onlineUsers[key]['id']}/edit">${onlineUsers[key]['name']}</a></div>`
-                                } else {
-                                    list += `<div>${key}</div>`
-                                }
-
-                            })
-                            listUsers.innerHTML = list
-                        }
-
-                    } else {
-
-                        // Вставляем кол-во в счётчик
-                        onlineUsersCount.forEach(function (el) {
-                            el.innerHTML = '0'
-                        })
-
-                        // Обновим список
-                        if (listUsers) {
-                            listUsers.innerHTML = list
-                        }
-                    }
-                }
-            })
-        }, 30000)
-    }
 
 }, false)

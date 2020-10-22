@@ -27,9 +27,12 @@ class Admin
             return $next($request);
         }
 
+        // Вернём ошибку 404
+        abort(404);
+
         // Запишем в логи и показажем страницу 404
         //Main::getError('Request Admin', __METHOD__, false);
 
-        return redirect()->route('not_found');
+        //return redirect()->route('not_found');
     }
 }

@@ -64,9 +64,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         // Добавленные в /app/Http/Middleware
-        'access-ip-admin' => \App\Http\Middleware\AccessIpAdmin::class,
         'admin' => \App\Http\Middleware\Admin::class,
-        'banned-ip' => \App\Http\Middleware\BannedIp::class,
-        'online-users' => \App\Http\Middleware\OnlineUsers::class,
     ];
 }

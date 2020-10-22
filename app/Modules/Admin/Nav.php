@@ -162,20 +162,6 @@ class Nav
                 ],
             ];
 
-        // Если выключена авторизация на сайте
-        if (!config('add.auth')) {
-            $menu = $menu + [
-                    82 => [
-                        'title' => 'Banned_ip',
-                        'controller' => 'User',
-                        'parent_id' => 8,
-                        'slug' => '/user-banned-ip',
-                        'request' => 'user',
-                        'item' => 'fas fa-user-times', // fas fa-user-times remove_circle_outline
-                    ],
-                ];
-        }
-
         $menu = $menu + [
                 10 => [
                     'title' => 'Menu',

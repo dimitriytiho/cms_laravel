@@ -97,9 +97,6 @@ class EnterController extends AppController
             if ($this->hasTooManyLoginAttempts($request)) {
                 $this->fireLockoutEvent($request);
 
-                // После n раз (10 по-умолчанию), когда сработает laravel защита попыток входа, пользователь будет заблокирован к авторизации.
-                userHelpers::bannedUser();
-
                 return $this->sendLockoutResponse($request);
             }
 

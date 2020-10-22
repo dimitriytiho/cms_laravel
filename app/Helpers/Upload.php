@@ -40,8 +40,32 @@ class Upload
      * Настройки для webpack sass и js.
      * При изменении sass настроек необходимо перекомпилировать стили, запустив этот метод.
      * При установке нового модуля этот метод автоматически запуститься, также можно его запустить в ручную.
+     *
+     * $browserSync - автообновление страницы BrowserSync, если не нужно передать false, по-умолчанию true, необязательный параметр.
+     * $jsArr - массив с путями js файлов, которые объединить, необязательный параметр.
+     * $jsNewFile - путь нового js файла, который объединяет файлы выше переданные, необязательный параметр.
+     * $cssArr - массив с путями css файлов, которые объединить, необязательный параметр.
+     * $cssNewFile - путь нового css файла, который объединяет файлы выше переданные, необязательный параметр.
+     *
+     * Пример вызова со всеми параметрами.
+     \App\Helpers\Upload::resourceInit(
+            true,
+            [
+                'public/js/1.js',
+                'public/js/2.js',
+                'public/js/3.js',
+            ],
+            'public/js/app.js',
+            [
+                'public/css/1.css',
+                'public/css/2.css',
+                'public/css/3.css',
+            ],
+            'public/css/app.css',
+        );
+     *
      */
-    public static function resourceInit()
+    public static function resourceInit($browserSync = true, $jsArr = [], $jsNewFile = null, $cssArr = [], $cssNewFile = null)
     {
         $modulesPath = config('modules.path');
         $folderAdmin = config('modules.admin');
@@ -124,6 +148,31 @@ class Upload
 
             $webpackPart = rtrim($webpackPart, "\n");
             $webpackPart .= "\n;\n";
+
+            if ($cssArr && $cssNewFile) {
+                $webpackPart .= "mix.styles([\n";
+                foreach ($cssArr as $file) {
+                    $webpackPart .= "'{$file}',";
+                }
+                $webpackPart = rtrim($webpackPart, ',');
+                $webpackPart .= "], '{$cssNewFile}');\n\n";
+            }
+
+            if ($jsArr && $jsNewFile) {
+                $webpackPart .= "mix.scripts([\n";
+                foreach ($jsArr as $file) {
+                    $webpackPart .= "'{$file}',";
+                }
+                $webpackPart = rtrim($webpackPart, ',');
+                $webpackPart .= "], '{$jsNewFile}');\n\n";
+            }
+
+            if ($browserSync) {
+                $webpackPart .= "mix.browserSync('127.0.0.1:8000');";
+                $webpackPart .= "\n;\n";
+            }
+
+            dd($webpackPart);
             $webpackFile = base_path('webpack.mix.js');
             if (File::exists(($webpackFile))) {
                 File::replace($webpackFile, $webpackPart);

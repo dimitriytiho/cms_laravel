@@ -145,15 +145,17 @@ class PageController extends AppController
                 cache()->flush();
 
                 // Сообщение об успехе
-                session()->flash('success', __("{$this->lang}::s.created_successfully", ['id' => $values->id]));
-                return redirect()->route("admin.{$this->route}.edit", $values->id);
+                return redirect()
+                    ->route("admin.{$this->route}.edit", $values->id)
+                    ->with('success', __("{$this->lang}::s.created_successfully", ['id' => $values->id]));
             }
         }
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
-        return redirect()->route("admin.{$this->route}.index");
+        return redirect()
+            ->route("admin.{$this->route}.index")
+            ->with('error', __("{$this->lang}::s.something_went_wrong"));
     }
 
     /**
@@ -195,8 +197,9 @@ class PageController extends AppController
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
-        return redirect()->route("admin.{$this->route}.index");
+        return redirect()
+            ->route("admin.{$this->route}.index")
+            ->with('error', __("{$this->lang}::s.something_went_wrong"));
     }
 
 
@@ -234,8 +237,9 @@ class PageController extends AppController
                 if (!appHelpers::arrayDiff($lastData, $current)) {
 
                     // Сообщение об ошибке
-                    session()->flash('error', __("{$this->lang}::s.data_was_not_changed"));
-                    return redirect()->route("admin.{$this->route}.edit", $values->id);
+                    return redirect()
+                        ->route("admin.{$this->route}.edit", $values->id)
+                        ->with('error', __("{$this->lang}::s.data_was_not_changed"));
                 }
 
                 if ($values->save()) {
@@ -244,16 +248,18 @@ class PageController extends AppController
                     cache()->flush();
 
                     // Сообщение об успехе
-                    session()->flash('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
-                    return redirect()->route("admin.{$this->route}.edit", $values->id);
+                    return redirect()
+                        ->route("admin.{$this->route}.edit", $values->id)
+                        ->with('success', __("{$this->lang}::s.saved_successfully", ['id' => $values->id]));
                 }
             }
         }
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
-        return redirect()->route("admin.{$this->route}.index");
+        return redirect()
+            ->route("admin.{$this->route}.index")
+            ->with('error', __("{$this->lang}::s.something_went_wrong"));
     }
 
     /**
@@ -271,8 +277,9 @@ class PageController extends AppController
                 // Если есть потомки, то ошибка
                 $getIdParents = appHelpers::getIdParents((int)$id, $this->table);
                 if ($getIdParents) {
-                    session()->flash('error', __("{$this->lang}::s.remove_not_possible") . ', ' . __("{$this->lang}::s.there_are_nested") . ' #');
-                    return redirect()->route("admin.{$this->route}.edit", $id);
+                    return redirect()
+                        ->route("admin.{$this->route}.edit", $id)
+                        ->with('error', __("{$this->lang}::s.remove_not_possible") . ', ' . __("{$this->lang}::s.there_are_nested") . ' #');
                 }
 
                 if ($values->delete()) {
@@ -281,15 +288,17 @@ class PageController extends AppController
                     cache()->flush();
 
                     // Сообщение об успехе
-                    session()->flash('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
-                    return redirect()->route("admin.{$this->route}.index");
+                    return redirect()
+                        ->route("admin.{$this->route}.index")
+                        ->with('success', __("{$this->lang}::s.removed_successfully", ['id' => $values->id]));
                 }
             }
         }
 
         // Сообщение об ошибке
         Main::getError('Request', __METHOD__, null);
-        session()->flash('error', __("{$this->lang}::s.something_went_wrong"));
-        return redirect()->route("admin.{$this->route}.index");
+        return redirect()
+            ->route("admin.{$this->route}.index")
+            -with('error', __("{$this->lang}::s.something_went_wrong"));
     }
 }

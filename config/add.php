@@ -15,7 +15,6 @@ return [
     'site_off_file' => storage_path('site_off.php'),
 
     'debugbar' => false, // Панель debug
-    'online_users' => true, // Показывать пользователей на сайте (обновляется каждую минуту)
 
     'search' => true, // Поиск по сайту
     'auth' => true, // Включить авторизацию на сайте

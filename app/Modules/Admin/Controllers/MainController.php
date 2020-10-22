@@ -3,7 +3,6 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\Models\{Main, User};
-use App\Modules\Admin\Helpers\OnlineUsers;
 use App\Modules\Admin\Helpers\Slug;
 use App\Helpers\Upload;
 use Illuminate\Http\Request;
@@ -127,28 +126,5 @@ class MainController extends AppController
             }
         }
         Main::getError('Request No Ajax', __METHOD__);
-    }
-
-
-    public function OnlineUsers(Request $request)
-    {
-        // Для Ajax запроса
-        if ($request->ajax()) {
-            $onlineUsers = OnlineUsers::getUsers();
-            return $onlineUsers ? response()->json($onlineUsers) : '';
-        }
-
-
-        $f = Str::snake(__FUNCTION__);
-        Main::viewExists("{$this->viewPath}.{$this->view}.{$f}", __METHOD__);
-
-        $currentRoute = [
-            'single' => true,
-            'title' => $f,
-            'slug' => route("admin.{$f}"),
-        ];
-
-        $this->setMeta(__("{$this->lang}::s.{$f}"));
-        return view("{$this->viewPath}.{$this->view}.{$f}", compact('currentRoute'));
     }
 }

@@ -10,11 +10,11 @@ $namespace = '\App\\Modules\\Admin\\Controllers';
 
 // Страница входа в админку. Если включена авторизация, то админы авторизируется в публичной части сайта.
 if (!config('add.auth')) {
-    Route::namespace($namespace)->name(config('add.enter'))->middleware('access-ip-admin')->group(function () {
+    Route::namespace($namespace)->name(config('add.enter'))->group(function () {
 
         $key = Upload::getKeyAdmin();
         $keyRoute = "enter/{$key}";
-        Route::post($keyRoute, 'EnterController@enterPost')->name('_post')->middleware('banned-ip');
+        Route::post($keyRoute, 'EnterController@enterPost')->name('_post');
         Route::get($keyRoute, 'EnterController@index');
 
     });
@@ -22,7 +22,7 @@ if (!config('add.auth')) {
 
 
 // Роуты для админки
-Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['access-ip-admin', 'admin'])->group(function () {
+Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware('admin')->group(function () {
     //Route::post('/menu/index', 'Admin\MenuController@index')->name('menu.index.post');
 
     // Routes import export
@@ -66,11 +66,6 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
     Route::resource('setting', 'SettingController')->except(['show']);
     Route::resource('translate', 'TranslateController')->except(['show']);
 
-    // Если выключена авторизация на сайте
-    if (!config('add.auth')) {
-        Route::resource('user-banned-ip', 'BannedIpController')->only(['index', 'show', 'destroy']);
-    }
-
 
     // Website add controllers
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
@@ -78,11 +73,6 @@ Route::namespace($namespace)->prefix($admin)->name('admin.')->middleware(['acces
     Route::get('/additionally/files', 'AdditionallyController@files')->name('files');
     //Route::get('/additionally/db-builder', 'AdditionallyController@dbBuilder')->name('db_builder');
 
-    // Online users
-    if (config('add.online_users')) {
-        Route::post('online-users', 'MainController@OnlineUsers');
-        Route::get('online-users', 'MainController@OnlineUsers')->name('online_users');
-    }
 
     // Add routes get
     Route::get('locale/{locale}', 'MainController@locale')->name('locale');

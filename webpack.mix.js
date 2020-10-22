@@ -13,3 +13,15 @@ mix
 .js('app/Modules/Admin/js/index.js', 'public/js/append.js')
 .sass('app/Modules/Admin/sass/index.scss', 'public/css/append.css')
 ;
+
+/*mix.styles([
+    'public/css/vendor/normalize.css',
+    'public/css/vendor/videojs.css'
+], 'public/css/all.css');*/
+
+/*mix.scripts([
+    'public/js/admin.js',
+    'public/js/dashboard.js'
+], 'public/js/all.js');*/
+
+mix.browserSync('127.0.0.1:8000');

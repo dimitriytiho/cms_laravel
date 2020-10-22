@@ -22,11 +22,6 @@ class AppController extends Controller
     {
         parent::__construct();
 
-        // Пользователи онлайн
-        if (config('add.online_users')) {
-            $this->middleware('online-users');
-        }
-
         $modulesPath = config('modules.path');
         $modulesNamespace = config('modules.namespace');
         $viewPath = $this->viewPath  = config('modules.views');
@@ -72,6 +67,8 @@ class AppController extends Controller
         @lang("{$lang}::a.Home")*/
 
         //cache()->flush(); // Удалить все кэши
+
+
 
 
 

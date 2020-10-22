@@ -96,7 +96,6 @@ return [
     'range' => 'Ползунок',
 
     'language' => 'Язык',
-    'online_users' => 'Пользователи онлайн',
     'no_users_now' => 'Сейчас на сайте нет пользователей.',
     'now_on_the_site' => 'сейчас на сайте',
     'successfully_changed' => 'Успешно изменено.',

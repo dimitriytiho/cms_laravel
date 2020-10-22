@@ -142,7 +142,6 @@ return [
     'Filter_value' => 'Фильтры',
     'Modifiers_group' => 'Группы модификаторов',
     'Modifiers_element' => 'Модификаторы',
-    'online_users' => 'Пользователи онлайн',
 
     'described_in_detail' => 'Подробно описано в',
     'Forums' => 'Форум',

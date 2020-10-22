@@ -18,7 +18,6 @@ class Setting extends Model
             'tel',
             'date_format',
             'change_key',
-            'banned_ip_count',
             'access_ip',
         ];
     }

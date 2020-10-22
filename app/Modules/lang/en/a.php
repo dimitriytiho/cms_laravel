@@ -141,7 +141,6 @@ return [
     'Filter_value' => 'Filters',
     'Modifiers_group' => 'Modifiers group',
     'Modifiers_element' => 'Modifiers',
-    'online_users' => 'Online users',
     'described_in_detail' => 'Described in detail in',
 
     'Forums' => 'Forum',
