@@ -79,7 +79,7 @@ class RegisterController extends AppController
                 'password' => ['required', 'string', 'min:6', 'confirmed'],
                 'accept' => ['accepted'],
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
 
             // Данные запроса
             $request->offsetUnset('password_confirmation');

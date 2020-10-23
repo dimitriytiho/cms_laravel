@@ -193,7 +193,6 @@ S;
  */
 function select($name, $options, $idForm = null, $value = null, $label = false, $class = null, $attrs = false, $disabledValue = null, $option_id_value = null, $langFile = 't')
 {
-    $lang = lang();
     $title = l($name, 'f');
     $id = $idForm ? "{$idForm}_{$name}" : $name;
     $value = $value ?: old($name);
@@ -206,7 +205,7 @@ function select($name, $options, $idForm = null, $value = null, $label = false, 
             $v = $option_id_value ? $k : $v;
             $selected = $value === $v ? ' selected' : null;
             $disabled = $disabledValue && $k == $disabledValue ? ' disabled' : null;
-            $t = Lang::has("{$lang}::{$langFile}.{$v}") ? __("{$lang}::{$langFile}.{$v}") : $v;
+            $t = l($v, $langFile);
             $opts .= "<option value='{$v}' {$selected}{$disabled}>{$t}</option>\n";
 
         }

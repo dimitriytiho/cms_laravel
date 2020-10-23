@@ -91,7 +91,7 @@ class EnterController extends AppController
                 'password' => 'required|string',
                 //'g-recaptcha-response' => 'required|recaptcha',
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
 
             // Laravel блокирует неправильные попытки входа
             if ($this->hasTooManyLoginAttempts($request)) {
@@ -113,7 +113,7 @@ class EnterController extends AppController
                 'email' => 'required|string|email',
                 'password' => 'required|string',
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
 
             $this->incrementLoginAttempts($request);
 

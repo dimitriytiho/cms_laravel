@@ -110,7 +110,7 @@ class UserController extends AppController
                 'role_id' => 'required|integer',
                 //'tel' => 'required|string|max:190',
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             // Если не Админ выбирает роль Админ, то ошибка
@@ -238,7 +238,7 @@ class UserController extends AppController
                 //'password' => 'same:password_confirmation',
                 //'tel' => 'required|string|max:190',
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             // Если нет картинки

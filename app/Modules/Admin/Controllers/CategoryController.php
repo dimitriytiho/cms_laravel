@@ -88,7 +88,7 @@ class CategoryController extends AppController
                 'title' => 'required|string|max:190',
                 'slug' => "required|string|unique:{$this->table}|max:190",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
             //$data['slug'] = Slug::checkRecursion($this->table, $data['slug']);
 
@@ -189,7 +189,7 @@ class CategoryController extends AppController
                 'title' => 'required|string|max:190',
                 'slug' => "required|string|unique:{$this->table},slug,{$id}|max:190",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             // Если нет картинки

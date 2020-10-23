@@ -66,9 +66,9 @@ class Slug
      * $add - строка, которую дописать, необязательный параметр.
      * $table - название таблицы, в которой будет slug, это для того если не передавать строку $add, тогда будет взята последняя цифра в БД плюс один, необязательный параметр.
      * $cyrillicToLatin - перевести из кириллицы в латиницу, по-умолчанию true, необязательный параметр.
-     * $length - возвращаемая длина, по-умолчанию 72 символов, необязательный параметр.
+     * $length - возвращаемая длина, по-умолчанию 82 символов, необязательный параметр.
      */
-    public static function uniqueItem($slug, $add = null, $table = null, $cyrillicToLatin = true, $length = 78)
+    public static function uniqueItem($slug, $add = null, $table = null, $cyrillicToLatin = true, $length = 82)
     {
         if (!$add && Schema::hasTable($table)) {
 
@@ -86,13 +86,13 @@ class Slug
     /*
      * Возвращает строку в латинице из кириллицы для URL.
      * $str - строка.
-     * $length - возвращаемая длина, по-умолчанию 72 символов, необязательный параметр.
+     * $length - возвращаемая длина, по-умолчанию 82 символов, необязательный параметр.
      */
-    public static function cyrillicToLatin($str, $length = 78)
+    public static function cyrillicToLatin($str, $length = 82)
     {
         return Str::limit(Str::slug($str), $length, '');
         /*if ($str && is_string($str)) {
-            // Ограничивает кол-во символов до 40
+            // Ограничивает кол-во символов до 82
             $str = mb_substr($str, 0, (int)$length, 'utf-8');
             // Переводит в транслит
             $str = self::replaceCyrillic($str);

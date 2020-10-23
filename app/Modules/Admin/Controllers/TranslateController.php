@@ -144,7 +144,7 @@ class TranslateController extends AppController
                 }
             }
 
-            $this->validate($request, $rules);
+            $request->validate($rules);
 
             // Формируем данные
             $id = $request->id ?? null;
@@ -271,7 +271,7 @@ class TranslateController extends AppController
                     $rules = array_merge($rules, [$locale => 'required|string|max:190']);
                 }
             }
-            $this->validate($request, $rules);
+            $request->validate($rules);
 
             // Формируем данные
             if (isset($request->_method)) unset($request['_method']);

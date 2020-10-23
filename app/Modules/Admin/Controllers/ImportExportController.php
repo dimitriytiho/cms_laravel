@@ -103,7 +103,7 @@ class ImportExportController extends AppController
         if ($request->isMethod('post')) {
 
             // Валидация файла, должен быть xls или xlsx
-            $this->validate($request, [
+            $request->validate([
                 'import_file' => 'required|mimes:xls,xlsx',
             ]);
 
@@ -226,7 +226,7 @@ str_replace('', '', '');
         if ($request->isMethod('post')) {
 
             // Валидация файла, должен быть xls или xlsx
-            $this->validate($request, [
+            $request->validate([
                 'import_file' => 'required|mimes:xls,xlsx',
             ]);
 

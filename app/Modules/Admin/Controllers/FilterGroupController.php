@@ -95,7 +95,7 @@ class FilterGroupController extends AppController
             $rules = [
                 'title' => "required|string|unique:{$this->table},title|max:64",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             $values = new FilterGroup();
@@ -175,7 +175,7 @@ class FilterGroupController extends AppController
             $rules = [
                 'title' => "required|string|unique:{$this->table},title,{$id}|max:64",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             // Если нет сортировки, то по-умолчанию 500

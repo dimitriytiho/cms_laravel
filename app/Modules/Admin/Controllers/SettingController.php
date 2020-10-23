@@ -87,7 +87,7 @@ class SettingController extends AppController
             $rules = [
                 'title' => "required|string|unique:{$this->table}|max:190",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             $values = new Setting();
@@ -163,7 +163,7 @@ class SettingController extends AppController
             $rules = [
                 'title' => "required|string|unique:{$this->table},title,{$id}|max:190",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             $values = $this->model::find((int)$id);

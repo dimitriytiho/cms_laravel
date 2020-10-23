@@ -38,7 +38,7 @@ class FormController extends AppController
                 'accept' => 'accepted',
                 //'g-recaptcha-response' => 'required|recaptcha',
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
 
             //unset($data['g-recaptcha-response']);
 
@@ -98,8 +98,7 @@ class FormController extends AppController
                 }
 
                 // Сообщение об успехе
-                session()->flash('success', __("{$this->lang}::s.Your_form_successfully"));
-                return redirect()->route('index');
+                return redirect()->route('index')->with('success', __("{$this->lang}::s.Your_form_successfully"));
             }
         }
         // Сообщение что-то пошло не так

@@ -47,8 +47,7 @@ class OrderController extends AppController
                 'address' => 'required|string|max:190',
                 'accept' => 'accepted',
             ];
-
-            $this->validate($request, $rules);
+            $request->validate($rules);
 
             // Данные пользователя
             $dataUser['name'] = s($data['name']);
@@ -232,8 +231,9 @@ class OrderController extends AppController
 
 
                 // Сообщение об успехе
-                session()->flash('success', __("{$this->lang}::s.order_successfully"));
-                return redirect()->route('index');
+                return redirect()
+                    ->route('index')
+                    ->with('success', __("{$this->lang}::s.order_successfully"));
             }
         }
         // Сообщение что-то пошло не так

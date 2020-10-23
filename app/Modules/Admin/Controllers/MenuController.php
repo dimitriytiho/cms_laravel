@@ -130,7 +130,7 @@ class MenuController extends AppController
             $rules = [
                 'slug' => "required|string|max:190",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
             //$data['slug'] = Slug::checkRecursion($this->table, $data['slug']);
 
@@ -224,7 +224,7 @@ class MenuController extends AppController
             $rules = [
                 'slug' => "required|string|max:190",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             $values = $this->model::find((int)$id);

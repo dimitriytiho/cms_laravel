@@ -94,12 +94,35 @@ function r($routeName, $parameter = null)
  * @return string
  *
  * Возвращает дату в нужном формате.
+ * http://userguide.icu-project.org/formatparse/datetime - Форматы дат
+ *
  * $date - дата в формате: 1544636288 или 2019-07-18 13:00:00.
- * $format - формат для отображения, по-умолчанию j M Y, необязательный параметр.
+ * $format - формат для отображения, по-умолчанию d MMM y (j M Y) из настроек сайта, необязательный параметр.
  */
 function d($date, $format = null) {
+    if ($date || $date !== '0000-00-00 00:00:00') {
 
-    if ($date || $date != '0000-00-00 00:00:00') {
+        // Считаются символы в дате и если 10, то формат 1544636288, если больше 10, то формат 2019-07-18 13:00:00
+        if (strlen($date) > 10) {
+
+            // Форматируем дату в метку Unix
+            $date = strtotime($date);
+        }
+
+        $format = $format ?: Main::site('date_format') ?: 'd MMM y';
+        $formatter = new \IntlDateFormatter(
+            config('app.faker_locale'),
+            \IntlDateFormatter::FULL,
+            \IntlDateFormatter::NONE,
+            config('app.timezone'),
+            \IntlDateFormatter::GREGORIAN,
+            $format
+        );
+        return $formatter->format($date);
+    }
+    return '';
+
+    /*if ($date || $date != '0000-00-00 00:00:00') {
         $format = $format ?? Main::site('date_format') ?: 'j M Y';
 
         // Считаются символы в дате и если 10, то формат 1544636288, если больше 10, то формат 2019-07-18 13:00:00
@@ -135,7 +158,7 @@ function d($date, $format = null) {
 
         return $datetime ? date_format(date_create($date), $format) : date($format, $date);
     }
-    return '';
+    return '';*/
 }
 
 
@@ -206,7 +229,7 @@ function priceFormat($price, $currency = '&#8381;') {
  * Если нет картинки Webp, то вернёт переданную картинку или false.
  * $imagePublicPath - путь к картинке от папки public.
  */
-function webp($imagePublicPath)
+/*function webp($imagePublicPath)
 {
     $isMobile = Main::get('isMobile');
 
@@ -214,7 +237,7 @@ function webp($imagePublicPath)
         return Img::getWebp($imagePublicPath);
     }
     return $imagePublicPath;
-}
+}*/
 
 
 /**

@@ -16,11 +16,11 @@ return [
 
     'locales' => [
         'ru',
-        'en',
+        //'en',
     ],
 
     'cookie' => 5184000, // 60 дней
-    'date_format' => 'd.m.Y H:i',
+    'date_format' => 'dd.MM.y HH:mm', // d.m.Y H:i
 
 
     // Разделы запрещённые для Редакторов

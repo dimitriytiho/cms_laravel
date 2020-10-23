@@ -125,7 +125,7 @@ class PageController extends AppController
                 'title' => 'required|string|max:190',
                 'slug' => "required|string|unique:{$this->table}|max:190",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             // Если нет body, то ''
@@ -217,7 +217,7 @@ class PageController extends AppController
                 'title' => 'required|string|max:190',
                 'slug' => "required|string|unique:{$this->table},slug,{$id}|max:190",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             $values = $this->model::find((int)$id);

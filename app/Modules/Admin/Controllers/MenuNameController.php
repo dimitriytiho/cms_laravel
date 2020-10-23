@@ -90,7 +90,7 @@ class MenuNameController extends AppController
             $rules = [
                 'title' => "required|string|unique:{$this->table},title|max:64",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             $values = new MenuName();
@@ -167,7 +167,7 @@ class MenuNameController extends AppController
             $rules = [
                 'title' => "required|string|unique:{$this->table},title,{$id}|max:64",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             $values = $this->model::find((int)$id);

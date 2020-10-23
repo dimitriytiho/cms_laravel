@@ -135,7 +135,7 @@ class FilterValueController extends AppController
             $rules = [
                 'value' => "required|string|max:190",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             $values = new FilterValue();
@@ -228,7 +228,7 @@ class FilterValueController extends AppController
             $rules = [
                 'value' => "required|string|max:190",
             ];
-            $this->validate($request, $rules);
+            $request->validate($rules);
             $data = $request->all();
 
             // Если нет сортировки, то по-умолчанию 500
