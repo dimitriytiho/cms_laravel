@@ -119,7 +119,7 @@ class MainController extends AppController
                 if ($values) {
                     $values->password = Hash::make($password);
 
-                    if ($values->save()) {
+                    if ($values->update()) {
                         return __("{$this->lang}::s.changed_successfully", ['id' => $userId]);
                     }
                 }

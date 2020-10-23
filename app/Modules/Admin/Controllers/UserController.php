@@ -3,7 +3,6 @@
 namespace App\Modules\Admin\Controllers;
 
 use App\Models\Main;
-use App\Modules\Admin\Helpers\App as appHelpers;
 use App\Modules\Admin\Helpers\DbSort;
 use App\Modules\Admin\Helpers\Img;
 use App\Modules\Admin\Helpers\Slug;
@@ -273,13 +272,14 @@ class UserController extends AppController
                 }
 
                 // Если данные изменины
-                $lastData = $this->model::with('role')->find((int)$id)->toArray();
                 if (isset($lastData['role'])) unset($lastData['role']);
                 $lastDataNew = [];
-                $current = $values->toArray();
-                if (appHelpers::arrayDiff($lastData, $current)) {
+                //$lastData = $this->model::with('role')->find((int)$id)->toArray();
+                $lastData = $this->model::find((int)$id);
+                if ($lastData && $lastData->toJson() === $values->toJson()) {
 
                     // В таблицу users_last_data запишутся предыдущие данные
+                    $lastData = $lastData->toArray();
                     foreach ($lastData as $k => $v) {
 
                         // Исключаем не нужные поля
@@ -310,7 +310,7 @@ class UserController extends AppController
                         ->with('error', __("{$this->lang}::s.data_was_not_changed"));
                 }
 
-                if ($values->save()) {
+                if ($values->update()) {
 
                     // Если меняются данные текущего пользователя, то изменим их в объекте auth
                     if ($values->id === auth()->user()->id) {

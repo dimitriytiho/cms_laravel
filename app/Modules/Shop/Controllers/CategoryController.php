@@ -103,11 +103,6 @@ class CategoryController extends AppController
 
     public function show($slug, Request $request)
     {
-        // Если нет алиаса
-        if (!$slug) {
-            Main::getError("{$this->class} not found or outdated", __METHOD__);
-        }
-
         // Если нет вида
         Main::viewExists("{$this->viewPathModule}.{$this->c}_show", __METHOD__);
 

@@ -10,7 +10,8 @@ return [
 
     'settings' => [
 
-        'pagination' => 24,
+        'pagination' => 24, // 10 25 50 100
+        'pagination_default' => 1, // 25 По-умолчанию кол-во пагинации
 
     ],
 

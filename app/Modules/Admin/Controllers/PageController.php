@@ -232,9 +232,8 @@ class PageController extends AppController
 
 
                 // Если данные не изменины
-                $lastData = $this->model::find((int)$id)->toArray();
-                $current = $values->toArray();
-                if (!appHelpers::arrayDiff($lastData, $current)) {
+                $lastData = $this->model::find((int)$id);
+                if ($lastData && $lastData->toJson() === $values->toJson()) {
 
                     // Сообщение об ошибке
                     return redirect()
@@ -242,7 +241,7 @@ class PageController extends AppController
                         ->with('error', __("{$this->lang}::s.data_was_not_changed"));
                 }
 
-                if ($values->save()) {
+                if ($values->update()) {
 
                     // Удалить все кэши
                     cache()->flush();

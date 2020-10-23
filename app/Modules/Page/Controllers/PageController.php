@@ -48,25 +48,15 @@ class PageController extends AppController
 
     public function show($slug)
     {
-        // Если нет алиаса
-        if (!$slug) {
-            Main::getError("{$this->class} not found or outdated", __METHOD__);
-        }
-
         // Если нет вида
         Main::viewExists("{$this->viewPathModule}.{$this->c}_show", __METHOD__);
 
         // Если пользователь админ, то будут показываться неактивные страницы
         if (auth()->check() && auth()->user()->Admin()) {
-            $values = $this->model::where('slug', $slug)->first();
+            $values = $this->model::where('slug', $slug)->firstOrFail();
 
         } else {
-            $values = $this->model::where('slug', $slug)->where('status', $this->statusActive)->first();
-        }
-
-        // Если нет страницы
-        if (!$values) {
-            Main::getError("{$this->class} not found", __METHOD__);
+            $values = $this->model::where('slug', $slug)->where('status', $this->statusActive)->firstOrFail();
         }
 
         /*
